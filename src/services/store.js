@@ -18,4 +18,4 @@ store.subscribe(() => {
   window.localStorage.setItem('teste'), JSON.stringfy(persist));
 });
 
-export default store.
+export default store;
