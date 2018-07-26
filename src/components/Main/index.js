@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-const styles = theme = ({
+const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -19,7 +19,7 @@ const styles = theme = ({
   notLogged: {
     maxWidth: '400px',
     margin: '0 auto',
-  },
+  }
 }); 
 
 class Main extends Component {
@@ -27,8 +27,8 @@ class Main extends Component {
     const { classes, children, user } = this.props;
 
     return(
-      <main classsName={[classes.content, 'content', user.auth ? classes.logged : classes.notLogged].join(' ')}>
-        <div className={[classes.toolbarm 'content-toolbar'].join(' ')} />
+      <main className={[classes.content, 'content', user.auth ? classes.logged : classes.notLogged].join(' ')}>
+        <div className={[classes.toolbar, 'content-toolbar'].join(' ')} />
         {children}
       </main>
     );
@@ -45,5 +45,5 @@ const mapStateToProps = state => ({
 
 export default withRouter(compose(
   withStyles(styles),
-  connect(mapStateToProps, []),
+  connect(mapStateToProps, {}),
 ), (Main));

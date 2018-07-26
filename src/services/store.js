@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import rootReducer from './reducers';
 
 const initialState = JSON.parse(window.localStorage.getItem('state')) || {};
-const middlewate = [thunk];
+const middleware = [thunk];
 
 const store = createStore(
+  rootReducer,
   initialState,
   applyMiddleware(...middleware),
 );
@@ -14,8 +16,8 @@ store.subscribe(() => {
   const persist = {
     user: state.user,
   }
-
-  window.localStorage.setItem('teste'), JSON.stringfy(persist));
+  
+  window.localStorage.setItem('state', JSON.stringfy(persist));
 });
 
 export default store;

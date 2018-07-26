@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-import Main from './Main';
+import Main from '../Main';
 import getRoutes from '../../routes';
 
 const styles = theme => ({
@@ -24,11 +24,11 @@ class Root extends Component {
 
     return (
       <div className={classes.Root}>
-        {user.auth &&
+         {/*user.auth && */}
           <React.Fragment>
             <div/>
           </React.Fragment>
-        }
+         {/**/ }
         <Main>
           { getRoutes() } 
         </Main>
@@ -42,8 +42,8 @@ Root.proptypes = {
   users: PropTypes.object.isRequired,
 }
 
-const MapStateToProps = state => ({
-  user: state.user.data,
+const mapStateToProps = state => ({
+  //user: state.user.data,
 });
 
 export default withRouter(compose(
