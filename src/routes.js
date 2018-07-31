@@ -7,7 +7,6 @@ import PrivateRoute from './scenes/components/PrivateRoute';
 const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');
 
-
 function from(path){
   return asyncComponent(() => {
     return import(`${path}/index.js`);
