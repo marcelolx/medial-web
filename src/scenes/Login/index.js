@@ -136,7 +136,7 @@ class Login extends Component {
   }
 }
 
-const MapStateToProps = state => ({
+const mapStateToProps = state => ({
   user: state.user.data,
   password: state.error,
 })
