@@ -4,29 +4,23 @@ import { FORM_SUBMIT_FAIL } from '../errors/actionTypes';
 import axios from '../axios';
 
 export const login = formData => dispatch => {
-             //TODO: Setar correto ainda
-  axios.post('/users/login', formData)
-    .then(res => {
-      const { status, message, name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
+  axios.post('/usuario/realizarLogin', formData)
+    .then(response => {
+      const { nome, message } = response.data;
 
-      if (status !== true) {
+      if (nome === null) {
         return dispatch({
           type: FORM_SUBMIT_FAIL,
           payload: {
-            status,
+            nome,
             message,
           },
         })
       }
 
       const payload = {
-        name,
-        email,
-        profile,
-        birthDate,
-        createdDate,
-        updatedDate,
-        token,
+        nome,
+        message
       }
 
       return dispatch({
@@ -45,8 +39,8 @@ export const updateProfile = (formData, token) => dispatch => {
   };
 
   axios.put('/users/update', formData, config)
-  .then(res => {
-    const { name, email, profile, birthDate, createdDate, updatedDate, token } = res.data;
+  .then(response => {
+    const { name, email, profile, birthDate, createdDate, updatedDate, token } = response.data;
 
     const payload = {
       name,

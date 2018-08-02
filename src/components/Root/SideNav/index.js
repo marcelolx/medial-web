@@ -26,9 +26,9 @@ const SideNav = (props) => {
         paper: classes.drawerPaper,
       }}
     >
-      <div className={classes.toolbar} />
-
-      <NavigationList />
+      
+        <div className={classes.toolbar} />
+        {/*<NavigationList />   */}
     
     </Drawer>
   );

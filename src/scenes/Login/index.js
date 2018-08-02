@@ -57,8 +57,8 @@ class Login extends Component {
   handleLogin = e => {
     const { email, password } = e.target;
     const data = {
-      email: email.value,
-      password: password.value,
+      login: email.value,
+      senha: password.value,
     }
 
     this.props.login(data);
