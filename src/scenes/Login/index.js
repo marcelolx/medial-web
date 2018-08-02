@@ -26,6 +26,9 @@ const styles = theme => ({
   fill: {
     flexBasis: '100%',
   },
+  half: {
+    flexBasis: '45%',
+  }
 });
 
 class Login extends Component {
@@ -123,12 +126,12 @@ class Login extends Component {
           {error.status === 'PASSWORD_INCORRECT' && 
             <FormHelperText id="password-error-text">{error.message}</FormHelperText>
           }
-        </FormControl>
-        <Button type="submit" variant="raised" color="primary" className={classes.margin}>
-          Entrar
-        </Button>
-        <Button component={Link} to="/register" variant="flat" className={classes.margin}>
+        </FormControl>       
+        <Button component={Link} to="/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
           Cadastre-se
+        </Button>
+        <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
+          Entrar
         </Button>
       </form>
     );
