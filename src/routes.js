@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import asyncComponent from './scenes/components/hoc/asyncComponent';
 import PrivateRoute from './scenes/components/PrivateRoute';
+import asyncComponent from './scenes/components/hoc/asyncComponent';
 
 const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');

@@ -46,4 +46,4 @@ const mapStateToProps = state => ({
 export default withRouter(compose(
   withStyles(styles),
   connect(mapStateToProps, {}),
-), (Main));
+)(Main));

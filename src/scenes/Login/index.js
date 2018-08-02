@@ -29,12 +29,11 @@ const styles = theme => ({
 });
 
 class Login extends Component {
-
   state = {
     email: '',
     password: '',
     showPassword: false,
-  }
+  };
 
   componentDidMount() {
     this.redirectLogged();
@@ -93,8 +92,8 @@ class Login extends Component {
             value={this.state.email}
             onChange={this.handleChange('email')}
           />
-          {error.status = "USER_NOT_FOUND" &&
-            <FormHelperText id="email-error-text">{error.message}</FormHelperText>            
+          {error.status === 'USER_NOT_FOUND' &&
+            <FormHelperText id="email-error-text">{error.message}</FormHelperText>
           }
         </FormControl>
 
@@ -116,7 +115,7 @@ class Login extends Component {
                   aria-label="Toque para ver a senha"
                   onClick={this.handleClickShowPassword}
                 >
-                  {this.state.showPassword ? <VisibilityOff/> : <Visibility/>}
+                  {this.state.showPassword ? <VisibilityOff /> : <Visibility/>}
                 </IconButton>
               </InputAdornment>
             }
@@ -128,8 +127,8 @@ class Login extends Component {
         <Button type="submit" variant="raised" color="primary" className={classes.margin}>
           Entrar
         </Button>
-        <Button component={Link} to="/cadastrar" variant="flat" className={classes.margin}>
-          Cadastrar-se
+        <Button component={Link} to="/register" variant="flat" className={classes.margin}>
+          Cadastre-se
         </Button>
       </form>
     );
@@ -138,10 +137,10 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
-  password: state.error,
+  error: state.error,
 })
 
 export default withRouter(compose(
   withStyles(styles),
-  connect(mapStateToProps, { login })
-))(Login); 
+  connect(mapStateToProps, { login }),
+)(Login)); 

@@ -5,8 +5,10 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import Main from '../Main';
 import getRoutes from '../../routes';
+import Main from './Main';
+import SideNav from './SideNav';
+import AppBar from './AppBar';
 
 const styles = theme => ({
   root: {
@@ -19,18 +21,20 @@ const styles = theme => ({
 });
 
 class Root extends Component {
+  
   render() {
     const { classes, user } = this.props;
 
     return (
-      <div className={classes.Root}>
-         {/*user.auth && */}
+      <div className={classes.root}>
+        {user.auth &&
           <React.Fragment>
-            <div/>
+            <AppBar />
+            <SideNav />
           </React.Fragment>
-         {/**/ }
+        }
         <Main>
-          { getRoutes() } 
+          { getRoutes() }
         </Main>
       </div>
     );
@@ -43,7 +47,7 @@ Root.proptypes = {
 }
 
 const mapStateToProps = state => ({
-  //user: state.user.data,
+  user: state.user.data,
 });
 
 export default withRouter(compose(

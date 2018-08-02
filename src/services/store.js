@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
@@ -17,7 +17,7 @@ store.subscribe(() => {
     user: state.user,
   }
   
-  window.localStorage.setItem('state', JSON.stringfy(persist));
+  window.localStorage.setItem('state', JSON.stringify(persist));
 });
 
 export default store;
