@@ -57,7 +57,7 @@ class Login extends Component {
   handleLogin = e => {
     const { email, password } = e.target;
     const data = {
-      login: email.value,
+      email: email.value,
       senha: password.value,
     }
 
