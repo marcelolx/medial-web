@@ -26,7 +26,7 @@ class Main extends Component {
   render() {
     const { classes, children, user } = this.props;
 
-    return(
+    return (
       <main className={[classes.content, 'content', user.auth ? classes.logged : classes.notLogged].join(' ')}>
         <div className={[classes.toolbar, 'content-toolbar'].join(' ')} />
         {children}
