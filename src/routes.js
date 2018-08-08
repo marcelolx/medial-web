@@ -6,6 +6,7 @@ import asyncComponent from './scenes/components/hoc/asyncComponent';
 
 const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');
+const Profile = from('./scenes/Profile');
 
 function from(path){
   return asyncComponent(() => {
@@ -17,6 +18,7 @@ export default () => (
   <Switch>
     <PrivateRoute exact path="/" component={Home} /> 
     <Route path="/login" component={Login} />
+    <PrivateRoute path="/profile" component={Profile} />
     <Route render={() => <Redirect to ="/" />} />
   </Switch>
 );
