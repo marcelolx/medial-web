@@ -20,6 +20,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { logout } from '../../../services/users/actions';
 
@@ -78,7 +80,8 @@ class _AppBar extends Component {
               color="inherit"
               src=""
             >
-              <Avatar alt="Remy Sharp" src={user.profile} />
+              {/*<Avatar alt="Remy Sharp" src={user.profile} />*/}
+              <MoreVertIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -95,7 +98,10 @@ class _AppBar extends Component {
               open={open}
             >
               <MenuItem onClick={this.handleMenuClose} component={NavLink} to="/profile">
-                Perfil
+                <ListItemIcon>
+                  <AccountCircle />
+                </ListItemIcon>
+                <ListItemText primary="Perfil"/>
               </MenuItem>
               <MenuItem onClick={() => {
                 this.handleMenuClose();
