@@ -127,7 +127,7 @@ class Login extends Component {
             <FormHelperText id="password-error-text">{error.message}</FormHelperText>
           }
         </FormControl>       
-        <Button component={Link} to="/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
+        <Button component={Link} to="/user/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
           Cadastre-se
         </Button>
         <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
