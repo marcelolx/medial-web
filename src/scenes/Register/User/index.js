@@ -64,6 +64,9 @@ class RegisterUser extends Component {
   };
 
   handleRegister = event => {
+
+    event.preventDefault();
+
     const { formSubmitFail } = this.props;
     const { name, email, password, passwordConfirmation, registrationPhysicalPerson } = event.target;
     const data = {
@@ -75,11 +78,12 @@ class RegisterUser extends Component {
     }
 
     const blankInputs = Object.keys(data).filter(key => data[key] === '');
-
+    
     if (blankInputs.length > 0) {
       this.setState({ beforeSubmitError: true });
     } else {
       this.setState({ beforeSubmitError: false });
+    
       axios.post('/usuario/cadastrar', data)
         .then(response => {
           const { status, message } = response.data;
@@ -181,7 +185,7 @@ class RegisterUser extends Component {
             <InputLabel htmlFor="input-rpp">CPF/CNPJ</InputLabel>
             <Input 
               id="input-rpp" //RPP - Register Physical Person = CPF
-              name="rpp"
+              name="registrationPhysicalPerson"
               type="text"
               placeholder="000.000.000-00"
               value={this.state.registrationPhysicalPerson}
