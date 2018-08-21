@@ -21,6 +21,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import axios from '../../../services/axios';
 import { FORM_SUBMIT_FAIL } from '../../../services/errors/actionTypes';
+import Logo from '../../../components/Root/Logo';
 
 const styles = theme => ({
   root: {
@@ -137,6 +138,7 @@ class RegisterUser extends Component {
     const { classes, error } = this.props;
     return(
       <React.Fragment>
+        <Logo />
         <form onSubmit={this.handleRegister} className={classes.root}>
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
@@ -158,26 +160,6 @@ class RegisterUser extends Component {
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
             error={
-              (error.status === 'EMAIL_ALREADY_EXISTS') || 
-              (this.state.beforeSubmitError && this.state.email === '') ? true : false}
-            aria-describedby="email-error-text"
-          >
-            <InputLabel htmlFor="input-email">Email</InputLabel>
-            <Input 
-              id="input-email"
-              name="email"
-              type="email"
-              placeholder="example@medial.com.br"
-              value={this.state.email}
-              onChange={this.handleChange('email')}
-            />
-            {((error.status = 'EMAIL_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.email === '')) &&
-              <FormHelperText id="email-error-text">{error.message || 'Preencha o email'}</FormHelperText>
-            }
-          </FormControl>
-          <FormControl 
-            className={[classes.margin, classes.fill].join(' ')}
-            error={
               (error.status === 'RPP_ALREADY_EXISTS') ||
               (this.state.beforeSubmitError && this.state.registrationPhysicalPerson === '') ? true : false}
             aria-describedby="rpp-error-text"
@@ -193,6 +175,26 @@ class RegisterUser extends Component {
             />
             {((error.status = 'RPP_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.registrationPhysicalPerson === '')) &&
               <FormHelperText id="rpp-error-text">{error.message || 'Preencha o CPF/CNPJ'}</FormHelperText>
+            }
+          </FormControl>
+          <FormControl 
+            className={[classes.margin, classes.fill].join(' ')}
+            error={
+              (error.status === 'EMAIL_ALREADY_EXISTS') || 
+              (this.state.beforeSubmitError && this.state.email === '') ? true : false}
+            aria-describedby="email-error-text"
+          >
+            <InputLabel htmlFor="input-email">Email</InputLabel>
+            <Input 
+              id="input-email"
+              name="email"
+              type="email"
+              placeholder="example@medial.com.br"
+              value={this.state.email}
+              onChange={this.handleChange('email')}
+            />
+            {((error.status = 'EMAIL_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.email === '')) &&
+              <FormHelperText id="email-error-text">{error.message || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
           <FormControl
