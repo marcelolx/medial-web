@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import PrivateRoute from './scenes/components/PrivateRoute';
 import asyncComponent from './scenes/components/hoc/asyncComponent';
+import ListUsers from './scenes/ListUsers';
 
 const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');
@@ -20,6 +21,7 @@ export default () => (
     <PrivateRoute exact path="/" component={Home} /> 
     <Route path="/login" component={Login} />
     <Route path="/user/register" component={RegisterUser} />
+    <Route path="/users/all" component={ListUsers} />
     <PrivateRoute path="/profile" component={Profile} />    
     <Route render={() => <Redirect to ="/" />} />
   </Switch>

@@ -11,7 +11,7 @@ import './style.scss';
 
 const NavigationList = (props) => {
   return (
-    <List 
+    <List
       className="nav-link"
       component="nav"
       subheader={<ListSubheader component="div">Menu</ListSubheader>}
@@ -22,12 +22,18 @@ const NavigationList = (props) => {
         </ListItemIcon>
         <ListItemText primary="Início" />
       </ListItem>
-      <ListItem component={NavLink} exact to="/users/all" button>
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Lista Usuários" />
-      </ListItem>
+      <List
+        className="nav-link"
+        component="nav"
+        subheader={<ListSubheader component="div">Administrador</ListSubheader>}
+      >
+        <ListItem component={NavLink} exact to="/users/all" button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Lista Usuários" />
+        </ListItem>
+      </List>
     </List>
   );
 }
