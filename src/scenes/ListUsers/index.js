@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -15,12 +17,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import axios from 'axios';
 
-let counter = 0;
-function createData(name, birthDate, email, total, active) {
-  counter += 1;
-  return { id: counter, name, birthDate, email, total, active };
-}
+import { logout } from '../../services/users/actions';
+
+
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -37,21 +38,41 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name', numeric: false,  label: 'Nome' },
+  { id: 'name', numeric: false, label: 'Nome' },
   { id: 'birthDate', disablePadding: false, label: 'Data de Nascimento' },
   { id: 'email', disablePadding: false, label: 'E-mail' },
   { id: 'total', numeric: true, disablePadding: false, label: 'Total de mediações' },
   { id: 'active', numeric: true, disablePadding: false, label: 'Mediações ativas' },
 ];
 
+const GET_ORGANIZATION = `
+  {
+    getUsers{
+      id,
+      name
+      birthDate
+      email
+      active
+      total
+    }
+  }
+`;
+
+const axiosGraphQL = axios.create({
+  baseURL: 'http://localhost:8080/api/graphql',
+  headers: {
+    Authorization: `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb25hc3Nqb0BvdXRsb29rLmNvbSIsImV4cCI6MTUzNjAyOTUwM30.SzCMjFAKd1iuYZ8UcRhaQC5zyaDGWjZ2qplXbxqRmjTuJmyaiQ3vawsoSwnl1nMzPH0W9klIZGNEcae5-WrGfg`,
+  },
+});
+
 class ListUsersHead extends React.Component {
+  
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
-
+ 
   render() {
     const { order, orderBy } = this.props;
-
     return (
       <TableHead>
         <TableRow>
@@ -65,7 +86,7 @@ class ListUsersHead extends React.Component {
               >
                 <Tooltip
                   title="Ordem"
-                  placement={row.numeric ? 'bottom-start' :'bottom-end'}
+                  placement={row.numeric ? 'bottom-start' : 'bottom-end'}
                   enterDelay={300}
                 >
                   <TableSortLabel
@@ -117,7 +138,7 @@ const toolbarStyles = theme => ({
 });
 
 let ListUsersToolbar = props => {
-  const {  classes } = props;
+  const { classes } = props;
 
   return (
     <Toolbar>
@@ -130,13 +151,13 @@ let ListUsersToolbar = props => {
       </div>
       <div className={classes.spacer} />
       <div className={classes.actions}>
-        
-          <Tooltip title="Filtrar nome">
-            <IconButton aria-label="Filtrar nome">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        
+
+        <Tooltip title="Filtrar nome">
+          <IconButton aria-label="Filtrar nome">
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+
       </div>
     </Toolbar>
   );
@@ -170,6 +191,19 @@ class ListUsers extends React.Component {
     page: 0,
     rowsPerPage: 10,
   };
+  componentDidMount() {
+    this.onFetchFrom();
+  }
+  onFetchFrom = () => {
+    axiosGraphQL
+      .post('', { query: GET_ORGANIZATION })
+      .then(result => {
+        if (result.data.data !== null) {
+          this.setState(() => ({ data :result.data.data.getUsers}));
+        }
+
+      });
+  };
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -197,7 +231,7 @@ class ListUsers extends React.Component {
   handleChangePage = (event, page) => {
 
 
-    
+
     this.setState({ page });
   };
 
@@ -238,7 +272,7 @@ class ListUsers extends React.Component {
                       key={n.id}
                       selected={isSelected}
                     >
-                      
+
                       <TableCell component="th" scope="row" >
                         {n.name}
                       </TableCell>
@@ -281,4 +315,11 @@ ListUsers.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ListUsers);
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, {}),
+)(ListUsers);

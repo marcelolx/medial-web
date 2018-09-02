@@ -44,7 +44,7 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-
+    
     const { name, birthDate } = this.props.user;
     this.state = {
       name, 
