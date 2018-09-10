@@ -5995,6 +5995,13 @@ react-event-listener@^0.6.1:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-input-mask@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-input-mask/-/react-input-mask-2.0.4.tgz#9ade5cf8196f4a856dbf010820fe75a795f3eb14"
+  dependencies:
+    invariant "^2.2.4"
+    warning "^4.0.2"
+
 react-jss@^8.1.0:
   version "8.6.1"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.6.1.tgz#a06e2e1d2c4d91b4d11befda865e6c07fbd75252"
@@ -6008,6 +6015,13 @@ react-jss@^8.1.0:
 react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+
+react-number-format@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-3.5.2.tgz#4c6abcb7aa28f7c6226d89030448d5957d2d3b46"
+  dependencies:
+    babel-runtime "^6.26.0"
+    prop-types "^15.6.0"
 
 react-redux@^5.0.7:
   version "5.0.7"
@@ -6091,6 +6105,12 @@ react-scripts@1.1.4:
 react-text-mask@=5.4.1:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-5.4.1.tgz#c3dd3e550e31d38b7c9da0178a2725960770e443"
+  dependencies:
+    prop-types "^15.5.6"
+
+react-text-mask@^5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-5.4.3.tgz#991efb4299e30c2e6c2c46d13f617169463e0d2d"
   dependencies:
     prop-types "^15.5.6"
 
@@ -7421,6 +7441,12 @@ warning@^3.0.0:
 warning@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.1.tgz#66ce376b7fbfe8a887c22bdf0e7349d73d397745"
+  dependencies:
+    loose-envify "^1.0.0"
+
+warning@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.2.tgz#aa6876480872116fa3e11d434b0d0d8d91e44607"
   dependencies:
     loose-envify "^1.0.0"
 

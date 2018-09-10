@@ -18,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { TextMaskCPF, TextMaskCNPJ, TextMaskCellPhone } from '../../../components/Masks';
 
 import axios from '../../../services/axios';
 import { FORM_SUBMIT_FAIL } from '../../../services/errors/actionTypes';
@@ -53,6 +54,8 @@ class RegisterUser extends Component {
     name: '',
     email: '',    
     registrationPhysicalPerson: '',
+    cpf: '',
+    phone: '',
     password: '',
     passwordConfirmation: '',
     showPassword: false,
@@ -69,13 +72,14 @@ class RegisterUser extends Component {
     event.preventDefault();
 
     const { formSubmitFail } = this.props;
-    const { name, email, password, passwordConfirmation, registrationPhysicalPerson } = event.target;
+    const { name, email, password, passwordConfirmation, registrationPhysicalPerson, cpf } = event.target;
     const data = {
       nome: name.value,
       email: email.value,      
       senha: password.value,
       confirmacaoSenha: passwordConfirmation.value,
       cpf: registrationPhysicalPerson.value,     
+      cpfTeste: cpf.value,
     }
 
     const blankInputs = Object.keys(data).filter(key => data[key] === '');
@@ -168,8 +172,8 @@ class RegisterUser extends Component {
             <Input 
               id="input-rpp" //RPP - Register Physical Person = CPF
               name="registrationPhysicalPerson"
-              type="text"
-              placeholder="000.000.000-00"
+              type="text"                            
+              inputComponent={TextMaskCNPJ}
               value={this.state.registrationPhysicalPerson}
               onChange={this.handleChange('registrationPhysicalPerson')}
             />
@@ -177,6 +181,49 @@ class RegisterUser extends Component {
               <FormHelperText id="rpp-error-text">{error.message || 'Preencha o CPF/CNPJ'}</FormHelperText>
             }
           </FormControl>
+          
+          <FormControl 
+            className={[classes.margin, classes.fill].join(' ')}
+            error={
+              (error.status === 'CPF_ALREADY_EXISTS') ||
+              (this.state.beforeSubmitError && this.state.cpf === '') ? true : false}
+            aria-describedby="rpp-error-text"
+          >
+            <InputLabel htmlFor="input-cpf">CPF</InputLabel>
+            <Input 
+              id="input-cpf" //RPP - Register Physical Person = CPF
+              name="cpf"
+              type="text"
+              inputComponent={TextMaskCPF}               
+              value={this.state.cpf}
+              onChange={this.handleChange('cpf')}
+            />
+            {((error.status = 'CPF_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.cpf === '')) &&
+              <FormHelperText id="cpf-error-text">{error.message || 'Preencha o CPF'}</FormHelperText>
+            }
+          </FormControl>
+
+          <FormControl
+            className={[classes.margin, classes.fill].join(' ')}
+            error={
+              (error.status === 'CELLPHONE_ALREADY_EXISTS') ||
+              (this.state.beforeSubmitError && this.state.phone === '') ? true : false}
+              aria-describedby="email-error-text"
+          >
+            <InputLabel htmlFor="input-phone">Phone</InputLabel>
+            <Input
+              id="input-phone"
+              name="phone"
+              inputComponent={TextMaskCellPhone}
+              value={this.state.phone}
+              onChange={this.handleChange('phone')}
+            />
+            {
+              ((error.status = 'CELLPHONE_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.phone === '')) &&
+                <FormHelperText id="phone-error-text">{error.message || 'Preencha o número de celular'}</FormHelperText>
+            }
+          </FormControl>
+
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
             error={
