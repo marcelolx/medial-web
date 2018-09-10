@@ -55,3 +55,21 @@ export function TextMaskCellPhone(props) {
 TextMaskCellPhone.propTypes = {
   inputRef: PropTypes.func.isRequired,
 }
+
+export function TextMaskPhone(props) {
+  const { inputRef, ...other} = props;
+
+  return(
+    <MaskedInput
+      {...other}
+      ref={inputRef}
+      mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      placeholderChar={'\u2000'}
+      showMask={false}
+    />
+  );
+}
+
+TextMaskPhone.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+}
