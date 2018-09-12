@@ -1,20 +1,28 @@
-import { USER_LOGIN, UPDATE_PROFILE, USER_LOGOUT } from './actionTypes';
+import { USER_LOGIN, UPDATE_PROFILE, USER_LOGOUT, USER_REGISTER } from './actionTypes';
 
 const initialState = {
   data: {
     auth: false,
+    token: '',    
     name: '',
     email: '',
     profile: '',
     birthDate: '',
     createdDate: '',
-    updatedDate: '',
-    token: '',
+    updatedDate: '',    
   },
 }
 
 export default function(state = initialState, action){
   switch(action.type){
+    case USER_REGISTER: 
+      return {
+        ...state,
+        data: {
+          auth: false,
+          ...action.payload, 
+        }
+      }
     case USER_LOGIN:
       return {
         ...state,

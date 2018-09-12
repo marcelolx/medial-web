@@ -1,341 +1,78 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Visibility from '@material-ui/icons/Visibility';
-import Button from '@material-ui/core/Button';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { TextMaskCPF, TextMaskCNPJ, TextMaskCellPhone } from '../../../components/Masks';
 
-import axios from '../../../services/axios';
-import { FORM_SUBMIT_FAIL } from '../../../services/errors/actionTypes';
 import Logo from '../../../components/Root/Logo';
+import RegisterStep from '../../../components/Root/RegisterStep';
+import { Typography, Button, withStyles } from '@material-ui/core';
+import { compose } from 'recompose';
+import Cadastro from '../User/Steps/Cadastro';
+import Sobre from '../User/Steps/Sobre';
 
-const styles = theme => ({
+const styles = theme => ({ 
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    maxWidth: '60%',
+    margin: '0 auto',
   },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  fill: {
-    flexBasis: '100%',
-  },
+  instructions: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+    height: '500px',
+  },  
 });
-
-const formSubmitFail = payload => dispatch => {
-  return dispatch({
-    type: FORM_SUBMIT_FAIL,
-    payload,
-  });
-}
 
 class RegisterUser extends Component {
 
-  state = {
-    name: '',
-    email: '',    
-    registrationPhysicalPerson: '',
-    cpf: '',
-    phone: '',
-    password: '',
-    passwordConfirmation: '',
-    showPassword: false,
-    beforeSubmitError: false,
-    dialog: {
-      open: false,
-      title: '',
-      content: '',
-    }
-  };
-
-  handleRegister = event => {
-
-    event.preventDefault();
-
-    const { formSubmitFail } = this.props;
-    const { name, email, password, passwordConfirmation, registrationPhysicalPerson, cpf } = event.target;
-    const data = {
-      nome: name.value,
-      email: email.value,      
-      senha: password.value,
-      confirmacaoSenha: passwordConfirmation.value,
-      cpf: registrationPhysicalPerson.value,     
-      cpfTeste: cpf.value,
-    }
-
-    const blankInputs = Object.keys(data).filter(key => data[key] === '');
-    
-    if (blankInputs.length > 0) {
-      this.setState({ beforeSubmitError: true });
-    } else {
-      this.setState({ beforeSubmitError: false });
-    
-      axios.post('/usuario/cadastrar', data)
-        .then(response => {
-          const { status, message } = response.data;
-
-          if (status !== true){
-            formSubmitFail({
-              status,
-              message,
-            });
-          } else {
-            this.handleOpenDialog(message, 'Usuário cadastrado com sucesso!');
-          }
-        })
-        .catch(erro => console.log(erro));
-    }
-
-    event.preventDefault();
+  handleGetSteps = () => {
+    return ['Usuário', 'Sobre', 'Endereço', 'Contato'];
   }
 
-  handleOpenDialog = (title, content) => {
-    const dialog = {
-      title,
-      content,
-      open: true,
+  handleGetStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0: 
+        return <Cadastro onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
+      case 1:
+        return <Sobre />;
+      case 2:
+        return 'Endereço Step';
+      case 3:
+        return 'Contato Step';
+      default:
+        return 'Unknown Step';
     }
-    this.setState({ dialog });
   }
 
-  handleCloseDialog = () => {
-    const dialog = {
-      title: '',
-      content: '',
-      open: false,
-    }
-    this.setState({ dialog });
+  handleLoginPage = () => {
+    this.props.history.push('/login');
   }
 
-  handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
-  }
+  handleFinishStepContent = () => {
+    const { classes } = this.props;
 
-  handleClickShowPassword = () => {
-    this.setState(previousState => {
-      return({
-        showPassword: !previousState.showPassword,
-      });
-    })
+    return (
+      <React.Fragment>
+        <Typography className={classes.instructions}>Cadastro concluído</Typography>
+        <Button onClick={this.handleLoginPage} className={classes.margin}>Continuar</Button>
+      </React.Fragment>
+    );
   }
 
   render() {
-    const { classes, error } = this.props;
+    const { classes } = this.props;
+
     return(
       <React.Fragment>
-        <Logo />
-        <form onSubmit={this.handleRegister} className={classes.root}>
-          <FormControl 
-            className={[classes.margin, classes.fill].join(' ')}
-            error={this.state.beforeSubmitError && this.state.name === '' ? true : false}
-            aria-describedby="password-error-text"
-          >
-            <InputLabel htmlFor="input-name">Nome completo</InputLabel>
-            <Input 
-              id="input-name"
-              name="name"
-              type="text"
-              value={this.state.name}
-              onChange={this.handleChange('name')}
-            />
-            {(this.state.beforeSubmitError && this.state.name === '') &&
-              <FormHelperText id="name-error-text">Preencha o campo</FormHelperText>
-            }
-          </FormControl>
-          <FormControl 
-            className={[classes.margin, classes.fill].join(' ')}
-            error={
-              (error.status === 'RPP_ALREADY_EXISTS') ||
-              (this.state.beforeSubmitError && this.state.registrationPhysicalPerson === '') ? true : false}
-            aria-describedby="rpp-error-text"
-          >
-            <InputLabel htmlFor="input-rpp">CPF/CNPJ</InputLabel>
-            <Input 
-              id="input-rpp" //RPP - Register Physical Person = CPF
-              name="registrationPhysicalPerson"
-              type="text"                            
-              inputComponent={TextMaskCNPJ}
-              value={this.state.registrationPhysicalPerson}
-              onChange={this.handleChange('registrationPhysicalPerson')}
-            />
-            {((error.status = 'RPP_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.registrationPhysicalPerson === '')) &&
-              <FormHelperText id="rpp-error-text">{error.message || 'Preencha o CPF/CNPJ'}</FormHelperText>
-            }
-          </FormControl>
-          
-          <FormControl 
-            className={[classes.margin, classes.fill].join(' ')}
-            error={
-              (error.status === 'CPF_ALREADY_EXISTS') ||
-              (this.state.beforeSubmitError && this.state.cpf === '') ? true : false}
-            aria-describedby="rpp-error-text"
-          >
-            <InputLabel htmlFor="input-cpf">CPF</InputLabel>
-            <Input 
-              id="input-cpf" //RPP - Register Physical Person = CPF
-              name="cpf"
-              type="text"
-              inputComponent={TextMaskCPF}               
-              value={this.state.cpf}
-              onChange={this.handleChange('cpf')}
-            />
-            {((error.status = 'CPF_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.cpf === '')) &&
-              <FormHelperText id="cpf-error-text">{error.message || 'Preencha o CPF'}</FormHelperText>
-            }
-          </FormControl>
-
-          <FormControl
-            className={[classes.margin, classes.fill].join(' ')}
-            error={
-              (error.status === 'CELLPHONE_ALREADY_EXISTS') ||
-              (this.state.beforeSubmitError && this.state.phone === '') ? true : false}
-              aria-describedby="email-error-text"
-          >
-            <InputLabel htmlFor="input-phone">Phone</InputLabel>
-            <Input
-              id="input-phone"
-              name="phone"
-              inputComponent={TextMaskCellPhone}
-              value={this.state.phone}
-              onChange={this.handleChange('phone')}
-            />
-            {
-              ((error.status = 'CELLPHONE_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.phone === '')) &&
-                <FormHelperText id="phone-error-text">{error.message || 'Preencha o número de celular'}</FormHelperText>
-            }
-          </FormControl>
-
-          <FormControl 
-            className={[classes.margin, classes.fill].join(' ')}
-            error={
-              (error.status === 'EMAIL_ALREADY_EXISTS') || 
-              (this.state.beforeSubmitError && this.state.email === '') ? true : false}
-            aria-describedby="email-error-text"
-          >
-            <InputLabel htmlFor="input-email">Email</InputLabel>
-            <Input 
-              id="input-email"
-              name="email"
-              type="email"
-              placeholder="example@medial.com.br"
-              value={this.state.email}
-              onChange={this.handleChange('email')}
-            />
-            {((error.status = 'EMAIL_ALREADY_EXISTS') || (this.state.beforeSubmitError && this.state.email === '')) &&
-              <FormHelperText id="email-error-text">{error.message || 'Preencha o email'}</FormHelperText>
-            }
-          </FormControl>
-          <FormControl
-            className={[classes.margin, classes.fill].join(' ')}
-            error={this.state.beforeSubmitError && this.state.password === '' ? true : false}
-            aria-describedby="password-error-text"
-          >
-            <InputLabel htmlFor="adornment-password">Senha</InputLabel>
-            <Input 
-              id="adornment-password"
-              name="password"
-              type={this.state.showPassword ? 'text' : 'password'}
-              value={this.state.password}
-              onChange={this.handleChange('password')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Exibir senha"
-                    onClick={this.handleClickShowPassword}
-                  >
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            {(this.state.beforeSubmitError && this.state.password === '') &&
-              <FormHelperText id="password-error-text">Preencha a senha</FormHelperText>
-            }
-          </FormControl>
-
-          <FormControl
-            className={[classes.margin, classes.fill].join(' ')}
-            error={this.state.beforeSubmitError && this.state.passwordConfirmation === '' ? true : false}
-            aria-describedby="passwordConfirmation-error-text"
-          >
-            <InputLabel htmlFor="adornment-passwordConfirmation">Confirmar Senha</InputLabel>
-            <Input 
-              id="adornment-passwordConfirmation"
-              name="passwordConfirmation"
-              type={this.state.showPassword ? 'text' : 'password'}
-              value={this.state.passwordConfirmation}
-              onChange={this.handleChange('passwordConfirmation')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Exibir senha"
-                    onClick={this.handleClickShowPassword}
-                  >
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            {(this.state.beforeSubmitError && this.state.passwordConfirmation === '') &&
-              <FormHelperText id="passwordConfirmation-error-text">Confirme a senha</FormHelperText>
-            }
-          </FormControl>
-          <Button color="default" component={Link} to="/login" variant="flat" className={classes.margin}>
-            <ChevronLeft className={classes.rightIcon} />
-            Voltar
-          </Button>
-          <Button type="submit" variant="raised" color="primary" className={classes.margin}>
-            Cadastrar
-          </Button>
-        </form>
-        <Dialog
-          open={this.state.dialog.open}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          disableEnforceFocus
-        >
-          <DialogTitle id="alert-dialog-title">{this.state.dialog.title}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {this.state.dialog.content}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.props.history.replace('/login')} color="primary" autoFocus>
-              Continuar
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <div className={classes.root}>
+          <Logo />
+          <RegisterStep
+            {...this.props}          
+            onGetSteps={this.handleGetSteps.bind(this)} 
+            onGetStepContent={activeStep => this.handleGetStepContent(activeStep)}            
+            onFinishStepContent={this.handleFinishStepContent.bind(this)}
+          />          
+        </div>        
       </React.Fragment>
+      //onCancelSteps={() => this.handleLoginPage()}
     );
   }
 }
 
-const mapStateToProps = state => ({
-  error: state.error,
-})
-
-export default compose(
-  withStyles(styles),
-  connect(mapStateToProps, { formSubmitFail }),
-)(RegisterUser);
-
+export default compose(withStyles(styles))(RegisterUser);

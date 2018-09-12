@@ -1,0 +1,2 @@
+export const FILL_USER_DATA = 'FILL_USER_DATA';
+export const FILL_PROFILE_DATA = 'FILL_PROFILE_DATA';

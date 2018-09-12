@@ -19,9 +19,6 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import axios from 'axios';
 
-import { logout } from '../../services/users/actions';
-
-
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {

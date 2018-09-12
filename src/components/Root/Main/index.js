@@ -17,7 +17,7 @@ const styles = theme => ({
     paddingLeft: 264,
   },
   notLogged: {
-    maxWidth: '400px',
+    //maxWidth: '400px', Se definimos 400px aqui, tanto para tela de login quanto para tela de cadastro fica esse tamanho ou menor
     margin: '0 auto',
   }
 }); 

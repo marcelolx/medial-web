@@ -61,7 +61,6 @@ class _AppBar extends Component {
   }
   
   render() {
-    { /*const { classes, user } = this.props;*/ }
     const { classes } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);

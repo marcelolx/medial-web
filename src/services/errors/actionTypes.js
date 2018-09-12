@@ -1,1 +1,2 @@
 export const FORM_SUBMIT_FAIL = 'FORM_SUBMIT_FAIL';
+export const FORM_SUBMIT_ERROR = 'FORM_SUBMIT_ERROR';

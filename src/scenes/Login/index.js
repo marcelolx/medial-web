@@ -17,6 +17,10 @@ import Logo from '../../components/Root/Logo';
 
 
 const styles = theme => ({
+  baseRoot: {
+    maxWidth: '400px',
+    margin: '0 auto',
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -83,60 +87,62 @@ class Login extends Component {
     const { classes, error } = this.props;
     return (
       <React.Fragment>
-        <Logo />
-        <form onSubmit={this.handleLogin} className={classes.root}>
-          <FormControl
-            className={[classes.margin, classes.fill].join(' ')}
-            error={error.status === 'USER_NOT_FOUND' ? true : false}
-            aria-describedby="email-error-text"
-          >
-            <InputLabel htmlFor="input-email">Email</InputLabel>
-            <Input
-              name="email"
-              id="input-email"
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange('email')}
-            />
-            {error.status === 'USER_NOT_FOUND' &&
-              <FormHelperText id="email-error-text">{error.message}</FormHelperText>
-            }
-          </FormControl>
-
-          <FormControl
-            className={[classes.margin, classes.fill].join(' ')}
-            error={error.status === 'PASSWORD_INCORRECT' ? true : false}
-            aria-describedby="password-error-text"
-          >
-            <InputLabel htmlFor="adornment-password">Senha</InputLabel>
-            <Input
-              id="adornment-password"
-              name="password"
-              type={this.state.showPassword ? 'text' : 'password'}
-              value={this.state.password}
-              onChange={this.handleChange('password')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Toque para ver a senha"
-                    onClick={this.handleClickShowPassword}
-                  >
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
+        <div className={classes.baseRoot}>
+          <Logo />
+          <form onSubmit={this.handleLogin} className={classes.root}>
+            <FormControl
+              className={[classes.margin, classes.fill].join(' ')}
+              error={error.status === 'USER_NOT_FOUND' ? true : false}
+              aria-describedby="email-error-text"
+            >
+              <InputLabel htmlFor="input-email">Email</InputLabel>
+              <Input
+                name="email"
+                id="input-email"
+                type="email"
+                value={this.state.email}
+                onChange={this.handleChange('email')}
+              />
+              {error.status === 'USER_NOT_FOUND' &&
+                <FormHelperText id="email-error-text">{error.message}</FormHelperText>
               }
-            />
-            {error.status === 'PASSWORD_INCORRECT' &&
-              <FormHelperText id="password-error-text">{error.message}</FormHelperText>
-            }
-          </FormControl>
-          <Button component={Link} to="/user/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
-            Cadastre-se
-        </Button>
-          <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
-            Entrar
-        </Button>
-        </form>
+            </FormControl>
+
+            <FormControl
+              className={[classes.margin, classes.fill].join(' ')}
+              error={error.status === 'PASSWORD_INCORRECT' ? true : false}
+              aria-describedby="password-error-text"
+            >
+              <InputLabel htmlFor="adornment-password">Senha</InputLabel>
+              <Input
+                id="adornment-password"
+                name="password"
+                type={this.state.showPassword ? 'text' : 'password'}
+                value={this.state.password}
+                onChange={this.handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="Toque para ver a senha"
+                      onClick={this.handleClickShowPassword}
+                    >
+                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {error.status === 'PASSWORD_INCORRECT' &&
+                <FormHelperText id="password-error-text">{error.message}</FormHelperText>
+              }
+            </FormControl>
+            <Button component={Link} to="/user/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
+              Cadastre-se
+          </Button>
+            <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
+              Entrar
+          </Button>
+          </form>
+        </div>
       </React.Fragment>
     );
   }

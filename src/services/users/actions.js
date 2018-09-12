@@ -1,7 +1,44 @@
-import { USER_LOGIN, UPDATE_PROFILE, USER_LOGOUT } from './actionTypes';
-import { FORM_SUBMIT_FAIL } from '../errors/actionTypes';
+import { USER_LOGIN, UPDATE_PROFILE, USER_LOGOUT, USER_REGISTER } from './actionTypes';
+import { FORM_SUBMIT_FAIL, FORM_SUBMIT_ERROR } from '../errors/actionTypes';
 
 import axios from '../axios';
+
+export const cadastrarUsuario = formData => dispatch => {
+  axios.post('/usuario/cadastrar', formData)
+    .then(response => {
+      const { status, message } = response.data;
+      
+      if (status !== null) {
+        return {
+          type: FORM_SUBMIT_FAIL,
+          payload: {
+            status,
+            message,
+          }
+        }
+      } else {
+        return {
+          type: USER_REGISTER,
+          payload: {
+            status,
+            message,
+          }
+        }
+      }
+    })
+    .catch(err => {
+      const { status, message } = err.data;
+
+      return {
+        type: FORM_SUBMIT_ERROR,
+        payload: {
+          status,
+          message,
+        }
+      }
+    });
+}
+
 
 export const login = formData => dispatch => {
   axios.post('/usuario/realizarLogin', formData)
