@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { compose } from "recompose";
 import { withStyles } from "@material-ui/core";
 import { connect } from 'react-redux';
+import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 
 const styles = theme => ({
   root: {
@@ -11,13 +12,27 @@ const styles = theme => ({
 });
 
 class Sobre extends Component {
+
+  handleValidateFields = () => {
+    return true;
+  }
+
   render() {
     console.log(this.props.registerUser);
+    const cancelStep = this.props.onCancelStep.bind(this);
+    const getSteps = this.props.onGetSteps.bind(this);
     
     return(
-      <div>
-        Teste
-      </div>
+      <React.Fragment>
+        <div>
+          Teste
+          <RegisterStepButton 
+            onCancelStep={() => cancelStep()}
+            onGetSteps={() => getSteps()}
+            onValidateFields={() => this.handleValidateFields()}
+          />
+        </div>        
+      </React.Fragment>
     );
   }
 }

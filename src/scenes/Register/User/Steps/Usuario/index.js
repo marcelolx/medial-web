@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, FormHelperText, InputAdornment, IconButton } from '@material-ui/core';
+import { FormControl, InputLabel, Input, FormHelperText, InputAdornment, IconButton, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
@@ -14,12 +14,11 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between',    
     minWidth: '250px',
     maxWidth: '350px',
     margin: '0 auto',
     marginBottom: '10%',
-    
   },
   margin: {
     margin: theme.spacing.unit,
@@ -27,14 +26,23 @@ const styles = theme => ({
   fill: {
     flexBasis: '100%',
   },
+  personalidadeForm: {
+    margin: '0 auto',
+    marginTop: '3%',
+  },
+  radioGroup: {    
+    margin: '0 auto',
+    display: 'table',
+  }
 });
 
 class Cadastro extends Component {
 
   state = {
-    email: '',
-    senha: '',
-    confirmacaoSenha: '',
+    email: this.props.registerUser.transacionador.usuario.email,
+    senha: this.props.registerUser.transacionador.usuario.senha,
+    confirmacaoSenha: this.props.registerUser.transacionador.usuario.confirmacaoSenha,
+    personalidade: this.props.registerUser.transacionador.tipoTransacionador,
     showPassword: false,
     showConfirmationPassword: false,
   }
@@ -64,6 +72,7 @@ class Cadastro extends Component {
       email: this.state.email,
       senha: this.state.senha,
       confirmacaoSenha: this.state.confirmacaoSenha,
+      tipoTransacionador: this.state.personalidade,
     }
     const senhaConfirmada = data.senha === data.confirmacaoSenha;
 
@@ -71,6 +80,7 @@ class Cadastro extends Component {
     
     if ((blankInputs.length === 0) && (senhaConfirmada)) {
       const sendData = this.props.registerUser;
+      sendData.transacionador.tipoTransacionador = data.tipoTransacionador;
       sendData.transacionador.usuario.email = data.email;
       sendData.transacionador.usuario.senha = data.senha;
       sendData.transacionador.usuario.confirmacaoSenha = data.confirmacaoSenha;
@@ -86,8 +96,8 @@ class Cadastro extends Component {
   render() {   
     const { classes, error, step } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
-    const getSteps = this.props.onGetSteps.bind(this);        
-    
+    const getSteps = this.props.onGetSteps.bind(this);
+
     return(
       <React.Fragment>        
         <div className={classes.root}>
@@ -167,6 +177,29 @@ class Cadastro extends Component {
               <FormHelperText id="passwordConfirmation-error-text">Confirme a senha</FormHelperText>
             }
           </FormControl>
+          <FormControl
+            className={[classes.personalidadeForm, classes.fill].join(' ')}
+          >
+            <FormLabel className={classes.personalidadeForm}>Personalidade</FormLabel>
+            <RadioGroup
+              aria-label="Personalidade"
+              name="personalidade1"                           
+              value={this.state.personalidade}
+              onChange={this.handleChange('personalidade')}
+              className={classes.radioGroup}
+            >
+              <FormControlLabel 
+                value="F" 
+                control={<Radio />} 
+                label="Pessoa Física" 
+              />
+              <FormControlLabel 
+                value="J"
+                control={<Radio />} 
+                label="Pessoa Jurídica" 
+              />
+            </RadioGroup>
+          </FormControl>
           <RegisterStepButton 
               onCancelStep={() => cancelStep()}
               onGetSteps={() => getSteps()}
@@ -186,7 +219,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...stepsActions, ...registerUserActions }, dispatch);
-
 
 export default compose(
   withStyles(styles),

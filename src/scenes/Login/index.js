@@ -137,10 +137,10 @@ class Login extends Component {
             </FormControl>
             <Button component={Link} to="/user/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
               Cadastre-se
-          </Button>
+            </Button>
             <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
               Entrar
-          </Button>
+            </Button>
           </form>
         </div>
       </React.Fragment>

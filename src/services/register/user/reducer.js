@@ -1,4 +1,4 @@
-import { FILL_USER_DATA } from './actionTypes';
+import { FILL_USER_DATA, CLEAR_REGISTER_DATA } from './actionTypes';
 
 const initialState = {
   transacionador: {
@@ -7,7 +7,7 @@ const initialState = {
     documento1: '',
     documento2: '',      
     nomeMae: '',
-    tipoTransacionador: '',
+    tipoTransacionador: 'F',
     dataNascimento: '',
     dataCadastro: '',
     dataManutencao: '',
@@ -41,11 +41,16 @@ const initialState = {
 }
 
 export default function(state = initialState, action){
-  switch (action.type) {
+  switch (action.type) {    
     case FILL_USER_DATA:
       return Object.assign({}, state, {
         ...action.payload,
-      }) 
+      })
+    case CLEAR_REGISTER_DATA:
+      return {
+        ...state,
+        ...action.payload,
+      }
     default:
       return state;
   }

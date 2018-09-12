@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import Logo from '../../../components/Root/Logo';
 import RegisterStep from '../../../components/Root/RegisterStep';
 import { Typography, Button, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import Usuario from '../User/Steps/Usuario';
 import Sobre from '../User/Steps/Sobre';
+import * as registerUserActions from '../../../services/register/user/actions';
+import * as stepsActions from '../../../services/steps/actions';
 
 const styles = theme => ({ 
   root: {
-    maxWidth: '60%',
-    margin: '0 auto',
+    maxWidth: '60%',    
+    marginTop: '0%',
+    marginBottom: '10%',
+    marginRight: '25%',
+    marginLeft: '25%',    
   },
   instructions: {
     marginTop: theme.spacing.unit,
@@ -30,7 +36,7 @@ class RegisterUser extends Component {
       case 0: 
         return <Usuario onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 1:
-        return <Sobre />;
+        return <Sobre onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 2:
         return 'Endereço Step';
       case 3:
@@ -41,6 +47,8 @@ class RegisterUser extends Component {
   }
 
   handleLoginPage = () => {
+    this.props.changeStep(0);
+    this.props.clearRegisterData();  
     this.props.history.push('/login');
   }
 
@@ -57,7 +65,7 @@ class RegisterUser extends Component {
 
   render() {
     const { classes } = this.props;
-
+    
     return(
       <React.Fragment>
         <div className={classes.root}>
@@ -70,9 +78,14 @@ class RegisterUser extends Component {
           />          
         </div>        
       </React.Fragment>
-      //onCancelSteps={() => this.handleLoginPage()}
     );
   }
 }
 
-export default compose(withStyles(styles))(RegisterUser);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...stepsActions, ...registerUserActions }, dispatch);
+
+export default compose(
+  withStyles(styles),
+  connect(null, mapDispatchToProps),
+)(RegisterUser);

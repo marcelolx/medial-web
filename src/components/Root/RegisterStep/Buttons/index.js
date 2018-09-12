@@ -23,22 +23,20 @@ class RegisterStepButtons extends Component {
   
   handleBackStep = () => {
     const { activeStep } = this.props.step;
-    this.setState({
-      activeStep: activeStep - 1,
-    });
+    this.props.changeStep(activeStep - 1);
   };
 
   handleNextStep = () => {
     if (this.props.onValidateFields()) {      
-      this.props.changeStep(this.props.step.activeStep + 1);  
+      this.props.changeStep(this.props.step.activeStep + 1);
     }    
   };
 
   render() {
     const cancelStep = this.props.onCancelStep.bind(this);
     const steps = this.props.onGetSteps();
-    const { classes, activeStep } = this.props;
-    
+    const { classes } = this.props;
+    const { activeStep } = this.props.step;
     
     return(
       <React.Fragment>
