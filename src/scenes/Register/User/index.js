@@ -4,7 +4,7 @@ import Logo from '../../../components/Root/Logo';
 import RegisterStep from '../../../components/Root/RegisterStep';
 import { Typography, Button, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
-import Cadastro from '../User/Steps/Cadastro';
+import Usuario from '../User/Steps/Usuario';
 import Sobre from '../User/Steps/Sobre';
 
 const styles = theme => ({ 
@@ -28,7 +28,7 @@ class RegisterUser extends Component {
   handleGetStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: 
-        return <Cadastro onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
+        return <Usuario onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 1:
         return <Sobre />;
       case 2:
