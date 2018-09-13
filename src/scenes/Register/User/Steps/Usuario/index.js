@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-class Cadastro extends Component {
+class Usuario extends Component {
 
   state = {
     email: this.props.registerUser.transacionador.usuario.email,
@@ -223,4 +223,4 @@ const mapDispatchToProps = dispatch =>
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps)
-)(Cadastro);
+)(Usuario);

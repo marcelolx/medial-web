@@ -9,7 +9,7 @@ export function TextMaskCPF(props) {
     <MaskedInput
       {...other}
       ref={inputRef}
-      mask={[/[1-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
+      mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
       placeholderChar={'\u2000'}      
       showMask={false}
     />
@@ -27,7 +27,7 @@ export function TextMaskCNPJ(props) {
     <MaskedInput 
       {...other}
       ref={inputRef}
-      mask={[/[1-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
+      mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
       placeholderChar={'\u2000'}
       showMask={false}
     />
@@ -71,5 +71,24 @@ export function TextMaskPhone(props) {
 }
 
 TextMaskPhone.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+}
+
+
+export function TextMaskCEP(props) {
+  const { inputRef, ...other } = props;
+
+  return(
+    <MaskedInput 
+      {...other}
+      ref={inputRef}
+      mask={[/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/]}
+      placeholderChar={'\u2000'}
+      showMask={false}
+    />
+  );
+}
+
+TextMaskCEP.propTypes = {
   inputRef: PropTypes.func.isRequired,
 }

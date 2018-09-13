@@ -7,6 +7,7 @@ import { Typography, Button, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import Usuario from '../User/Steps/Usuario';
 import Sobre from '../User/Steps/Sobre';
+import Endereco from '../User/Steps/Endereco';
 import * as registerUserActions from '../../../services/register/user/actions';
 import * as stepsActions from '../../../services/steps/actions';
 
@@ -38,7 +39,7 @@ class RegisterUser extends Component {
       case 1:
         return <Sobre onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 2:
-        return 'Endereço Step';
+        return <Endereco onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 3:
         return 'Contato Step';
       default:
