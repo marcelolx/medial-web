@@ -82,7 +82,7 @@ export function TextMaskCEP(props) {
     <MaskedInput 
       {...other}
       ref={inputRef}
-      mask={[/^[0-9]{2}.[0-9]{3}-[0-9]{3}$/]}
+      mask={[/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]}
       placeholderChar={'\u2000'}
       showMask={false}
     />

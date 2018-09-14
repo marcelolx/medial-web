@@ -11,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    //height: 25,
   },
   input: {
     display: 'flex',

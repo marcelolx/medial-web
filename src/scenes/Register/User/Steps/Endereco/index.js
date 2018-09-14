@@ -10,6 +10,7 @@ import { TextMaskCEP } from '../../../../../components/Masks';
 import SearchSelect from '../../../../../components/Root/RegisterStep/SearchSelect';
 import * as paisesActions from '../../../../../services/graphql/paises/actions';
 import * as estadosActions from '../../../../../services/graphql/estados/actions';
+import * as cidadesActions from '../../../../../services/graphql/cidades/actions';
 
 const styles = theme => ({
   root: {
@@ -34,6 +35,7 @@ class Endereco extends Component {
   state = {
     pais: this.props.registerUser.transacionador.endereco.pais,
     estado: this.props.registerUser.transacionador.endereco.estado,
+    cidade: this.props.registerUser.transacionador.endereco.cidade,
     cep: this.props.registerUser.transacionador.endereco.cep,
   }
 
@@ -44,21 +46,34 @@ class Endereco extends Component {
   }
 
   handleValidateFields = () => {
-    return true;
+    this.props.actions.beforeNextStepError(true);
+    return false;
   }
   
   handleChange = prop => event => {    
     this.setState({ [prop]: event.target.value });
   }
 
-  handleSelectChange = name => value => {
-    this.setState({ [name]: value });
-
-    switch (name) {
-      case 'pais':
-        this.props.actions.getCountryStates(value.value);
-      break;
-      default: break;
+  handleSelectChange = name => selecionado => {
+    this.setState({ [name]: selecionado });
+    
+    if (selecionado.value !== undefined) {
+      switch (name) {
+        case 'pais':  
+          this.props.actions.getCountryStates(selecionado.value);
+        break;
+        case 'estado':
+          this.props.actions.getStateCities(selecionado.value);
+        break;
+        default: break;
+      };
+    } else {
+      switch (name) {
+        case 'pais':  
+          this.props.actions.clearCities();
+        break;
+        default: break;
+      };
     }
   }
 
@@ -74,18 +89,19 @@ class Endereco extends Component {
   }
 
   render() {
-    const { classes, step, paises, estados } = this.props;
+    const { classes, step, paises, estados, cidades } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
-    const getSteps = this.props.onGetSteps.bind(this);   
+    const getSteps = this.props.onGetSteps.bind(this);      
 
     //paises.list.filter(pais => this.setCountry(pais)); Vai ficar em looop infinito
+    console.log(this.state.pais.value);
     
     return(
       <React.Fragment>        
         <div className={classes.root}>          
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}            
-            error={(step.beforeNextStepError && this.state.pais === '') ? true : false}
+            error={(step.beforeNextStepError && this.state.pais.value === undefined) ? true : false}
             aria-describedby="pais-error-text"
           >      
             <SearchSelect 
@@ -96,14 +112,13 @@ class Endereco extends Component {
               placeholder="País"            
             />
             {
-              (step.beforeNextStepError && this.state.pais === '') &&
+              (step.beforeNextStepError && this.state.pais.value === undefined) &&
               <FormHelperText id="pais-error-text">Informe o País</FormHelperText>
             }
-          </FormControl>
-          
+          </FormControl>          
           <FormControl            
             className={[classes.margin, classes.fill].join(' ')}            
-            error={(step.beforeNextStepError && this.state.estado === '') ? true : false}
+            error={(step.beforeNextStepError && this.state.estado.value === undefined) ? true : false}
             aria-describedby="estado-error-text"
           > 
             <SearchSelect 
@@ -114,8 +129,25 @@ class Endereco extends Component {
               placeholder="Estado"
             />
             {
-              (step.beforeNextStepError && this.state.estado === '') && 
+              (step.beforeNextStepError && this.state.estado.value === undefined) && 
               <FormHelperText id="estado-error-text">Informe o Estado</FormHelperText>
+            }
+          </FormControl>
+          <FormControl
+            className={[classes.margin, classes.fill].join(' ')}
+            error={(step.beforeNextStepError && this.state.cidade.value === undefined) ? true : false}
+            aria-describedby="cidade-error-text"
+          >
+            <SearchSelect 
+              opcoes={cidades.list}
+              name="cidade"
+              onChange={(name, value) => this.handleSelectChange(name, value)}
+              value={this.state.cidade}
+              placeholder="Cidade"
+            />
+            {
+              (step.beforeNextStepError && this.state.cidade.value === undefined) &&
+              <FormHelperText id="cidade-error-text">Informe a Cidade</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -153,6 +185,7 @@ const mapStateToProps = state => ({
   step: state.step,
   paises: state.paises,
   estados: state.estados,
+  cidades: state.cidades,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -161,6 +194,7 @@ const mapDispatchToProps = dispatch => ({
     ...registerUserActions,
     ...paisesActions,
     ...estadosActions,
+    ...cidadesActions,
   }, dispatch)
 });
   
