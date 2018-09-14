@@ -7,7 +7,7 @@ export function saveUserRegisterData(formData) {
   }
 }
 
-export function clearRegisterData(registerPayload) {  
+export function clearRegisterData() {  
   const initialState = {
     transacionador: {
       nome: '',
@@ -47,8 +47,6 @@ export function clearRegisterData(registerPayload) {
       },
     },
   }
-  
-  
 
   return {
     type: CLEAR_REGISTER_DATA,

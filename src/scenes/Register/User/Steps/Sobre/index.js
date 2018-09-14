@@ -57,6 +57,7 @@ class Sobre extends Component {
   }
 
   handleValidateFields = () => {
+    //return true;
     const data = {
       nome: this.state.nome,
       cpf_cnpj: this.state.cpf_cnpj,

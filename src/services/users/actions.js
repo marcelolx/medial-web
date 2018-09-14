@@ -1,7 +1,7 @@
 import { USER_LOGIN, UPDATE_PROFILE, USER_LOGOUT, USER_REGISTER } from './actionTypes';
 import { FORM_SUBMIT_FAIL, FORM_SUBMIT_ERROR } from '../errors/actionTypes';
 
-import axios from '../axios';
+import {instance as axios} from '../axios';
 
 export const cadastrarUsuario = formData => dispatch => {
   axios.post('/usuario/cadastrar', formData)

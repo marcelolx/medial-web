@@ -30,8 +30,8 @@ const initialState = {
     },
     contatos: { },
     endereco: {
-      pais: '',
-      estado: '',
+      pais: null,
+      estado: null,
       cidade: '',
       bairro: '',
       cep: '',
@@ -39,7 +39,7 @@ const initialState = {
       numero: '',
     },
   },
-}
+};
 
 export default function(state = initialState, action){
   switch (action.type) {    

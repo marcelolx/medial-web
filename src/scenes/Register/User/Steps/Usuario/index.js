@@ -67,7 +67,8 @@ class Usuario extends Component {
     })
   }
 
-  handleValidateFields = () => {        
+  handleValidateFields = () => {     
+   // return true;   
     const data = {
       email: this.state.email,
       senha: this.state.senha,

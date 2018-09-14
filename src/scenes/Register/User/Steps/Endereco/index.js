@@ -3,11 +3,13 @@ import { bindActionCreators } from 'redux';
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
 import { compose } from 'recompose';
-import { withStyles, FormControl, FormHelperText, InputLabel, Input, Select } from '@material-ui/core';
+import { withStyles, FormControl, FormHelperText, InputLabel, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import { TextMaskCEP } from '../../../../../components/Masks';
-//import NoSsr from '@material-ui/core/NoSsr';
+import SearchSelect from '../../../../../components/Root/RegisterStep/SearchSelect';
+import * as paisesActions from '../../../../../services/graphql/paises/actions';
+import * as estadosActions from '../../../../../services/graphql/estados/actions';
 
 const styles = theme => ({
   root: {
@@ -27,76 +29,93 @@ const styles = theme => ({
   },
 });
 
-const paises = [
-  { label: 'Brasil' }
-].map(pais => ({
-  value: pais.label,
-  label: pais.label,
-}));
-
-const selectComponents = {
-  Control,
-  Menu,
-  NoOptionsMessage,
-  Option,
-  Placeholder,
-  SingleValue,
-  ValueContainer,
-};
-
 class Endereco extends Component {
 
   state = {
     pais: this.props.registerUser.transacionador.endereco.pais,
+    estado: this.props.registerUser.transacionador.endereco.estado,
     cep: this.props.registerUser.transacionador.endereco.cep,
+  }
+
+  componentDidMount() {
+    if (this.props.paises.list.length === 0) {
+      this.props.actions.getAllCountries();
+    }
   }
 
   handleValidateFields = () => {
     return true;
   }
   
-  handleChange = prop => event => {
+  handleChange = prop => event => {    
     this.setState({ [prop]: event.target.value });
   }
 
-  render() {
-    const { classes, step } = this.props;
-    const cancelStep = this.props.onCancelStep.bind(this);
-    const getSteps = this.props.onGetSteps.bind(this);
+  handleSelectChange = name => value => {
+    this.setState({ [name]: value });
 
-    const selectStyles = {
-      input: base => ({
-        ...base,
-        color: theme.palette.text.primary,
-        '& input': {
-          font: 'inherit',
+    switch (name) {
+      case 'pais':
+        this.props.actions.getCountryStates(value.value);
+      break;
+      default: break;
+    }
+  }
+
+  setCountry = pais => {
+    if (pais.value === this.state.pais.value) {
+      this.setState({
+        pais: {
+          value: pais.value,
+          label: pais.label,
         },
-      }),
-    };
+      });
+    }
+  }
 
+  render() {
+    const { classes, step, paises, estados } = this.props;
+    const cancelStep = this.props.onCancelStep.bind(this);
+    const getSteps = this.props.onGetSteps.bind(this);   
+
+    //paises.list.filter(pais => this.setCountry(pais)); Vai ficar em looop infinito
+    
     return(
-      <React.Fragment>
-        <div className={classes.root}>
+      <React.Fragment>        
+        <div className={classes.root}>          
           <FormControl
-            className={[classes.margin, classes.fill].join(' ')}
+            className={[classes.margin, classes.fill].join(' ')}            
             error={(step.beforeNextStepError && this.state.pais === '') ? true : false}
             aria-describedby="pais-error-text"
-          >
-            <InputLabel htmlFor="pais-input">País</InputLabel>
-           {/* <NoSsr>
-              <Select 
-                classes={classes}
-                styles={selectStyles}
-                options={paises}
-                components={selectComponents}
-                value={this.state.pais}
-                onChange={this.handleChange('pais')}
-                placeholder="Pesquise seu país"
-              />
-           </NoSsr>*/}
+          >      
+            <SearchSelect 
+              opcoes={paises.list}
+              name="pais"
+              onChange={(name, value) => this.handleSelectChange(name, value)}
+              value={this.state.pais}              
+              placeholder="País"            
+            />
             {
               (step.beforeNextStepError && this.state.pais === '') &&
               <FormHelperText id="pais-error-text">Informe o País</FormHelperText>
+            }
+          </FormControl>
+          
+          <FormControl            
+            className={[classes.margin, classes.fill].join(' ')}            
+            error={(step.beforeNextStepError && this.state.estado === '') ? true : false}
+            aria-describedby="estado-error-text"
+          > 
+            <SearchSelect 
+              opcoes={estados.list}
+              name="estado"
+              onChange={(name, value) => this.handleSelectChange(name, value)}
+              value={this.state.estado}
+              placeholder="Estado"
+            />
+            {
+              (step.beforeNextStepError && this.state.estado === '') && 
+              <FormHelperText id="estado-error-text">Informe o Estado</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -132,11 +151,19 @@ class Endereco extends Component {
 const mapStateToProps = state => ({
   registerUser: state.registerUser,
   step: state.step,
+  paises: state.paises,
+  estados: state.estados,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...stepsActions, ...registerUserActions }, dispatch);
-
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ 
+    ...stepsActions, 
+    ...registerUserActions,
+    ...paisesActions,
+    ...estadosActions,
+  }, dispatch)
+});
+  
 export default compose(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
