@@ -1,4 +1,4 @@
-import { GET_STATES, GET_STATES_ERROR } from './actionTypes';
+import { GET_STATES, GET_STATES_ERROR, CLEAR_STATES } from './actionTypes';
 import { instanceGraphQL as axiosGraphQL } from '../../../services/axios';
 
 function mapStates(country, states) {
@@ -46,3 +46,7 @@ export function getCountryStates(country) {
       });
   };  
 };
+
+export function clearStates() {
+  return { type: CLEAR_STATES }
+}

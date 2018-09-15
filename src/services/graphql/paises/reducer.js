@@ -14,11 +14,8 @@ export default function(state = initialState, action) {
       });
     case GET_COUNTRIES_ERROR: 
       return Object.assign({}, state, {
-        list: action.payload,
-        message: {
-          type: 'danger',
-          text: 'Não foi possível buscar os países',
-        }
+        list: [],
+        message: 'Não foi possível buscar os países',
       });
     default:
       return state;

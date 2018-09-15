@@ -18,10 +18,7 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         estado: action.payload.estado,
         list: action.payload.list,
-        message: {
-          type: 'danger',
-          text: 'Não foi possível buscar as cidades',
-        }
+        message: 'Não foi possível buscar as cidades',
       });
     case CLEAR_CITIES:
       return Object.assign({}, state, {

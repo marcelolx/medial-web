@@ -69,7 +69,18 @@ class Endereco extends Component {
       };
     } else {
       switch (name) {
-        case 'pais':  
+        case 'pais':
+          this.setState({
+            estado: [],
+            cidade: [],
+          });
+          this.props.actions.clearStates();
+          this.props.actions.clearCities();
+        break;
+        case 'estado':
+          this.setState({
+            cidade: [],
+          });
           this.props.actions.clearCities();
         break;
         default: break;
@@ -93,15 +104,17 @@ class Endereco extends Component {
     const cancelStep = this.props.onCancelStep.bind(this);
     const getSteps = this.props.onGetSteps.bind(this);      
 
-    //paises.list.filter(pais => this.setCountry(pais)); Vai ficar em looop infinito
-    console.log(this.state.pais.value);
+    //paises.list.filter(pais => this.setCountry(pais)); Vai ficar em looop infinito    
     
     return(
       <React.Fragment>        
         <div className={classes.root}>          
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}            
-            error={(step.beforeNextStepError && this.state.pais.value === undefined) ? true : false}
+            error={
+              (((step.beforeNextStepError && this.state.pais.value === undefined) ? true : false) ||
+              (((paises.list.length === 0) && (paises.message !== null)) ? true : false))
+            }
             aria-describedby="pais-error-text"
           >      
             <SearchSelect 
@@ -111,14 +124,18 @@ class Endereco extends Component {
               value={this.state.pais}              
               placeholder="País"            
             />
-            {
-              (step.beforeNextStepError && this.state.pais.value === undefined) &&
-              <FormHelperText id="pais-error-text">Informe o País</FormHelperText>
+            { 
+              ((step.beforeNextStepError && this.state.pais.value === undefined) ||
+              ((paises.list.length === 0) && (paises.message !== null))) &&
+              <FormHelperText id="pais-error-text">{paises.message || 'Informe o País'}</FormHelperText>
             }
           </FormControl>          
           <FormControl            
             className={[classes.margin, classes.fill].join(' ')}            
-            error={(step.beforeNextStepError && this.state.estado.value === undefined) ? true : false}
+            error={
+              (((step.beforeNextStepError && this.state.estado.value === undefined) ? true : false) ||
+              (((estados.list.length === 0) && (estados.message !== null)) ? true : false))
+            }
             aria-describedby="estado-error-text"
           > 
             <SearchSelect 
@@ -129,13 +146,17 @@ class Endereco extends Component {
               placeholder="Estado"
             />
             {
-              (step.beforeNextStepError && this.state.estado.value === undefined) && 
+              (((step.beforeNextStepError && this.state.estado.value === undefined) ? true : false) ||
+              (((estados.list.length === 0) && (estados.message !== null)) ? true : false)) && 
               <FormHelperText id="estado-error-text">Informe o Estado</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={(step.beforeNextStepError && this.state.cidade.value === undefined) ? true : false}
+            error={
+              (((step.beforeNextStepError && this.state.cidade.value === undefined) ? true : false) ||
+              (((cidades.list.length === 0) && (cidades.message !== null)) ? true : false))
+            }
             aria-describedby="cidade-error-text"
           >
             <SearchSelect 
@@ -146,7 +167,8 @@ class Endereco extends Component {
               placeholder="Cidade"
             />
             {
-              (step.beforeNextStepError && this.state.cidade.value === undefined) &&
+              (((step.beforeNextStepError && this.state.cidade.value === undefined) ? true : false) ||
+              (((cidades.list.length === 0) && (cidades.message !== null)) ? true : false)) &&
               <FormHelperText id="cidade-error-text">Informe a Cidade</FormHelperText>
             }
           </FormControl>

@@ -1,4 +1,4 @@
-import { GET_STATES, GET_STATES_ERROR } from './actionTypes';
+import { GET_STATES, GET_STATES_ERROR, CLEAR_STATES } from './actionTypes';
 
 const initialState = {
   pais: null,
@@ -18,10 +18,13 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         pais: action.payload.pais,
         list: action.payload.list,
-        message: {
-          type: 'danger',
-          text: 'Não foi possível buscar os estados',
-        }
+        message: 'Não foi possível buscar os estados',
+      });
+    case CLEAR_STATES:
+      return Object.assign({}, state, {
+        pais: null,
+        list: [],
+        message: null,
       });
     default:
       return state;
