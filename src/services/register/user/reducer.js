@@ -28,7 +28,10 @@ const initialState = {
       papel: '',
       ativo: false,
     },
-    contatos: {},
+    contatos: {
+      telefone: '',
+      celular: '',
+    },
     endereco: {
       pais: [],
       estado: [],
@@ -48,10 +51,9 @@ export default function(state = initialState, action){
         ...action.payload,
       })
     case CLEAR_REGISTER_DATA:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         ...action.payload,
-      }
+      })
     default:
       return state;
   }

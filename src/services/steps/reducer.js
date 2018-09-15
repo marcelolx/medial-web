@@ -2,7 +2,7 @@ import { ACTIVESTEP_VALID, ACTIVESTEP_CHANGED } from './actionTypes'
 
 const initialState = {
   beforeNextStepError: false,
-  activeStep: 2,
+  activeStep: 3,
   completed: {},
 }
 

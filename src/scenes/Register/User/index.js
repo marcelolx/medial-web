@@ -9,6 +9,7 @@ import Usuario from '../User/Steps/Usuario';
 import Sobre from '../User/Steps/Sobre';
 import Endereco from '../User/Steps/Endereco';
 import Contato from '../User/Steps/Contato';
+import Finalizar from '../User/Steps/Finalizar';
 import * as registerUserActions from '../../../services/register/user/actions';
 import * as stepsActions from '../../../services/steps/actions';
 
@@ -42,7 +43,7 @@ class RegisterUser extends Component {
       case 2:
         return <Endereco onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 3:
-        return <Contato />;
+        return <Contato onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       default:
         return 'Unknown Step';
     }
@@ -76,7 +77,7 @@ class RegisterUser extends Component {
             {...this.props}          
             onGetSteps={this.handleGetSteps.bind(this)} 
             onGetStepContent={activeStep => this.handleGetStepContent(activeStep)}            
-            onFinishStepContent={this.handleFinishStepContent.bind(this)}
+            onFinishStepContent={<Finalizar onFinishRegisterUser={() => this.handleLoginPage()}/>}
           />          
         </div>        
       </React.Fragment>

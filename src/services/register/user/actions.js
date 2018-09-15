@@ -7,7 +7,7 @@ export function saveUserRegisterData(formData) {
   }
 }
 
-export function clearRegisterData() {  
+export function clearRegisterData() {
   const initialState = {
     transacionador: {
       nome: '',
@@ -16,13 +16,14 @@ export function clearRegisterData() {
       documento2: '',      
       nomeMae: '',
       tipoTransacionador: 'F',
-      dataNascimento: '',
+      dataNascimento: '1900-01-01',
       dataCadastro: '',
       dataManutencao: '',
       dataExclusao: '',
-      sexo: '',
+      sexo: 'F',
       estadoCivil: '',
       escolaridade: '',
+      ramoEmpresarial: '',
       nivelAcesso: '',
       usuario: {
         email: '',
@@ -35,18 +36,21 @@ export function clearRegisterData() {
         papel: '',
         ativo: false,
       },
-      contatos: { },
+      contatos: {
+        telefone: '',
+        celular: '',
+      },
       endereco: {
-        pais: '',
-        estado: '',
-        cidade: '',
-        bairro: '',
+        pais: [],
+        estado: [],
+        cidade: [],
         cep: '',
+        bairro: '',      
         rua: '',
         numero: '',
       },
     },
-  }
+  };
 
   return {
     type: CLEAR_REGISTER_DATA,

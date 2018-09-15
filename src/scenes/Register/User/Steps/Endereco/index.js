@@ -132,9 +132,7 @@ class Endereco extends Component {
   render() {
     const { classes, step, paises, estados, cidades } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
-    const getSteps = this.props.onGetSteps.bind(this);      
-
-    //paises.list.filter(pais => this.setCountry(pais)); Vai ficar em looop infinito    
+    const getSteps = this.props.onGetSteps.bind(this);
     
     return(
       <React.Fragment>        
@@ -297,7 +295,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ 
-    ...stepsActions, 
+    ...stepsActions,
     ...registerUserActions,
     ...paisesActions,
     ...estadosActions,

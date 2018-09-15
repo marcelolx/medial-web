@@ -23,7 +23,6 @@ class RegisterStep extends Component {
   render() {
     const { activeStep } = this.props.step;
     const steps = this.props.onGetSteps();
-    const finishStep = this.props.onFinishStepContent();
 
     return (
       <React.Fragment>
@@ -36,11 +35,7 @@ class RegisterStep extends Component {
             );
           })}
         </Stepper>
-        {activeStep === steps.length ? ( 
-          finishStep
-        ) : (
-            this.props.onGetStepContent(activeStep)                      
-        )}
+        {activeStep === steps.length ? (this.props.onFinishStepContent) : (this.props.onGetStepContent(activeStep))}
       </React.Fragment>
     );
   }
