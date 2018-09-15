@@ -8,6 +8,7 @@ import { compose } from 'recompose';
 import Usuario from '../User/Steps/Usuario';
 import Sobre from '../User/Steps/Sobre';
 import Endereco from '../User/Steps/Endereco';
+import Contato from '../User/Steps/Contato';
 import * as registerUserActions from '../../../services/register/user/actions';
 import * as stepsActions from '../../../services/steps/actions';
 
@@ -41,7 +42,7 @@ class RegisterUser extends Component {
       case 2:
         return <Endereco onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       case 3:
-        return 'Contato Step';
+        return <Contato />;
       default:
         return 'Unknown Step';
     }

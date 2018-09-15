@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import { withStyles, FormControl, FormHelperText, InputLabel, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
-import { TextMaskCEP } from '../../../../../components/Masks';
+import { TextMaskCEP, TextMaskForNumbers } from '../../../../../components/Masks';
 import SearchSelect from '../../../../../components/Root/RegisterStep/SearchSelect';
 import * as paisesActions from '../../../../../services/graphql/paises/actions';
 import * as estadosActions from '../../../../../services/graphql/estados/actions';
@@ -37,6 +37,9 @@ class Endereco extends Component {
     estado: this.props.registerUser.transacionador.endereco.estado,
     cidade: this.props.registerUser.transacionador.endereco.cidade,
     cep: this.props.registerUser.transacionador.endereco.cep,
+    bairro: this.props.registerUser.transacionador.endereco.bairro,
+    rua: this.props.registerUser.transacionador.endereco.rua,
+    numero: this.props.registerUser.transacionador.endereco.numero,    
   }
 
   componentDidMount() {
@@ -46,8 +49,35 @@ class Endereco extends Component {
   }
 
   handleValidateFields = () => {
-    this.props.actions.beforeNextStepError(true);
-    return false;
+    const data = {
+      pais: this.state.pais.value,
+      estado: this.state.estado.value,
+      cidade: this.state.cidade.value,
+      cep: this.state.cep,
+      bairro: this.state.bairro,
+      rua: this.state.rua,
+      numero: this.state.numero,
+    }
+
+    const blankInputs = Object.keys(data).filter(key => data[key] === '')
+
+    if (blankInputs.length === 0) {
+      const sendData = this.props.registerUser;
+      sendData.transacionador.endereco = { 
+        pais: this.state.pais,
+        estado: this.state.estado,
+        cidade: this.state.cidade,
+        cep: this.state.cep,
+        bairro: this.state.bairro,
+        rua: this.state.bairro,
+        numero: this.state.numero,
+      };
+      
+      this.props.actions.saveUserRegisterData(sendData);
+    };
+
+    this.props.actions.beforeNextStepError((blankInputs.length > 0));
+    return (blankInputs.length === 0);
   }
   
   handleChange = prop => event => {    
@@ -189,6 +219,61 @@ class Endereco extends Component {
             {
               (step.beforeNextStepError && this.state.cep === '') && 
               <FormHelperText id="cep-error-text">Informe o CEP</FormHelperText>
+            }
+          </FormControl>
+          <FormControl 
+            className={[classes.margin, classes.fill].join(' ')}
+            error={(step.beforeNextStepError && this.state.bairro === '') ? true : false}
+            aria-describedby="bairro-error-text"
+          >
+            <InputLabel htmlFor="input-bairro">Bairro</InputLabel>
+            <Input 
+              id="input-bairro"
+              name="bairro"
+              type="text"
+              value={this.state.bairro}
+              onChange={this.handleChange('bairro')}
+            />
+            {
+              (step.beforeNextStepError && this.state.bairro === '') && 
+              <FormHelperText id="bairro-error-text">Informe o Bairro</FormHelperText>
+            }
+          </FormControl>
+          <FormControl
+            className={[classes.margin, classes.fill].join(' ')}
+            error={(step.beforeNextStepError && this.state.rua === '') ? true : false}
+            aria-describedby="rua-error-text"
+          >
+            <InputLabel htmlFor="input-rua">Rua</InputLabel>
+            <Input 
+              id='input-rua'
+              name="rua"
+              type="text"
+              value={this.state.rua}
+              onChange={this.handleChange('rua')}
+            />
+            {
+              (step.beforeNextStepError && this.state.rua === '') &&
+              <FormHelperText id="rua-error-text">Informe a Rua</FormHelperText>
+            }
+          </FormControl>
+          <FormControl
+            className={[classes.margin, classes.fill].join(' ')}
+            error={(step.beforeNextStepError && this.state.numero === '') ? true : false}
+            aria-describedby="numero-error-text"
+          >
+            <InputLabel htmlFor="input-numero">Número</InputLabel>
+            <Input 
+              id="input-numero"
+              name="numero"
+              type="text"
+              inputComponent={TextMaskForNumbers}
+              value={this.state.numero}              
+              onChange={this.handleChange('numero')}
+            />
+            {
+              (step.beforeNextStepError && this.state.numero === '') &&
+              <FormHelperText id="numero-error-text">Informe o número do seu endereço</FormHelperText>
             }
           </FormControl>
           <RegisterStepButton 

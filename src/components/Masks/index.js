@@ -92,3 +92,25 @@ export function TextMaskCEP(props) {
 TextMaskCEP.propTypes = {
   inputRef: PropTypes.func.isRequired,
 }
+
+export function TextMaskForNumbers(props) {
+  const { inputRef, ...other } = props;
+
+  return(
+    <MaskedInput 
+      {...other}
+      ref={inputRef}
+      mask={[/[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+
+
+
+
+      placeholderChar={'\u2000'}
+      showMask={false}
+    />
+  );
+};
+
+TextMaskForNumbers.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+};
