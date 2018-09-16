@@ -21,12 +21,6 @@ const initialState = {
       email: '',
       senha: '',
       confirmacaoSenha: '',
-      ativo: false,        
-    },
-    papel: {
-      empresa: '',
-      papel: '',
-      ativo: false,
     },
     contatos: {
       telefone: '',

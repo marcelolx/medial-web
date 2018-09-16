@@ -9,6 +9,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
+import { EMAIL_INVALIDO } from '../../../../../services/errors/messages';
 
 const styles = theme => ({
   root: {
@@ -105,7 +106,7 @@ class Usuario extends Component {
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={
-              (error.status === 'EMAIL_ALREADY_EXISTS') || 
+              (error.message === EMAIL_INVALIDO) || 
               (step.beforeNextStepError && this.state.email === '') ? true : false}
             aria-describedby="email-error-text"
           > 
@@ -118,8 +119,8 @@ class Usuario extends Component {
               value={this.state.email}
               onChange={this.handleChange('email')}
             />
-            {((error.status === 'EMAIL_ALREADY_EXISTS') || (step.beforeNextStepError && this.state.email === '')) &&
-              <FormHelperText id="email-error-text">{error.message || 'Preencha o email'}</FormHelperText>
+            {((error.message === EMAIL_INVALIDO) || (step.beforeNextStepError && this.state.email === '')) &&
+              <FormHelperText id="email-error-text">{error.adaptedMessage || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
           <FormControl

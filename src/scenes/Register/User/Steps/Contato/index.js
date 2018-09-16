@@ -44,6 +44,7 @@ class Contato extends Component {
       };
 
       this.props.actions.saveUserRegisterData(sendData);
+      this.props.actions.userRegister(this.props.registerUser);
     };
 
     this.props.actions.beforeNextStepError((blankInputs.length > 0));

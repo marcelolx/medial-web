@@ -1,11 +1,49 @@
-import { FILL_USER_DATA, CLEAR_REGISTER_DATA } from './actionTypes';
+import { FILL_USER_DATA, CLEAR_REGISTER_DATA, USER_REGISTER_COMPLETE } from './actionTypes';
+import { USER_REGISTER_FAIL } from '../../errors/actionTypes';
+import {instance as axios, instanceHeaderWithoutToken as axiosHeader} from '../../axios';
+
+function userRegisterComplete(response) {
+  console.log(response);
+  
+  return {
+    type: USER_REGISTER_COMPLETE,
+    payload: {},
+  };
+};
+
+function userRegisterError(error) {
+  const { status, message } = error;
+  console.log(status + ' ' + message); 
+
+  return {
+    type: USER_REGISTER_FAIL,
+    payload: {
+      status,
+      message,
+    }
+  }
+}
+
+export function userRegister(data) {
+  console.log('action: userRegister');
+
+  return function(dispatch) {
+    return axios.post('usuario/cadastrar', data.transacionador, {"headers" : axiosHeader})
+      .then(response => {
+        dispatch(userRegisterComplete(response));
+      })
+      .catch(err => {
+        dispatch(userRegisterError(err.response.data));
+      });
+  };
+};
 
 export function saveUserRegisterData(formData) {
   return {
     type: FILL_USER_DATA,
     payload: formData,
   }
-}
+};
 
 export function clearRegisterData() {
   const initialState = {
@@ -29,12 +67,6 @@ export function clearRegisterData() {
         email: '',
         senha: '',
         confirmacaoSenha: '',
-        ativo: false,        
-      },
-      papel: {
-        empresa: '',
-        papel: '',
-        ativo: false,
       },
       contatos: {
         telefone: '',
@@ -56,4 +88,4 @@ export function clearRegisterData() {
     type: CLEAR_REGISTER_DATA,
     payload: initialState,
   }
-}
+};
