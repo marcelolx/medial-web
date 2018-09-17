@@ -1,4 +1,4 @@
-import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL } from './actionTypes';
+import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL, CLEAR_ERRORS } from './actionTypes';
 import getAdaptedMessage from './messages';
 
 const initialState = {
@@ -20,6 +20,13 @@ export default function(state = initialState, action){
         message: action.payload.message,
         adaptedMessage: getAdaptedMessage(action.payload.message),
       });
+    case CLEAR_ERRORS: {
+      return Object.assign({}, state, {
+        status: '',
+        message: '',
+        adaptedMessage: '',
+      });
+    }
     default:
       return state;
   }

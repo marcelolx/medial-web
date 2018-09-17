@@ -67,10 +67,10 @@ class Endereco extends Component {
         pais: this.state.pais,
         estado: this.state.estado,
         cidade: this.state.cidade,
-        cep: this.state.cep,
+        cep: this.state.cep.replace(/\D/g, ''),
         bairro: this.state.bairro,
-        rua: this.state.bairro,
-        numero: this.state.numero,
+        rua: this.state.rua,
+        numero: this.state.numero.replace(/\s/g, ''),
       };
       
       this.props.actions.saveUserRegisterData(sendData);

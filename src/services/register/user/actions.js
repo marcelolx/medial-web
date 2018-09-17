@@ -12,7 +12,7 @@ function userRegisterComplete(response) {
 };
 
 function userRegisterError(error) {
-  const { status, message } = error;
+  const { status, message } = error.data; //Verificar se o objeto existe
   console.log(status + ' ' + message); 
 
   return {
@@ -33,7 +33,7 @@ export function userRegister(data) {
         dispatch(userRegisterComplete(response));
       })
       .catch(err => {
-        dispatch(userRegisterError(err.response.data));
+        dispatch(userRegisterError(err.response));
       });
   };
 };
@@ -55,14 +55,10 @@ export function clearRegisterData() {
       nomeMae: '',
       tipoTransacionador: 'F',
       dataNascimento: '1900-01-01',
-      dataCadastro: '',
-      dataManutencao: '',
-      dataExclusao: '',
       sexo: 'F',
       estadoCivil: '',
       escolaridade: '',
       ramoEmpresarial: '',
-      nivelAcesso: '',
       usuario: {
         email: '',
         senha: '',

@@ -5,6 +5,7 @@ import { withStyles, FormControl, FormHelperText, InputLabel, Input } from '@mat
 import { connect } from 'react-redux';
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
+import * as errorActions from '../../../../../services/errors/actions';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import { TextMaskPhone, TextMaskCellPhone } from '../../../../../components/Masks';
 
@@ -39,11 +40,13 @@ class Contato extends Component {
     if (blankInputs.length === 0) {
       const sendData = this.props.registerUser;
       sendData.transacionador.contatos = {
-        telefone: this.state.telefone,
-        celular: this.state.celular,
+        telefone: this.state.telefone.replace(/\D/g, ''),
+        celular: this.state.celular.replace(/\D/g, ''),
       };
 
+      console.log(sendData);      
       this.props.actions.saveUserRegisterData(sendData);
+      this.props.actions.clearErrors();
       this.props.actions.userRegister(this.props.registerUser);
     };
 
@@ -125,6 +128,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ 
     ...stepsActions, 
     ...registerUserActions,
+    ...errorActions,
   }, dispatch)
 });
 

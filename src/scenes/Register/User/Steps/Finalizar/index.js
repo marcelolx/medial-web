@@ -45,7 +45,7 @@ class Finalizar extends Component {
 
     return(
       <React.Fragment>
-        {(error.status !== '200') ?
+        {(error.status !== ('' && '200')) ?
           <Typography 
             variant="subheading"
             className={[classes.margin, classes.warning].join(' ')}
@@ -66,8 +66,9 @@ class Finalizar extends Component {
   render() {
     const { classes, error } = this.props;
     console.log('tá bug');
+    console.log(error);
     
-    if (error.status !== '200') {
+    if (error.status !== ('' && '200')) {
       setTimeout(
         function() {          
           this.props.actions.changeStep(0)

@@ -83,8 +83,8 @@ class Sobre extends Component {
     if (blankInputs.length === 0) {
       const sendData = this.props.registerUser;
       sendData.transacionador.nome = data.nome;
-      sendData.transacionador.documento1 = data.cpf_cnpj;
-      sendData.transacionador.documento2 = data.rg_ie;
+      sendData.transacionador.documento1 = data.cpf_cnpj.replace(/\D/g, '');
+      sendData.transacionador.documento2 = data.rg_ie.replace(/\D/g, '');
 
       if (sendData.transacionador.tipoTransacionador === 'F') {
         sendData.transacionador.dataNascimento = data.dataNascimento;
