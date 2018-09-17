@@ -41,22 +41,22 @@ class Finalizar extends Component {
   };
 
   handleMessage = () => {
-    const { classes, error } = this.props;
+    const { classes, registerComplete } = this.props;
 
     return(
       <React.Fragment>
-        {(error.status !== ('' && '200')) ?
+        {registerComplete.error ?
           <Typography 
             variant="subheading"
             className={[classes.margin, classes.warning].join(' ')}
           >
-            {error.adaptedMessage + '... Você será redirecionado para realizar os ajustes...'}
-          </Typography> :
+            {registerComplete.message + '... Você será redirecionado para realizar os ajustes...'}
+          </Typography> : 
           <Typography 
             variant="subheading"
             className={classes.margin}
           >
-            Aguarde...
+            {registerComplete.message || 'Aguarde...'}
           </Typography>
         }        
       </React.Fragment>     
@@ -64,15 +64,20 @@ class Finalizar extends Component {
   }
   
   render() {
-    const { classes, error } = this.props;
+    const { classes, registerComplete, onFinishRegisterUser } = this.props;
     console.log('tá bug');
-    console.log(error);
+    console.log(registerComplete);
     
-    if (error.status !== ('' && '200')) {
+    if (registerComplete.error) {
       setTimeout(
         function() {          
           this.props.actions.changeStep(0)
         }.bind(this), 5000);
+    } else if (registerComplete.complete) {
+      setTimeout(
+        function() {          
+          onFinishRegisterUser()
+        }, 5000);
     }
 
     return(
@@ -96,7 +101,7 @@ class Finalizar extends Component {
 
 const mapStateToProps = state => ({
   registerUser: state.registerUser,
-  error: state.error,
+  registerComplete: state.registerComplete,
 });
 
 const mapDispatchToProps = dispatch => ({

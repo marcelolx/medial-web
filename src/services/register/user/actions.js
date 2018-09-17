@@ -1,19 +1,20 @@
-import { FILL_USER_DATA, CLEAR_REGISTER_DATA, USER_REGISTER_COMPLETE } from './actionTypes';
+import { FILL_USER_DATA, CLEAR_REGISTER_DATA } from './actionTypes';
 import { USER_REGISTER_FAIL } from '../../errors/actionTypes';
 import {instance as axios, instanceHeaderWithoutToken as axiosHeader} from '../../axios';
+import { completeRegister, failRegister } from '../complete/action';
 
 function userRegisterComplete(response) {
   console.log(response);
-  
-  return {
-    type: USER_REGISTER_COMPLETE,
-    payload: {},
-  };
+
+  return function(dispatch) {
+    dispatch(clearRegisterData());
+    dispatch(completeRegister(response));
+  }  
 };
 
 function userRegisterError(error) {
   const { status, message } = error.data; //Verificar se o objeto existe
-  console.log(status + ' ' + message); 
+  console.log(status + ' ' + message);  
 
   return {
     type: USER_REGISTER_FAIL,
@@ -32,8 +33,9 @@ export function userRegister(data) {
       .then(response => {
         dispatch(userRegisterComplete(response));
       })
-      .catch(err => {
+      .catch(err => {        
         dispatch(userRegisterError(err.response));
+        dispatch(failRegister(err.response.data.message));
       });
   };
 };

@@ -6,6 +6,7 @@ import registerUserReducer from './register/user/reducer';
 import paisesReducer from './graphql/paises/reducer';
 import estadosReducer from './graphql/estados/reducer';
 import cidadesReducer from './graphql/cidades/reducer';
+import registerCompleteReducer from './register/complete/reducer';
 
 export default combineReducers({
   user: usersReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   paises: paisesReducer,
   estados: estadosReducer,
   cidades: cidadesReducer,
+  registerComplete: registerCompleteReducer,
 });
