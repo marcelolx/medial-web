@@ -9,7 +9,9 @@ import Visibility from '@material-ui/icons/Visibility';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
-import { EMAIL_INVALIDO } from '../../../../../services/errors/messages';
+import * as errorActions from '../../../../../services/errors/actions';
+import { EMAIL_INVALIDO, EMAIL_CADASTRADO, SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM } from '../../../../../services/register/user/messages';
+import handleFieldShowError from '../../../../../utils/validateFields';
 
 const styles = theme => ({
   root: {
@@ -68,19 +70,19 @@ class Usuario extends Component {
     })
   }
 
-  handleValidateFields = () => {     
-   // return true;   
+  handleValidateFields = () => {
     const data = {
       email: this.state.email,
       senha: this.state.senha,
       confirmacaoSenha: this.state.confirmacaoSenha,
       tipoTransacionador: this.state.personalidade,
     }
+    const senhaQuantidadeMinimaDigitos = (data.senha.length >= 8);
     const senhaConfirmada = data.senha === data.confirmacaoSenha;
 
     const blankInputs = Object.keys(data).filter(key => data[key] === '');
     
-    if ((blankInputs.length === 0) && (senhaConfirmada)) {
+    if ((blankInputs.length === 0) && senhaConfirmada && senhaQuantidadeMinimaDigitos) {
       const sendData = this.props.registerUser;
       sendData.transacionador.tipoTransacionador = data.tipoTransacionador;
       sendData.transacionador.usuario.email = data.email;
@@ -90,9 +92,15 @@ class Usuario extends Component {
 
       this.props.saveUserRegisterData(sendData);
     }
+
+    if (!senhaQuantidadeMinimaDigitos) {
+      this.props.digitosSenhaInsuficientes();
+    } else if (this.props.error === SENHA_EXIGE_8_DIGITOS) {
+      this.props.clearErrors();
+    }
     
-    this.props.beforeNextStepError(((blankInputs.length > 0) || (!senhaConfirmada)));
-    return ((blankInputs.length === 0) && senhaConfirmada);
+    this.props.beforeNextStepError(((blankInputs.length > 0) || !senhaConfirmada || !senhaQuantidadeMinimaDigitos));
+    return ((blankInputs.length === 0) && senhaConfirmada && senhaQuantidadeMinimaDigitos);
   }
 
   render() {   
@@ -105,9 +113,7 @@ class Usuario extends Component {
         <div className={classes.root}>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={
-              (error.message === EMAIL_INVALIDO) || 
-              (step.beforeNextStepError && this.state.email === '') ? true : false}
+            error={handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO])}
             aria-describedby="email-error-text"
           > 
             <InputLabel htmlFor="input-email">E-Mail</InputLabel>
@@ -119,13 +125,14 @@ class Usuario extends Component {
               value={this.state.email}
               onChange={this.handleChange('email')}
             />
-            {((error.message === EMAIL_INVALIDO) || (step.beforeNextStepError && this.state.email === '')) &&
+            {
+              handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO]) &&
               <FormHelperText id="email-error-text">{error.adaptedMessage || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={step.beforeNextStepError && this.state.senha === '' ? true : false}
+            error={handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS])}
             aria-describedby="password-error-text"
           >
             <InputLabel htmlFor="adornment-password">Senha</InputLabel>
@@ -146,14 +153,16 @@ class Usuario extends Component {
                 </InputAdornment>
               }
             />
-            {(step.beforeNextStepError && this.state.senha === '') &&
-              <FormHelperText id="password-error-text">Preencha a senha</FormHelperText>
+            {
+              (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS])) &&
+              <FormHelperText id="password-error-text">{error.adaptedMessage || 'Preencha a senha'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={(step.beforeNextStepError && 
-              ((this.state.confirmacaoSenha === '') || (this.state.confirmacaoSenha !== this.state.senha))) ? true : false}
+            error={
+              (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM]) ||
+              (step.beforeNextStepError && (this.state.confirmacaoSenha !== this.state.senha)))}
             aria-describedby="passwordConfirmation-error-text"
           >
             <InputLabel htmlFor="adornment-passwordConfirmation">Confirmar Senha</InputLabel>
@@ -174,9 +183,10 @@ class Usuario extends Component {
                 </InputAdornment>
               }
             />
-            {(step.beforeNextStepError && 
-              ((this.state.confirmacaoSenha === '') || (this.state.confirmacaoSenha !== this.state.senha))) &&
-              <FormHelperText id="passwordConfirmation-error-text">Confirme a senha</FormHelperText>
+            {
+              (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM]) ||
+              (step.beforeNextStepError && (this.state.confirmacaoSenha !== this.state.senha))) &&
+              <FormHelperText id="passwordConfirmation-error-text">{error.adaptedMessage || 'Confirme a senha'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -220,7 +230,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...stepsActions, ...registerUserActions }, dispatch);
+  bindActionCreators({ 
+    ...stepsActions, 
+    ...registerUserActions,
+    ...errorActions 
+  }, dispatch);
 
 export default compose(
   withStyles(styles),

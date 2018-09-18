@@ -70,7 +70,7 @@ class Finalizar extends Component {
     
     if (registerComplete.error) {
       setTimeout(
-        function() {          
+        function() {
           this.props.actions.changeStep(0)
         }.bind(this), 5000);
     } else if (registerComplete.complete) {
