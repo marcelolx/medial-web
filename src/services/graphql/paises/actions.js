@@ -1,5 +1,5 @@
 import { GET_COUNTRIES, GET_COUNTRIES_ERROR } from './actionTypes';
-import { instanceGraphQL as axiosGraphQL } from '../../axios';
+import { GraphQLAPI } from '../../API';
 
 const GET_COUNTRY = `
   {
@@ -34,7 +34,7 @@ export function getAllCountries() {
   console.log('action: getAllCountries');
   
   return function(dispatch) {
-    return axiosGraphQL.post('', { query: GET_COUNTRY})
+    return GraphQLAPI.post('', { query: GET_COUNTRY})
       .then(response => {
         dispatch(mapCountries(response.data.data.getCountry));        
       })

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import { login } from '../../services/users/actions';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -17,6 +16,9 @@ import Logo from '../../components/Root/Logo';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import queryString from 'query-string';
+import * as authActions from '../../services/admin/authentication/actions';
+import { LOGIN_ERROR } from '../../services/errors/actionTypes';
+
 
 const styles = theme => ({
   baseRoot: {
@@ -69,20 +71,17 @@ class Login extends Component {
   }
 
   redirectLogged() {
-    const { user, history } = this.props;
-    if (user.auth) {
+    const { auth, history } = this.props;
+
+    if (auth.isAuthenticated) {
       history.push('/');
     }
   }
 
   handleLogin = e => {
     const { email, password } = e.target;
-    const data = {
-      email: email.value,
-      senha: password.value,
-    }
 
-    this.props.login(data);
+    this.props.actions.login(email.value, password.value);
 
     e.preventDefault();
   }
@@ -118,7 +117,7 @@ class Login extends Component {
           <form onSubmit={this.handleLogin} className={classes.root}>
             <FormControl
               className={[classes.margin, classes.fill].join(' ')}
-              error={error.status === 'USER_NOT_FOUND' ? true : false}
+              error={(error.message === LOGIN_ERROR)}
               aria-describedby="email-error-text"
             >
               <InputLabel htmlFor="input-email">Email</InputLabel>
@@ -129,14 +128,15 @@ class Login extends Component {
                 value={this.state.email}
                 onChange={this.handleChange('email')}
               />
-              {error.status === 'USER_NOT_FOUND' &&
-                <FormHelperText id="email-error-text">{error.message}</FormHelperText>
+              {
+                (error.message === LOGIN_ERROR) &&
+                <FormHelperText id="email-error-text">{error.adaptedMessage}</FormHelperText>
               }
             </FormControl>
 
             <FormControl
               className={[classes.margin, classes.fill].join(' ')}
-              error={error.status === 'PASSWORD_INCORRECT' ? true : false}
+              error={(error.message === LOGIN_ERROR)}
               aria-describedby="password-error-text"
             >
               <InputLabel htmlFor="adornment-password">Senha</InputLabel>
@@ -157,8 +157,9 @@ class Login extends Component {
                   </InputAdornment>
                 }
               />
-              {error.status === 'PASSWORD_INCORRECT' &&
-                <FormHelperText id="password-error-text">{error.message}</FormHelperText>
+              {
+                (error.message === LOGIN_ERROR) &&
+                <FormHelperText id="email-error-text">{error.adaptedMessage}</FormHelperText>
               }
             </FormControl>
             <Button component={Link} to="/user/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
@@ -178,11 +179,17 @@ class Login extends Component {
 const MySwal = withReactContent(Swal)
 
 const mapStateToProps = state => ({
-  user: state.user.data,
+  auth: state.auth,
   error: state.error,
 })
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...authActions,
+  }, dispatch)
+});
+
 export default withRouter(compose(
   withStyles(styles),
-  connect(mapStateToProps, { login }),
+  connect(mapStateToProps, mapDispatchToProps),
 )(Login)); 

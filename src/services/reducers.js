@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import usersReducer from './users/reducer';
+import authReducer from './admin/authentication/reducer';
 import errorsReducer from './errors/reducer';
 import stepsReducer from './steps/reducer';
 import registerUserReducer from './register/user/reducer';
@@ -7,9 +7,10 @@ import paisesReducer from './graphql/paises/reducer';
 import estadosReducer from './graphql/estados/reducer';
 import cidadesReducer from './graphql/cidades/reducer';
 import registerCompleteReducer from './register/complete/reducer';
+import { reducer as permissions } from 'react-redux-permissions';
 
 export default combineReducers({
-  user: usersReducer,
+  auth: authReducer,
   error: errorsReducer,
   step: stepsReducer,
   registerUser: registerUserReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   estados: estadosReducer,
   cidades: cidadesReducer,
   registerComplete: registerCompleteReducer,
+  permissions: permissions,
 });

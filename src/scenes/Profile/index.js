@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -9,15 +9,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-import moment from 'moment';
+//import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { updateProfile } from '../../services/users/actions';
-import { logout } from '../../services/users/actions';
-import axios from '../../services/axios';
+import * as authActions from '../../services/admin/authentication/actions';
+import API from '../../services/API';
 
 const styles = theme => ({
   root: {
@@ -45,45 +44,45 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     
-    const { name, birthDate } = this.props.user;
+    //const { name, birthDate } = this.props.user;
     this.state = {
-      name, 
-      birthDate,
+      name: 'SEM NOME', 
+      birthDate: '',
       snackbarOpen: false,
     };
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user.updatedDate !== this.props.user.updatedDate) {
+    /*if (prevProps.user.updatedDate !== this.props.user.updatedDate) {
       this.setState({ snackbarOpen: true });
-    }
+    }*/
   }
 
   handleUpdate = e => {
-    const { user, updateProfile } = this.props;
-    const { name, birthDate } = e.target;
-    const formData = {
+    //const { user, updateProfile } = this.props;
+    //const { name, birthDate } = e.target;
+    /*const formData = {
       name: name.value,
       birthDate: birthDate.value,
       updatedDate: new Date(),
-    }
+    }*/
 
-    updateProfile(formData, user.token);
+    //updateProfile(formData, user.token);
 
     e.preventDefault();
   }
 
   handleDeleteAccount = () => {
-    const { user, logout } = this.props;
+    const { auth, logout } = this.props;
 
     var config = {
       headers: {
         'Accept':'',
-        'Authorization': user.token,
+        'Authorization': auth.token,
       }
     };
 
-    axios.delete('usuario/delete', config)
+    API.delete('usuario/delete', config)
     .then(response => {
       alert('Conta deletada com sucesso!');
       logout();
@@ -109,7 +108,7 @@ class Profile extends Component {
 
 
   render() {
-    const { classes, user } = this.props;
+    const { classes } = this.props;
 
     return (
       <React.Fragment>
@@ -133,7 +132,7 @@ class Profile extends Component {
               id="input-email"
               type="text"
               disabled={true}
-              value={user.email}
+              value={0/*user.email*/}
             />
           </FormControl>          
           <FormControl className={[classes.margin].join(' ')}>
@@ -156,7 +155,7 @@ class Profile extends Component {
               id="input-created-date"
               type="text"
               disabled={true}
-              value={moment(user.createdDate).format('MMMM Do YYYY, h:mm:ss a')}
+              //value={moment(user.createdDate).format('MMMM Do YYYY, h:mm:ss a')}
             />
           </FormControl>
           <FormControl className={[classes.margin].join(' ')}>
@@ -165,7 +164,7 @@ class Profile extends Component {
               id="input-updated-date"
               type="text"
               disabled={true}
-              value={moment(user.updatedDate).format('MMMM do YYYY, h:mm:ss a')}
+              //value={moment(user.updatedDate).format('MMMM do YYYY, h:mm:ss a')}
             />
           </FormControl>
           <Button type="submit" variant="raised" color="primary" className={classes.margin}>
@@ -204,10 +203,17 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.data,
+  auth: state.auth,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...authActions,
+  }, dispatch)
 });
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { updateProfile, logout }),
+  connect(mapStateToProps, mapDispatchToProps),
 )(Profile);

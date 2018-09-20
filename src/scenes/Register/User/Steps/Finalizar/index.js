@@ -65,12 +65,10 @@ class Finalizar extends Component {
   
   render() {
     const { classes, registerComplete, onFinishRegisterUser } = this.props;
-    console.log('tá bug');
-    console.log(registerComplete);
     
     if (registerComplete.error) {
       setTimeout(
-        function() {          
+        function() {
           this.props.actions.changeStep(0)
         }.bind(this), 5000);
     } else if (registerComplete.complete) {
