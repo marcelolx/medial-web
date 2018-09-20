@@ -11,6 +11,8 @@ import SearchSelect from '../../../../../components/Root/RegisterStep/SearchSele
 import * as paisesActions from '../../../../../services/graphql/paises/actions';
 import * as estadosActions from '../../../../../services/graphql/estados/actions';
 import * as cidadesActions from '../../../../../services/graphql/cidades/actions';
+import handleFieldShowError from '../../../../../utils/validateFields';
+import { PAIS_NAO_INFORMADO, ESTADO_NAO_INFORMADO, CIDADE_NAO_INFORMADA, CEP_NAO_INFORMADO, BAIRRO_NAO_INFORMADO, RUA_NAO_INFORMADA, NUMERO_NAO_INFORMADO } from '../../../../../services/register/user/messages';
 
 const styles = theme => ({
   root: {
@@ -129,8 +131,17 @@ class Endereco extends Component {
     }
   }
 
+  handleFieldListShowError = (props, field, storeField, typeErros) => {
+    const { error, step } = props;
+
+    return(
+      (step.beforeNextStepError && field.value === undefined) ||
+      ((storeField.list.length === 0) && (storeField.message !== null)) ||
+      (Object.keys(typeErros).filter(key => typeErros[key] === error.message).length > 0));
+  }
+
   render() {
-    const { classes, step, paises, estados, cidades } = this.props;
+    const { classes, error, paises, estados, cidades } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
     const getSteps = this.props.onGetSteps.bind(this);
     
@@ -139,10 +150,7 @@ class Endereco extends Component {
         <div className={classes.root}>          
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}            
-            error={
-              (((step.beforeNextStepError && this.state.pais.value === undefined) ? true : false) ||
-              (((paises.list.length === 0) && (paises.message !== null)) ? true : false))
-            }
+            error={this.handleFieldListShowError(this.props, this.state.pais, paises, [PAIS_NAO_INFORMADO])}
             aria-describedby="pais-error-text"
           >      
             <SearchSelect 
@@ -153,17 +161,13 @@ class Endereco extends Component {
               placeholder="País"            
             />
             { 
-              ((step.beforeNextStepError && this.state.pais.value === undefined) ||
-              ((paises.list.length === 0) && (paises.message !== null))) &&
+              this.handleFieldListShowError(this.props, this.state.pais, paises, [PAIS_NAO_INFORMADO]) &&
               <FormHelperText id="pais-error-text">{paises.message || 'Informe o País'}</FormHelperText>
             }
           </FormControl>          
           <FormControl            
             className={[classes.margin, classes.fill].join(' ')}            
-            error={
-              (((step.beforeNextStepError && this.state.estado.value === undefined) ? true : false) ||
-              (((estados.list.length === 0) && (estados.message !== null)) ? true : false))
-            }
+            error={this.handleFieldListShowError(this.props, this.state.estado, estados, [ESTADO_NAO_INFORMADO])}
             aria-describedby="estado-error-text"
           > 
             <SearchSelect 
@@ -174,17 +178,13 @@ class Endereco extends Component {
               placeholder="Estado"
             />
             {
-              (((step.beforeNextStepError && this.state.estado.value === undefined) ? true : false) ||
-              (((estados.list.length === 0) && (estados.message !== null)) ? true : false)) && 
-              <FormHelperText id="estado-error-text">Informe o Estado</FormHelperText>
+              this.handleFieldListShowError(this.props, this.state.estado, estados, [ESTADO_NAO_INFORMADO]) && 
+              <FormHelperText id="estado-error-text">{error.message || 'Informe o Estado'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={
-              (((step.beforeNextStepError && this.state.cidade.value === undefined) ? true : false) ||
-              (((cidades.list.length === 0) && (cidades.message !== null)) ? true : false))
-            }
+            error={this.handleFieldListShowError(this.props, this.state.cidade, cidades, [CIDADE_NAO_INFORMADA])}
             aria-describedby="cidade-error-text"
           >
             <SearchSelect 
@@ -195,14 +195,13 @@ class Endereco extends Component {
               placeholder="Cidade"
             />
             {
-              (((step.beforeNextStepError && this.state.cidade.value === undefined) ? true : false) ||
-              (((cidades.list.length === 0) && (cidades.message !== null)) ? true : false)) &&
-              <FormHelperText id="cidade-error-text">Informe a Cidade</FormHelperText>
+              this.handleFieldListShowError(this.props, this.state.cidade, cidades, [CIDADE_NAO_INFORMADA]) &&
+              <FormHelperText id="cidade-error-text">{error.message || 'Informe a Cidade'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={(step.beforeNextStepError && this.state.cep  === '') ? true : false}
+            error={handleFieldShowError(this.props, this.state.cep, [CEP_NAO_INFORMADO])}
             aria-describedby="cep-error-text"
           >
             <InputLabel htmlFor="input-cep">CEP</InputLabel>
@@ -215,13 +214,13 @@ class Endereco extends Component {
               onChange={this.handleChange('cep')}
             />
             {
-              (step.beforeNextStepError && this.state.cep === '') && 
-              <FormHelperText id="cep-error-text">Informe o CEP</FormHelperText>
+              handleFieldShowError(this.props, this.state.cep, [CEP_NAO_INFORMADO]) && 
+              <FormHelperText id="cep-error-text">{error.message || 'Informe o CEP'}</FormHelperText>
             }
           </FormControl>
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
-            error={(step.beforeNextStepError && this.state.bairro === '') ? true : false}
+            error={handleFieldShowError(this.props, this.state.bairro, [BAIRRO_NAO_INFORMADO])}
             aria-describedby="bairro-error-text"
           >
             <InputLabel htmlFor="input-bairro">Bairro</InputLabel>
@@ -233,13 +232,13 @@ class Endereco extends Component {
               onChange={this.handleChange('bairro')}
             />
             {
-              (step.beforeNextStepError && this.state.bairro === '') && 
-              <FormHelperText id="bairro-error-text">Informe o Bairro</FormHelperText>
+              handleFieldShowError(this.props, this.state.bairro, [BAIRRO_NAO_INFORMADO]) && 
+              <FormHelperText id="bairro-error-text">{error.message || 'Informe o Bairro'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={(step.beforeNextStepError && this.state.rua === '') ? true : false}
+            error={handleFieldShowError(this.props, this.state.rua, [RUA_NAO_INFORMADA])}
             aria-describedby="rua-error-text"
           >
             <InputLabel htmlFor="input-rua">Rua</InputLabel>
@@ -251,13 +250,13 @@ class Endereco extends Component {
               onChange={this.handleChange('rua')}
             />
             {
-              (step.beforeNextStepError && this.state.rua === '') &&
-              <FormHelperText id="rua-error-text">Informe a Rua</FormHelperText>
+              handleFieldShowError(this.props, this.state.rua, [RUA_NAO_INFORMADA]) &&
+              <FormHelperText id="rua-error-text">{error.message || 'Informe a Rua'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={(step.beforeNextStepError && this.state.numero === '') ? true : false}
+            error={handleFieldShowError(this.props, this.state.numero, [NUMERO_NAO_INFORMADO])}
             aria-describedby="numero-error-text"
           >
             <InputLabel htmlFor="input-numero">Número</InputLabel>
@@ -270,8 +269,8 @@ class Endereco extends Component {
               onChange={this.handleChange('numero')}
             />
             {
-              (step.beforeNextStepError && this.state.numero === '') &&
-              <FormHelperText id="numero-error-text">Informe o número do seu endereço</FormHelperText>
+              handleFieldShowError(this.props, this.state.numero, [NUMERO_NAO_INFORMADO]) &&
+              <FormHelperText id="numero-error-text">{error.message || 'Informe o número do seu endereço'}</FormHelperText>
             }
           </FormControl>
           <RegisterStepButton 
@@ -288,6 +287,7 @@ class Endereco extends Component {
 const mapStateToProps = state => ({
   registerUser: state.registerUser,
   step: state.step,
+  error: state.error,
   paises: state.paises,
   estados: state.estados,
   cidades: state.cidades,
