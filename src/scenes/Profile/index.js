@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-import moment from 'moment';
+//import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -60,12 +60,12 @@ class Profile extends Component {
 
   handleUpdate = e => {
     //const { user, updateProfile } = this.props;
-    const { name, birthDate } = e.target;
-    const formData = {
+    //const { name, birthDate } = e.target;
+    /*const formData = {
       name: name.value,
       birthDate: birthDate.value,
       updatedDate: new Date(),
-    }
+    }*/
 
     //updateProfile(formData, user.token);
 

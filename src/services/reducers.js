@@ -7,6 +7,7 @@ import paisesReducer from './graphql/paises/reducer';
 import estadosReducer from './graphql/estados/reducer';
 import cidadesReducer from './graphql/cidades/reducer';
 import registerCompleteReducer from './register/complete/reducer';
+import { reducer as permissions } from 'react-redux-permissions';
 
 export default combineReducers({
   auth: authReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   estados: estadosReducer,
   cidades: cidadesReducer,
   registerComplete: registerCompleteReducer,
+  permissions: permissions,
 });
