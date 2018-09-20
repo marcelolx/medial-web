@@ -1,5 +1,5 @@
 import { REGISTER_COMPLETE, REGISTER_FAIL } from './actionTypes';
-import getAdaptedMessage from '../../errors/messages';
+import getAdaptedMessage from '../user/messages';
 
 const initialState = {
   complete: false,

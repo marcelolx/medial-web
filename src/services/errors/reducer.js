@@ -1,5 +1,5 @@
 import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL, CLEAR_ERRORS } from './actionTypes';
-import getAdaptedMessage from './messages';
+import getAdaptedMessage, { SENHA_EXIGE_8_DIGITOS } from '../register/user/messages';
 
 const initialState = {
   status: '',
@@ -19,14 +19,19 @@ export default function(state = initialState, action){
         status: action.payload.status,
         message: action.payload.message,
         adaptedMessage: getAdaptedMessage(action.payload.message),
-      });
-    case CLEAR_ERRORS: {
+      });    
+    case CLEAR_ERRORS: 
       return Object.assign({}, state, {
         status: '',
         message: '',
         adaptedMessage: '',
       });
-    }
+    case SENHA_EXIGE_8_DIGITOS: 
+      return Object.assign({}, state, {
+        status: '',
+        message: SENHA_EXIGE_8_DIGITOS,
+        adaptedMessage: getAdaptedMessage(SENHA_EXIGE_8_DIGITOS),
+      });
     default:
       return state;
   }

@@ -8,6 +8,8 @@ import * as registerUserActions from '../../../../../services/register/user/acti
 import * as errorActions from '../../../../../services/errors/actions';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import { TextMaskPhone, TextMaskCellPhone } from '../../../../../components/Masks';
+import handleFieldShowError from '../../../../../utils/validateFields';
+import { TELEFONE_NAO_INFORMADO, CELULAR_NAO_INFORMADO } from '../../../../../services/register/user/messages';
 
 const styles = theme => ({
   root: {
@@ -54,16 +56,12 @@ class Contato extends Component {
     return (blankInputs.length === 0);
   };
 
-  handleFieldShowError = (field) => {
-    return (this.props.step.beforeNextStepError && field === '');
-  }
-
   handleChange = prop => event => {    
     this.setState({ [prop]: event.target.value });
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, error } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
     const getSteps = this.props.onGetSteps.bind(this);
     
@@ -72,7 +70,7 @@ class Contato extends Component {
         <div className={classes.root}>
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
-            error={this.handleFieldShowError(this.state.telefone)} 
+            error={handleFieldShowError(this.props, this.state.telefone, [TELEFONE_NAO_INFORMADO])} 
             aria-describedby="telefone-error-text"
           >
             <InputLabel htmlFor="input-telefone">Telefone</InputLabel>
@@ -85,13 +83,13 @@ class Contato extends Component {
               onChange={this.handleChange('telefone')}
             />
             {
-              this.handleFieldShowError(this.state.telefone) &&
-              <FormHelperText id="telefone-error-text">Informe o telefone</FormHelperText>
+              handleFieldShowError(this.props, this.state.telefone, [TELEFONE_NAO_INFORMADO]) &&
+              <FormHelperText id="telefone-error-text">{error.message || 'Informe o telefone'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={this.handleFieldShowError(this.state.celular)}
+            error={handleFieldShowError(this.props, this.state.celular, [CELULAR_NAO_INFORMADO])}
             aria-describedby="celular-error-text"
           >
             <InputLabel htmlFor="input-celular">Celular</InputLabel>
@@ -104,7 +102,7 @@ class Contato extends Component {
               onChange={this.handleChange('celular')}
             />
             {
-              this.handleFieldShowError(this.state.celular) &&
+              handleFieldShowError(this.props, this.state.celular, [CELULAR_NAO_INFORMADO]) &&
               <FormHelperText id="celular-error-text">Informe o celular</FormHelperText>
             }
           </FormControl>
@@ -122,6 +120,7 @@ class Contato extends Component {
 const mapStateToProps = state => ({
   registerUser: state.registerUser,
   step: state.step,
+  error: state.error,
 });
 
 const mapDispatchToProps = dispatch => ({

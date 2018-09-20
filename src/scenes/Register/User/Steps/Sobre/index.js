@@ -7,6 +7,8 @@ import RegisterStepButton from '../../../../../components/Root/RegisterStep/Butt
 import { TextMaskCPF, TextMaskCNPJ } from '../../../../../components/Masks'
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
+import handleFieldShowError from '../../../../../utils/validateFields';
+import { NOME_NAO_INFORMADO, CPF_INVALIDO, CPF_CNPJ_CADASTRADO, RG_IE_NAO_INFORMADO, DATA_IGUAL_DATA_ATUAL, NOME_MAE_NAO_INFORMADO, ESTADO_CIVIL_NAO_INFORMADO, ESCOLARIDADE_NAO_INFORMADA, FANTASIA_NAO_INFORMADO, CNPJ_INFORMADO_INVALIDO, RAMO_EMPRESARIAL_NAO_INFORMADO } from '../../../../../services/register/user/messages';
 
 const styles = theme => ({
   root: {
@@ -112,7 +114,7 @@ class Sobre extends Component {
   }
 
   pessoaFisica = props => {
-    const { classes, error, step } = props;
+    const { classes, error } = props;
 
     const estadosCivis = [
       {
@@ -196,7 +198,7 @@ class Sobre extends Component {
       <React.Fragment>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.nome === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO])}
           aria-describedby="name-error-text"            
         >
           <InputLabel htmlFor="input-nome">Nome Completo</InputLabel>
@@ -209,15 +211,13 @@ class Sobre extends Component {
             onChange={this.handleChange('nome')}
           />
           {
-            (step.beforeNextStepError && this.state.nome === '') &&
+            handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO]) &&
             <FormHelperText id="name-error-text">Preencha seu nome completo</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={
-            ((error.status === 'CPF_JA_CADASTRADO') ||
-             (step.beforeNextStepError && this.state.cpf_cnpj === '')) ? true : false}
+          error={handleFieldShowError(this.props, this.state.cpf_cnpj, [CPF_INVALIDO, CPF_CNPJ_CADASTRADO])}
           aria-describedby="cpf-error-text"
         >
           <InputLabel htmlFor="input-cpf">CPF</InputLabel>
@@ -230,14 +230,13 @@ class Sobre extends Component {
             onChange={this.handleChange('cpf_cnpj')}
           />
           {
-            ((error.status === "CPF_JA_CADASTRADO") || 
-              (step.beforeNextStepError && this.state.cpf_cnpj === '')) &&
-              <FormHelperText id="cpf-error-text">{error.message || 'Preencha o CPF'}</FormHelperText>
+            handleFieldShowError(this.props, this.state.cpf_cnpj, [CPF_INVALIDO, CPF_CNPJ_CADASTRADO]) &&
+            <FormHelperText id="cpf-error-text">{error.adaptedMessage || 'Preencha o CPF'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.rg_ie === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO])}
           aria-describedby="rg-error-text"
         >
           <InputLabel htmlFor="input-rg">RG</InputLabel>
@@ -249,13 +248,13 @@ class Sobre extends Component {
             onChange={this.handleChange('rg_ie')}
           />
           {
-            (step.beforeNextStepError && this.state.rg_ie === '') &&
-            <FormHelperText id="rg-error-text">Preencha o RG</FormHelperText>
+            handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
+            <FormHelperText id="rg-error-text">{error.adaptedMessage || 'Preencha o RG'}</FormHelperText>
           }
         </FormControl>
         <FormControl 
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.dataNascimento === '1900-01-01') ? true : false}
+          error={handleFieldShowError(this.props, this.state.dataNascimento, [DATA_IGUAL_DATA_ATUAL], '1900-01-01')}
           aria-describedby="birthday-error-text"
         >            
           <TextField 
@@ -269,13 +268,13 @@ class Sobre extends Component {
             }}
           />
           {
-            (step.beforeNextStepError && this.state.dataNascimento === '1900-01-01') &&
-            <FormHelperText id="birthday-error-text">Preencha a data de nascimento</FormHelperText>
+            handleFieldShowError(this.props, this.state.dataNascimento, [DATA_IGUAL_DATA_ATUAL], '1900-01-01') &&
+            <FormHelperText id="birthday-error-text">{error.adaptedMessage || 'Preencha a data de nascimento'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.nomeMae === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.nomeMae, [NOME_MAE_NAO_INFORMADO])}
           aria-describedby="mother-error-text"
         >
           <InputLabel htmlFor="input-nomemae">Nome da mãe</InputLabel>
@@ -287,8 +286,8 @@ class Sobre extends Component {
             onChange={this.handleChange('nomeMae')}
           />
           {
-            (step.beforeNextStepError && this.state.nomeMae === '') &&
-            <FormHelperText id="mother-error-text">Preencha o nome da mãe</FormHelperText>
+            handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
+            <FormHelperText id="mother-error-text">{error.adaptedMessage || 'Preencha o nome da mãe'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -316,7 +315,7 @@ class Sobre extends Component {
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')} 
-          error={(step.beforeNextStepError && this.state.estadoCivil === '') ? true : false}           
+          error={handleFieldShowError(this.props, this.state.estadoCivil, [ESTADO_CIVIL_NAO_INFORMADO])}
           aria-describedby="estadocivil-error-text"
         >
           <TextField
@@ -340,13 +339,13 @@ class Sobre extends Component {
             ))}
           </TextField>
           {
-            (step.beforeNextStepError && this.state.estadoCivil === '') &&
-            <FormHelperText id="estadocivil-error-text">Selecione seu estado civil</FormHelperText>
+            handleFieldShowError(this.props, this.state.estadoCivil, [ESTADO_CIVIL_NAO_INFORMADO]) &&
+            <FormHelperText id="estadocivil-error-text">{error.adaptedMessage || 'Selecione seu estado civil'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.escolaridade === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.escolaridade, [ESCOLARIDADE_NAO_INFORMADA])}
           aria-describedby="escolaridade-error-text"
         >
           <TextField
@@ -370,8 +369,8 @@ class Sobre extends Component {
             ))}
           </TextField>
           {
-            (step.beforeNextStepError && this.state.escolaridade === '') &&
-            <FormHelperText id="escolaridade-error-text">Selecione sua escolaridade</FormHelperText>
+            handleFieldShowError(this.props, this.state.escolaridade, [ESCOLARIDADE_NAO_INFORMADA]) &&
+            <FormHelperText id="escolaridade-error-text">{error.adaptedMessage || 'Selecione sua escolaridade'}</FormHelperText>
           }
         </FormControl>
       </React.Fragment>
@@ -379,7 +378,7 @@ class Sobre extends Component {
   }
 
   pessoaJuridica = props => {
-    const { classes, error, step } = props;
+    const { classes, error } = props;
     
     const ramosEmpresariais = [
       {
@@ -408,7 +407,7 @@ class Sobre extends Component {
       <React.Fragment>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.nome === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO])}
           aria-describedby="razao-social-error-text"
         >
           <InputLabel htmlFor="input-razao-social">Razão Social</InputLabel>
@@ -421,13 +420,13 @@ class Sobre extends Component {
             onChange={this.handleChange('nome')}            
           />
           {
-            (step.beforeNextStepError && this.state.nome === '') &&
-            <FormHelperText id="razao-socail-error-text">Informe a razão social da empresa</FormHelperText>
+            handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO]) &&
+            <FormHelperText id="razao-socail-error-text">{error.adaptedMessage || 'Informe a razão social da empresa'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.fantasia === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.fantasia, [FANTASIA_NAO_INFORMADO])}
           aria-describedby="fantasia-error-text"
         >
           <InputLabel htmlFor="input-fantasia">Nome Fantasia</InputLabel>
@@ -440,15 +439,13 @@ class Sobre extends Component {
             onChange={this.handleChange('fantasia')}
           />
           {
-            (step.beforeNextStepError && this.state.fantasia === '') &&
-            <FormHelperText id="fantasia-error-text">Informe o nome fantasia da empresa</FormHelperText>
+            handleFieldShowError(this.props, this.state.fantasia, [FANTASIA_NAO_INFORMADO]) &&
+            <FormHelperText id="fantasia-error-text">{error.fantasia || 'Informe o nome fantasia da empresa'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error= {
-            ((error.status === 'CNPJ_JA_CADASTRADO') ||
-             (step.beforeNextStepError && this.state.cpf_cnpj === '')) ? true : false}
+          error= {handleFieldShowError(this.props, this.state.cpf_cnpj, [CNPJ_INFORMADO_INVALIDO, CPF_CNPJ_CADASTRADO])}
           aria-describedby="cnpj-error-text"
         >
           <InputLabel htmlFor="input-cnpj">CNPJ</InputLabel>
@@ -460,15 +457,13 @@ class Sobre extends Component {
             value={this.state.cpf_cnpj}
             onChange={this.handleChange('cpf_cnpj')}            
           />
-          {
-            ((error.status === 'CNPJ_JA_CADASTRADO') || 
-            (step.beforeNextStepError && this.state.cpf_cnpj === '')) &&
-            <FormHelperText id="cnpj-error-text">{error.message || 'Informe o CNPJ'}</FormHelperText>
+          {handleFieldShowError(this.props, this.state.cpf_cnpj, [CNPJ_INFORMADO_INVALIDO, CPF_CNPJ_CADASTRADO]) &&
+            <FormHelperText id="cnpj-error-text">{error.adaptedMessage || 'Informe o CNPJ'}</FormHelperText>
           }        
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
-          error={(step.beforeNextStepError && this.state.rg_ie === '') ? true : false}
+          error={handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO])}
           aria-describedby="ie-error-text"
         >
           <InputLabel htmlFor="ie-input">Inscrição Estadual</InputLabel>
@@ -480,13 +475,13 @@ class Sobre extends Component {
             onChange={this.handleChange('rg_ie')}
           />
           {
-            (step.beforeNextStepError && this.state.rg_ie === '') &&
-            <FormHelperText id="ie-error-text">Informe a Inscrição Estadual</FormHelperText>
+            handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
+            <FormHelperText id="ie-error-text">{error.adaptedMessage || 'Informe a Inscrição Estadual'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')} 
-          error={(step.beforeNextStepError && this.state.ramoEmpresarial === '') ? true : false}           
+          error={handleFieldShowError(this.props, this.state.ramoEmpresarial, [RAMO_EMPRESARIAL_NAO_INFORMADO])}           
           aria-describedby="ramoempresarial-error-text"
         >
           <TextField
@@ -510,8 +505,8 @@ class Sobre extends Component {
             ))}
           </TextField>
           {
-            (step.beforeNextStepError && this.state.ramoEmpresarial === '') &&
-            <FormHelperText id="ramoempresarial-error-text">Selecione o ramo empresarial da empresa</FormHelperText>
+            handleFieldShowError(this.props, this.state.ramoEmpresarial, [RAMO_EMPRESARIAL_NAO_INFORMADO]) &&
+            <FormHelperText id="ramoempresarial-error-text">{error.adaptedMessage || 'Selecione o ramo empresarial da empresa'}</FormHelperText>
           }
         </FormControl>
       </React.Fragment>
@@ -530,8 +525,7 @@ class Sobre extends Component {
     const { classes } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
     const getSteps = this.props.onGetSteps.bind(this);
-      
-    //registerUser.transacionador.tipoTransacionador = 'F'
+    
     return(
       <React.Fragment>
         <div className={classes.root}>
