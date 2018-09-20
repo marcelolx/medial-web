@@ -68,6 +68,16 @@ export const login = formData => dispatch => {
     .catch(err => console.log(err));
 }
 
+export const validarConfirmacao = formData => dispatch => {
+  axios.post('/usuario/validar', formData)
+    .then(response => {
+    })
+    .catch(err => {
+     
+    });
+}
+
+
 export const updateProfile = (formData, token) => dispatch => {
   const config = {
     headers: {

@@ -14,7 +14,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Logo from '../../components/Root/Logo';
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
+import queryString from 'query-string';
 
 const styles = theme => ({
   baseRoot: {
@@ -44,6 +46,11 @@ class Login extends Component {
   };
 
   componentDidMount() {
+
+    if( this.props.location.search !== null && this.props.location.search !== ""){
+        this.validarAtivacao(this.props.location.search);
+        //TODO
+    }
     this.redirectLogged();
   }
 
@@ -51,9 +58,18 @@ class Login extends Component {
     this.redirectLogged();
   }
 
+  validarAtivacao(valor){
+    let parametros =  queryString.parse(valor);
+
+    console.log(parametros.user);
+    console.log(parametros.validacao);
+    debugger
+    if(parametros.user !== null &&  parametros.validacao !== undefined && parametros.validacao !== null)
+       this.sucessoCadastro();
+  }
+
   redirectLogged() {
     const { user, history } = this.props;
-
     if (user.auth) {
       history.push('/');
     }
@@ -82,6 +98,16 @@ class Login extends Component {
       });
     })
   }
+
+  sucessoCadastro() { 
+      MySwal.fire({
+        title: <p>Cadastro realizado com sucesso!</p>,
+        type: 'success',
+        timer: 3000,
+        showConfirmButton: true,
+    }).then(() => {
+  })}
+
 
   render() {
     const { classes, error } = this.props;
@@ -147,6 +173,9 @@ class Login extends Component {
     );
   }
 }
+
+
+const MySwal = withReactContent(Swal)
 
 const mapStateToProps = state => ({
   user: state.user.data,
