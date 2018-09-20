@@ -24,10 +24,10 @@ const styles = theme => ({
 
 class Main extends Component {
   render() {
-    const { classes, children, user } = this.props;
+    const { classes, children, auth } = this.props;
 
     return (
-      <main className={[classes.content, 'content', user.auth ? classes.logged : classes.notLogged].join(' ')}>
+      <main className={[classes.content, 'content', auth.isAuthenticated ? classes.logged : classes.notLogged].join(' ')}>
         <div className={[classes.toolbar, 'content-toolbar'].join(' ')} />
         {children}
       </main>
@@ -40,7 +40,7 @@ Main.prototypes = {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.data,
+  auth: state.auth,
 });
 
 export default withRouter(compose(

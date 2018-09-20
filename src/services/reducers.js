@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import usersReducer from './users/reducer';
+import authReducer from './admin/authentication/reducer';
 import errorsReducer from './errors/reducer';
 import stepsReducer from './steps/reducer';
 import registerUserReducer from './register/user/reducer';
@@ -9,7 +9,7 @@ import cidadesReducer from './graphql/cidades/reducer';
 import registerCompleteReducer from './register/complete/reducer';
 
 export default combineReducers({
-  user: usersReducer,
+  auth: authReducer,
   error: errorsReducer,
   step: stepsReducer,
   registerUser: registerUserReducer,

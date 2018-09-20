@@ -23,11 +23,11 @@ const styles = theme => ({
 class Root extends Component {
   
   render() {
-    const { classes, user } = this.props;
+    const { classes, auth } = this.props;
 
     return (
       <div className={classes.root}>
-        {user.auth &&
+        {auth.isAuthenticated &&
           <React.Fragment>
             <AppBar />
             <SideNav />
@@ -43,11 +43,11 @@ class Root extends Component {
 
 Root.proptypes = {
   classes: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-  user: state.user.data,
+  auth: state.auth,
 });
 
 export default withRouter(compose(

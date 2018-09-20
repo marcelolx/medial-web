@@ -1,0 +1,2 @@
+export const LOGIN_COMPLETE = 'LOGIN_COMPLETE';
+export const LOGOUT_COMPLETE = 'LOGOUT_COMPLETE';
