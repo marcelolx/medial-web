@@ -63,9 +63,7 @@ class Login extends Component {
   validarAtivacao(valor){
     let parametros =  queryString.parse(valor);
 
-    console.log(parametros.user);
-    console.log(parametros.validacao);
-    debugger
+    this.props.actions.validacaoEmail(parametros)
     if(parametros.user !== null &&  parametros.validacao !== undefined && parametros.validacao !== null)
        this.sucessoCadastro();
   }

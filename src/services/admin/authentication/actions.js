@@ -16,6 +16,20 @@ export function login(email, password) {
   }
 }
 
+export function validacaoEmail(data) {
+  return function(dispatch) {
+    return API.post('/usuario/validar', data)
+      .then(response => {
+        dispatch(setUserPermissions(response.data));
+        dispatch(loginComplete(response.data))
+      })
+      .catch(err => {
+        dispatch(loginError(err))
+      })
+  }
+}
+
+
 function loginComplete(response) {
   console.log('loginComplete');
   console.log(response);
