@@ -8,15 +8,12 @@ import IfAllGranted from '../../components/Permissions/IfAllGranted';
 
 class Home extends Component {
   render() {
-    console.log('Home');
-    console.log(this.props);  
-
     return (
       <React.Fragment>
         <IfGranted expected={99} actual={this.props.auth.accessLevel}>
           Teste  IfGranted               1 Massa!
         </IfGranted>
-        <IfAnyGranted expected={[1,4,99]} actual={this.props.auth.accessLevel}>          
+        <IfAnyGranted expected={[1,4,99]} actual={this.props.auth.accessLevel}>
           Teste   IfAnyGranted           1 Massa!!         
         </IfAnyGranted>
         <IfAllGranted expected={[99]} actual={this.props.auth.accessLevel}>
