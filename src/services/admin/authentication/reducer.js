@@ -17,15 +17,15 @@ export default function(state = initialState, action) {
         accessLevel: action.payload.nivelAcesso,
         isAuthenticated: true,
         message: null,
-      })
-    case LOGOUT_COMPLETE: 
+      });
+      case LOGOUT_COMPLETE: 
       return Object.assign({}, state, {
         token: null,
         id: null,
         accessLevel: null,
         isAuthenticated: false,
-        message: 'Logout efetuado com sucesso',
-      })
+        message: '',
+      }); 
     default:
       return state
   }

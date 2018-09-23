@@ -37,7 +37,7 @@ export default function(state = initialState, action){
         status: '',
         message: LOGIN_ERROR,
         adaptedMessage: 'Usuário ou senha inválidos',
-      })
+      });
     default:
       return state;
   }

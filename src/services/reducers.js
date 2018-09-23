@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import authReducer from './admin/authentication/reducer';
+import emailValidacaoReducer from './admin/emailValid/reducer';
 import errorsReducer from './errors/reducer';
 import stepsReducer from './steps/reducer';
 import registerUserReducer from './register/user/reducer';
@@ -19,4 +20,5 @@ export default combineReducers({
   cidades: cidadesReducer,
   registerComplete: registerCompleteReducer,
   permissions: permissions,
+  emailValidacao: emailValidacaoReducer
 });
