@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-export const instance = axios.create({
+export const API = axios.create({
   baseURL: 'http://localhost:8080/api/',
 });
 
-export const instanceHeaderWithoutToken = {
+export const APIHeaderWithoutToken = {
   'Content-Type': 'application/json',
 };
 
-export const instanceGraphQL = axios.create({
+export const GraphQLAPI = axios.create({
   baseURL: 'http://localhost:8080/api/graphql',
 });
 
-export default instance;
+export default API;

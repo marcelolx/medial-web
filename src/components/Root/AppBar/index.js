@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -22,7 +22,7 @@ import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { logout } from '../../../services/users/actions';
+import * as authActions from '../../../services/admin/authentication/actions';
 
 const styles = theme => ({
   appBar: {
@@ -42,7 +42,7 @@ class _AppBar extends Component {
 
   handleLogout = () => {
     this.handleMenuClose();
-    this.props.logout();
+    this.props.actions.logout();
   }
 
   handleMenu = event => {
@@ -145,11 +145,13 @@ _AppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  user: state.user.data,
-})
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...authActions,
+  }, dispatch)
+});
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { logout }),
+  connect(null, mapDispatchToProps),
 )(_AppBar);

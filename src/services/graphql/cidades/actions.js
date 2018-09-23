@@ -1,5 +1,5 @@
 import { GET_CITIES, GET_CITIES_ERROR, CLEAR_CITIES } from './actionType';
-import { instanceGraphQL as axiosGraphQL } from '../../../services/axios';
+import { GraphQLAPI } from '../../../services/API';
 
 function mapCities(state, cities){
   const _cities = cities
@@ -38,7 +38,7 @@ export function getStateCities(state){
   `;
 
   return function(dispatch) {
-    return axiosGraphQL.post('', { query: GET_CITY })
+    return GraphQLAPI.post('', { query: GET_CITY })
       .then(response => {
         dispatch(mapCities(state, response.data.data.getCities));
       })

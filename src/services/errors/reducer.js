@@ -1,4 +1,4 @@
-import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL, CLEAR_ERRORS } from './actionTypes';
+import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL, CLEAR_ERRORS, LOGIN_ERROR } from './actionTypes';
 import getAdaptedMessage, { SENHA_EXIGE_8_DIGITOS } from '../register/user/messages';
 
 const initialState = {
@@ -31,6 +31,12 @@ export default function(state = initialState, action){
         status: '',
         message: SENHA_EXIGE_8_DIGITOS,
         adaptedMessage: getAdaptedMessage(SENHA_EXIGE_8_DIGITOS),
+      });
+    case LOGIN_ERROR: 
+      return Object.assign({}, state, {
+        status: '',
+        message: LOGIN_ERROR,
+        adaptedMessage: 'Usuário ou senha inválidos',
       });
     default:
       return state;

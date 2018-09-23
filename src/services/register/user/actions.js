@@ -1,6 +1,6 @@
 import { FILL_USER_DATA, CLEAR_REGISTER_DATA } from './actionTypes';
 import { USER_REGISTER_FAIL } from '../../errors/actionTypes';
-import {instance as axios, instanceHeaderWithoutToken as axiosHeader} from '../../axios';
+import API, { APIHeaderWithoutToken } from '../../API';
 import { completeRegister, failRegister } from '../complete/action';
 
 function userRegisterComplete(response) {
@@ -29,7 +29,7 @@ export function userRegister(data) {
   console.log('action: userRegister');
 
   return function(dispatch) {
-    return axios.post('usuario/cadastrar', data.transacionador, {"headers" : axiosHeader})
+    return API.post('usuario/cadastrar', data.transacionador, {"headers" : APIHeaderWithoutToken})
       .then(response => {
         dispatch(userRegisterComplete(response));
       })

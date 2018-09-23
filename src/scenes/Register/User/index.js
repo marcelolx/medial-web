@@ -15,11 +15,7 @@ import * as stepsActions from '../../../services/steps/actions';
 
 const styles = theme => ({ 
   root: {
-    maxWidth: '60%',    
-    marginTop: '0%',
-    marginBottom: '10%',
-    marginRight: '25%',
-    marginLeft: '25%',    
+    textAlign: 'center',
   },
   instructions: {
     marginTop: theme.spacing.unit,
