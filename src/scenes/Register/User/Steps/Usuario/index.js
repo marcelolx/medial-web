@@ -95,7 +95,7 @@ class Usuario extends Component {
 
     if (!senhaQuantidadeMinimaDigitos) {
       this.props.digitosSenhaInsuficientes();
-    } else if (this.props.error === SENHA_EXIGE_8_DIGITOS) {
+    } else if (this.props.error.message === SENHA_EXIGE_8_DIGITOS) {
       this.props.clearErrors();
     }
     
@@ -113,7 +113,7 @@ class Usuario extends Component {
         <div className={classes.root}>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
-            error={handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO])}
+            error={handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO], '', [SENHA_EXIGE_8_DIGITOS])}
             aria-describedby="email-error-text"
           > 
             <InputLabel htmlFor="input-email">E-Mail</InputLabel>
@@ -126,7 +126,7 @@ class Usuario extends Component {
               onChange={this.handleChange('email')}
             />
             {
-              handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO]) &&
+              handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO], '', [SENHA_EXIGE_8_DIGITOS]) &&
               <FormHelperText id="email-error-text">{error.adaptedMessage || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
