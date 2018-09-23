@@ -54,18 +54,7 @@ class RegisterUser extends Component {
     this.props.clearRegisterData();  
     this.props.history.push('/login');
   }
-
-  handleFinishStepContent = () => {
-    const { classes } = this.props;
-
-    return (
-      <React.Fragment>
-        <Typography className={classes.instructions}>Cadastro concluído</Typography>
-        <Button onClick={this.handleLoginPage} className={classes.margin}>Continuar</Button>
-      </React.Fragment>
-    );
-  }
-
+  
   render() {
     const { classes } = this.props;
     
