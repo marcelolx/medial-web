@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Logo from '../../../components/Root/Logo';
 import RegisterStep from '../../../components/Root/RegisterStep';
-import { Typography, Button, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
-import Usuario from '../User/Steps/Usuario';
-import Sobre from '../User/Steps/Sobre';
-import Endereco from '../User/Steps/Endereco';
-import Contato from '../User/Steps/Contato';
-import Finalizar from '../User/Steps/Finalizar';
+import Usuario from './Steps/Usuario';
+import Sobre from './Steps/Sobre';
+import Endereco from './Steps/Endereco';
+import Contato from './Steps/Contato';
+import Finalizar from './Steps/Finalizar';
 import * as registerUserActions from '../../../services/register/user/actions';
 import * as stepsActions from '../../../services/steps/actions';
 
@@ -54,7 +54,7 @@ class RegisterUser extends Component {
     this.props.clearRegisterData();  
     this.props.history.push('/login');
   }
-  
+
   render() {
     const { classes } = this.props;
     
