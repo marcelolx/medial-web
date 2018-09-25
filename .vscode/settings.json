@@ -1,4 +1,8 @@
 {
+  "git.ignoreMissingGitWarning": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Monokai Dimmed",
   "editor.tabSize": 2,
-  "git.ignoreLimitWarning": true
+  "workbench.iconTheme": "vscode-icons",
+  "editor.snippetSuggestions": "top"
 }

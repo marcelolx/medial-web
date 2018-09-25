@@ -16,7 +16,7 @@ class Motivo extends Component {
   }
 
   isValidated() {
-    return true;
+    return false;
   }
 
   render() {

@@ -5,12 +5,14 @@ import GridItem from '../../../components/Grid/GridItem';
 import GridContainer from '../../../components/Grid/GridContainer';
 import Wizard from '../../../components/Wizard';
 
-import Empresa from './Steps/Empresa';
+import BuscarEmpresa from './Steps/BuscarEmpresa';
 import Motivo from './Steps/Motivo';
 
 const steps = [
-  { stepName: 'Pesquisar empresa', stepComponent: Empresa, stepId: "empresa" },
-  { stepName: 'Relatar motivo', stepComponent: Motivo, stepId: "motivo" }
+  { stepName: 'Pesquisar empresa', stepComponent: BuscarEmpresa, stepId: 'pesquisar_empresa' },
+  { stepName: 'Empresa', stepComponent: BuscarEmpresa, stepId: 'empresa'},
+  { stepName: 'Relatar motivo', stepComponent: Motivo, stepId: 'motivo' },
+  { stepName: 'Confirmação', stepComponent: Motivo, stepId: 'confirmacao'}
 ];
 
 class Mediacao extends Component {

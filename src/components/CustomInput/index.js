@@ -1,17 +1,20 @@
 import React from 'react';
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import Clear from "@material-ui/icons/Clear";
-import Check from "@material-ui/icons/Check";
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Clear from '@material-ui/icons/Clear';
+import Check from '@material-ui/icons/Check';
 import customInputStyle from '../../assets/jss/components/customInputStyle';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 function CustomInput({ ...props }) {
   const {
     classes,
+    helperText,
+    errorHelperText,
     formControlProps,
     labelText,
     id,
@@ -37,6 +40,7 @@ function CustomInput({ ...props }) {
     <FormControl
       {...formControlProps}
       className={formControlProps.className + " " + classes.formControl}
+      error={error}
     >
       {labelText !== undefined ? (
         <InputLabel
@@ -56,6 +60,8 @@ function CustomInput({ ...props }) {
         id={id}
         {...inputProps}
       />
+      {helperText ? (<FormHelperText>{helperText}</FormHelperText>):null}
+      {error && errorHelperText ? (<FormHelperText>{errorHelperText}</FormHelperText>):null}
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
       ) : success ? (
@@ -67,6 +73,8 @@ function CustomInput({ ...props }) {
 
 CustomInput.propTypes = {
   classes: PropTypes.object.isRequired,
+  helperText: PropTypes.node,
+  errorHelperText: PropTypes.node,
   labelText: PropTypes.node,
   labelProps: PropTypes.object,
   id: PropTypes.string,
