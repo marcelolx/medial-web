@@ -9,11 +9,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-//import moment from 'moment';
+import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import * as profileActions from '../../services/admin/profile/actions';
+
 
 import * as authActions from '../../services/admin/authentication/actions';
 import API from '../../services/API';
@@ -44,21 +46,24 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     
-    //const { name, birthDate } = this.props.user;
+    const { name, birthDate } = this.props.auth;
     this.state = {
-      name: 'SEM NOME', 
-      birthDate: '',
+      name: name, 
+      birthDate: birthDate,
       snackbarOpen: false,
     };
   }
 
+  
+  componentDidMount() {
+    this.props.actions.loadProfile(this.props.auth.token);
+  }
   componentDidUpdate(prevProps) {
-    /*if (prevProps.user.updatedDate !== this.props.user.updatedDate) {
-      this.setState({ snackbarOpen: true });
-    }*/
+    debugger 
   }
 
   handleUpdate = e => {
+    debugger
     //const { user, updateProfile } = this.props;
     //const { name, birthDate } = e.target;
     /*const formData = {
@@ -132,7 +137,7 @@ class Profile extends Component {
               id="input-email"
               type="text"
               disabled={true}
-              value={0/*user.email*/}
+              value={this.state.email}
             />
           </FormControl>          
           <FormControl className={[classes.margin].join(' ')}>
@@ -155,7 +160,7 @@ class Profile extends Component {
               id="input-created-date"
               type="text"
               disabled={true}
-              //value={moment(user.createdDate).format('MMMM Do YYYY, h:mm:ss a')}
+              value={moment('auth.createdDate').format('MMMM Do YYYY, h:mm:ss a')}
             />
           </FormControl>
           <FormControl className={[classes.margin].join(' ')}>
@@ -164,7 +169,7 @@ class Profile extends Component {
               id="input-updated-date"
               type="text"
               disabled={true}
-              //value={moment(user.updatedDate).format('MMMM do YYYY, h:mm:ss a')}
+              value={moment('').format('MMMM do YYYY, h:mm:ss a')}
             />
           </FormControl>
           <Button type="submit" variant="raised" color="primary" className={classes.margin}>
@@ -204,12 +209,14 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  profileInfo: state.profileInfo,
 });
 
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...authActions,
+    ...profileActions,
   }, dispatch)
 });
 
