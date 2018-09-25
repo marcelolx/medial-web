@@ -13,9 +13,7 @@ import IfAnyGranted from '../../../../Permissions/IfAnyGranted';
 import NestedList from './NestedList';
 import itensMediacao from './NestedList/itensMediacao';
 
-const NavigationList = (props) => {
-  console.log(this.state);
-  
+const NavigationList = (props) => {  
   return (
     <List
       className="nav-link"
