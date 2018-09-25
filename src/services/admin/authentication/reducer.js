@@ -1,4 +1,4 @@
-import { LOGIN_COMPLETE, LOGOUT_COMPLETE } from "./actionTypes";
+import { LOGIN_COMPLETE, LOGOUT_COMPLETE } from './actionTypes';
 
 const initialState = {
   token: null,

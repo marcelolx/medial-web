@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GridContainer from '../../../../components/Grid/GridContainer';
 import CustomInput from '../../../../components/CustomInput';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-class Motivo extends Component {
-
+const style = {
+  infoText: {
+    fontWeight: "300",
+  }
+}
+class Motivo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       nome: '',
-    }
+    };
   }
 
   sendState() {
@@ -40,4 +45,4 @@ class Motivo extends Component {
   }
 }
 
-export default Motivo;
+export default withStyles(style)(Motivo);

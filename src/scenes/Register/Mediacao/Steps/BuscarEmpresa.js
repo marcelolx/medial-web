@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import bindActionCreators from 'redux/src/bindActionCreators';
+import compose from 'recompose/compose';
+import { connect } from 'react-redux';
 import GridContainer from '../../../../components/Grid/GridContainer';
 import GridItem from '../../../../components/Grid/GridItem';
 import CustomInput from '../../../../components/CustomInput';
@@ -13,6 +16,7 @@ import CardHeader from '../../../../components/Card/CardHeader';
 import CardBody from '../../../../components/Card/CardBody';
 import CardIcon from '../../../../components/Card/CardIcon';
 import Assignment from "@material-ui/icons/Assignment";
+import * as mediacaoStepActions from '../../../../services/admin/mediacao/nova/actions';
 
 const style = {
   ...empresasTableStyle,
@@ -24,15 +28,14 @@ const style = {
   },
 };
 
-class BuscarEmpresa extends Component {
-
+class BuscarEmpresa extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fantasia: '',
-      cnpj: '',
       searchWithoutFillFields: false,
-    }
+      checked: [],
+    };
   }
 
   sendState() {
@@ -40,7 +43,80 @@ class BuscarEmpresa extends Component {
   }
 
   isValidated() {
+    console.log('Entrou validated BuscarEmpresa');
+    const oneEmpSelected = (this.state.checked.length === 1);
+
+    if (!oneEmpSelected) {
+      //Implementar para exibir notificação que deve selecionar uma empresa
+    }  
+
     return false;
+  }
+
+  handleToggle(value) {    
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    console.log(this.state);
+    
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked
+    });
+  }
+
+  handleBuscarClick = () => {
+    if (this.state.fantasia !== '') {
+      this.setState({
+        searchWithoutFillFields: false,
+        checked: []
+      });
+      
+      this.props.actions.getEmpresas(this.state.fantasia);
+    } else {
+      this.setState({
+        searchWithoutFillFields: true,
+      });
+    }
+  }
+
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+  }
+
+  handleGetDataGrid = () => {
+    const { mediacaoEmpresas, classes } = this.props;
+    let empresas = [];
+    
+    mediacaoEmpresas.empresas.forEach(element => {
+      const empresa = [
+        (mediacaoEmpresas.empresas.indexOf(element) + 1).toString(),
+        <Checkbox
+          className={classes.positionAbsolute}
+          tabIndex={-1}
+          onClick={() => this.handleToggle(mediacaoEmpresas.empresas.indexOf(element))}
+          checkedIcon={<Check className={classes.checkedIcon} />}
+          icon={<Check className={classes.uncheckedIcon} />}
+          classes={{
+            checked: classes.checked
+          }}
+        />,
+        element.nome,
+        element.fantasia,
+        element.cnpj,
+        element.endereco.estado.label,
+        element.endereco.cidade.label
+      ];
+      
+      empresas = empresas.concat([empresa]);
+    });
+    
+    return empresas;
   }
 
   render() {
@@ -49,31 +125,25 @@ class BuscarEmpresa extends Component {
     return(
       <React.Fragment>
         <GridContainer justify="center">
-          <GridItem xs={12} sm={12} md={5}>
+          <GridItem xs={12} sm={12} md={4}>
             <CustomInput 
-              error={false}
-              errorHelperText="Informe o Nome Fantasia e/ou o CNPJ da empresa"
+              error={this.state.searchWithoutFillFields}
+              errorHelperText="Informe o Nome Fantasia da empresa"
               labelText="Nome fantasia"
               id="nome-fantasia"
               formControlProps={{
                 fullWidth: true
               }}
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={5}>
-            <CustomInput 
-              error={true}
-              errorHelperText="Informe o Nome Fantasia e/ou o CNPJ da empresa"
-              labelText="CNPJ"
-              id="nome-fantasia"
-              formControlProps={{
-                fullWidth: true
+              inputProps={{
+                value: this.state.fantasia,
+                onChange: this.handleChange('fantasia')
               }}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={2}>
             <Button
               className={classes.searchButton}
+              onClick={this.handleBuscarClick}
             >
               Buscar
             </Button>
@@ -86,7 +156,12 @@ class BuscarEmpresa extends Component {
                 <CardIcon color="primary">
                   <Assignment />
                 </CardIcon>
-                <h4 className={classes.cardIconTitle}>Empresas</h4>
+                <h4 className={classes.cardIconTitle}>
+                  Empresas <small>
+                    {" "} 
+                    - Selecione a empresa a qual deseja iniciar a mediação.
+                  </small>
+                </h4>                
               </CardHeader>
               <CardBody>
                 <Table 
@@ -100,62 +175,7 @@ class BuscarEmpresa extends Component {
                   "Estado",
                   "Cidade",
                 ]}
-                tableData={[
-                  [
-                    "1",
-                    <Checkbox
-                      className={classes.positionAbsolute}
-                      tabIndex={-1}
-                      onClick={() => this.handleToggle(1)}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{
-                        checked: classes.checked
-                      }}
-                    />,
-                    "Sysmo Sistemas LTDA",
-                    "Sysmo Sistemas",
-                    "9878979878978",
-                    "Santa Catarina",
-                    "São Miguel do Oeste"
-                  ],
-                  [
-                    "2",
-                    <Checkbox
-                      className={classes.positionAbsolute}
-                      tabIndex={-1}
-                      onClick={() => this.handleToggle(1)}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{
-                        checked: classes.checked
-                      }}
-                    />,
-                    "Sysmo Sistemas LTDA",
-                    "Sysmo Sistemas",
-                    "9878979878978",
-                    "Santa Catarina",
-                    "São Miguel do Oeste"
-                  ],
-                  [
-                    "3",
-                    <Checkbox
-                      className={classes.positionAbsolute}
-                      tabIndex={-1}
-                      onClick={() => this.handleToggle(1)}
-                      checkedIcon={<Check className={classes.checkedIcon} />}
-                      icon={<Check className={classes.uncheckedIcon} />}
-                      classes={{
-                        checked: classes.checked
-                      }}
-                    />,
-                    "Sysmo Sistemas LTDA",
-                    "Sysmo Sistemas",
-                    "9878979878978",
-                    "Santa Catarina",
-                    "São Miguel do Oeste"
-                  ],
-                ]}
+                tableData={this.handleGetDataGrid()}
                 customCellClasses={[
                   classes.center,
                   classes.right,
@@ -178,4 +198,17 @@ class BuscarEmpresa extends Component {
   }
 }
 
-export default withStyles(style)(BuscarEmpresa);
+const mapStateToProps = state => ({
+  mediacaoEmpresas: state.mediacaoEmpresas,
+});
+
+const mapDispatchProps = dispatch => ({
+  actions: bindActionCreators({
+    ...mediacaoStepActions,
+  }, dispatch)
+});
+
+export default compose(  
+  connect(mapStateToProps, mapDispatchProps),
+  withStyles(style)
+)(BuscarEmpresa);
