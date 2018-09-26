@@ -8,11 +8,14 @@ import Wizard from '../../../components/Wizard';
 import BuscarEmpresa from './Steps/BuscarEmpresa';
 import Motivo from './Steps/Motivo';
 import Empresa from './Steps/Empresa';
+import Confirmacao from './Steps/Confirmacao';
+import { BUSCAR_EMPRESA, EMPRESA, MOTIVO, CONFIRMACAO } from './Steps/stepTypes';
 
 const steps = [
-  { stepName: 'Pesquisar empresa', stepComponent: BuscarEmpresa, stepId: 'buscarempresa' },
-  { stepName: 'Empresa', stepComponent: Empresa, stepId: 'empresa' },
-  { stepName: 'Relatar motivo', stepComponent: Motivo, stepId: 'motivo' },
+  { stepName: 'Pesquisar empresa', stepComponent: BuscarEmpresa, stepId: BUSCAR_EMPRESA },
+  { stepName: 'Empresa', stepComponent: Empresa, stepId: EMPRESA },
+  { stepName: 'Relatar motivo', stepComponent: Motivo, stepId: MOTIVO },
+  { stepName: 'Confirmação', stepComponent: Confirmacao, stepId: CONFIRMACAO }
 ];
 
 class Mediacao extends Component {

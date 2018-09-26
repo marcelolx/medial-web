@@ -21,7 +21,7 @@ class Motivo extends React.Component {
   }
 
   isValidated() {
-    return false;
+    return true;
   }
 
   render() {

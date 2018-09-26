@@ -6,6 +6,18 @@ import Button from '../CustomButtons/Button';
 import Card from '../Card/Card';
 import wizardStyle from '../../assets/jss/components/wizardStyle';
 
+function findItemToRemove(stepId, allStates) {
+  return Object.keys(allStates).filter(
+    function(key) {
+      return (Object.keys(allStates[key]).filter(
+        function(prop) {
+          return prop === stepId;
+        }
+      ).length === 1)
+    }
+  );  
+}
+
 class Wizard extends Component {
 
   constructor(props) {
@@ -68,14 +80,21 @@ class Wizard extends Component {
       var validationState = true;
       if (key > this.state.currentStep) {
         for (var i = this.state.currentStep; i < key; i++) {
-          if (this[this.props.steps[i].stepId].sendState !== undefined) {
+          if (this[this.props.steps[i].stepId].sendState !== undefined) {            
+            const index = (this.state.allStates[0] !== undefined) ? 
+              findItemToRemove(this.props.steps[i].stepId, this.state.allStates) : [];
+
+            const newAllStates = [...this.state.allStates];
+
+            if (index.length > 0) {
+              newAllStates.splice(index[0], 1);
+            }
+            
             this.setState({
               allStates: [
-                ...this.state.allStates,
+                ...newAllStates,
                 {
-                  [this.props.steps[i].stepId]: this[
-                    this.props.steps[i].stepId
-                  ].sendState()
+                  [this.props.steps[i].stepId]: this[this.props.steps[i].stepId].sendState()
                 }
               ]
             });
@@ -110,13 +129,20 @@ class Wizard extends Component {
       this.props.validate === undefined
     ) {
       if (this[this.props.steps[this.state.currentStep].stepId].sendState !== undefined) {
+        const index = (this.state.allStates[0] !== undefined) ? 
+          findItemToRemove(this.props.steps[this.state.currentStep].stepId, this.state.allStates) : [];
+
+        const newAllStates = [...this.state.allStates];
+
+        if (index.length > 0) {
+          newAllStates.splice(index[0], 1);
+        }
+        
         this.setState({
           allStates: [
-            ...this.state.allStates,
+            ...newAllStates,
             {
-              [this.props.steps[this.state.currentStep].stepId]: this[
-                this.props.steps[this.state.currentStep].stepId
-              ].sendState()
+              [this.props.steps[this.state.currentStep].stepId]: this[this.props.steps[this.state.currentStep].stepId].sendState()
             }
           ]
         });
@@ -137,13 +163,20 @@ class Wizard extends Component {
       this[this.props.steps[this.state.currentStep].stepId].sendState !==
       undefined
     ) {
+      const index = (this.state.allStates[0] !== undefined) ? 
+        findItemToRemove(this.props.steps[this.state.currentStep].stepId, this.state.allStates) : [];
+
+      const newAllStates = [...this.state.allStates];
+
+      if (index.length > 0) {
+        newAllStates.splice(index[0], 1);
+      }
+
       this.setState({
         allStates: [
-          ...this.state.allStates,
+          ...newAllStates,
           {
-            [this.props.steps[this.state.currentStep].stepId]: this[
-              this.props.steps[this.state.currentStep].stepId
-            ].sendState()
+            [this.props.steps[this.state.currentStep].stepId]: this[this.props.steps[this.state.currentStep].stepId].sendState()
           }
         ]
       });
