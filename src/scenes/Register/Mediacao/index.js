@@ -7,9 +7,11 @@ import Wizard from '../../../components/Wizard';
 
 import BuscarEmpresa from './Steps/BuscarEmpresa';
 import Motivo from './Steps/Motivo';
+import Empresa from './Steps/Empresa';
 
 const steps = [
   { stepName: 'Pesquisar empresa', stepComponent: BuscarEmpresa, stepId: 'buscarempresa' },
+  { stepName: 'Empresa', stepComponent: Empresa, stepId: 'empresa' },
   { stepName: 'Relatar motivo', stepComponent: Motivo, stepId: 'motivo' },
 ];
 
@@ -21,8 +23,8 @@ class Mediacao extends Component {
           <Wizard 
             validate
             steps={steps}
-            title="Informe a empresa"
-            subtitle="Busque a empresa a partir do CNPJ ou nome fantasia."
+            title="Mediação - Nova Solicitação"
+            subtitle="Busque a empresa a partir do nome fantasia e relate o motivo para a mediação"
           />
         </GridItem>
       </GridContainer> 

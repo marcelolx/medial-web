@@ -1,24 +1,30 @@
 import { API } from '../../../API';
-import { GET_COMPANY_MATCH_SEARCH, GET_COMPANY_MATCH_SEARCH_ERROR } from './actionTypes';
+import { COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR, COMPANY_MATCH_SEARCH_START } from './actionTypes';
 
 export function getEmpresas(fantasia) {
   return function(dispatch) {
+    dispatch(startCompanySearch());
+
     return API.get(`/empresa/getEmpresas?fantasia=${fantasia}`)
       .then(response => dispatch(getEmpresasComplete(response.data)))
       .catch(err => dispatch(getEmpresasError(err)))
   }
 }
 
+function startCompanySearch() {
+  return { type: COMPANY_MATCH_SEARCH_START }
+}
+
 function getEmpresasComplete(data) {  
   return {
-    type: GET_COMPANY_MATCH_SEARCH,
+    type: COMPANY_MATCH_SEARCH_COMPLETE,
     payload: data
   }
 }
 
 function getEmpresasError(erro) {
   return {
-    type: GET_COMPANY_MATCH_SEARCH_ERROR,
+    type: COMPANY_MATCH_SEARCH_ERROR,
     payload: erro
   }
 }

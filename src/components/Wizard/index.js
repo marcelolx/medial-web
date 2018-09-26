@@ -284,7 +284,7 @@ class Wizard extends Component {
             <div className={classes.right}>
               {this.state.nextButton ? (
                 <Button
-                  color="rose"
+                  color="secondary"
                   className={this.props.nextButtonClasses}
                   onClick={() => this.nextButtonClick()}
                 >
@@ -293,7 +293,7 @@ class Wizard extends Component {
               ) : null}
               {this.state.finishButton ? (
                 <Button
-                  color="rose"
+                  color="secondary"
                   className={this.finishButtonClasses}
                   onClick={() => this.finishButtonClick()}
                 >
@@ -310,7 +310,7 @@ class Wizard extends Component {
 }
 
 Wizard.defaultProps = {
-  color: "rose",
+  color: "secondary",
   title: "Title",
   subtitle: "Default subtitle",
   previousButtonText: "Anterior",
