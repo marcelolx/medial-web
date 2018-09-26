@@ -8,8 +8,9 @@ import {
 const customInputStyle = {
   disabled: {
     "&:before": {
-      backgroundColor: "transparent !important"
-    }
+      backgroundColor: "transparent !important"      
+    },
+    color: 'black'
   },
   underline: {
     "&:hover:not($disabled):before,&:before": {
