@@ -76,7 +76,7 @@ class Wizard extends Component {
   }
 
   navigationStepChange(key) {
-    if (this.props.steps) {
+    if (this.props.tabNavigation && this.props.steps) {
       var validationState = true;
       if (key > this.state.currentStep) {
         for (var i = this.state.currentStep; i < key; i++) {
@@ -253,7 +253,7 @@ class Wizard extends Component {
   }
 
   render() {
-    const { classes, title, subtitle, color, steps } = this.props;
+    const { classes, title, subtitle, color, steps, tabNavigation } = this.props;
     return (
       <div className={classes.wizardContainer} ref="wizard">
         <Card className={classes.card}>
@@ -351,7 +351,8 @@ Wizard.defaultProps = {
   nextButtonClasses: "",
   nextButtonText: "Próximo",
   finishButtonClasses: "",
-  finishButtonText: "Finalizar"
+  finishButtonText: "Finalizar",
+  tabNavigation: false,
 };
 
 Wizard.propTypes = {
@@ -381,7 +382,8 @@ Wizard.propTypes = {
   finishButtonClasses: PropTypes.string,
   finishButtonText: PropTypes.string,
   finishButtonClick: PropTypes.func,
-  validate: PropTypes.bool
+  validate: PropTypes.bool,
+  tabNavigation: PropTypes.bool,  
 };
 
 export default withStyles(wizardStyle)(Wizard);
