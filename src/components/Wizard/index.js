@@ -253,7 +253,7 @@ class Wizard extends Component {
   }
 
   render() {
-    const { classes, title, subtitle, color, steps, tabNavigation } = this.props;
+    const { classes, title, subtitle, color, steps } = this.props;
     return (
       <div className={classes.wizardContainer} ref="wizard">
         <Card className={classes.card}>
