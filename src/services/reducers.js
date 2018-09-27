@@ -8,6 +8,7 @@ import estadosReducer from './graphql/estados/reducer';
 import cidadesReducer from './graphql/cidades/reducer';
 import registerCompleteReducer from './register/complete/reducer';
 import mediacaoEmpresasReducer from './admin/mediacao/nova/reducer';
+import mediacaoAssuntosReducer from './admin/mediacao/assuntos/reducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   cidades: cidadesReducer,
   registerComplete: registerCompleteReducer,
   mediacaoEmpresas: mediacaoEmpresasReducer,
+  mediacaoAssuntos: mediacaoAssuntosReducer,
 });
