@@ -2,23 +2,19 @@ import React, { Component } from 'react';
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import DatePicker from 'material-ui-pickers/DatePicker';
-import MomentUtils from 'material-ui-pickers/utils/moment-utils';
-import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-import moment from 'moment';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import * as profileActions from '../../services/admin/profile/actions';
 
 
 import * as authActions from '../../services/admin/authentication/actions';
-import API from '../../services/API';
+import GridItem from '../../components/Grid/GridItem';
+import Card from '../../components/Card/Card';
+import CardBody from '../../components/Card/CardBody';
+import GridContainer from '../../components/Grid/GridContainer';
+import CardHeader from '../../components/Card/CardHeader';
+import CardAvatar from '../../components/Card/CardAvatar';
+import CustomInput from '../../components/CustomInput';
+import Button from '../../components/CustomButtons/Button';
+import {  } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -44,164 +40,174 @@ const styles = theme => ({
 class Profile extends Component {
 
   constructor(props) {
-    super(props);
-    
-    const { name, birthDate } = this.props.auth;
-    this.state = {
-      name: name, 
-      birthDate: birthDate,
-      snackbarOpen: false,
-    };
-  }
+    super(props); 
 
-  
-  componentDidMount() {
-    this.props.actions.loadProfile(this.props.auth.token);
-  }
-  componentDidUpdate(prevProps) {
-    debugger 
-  }
-
-  handleUpdate = e => {
-    debugger
-    //const { user, updateProfile } = this.props;
-    //const { name, birthDate } = e.target;
-    /*const formData = {
-      name: name.value,
-      birthDate: birthDate.value,
-      updatedDate: new Date(),
-    }*/
-
-    //updateProfile(formData, user.token);
-
-    e.preventDefault();
-  }
-
-  handleDeleteAccount = () => {
-    const { auth, logout } = this.props;
-
-    var config = {
-      headers: {
-        'Accept':'',
-        'Authorization': auth.token,
+    this.state ={
+          id: this.props.profileInfo.id,
+          nome: this.props.profileInfo.nome, 
+          dataNascimento: this.props.profileInfo.dataNascimento, 
+          email: this.props.profileInfo.email, 
+          dataCadastro: this.props.profileInfo.dataCadastro, 
+          ultimoAcesso: this.props.profileInfo.ultimoAcesso, 
+          telefone: this.props.profileInfo.telefone, 
+          endereco: this.props.profileInfo.endereco, 
+          avatar: this.props.profileInfo.avatar, 
       }
-    };
+}
+handleChange = name => event => {
+  this.setState({
+    [name]: event.target.value,
+  });
+};
 
-    API.delete('usuario/delete', config)
-    .then(response => {
-      alert('Conta deletada com sucesso!');
-      logout();
-    })
-    .catch(erro => console.log(erro));
-  }
+componentDidMount() {
+    this.props.actions.loadProfile(this.props.auth.token);
+}
+componentDidUpdate(){
 
-  handleChange = prop => e => {
-    this.setState({ [prop]: e.target.value });
-  }
+  console.log('Falha')
+}
 
-  handleBirthDateChange = (date) => {
-    this.setState({ birthDate: date });
-  }
-
-  handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    this.setState({ snackbarOpen: false });
-  };
-
-
-  render() {
-    const { classes } = this.props;
-
+render() {
+    const { classes,profileInfo } = this.props;
+    debugger
     return (
       <React.Fragment>
-        <Typography variant="subheading" color="textSecondary" noWrap>
-          Meu Perfil
-        </Typography>
-        <form onSubmit={this.handleUpdate} className={classes.root}>
-          <FormControl className={[classes.margin, classes.fill].join(' ')}>
-            <InputLabel htmlFor="input-name">Nome completo</InputLabel>
-            <Input 
-              id="input-name"
-              name="name"
-              type="text"
-              value={this.state.name}
-              onChange={this.handleChange('name')}
-            />
-          </FormControl>
-          <FormControl className={[classes.margin, classes.fill].join(' ')}>
-            <InputLabel htmlFor="input-email">Email</InputLabel>
-            <Input 
-              id="input-email"
-              type="text"
-              disabled={true}
-              value={this.state.email}
-            />
-          </FormControl>          
-          <FormControl className={[classes.margin].join(' ')}>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <DatePicker 
-                keyboard
-                name="birthDate"
-                label="Data de nascimento"
-                format="DD/MM/YYYY"
-                placeholder="12/01/1998"
-                mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
-                value={this.state.birthDate}
-                onChange={this.handleBirthDateChange}
-              />
-            </MuiPickersUtilsProvider> 
-          </FormControl>
-          <FormControl className={[classes.margin].join(' ')}>
-            <InputLabel htmlFor="input-created-date">Criado em</InputLabel>
-            <Input 
-              id="input-created-date"
-              type="text"
-              disabled={true}
-              value={moment('auth.createdDate').format('MMMM Do YYYY, h:mm:ss a')}
-            />
-          </FormControl>
-          <FormControl className={[classes.margin].join(' ')}>
-            <InputLabel htmlFor="input-updated-date">Atualizado em</InputLabel>
-            <Input 
-              id="input-updated-date"
-              type="text"
-              disabled={true}
-              value={moment('').format('MMMM do YYYY, h:mm:ss a')}
-            />
-          </FormControl>
-          <Button type="submit" variant="raised" color="primary" className={classes.margin}>
-            Atualizar
-          </Button>
-        </form>
-        <Button onClick={this.handleDeleteAccount} variant="raised" color="secondary" className={classes.margin}>
-          Deletar conta
-        </Button>
-        <Snackbar 
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.snackbarOpen}
-          autoHideDuration={2500}
-          onClose={this.handleSnackbarClose}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">Perfil Atualizado</span>}
-          action={[
-            <IconButton 
-              key="close"
-              aria-label="Fechar"
-              className={classes.close}
-              onClick={this.handleSnackbarClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          ]}        
-        />
+          <GridContainer>
+              <GridItem xs={12} sm={12} md={8}>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4 className={classes.cardTitleWhite}>Olá, {this.state.nome}</h4>
+                    <p className={classes.cardTitleWhite}>Editar Perfil</p>
+                  </CardHeader>
+                  <CardBody>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <CustomInput
+                          labelText="Nome"
+                          inputProps={{
+                            value: this.state.nome,
+                            onChange: this.handleChange('nome')
+                          }}
+                          id="nome"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={5}>
+                        <CustomInput
+                          labelText="Telefone"
+                          id="last-name"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+        
+                      <GridItem xs={12} sm={12} md={7}>
+                        <CustomInput
+                          labelText="Email"
+                          id="email-address"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <CustomInput
+                          labelText="Rua"
+                          id="city"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <CustomInput
+                          labelText="Número"
+                          id="country"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <CustomInput
+                          labelText="Bairro"
+                          id="postal-code"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <CustomInput
+                          labelText="Cidade"
+                          id="city"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                          inputProps={{
+                            disabled: true
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <CustomInput
+                          labelText="Estado"
+                          id="country"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                          inputProps={{
+                            disabled: true
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <CustomInput
+                          labelText="CEP"
+                          id="postal-code"
+                          formControlProps={{
+                            fullWidth: true
+                          }}
+                        />
+                      </GridItem>
+                    </GridContainer>
+                  </CardBody>
+                    <Button color="primary">Update Profile</Button>
+                </Card>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                          <Card profile>
+                            <CardAvatar profile>
+                              <a href="#pablo" onClick={e => e.preventDefault()}>
+                                <img src={"https://meapaixonei.com.br/wp-content/uploads/2017/10/sinais-que-comprovam-que-voce-tem-se-tornado-uma-pessoa-melhor-a-cada-dia.jpg"} alt="..." />
+                              </a>
+                            </CardAvatar>
+                          <CardBody profile>
+                            <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
+                            <h4 className={classes.cardTitle}>Alec Thompson</h4>
+                            <p className={classes.description}>
+                              Don't be scared of the truth because we need to restart the
+                              human foundation in truth And I love you like Kanye loves Kanye
+                              I love Rick Owens’ bed design but the back is...
+                            </p>
+                            <Button color="primary" round>
+                              Follow
+                            </Button>
+                          </CardBody>
+                        </Card>
+                    </GridItem>
+      </GridContainer>
+                  
       </React.Fragment>
     );
   }

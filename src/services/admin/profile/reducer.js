@@ -3,7 +3,6 @@ import { PROFILE_COMPLETE } from "./actionTypes";
 const initialState = {
   id: null,
   nome: null,
-  email: null,
   dataCadastro: null,
   ultimoAcesso: null,
   dataNascimento: null,

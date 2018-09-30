@@ -1,7 +1,6 @@
 import { API } from "../../API";
-import {  PROFILE_COMPLETE } from "./actionTypes";
+import { PROFILE_COMPLETE } from "./actionTypes";
 import { UNAUTHORIZED } from "../../errors/actionTypes"
-
 
 export function loadProfile(token) {
 
