@@ -35,6 +35,9 @@ const styles = theme => ({
   fill: {
     flexBasis: '100%',
   },
+  semMargem:{
+    margin: 0,
+  }
 });
 
 class Profile extends Component {
@@ -43,15 +46,30 @@ class Profile extends Component {
     super(props); 
 
     this.state ={
-          id: this.props.profileInfo.id,
-          nome: this.props.profileInfo.nome, 
-          dataNascimento: this.props.profileInfo.dataNascimento, 
-          email: this.props.profileInfo.email, 
-          dataCadastro: this.props.profileInfo.dataCadastro, 
-          ultimoAcesso: this.props.profileInfo.ultimoAcesso, 
-          telefone: this.props.profileInfo.telefone, 
-          endereco: this.props.profileInfo.endereco, 
-          avatar: this.props.profileInfo.avatar, 
+          id: null,
+          nome: ``, 
+          dataNascimento:``, 
+          email:``, 
+          dataCadastro: ``, 
+          ultimoAcesso: ``, 
+          telefone: ``, 
+          pais:{
+              value: null,
+              label: ``
+            },
+          estado:{
+              value: null,
+              label: ``
+            },
+          cidade:{
+              value: null,
+              label: ``
+            },
+          rua:``,
+          cep:``,
+          bairro:``,
+          numero:``,
+          editar: true
       }
 }
 handleChange = name => event => {
@@ -60,25 +78,42 @@ handleChange = name => event => {
   });
 };
 
-componentDidMount() {
+componentDidMount () {
     this.props.actions.loadProfile(this.props.auth.token);
 }
+
 componentDidUpdate(){
 
-  console.log('Falha')
+  if (this.state.id !== this.props.profileInfo.id){
+    this.setState({
+      id: this.props.profileInfo.id,
+      nome: this.props.profileInfo.nome, 
+      dataNascimento: this.props.profileInfo.dataNascimento, 
+      email: this.props.profileInfo.email, 
+      dataCadastro: this.props.profileInfo.dataCadastro, 
+      ultimoAcesso: this.props.profileInfo.ultimoAcesso, 
+      telefone: this.props.profileInfo.telefone, 
+      endereco: this.props.profileInfo.endereco, 
+      rua: this.props.profileInfo.endereco.rua,  
+      numero: this.props.profileInfo.endereco.numero, 
+      bairro: this.props.profileInfo.endereco.bairro,  
+      cep: this.props.profileInfo.endereco.cep, 
+      avatar: this.props.profileInfo.avatar, 
+      editar:true
+  });
+  }
 }
 
 render() {
-    const { classes,profileInfo } = this.props;
-    debugger
+    const { classes } = this.props;
     return (
       <React.Fragment>
           <GridContainer>
               <GridItem xs={12} sm={12} md={8}>
                 <Card>
                   <CardHeader color="primary">
-                    <h4 className={classes.cardTitleWhite}>Olá, {this.state.nome}</h4>
-                    <p className={classes.cardTitleWhite}>Editar Perfil</p>
+                    <h4 className={[classes.cardTitleWhite,classes.semMargem].join(' ')}>Olá, {this.state.nome}</h4>
+                    <p className={[classes.cardTitleWhite,classes.semMargem].join(' ')}>Editar Perfil</p>
                   </CardHeader>
                   <CardBody>
                     <GridContainer>
@@ -100,7 +135,11 @@ render() {
                       <GridItem xs={12} sm={12} md={5}>
                         <CustomInput
                           labelText="Telefone"
-                          id="last-name"
+                          id="telefone"
+                          inputProps={{
+                            value: this.state.telefone,
+                            onChange: this.handleChange('telefone')
+                          }}
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -110,18 +149,35 @@ render() {
                       <GridItem xs={12} sm={12} md={7}>
                         <CustomInput
                           labelText="Email"
-                          id="email-address"
+                          id="email"
+                          inputProps={{
+                            value: this.state.email,
+                            onChange: this.handleChange('email')
+                          }}
                           formControlProps={{
                             fullWidth: true
                           }}
                         />
                       </GridItem>
                     </GridContainer>
+                  </CardBody>
+                    <Button color="secondary">Atualizar</Button>
+                </Card>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4 className={[classes.cardTitleWhite,classes.semMargem].join(' ')}>Endereço</h4>
+                  </CardHeader>
+                  <CardBody>
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={4}>
                         <CustomInput
                           labelText="Rua"
-                          id="city"
+                          id="rua"
+                          inputProps={{
+                            value: this.state.rua,
+                            disable: this.state.editar,
+                            onChange: this.handleChange('rua')
+                          }}
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -130,7 +186,12 @@ render() {
                       <GridItem xs={12} sm={12} md={4}>
                         <CustomInput
                           labelText="Número"
-                          id="country"
+                          id="numero"
+                          inputProps={{
+                            value: this.state.numero,
+                            disable: this.state.editar,
+                            onChange: this.handleChange('numero')
+                          }}
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -139,8 +200,13 @@ render() {
                       <GridItem xs={12} sm={12} md={4}>
                         <CustomInput
                           labelText="Bairro"
-                          id="postal-code"
+                          id="bairro"
+                          inputProps={{
+                            value: this.state.bairro,
+                            onChange: this.handleChange('bairro')
+                          }}
                           formControlProps={{
+                            disable: this.state.editar,
                             fullWidth: true
                           }}
                         />
@@ -150,58 +216,61 @@ render() {
                       <GridItem xs={12} sm={12} md={4}>
                         <CustomInput
                           labelText="Cidade"
-                          id="city"
+                          id="cidade"
                           formControlProps={{
                             fullWidth: true
                           }}
                           inputProps={{
-                            disabled: true
+                            disable: this.state.editar,
+                            value: this.state.cidade.label
                           }}
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={4}>
                         <CustomInput
                           labelText="Estado"
-                          id="country"
+                          id="estado"
                           formControlProps={{
                             fullWidth: true
                           }}
                           inputProps={{
-                            disabled: true
+                            disable: this.state.editar,
+                            value: this.state.estado.label
                           }}
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={4}>
                         <CustomInput
                           labelText="CEP"
-                          id="postal-code"
+                          id="cep"
                           formControlProps={{
                             fullWidth: true
+                          }}
+                          inputProps={{
+                            disable: this.state.editar,
+                            value: this.state.cep,
+                            onChange: this.handleChange('cep')
                           }}
                         />
                       </GridItem>
                     </GridContainer>
                   </CardBody>
-                    <Button color="primary">Update Profile</Button>
+                    <Button color="secondary">Alterar</Button>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                           <Card profile>
+                          <CardHeader color="primary">
+                            <h4 className={[classes.cardTitleWhite,classes.semMargem].join(' ')}>Avatar</h4>
+                          </CardHeader>
                             <CardAvatar profile>
                               <a href="#pablo" onClick={e => e.preventDefault()}>
                                 <img src={"https://meapaixonei.com.br/wp-content/uploads/2017/10/sinais-que-comprovam-que-voce-tem-se-tornado-uma-pessoa-melhor-a-cada-dia.jpg"} alt="..." />
                               </a>
                             </CardAvatar>
                           <CardBody profile>
-                            <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-                            <h4 className={classes.cardTitle}>Alec Thompson</h4>
-                            <p className={classes.description}>
-                              Don't be scared of the truth because we need to restart the
-                              human foundation in truth And I love you like Kanye loves Kanye
-                              I love Rick Owens’ bed design but the back is...
-                            </p>
                             <Button color="primary" round>
-                              Follow
+                              Alterar Imagem
                             </Button>
                           </CardBody>
                         </Card>
