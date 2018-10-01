@@ -15,6 +15,7 @@ import CardAvatar from '../../components/Card/CardAvatar';
 import CustomInput from '../../components/CustomInput';
 import Button from '../../components/CustomButtons/Button';
 import {  } from '@material-ui/core';
+import defaultImage from '../../assets/images/avatar-default-icon.png'
 
 const styles = theme => ({
   root: {
@@ -53,23 +54,15 @@ class Profile extends Component {
           dataCadastro: ``, 
           ultimoAcesso: ``, 
           telefone: ``, 
-          pais:{
-              value: null,
-              label: ``
-            },
-          estado:{
-              value: null,
-              label: ``
-            },
-          cidade:{
-              value: null,
-              label: ``
-            },
+          pais:``,
+          estado:``,
+          cidade:``,
           rua:``,
           cep:``,
           bairro:``,
           numero:``,
-          editar: true
+          editar: true,
+          alterarImagem: false,
       }
 }
 handleChange = name => event => {
@@ -93,7 +86,8 @@ componentDidUpdate(){
       dataCadastro: this.props.profileInfo.dataCadastro, 
       ultimoAcesso: this.props.profileInfo.ultimoAcesso, 
       telefone: this.props.profileInfo.telefone, 
-      endereco: this.props.profileInfo.endereco, 
+      cidade: this.props.profileInfo.endereco.cidade.label, 
+      estado: this.props.profileInfo.endereco.estado.label, 
       rua: this.props.profileInfo.endereco.rua,  
       numero: this.props.profileInfo.endereco.numero, 
       bairro: this.props.profileInfo.endereco.bairro,  
@@ -103,9 +97,25 @@ componentDidUpdate(){
   });
   }
 }
+alterarImagem = name => event => {
+  debugger
+  this.setState({
+    alterarImagem: true,
+  });
+}
 
 render() {
     const { classes } = this.props;
+     let inputValue;
+     let valueButton;
+    if (this.state.alterarImagem) {
+      inputValue = <input type="file" />;
+      valueButton = <Button color="primary" round>   Alterar   </Button>;
+    } else {
+      valueButton= <Button color="primary" round  onClick={this.alterarImagem}>
+                   Atualizar Imagem
+                   </Button>;
+   }
     return (
       <React.Fragment>
           <GridContainer>
@@ -265,13 +275,12 @@ render() {
                           </CardHeader>
                             <CardAvatar profile>
                               <a href="#pablo" onClick={e => e.preventDefault()}>
-                                <img src={"https://meapaixonei.com.br/wp-content/uploads/2017/10/sinais-que-comprovam-que-voce-tem-se-tornado-uma-pessoa-melhor-a-cada-dia.jpg"} alt="..." />
+                                <img src={this.state.avatar||defaultImage} alt="..." />
                               </a>
                             </CardAvatar>
                           <CardBody profile>
-                            <Button color="primary" round>
-                              Alterar Imagem
-                            </Button>
+                          {inputValue}
+                          {valueButton}
                           </CardBody>
                         </Card>
                     </GridItem>
