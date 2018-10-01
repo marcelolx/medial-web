@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import searchSelectStyle from '../../assets/jss/components/searchSelectStyle';
 
 const styles = theme => ({
   root: {
@@ -40,6 +43,7 @@ const styles = theme => ({
     left: 0,
     right: 0,
   },
+  ...searchSelectStyle,
 });
 
 function NoOptionsMessage(props) {
@@ -134,15 +138,21 @@ const components = {
   ValueContainer,
 };
 
-
 class SearchSelect extends React.Component {
 
-  state = {
-    selecionado: null,
-  };
-
   render() {
-    const { classes, theme, placeholder, opcoes, value, name, onChange } = this.props;        
+    const { 
+      classes, 
+      theme, 
+      placeholder, 
+      opcoes, 
+      value, 
+      name, 
+      onChange,
+      formControlProps,
+      error,
+      helperText,
+      errorHelperText } = this.props;        
 
     const selectStyles = {
       input: base => ({
@@ -152,12 +162,16 @@ class SearchSelect extends React.Component {
           font: 'inherit',
         },
       }),
-    };
+    }; 
 
     return (
-      <div className={classes.root}>
+      <FormControl
+        {...formControlProps}
+        className={formControlProps.className + " " + classes.formControl}
+        error={error}
+      >
         <NoSsr>
-          <Select
+          <Select 
             classes={classes}
             styles={selectStyles}
             options={opcoes}
@@ -167,7 +181,9 @@ class SearchSelect extends React.Component {
             placeholder={placeholder}
           />
         </NoSsr>
-      </div>
+        {helperText ? (<FormHelperText>{helperText}</FormHelperText>):null}
+        {error && errorHelperText ? (<FormHelperText>{errorHelperText}</FormHelperText>):null}
+      </FormControl>
     );
   }
 }
@@ -175,6 +191,13 @@ class SearchSelect extends React.Component {
 SearchSelect.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  opcoes: PropTypes.array.isRequired,
+  value: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  formControlProps: PropTypes.object,
+  error: PropTypes.bool,
+  helperText: PropTypes.node,
+  errorHelperText: PropTypes.node
 };
 
 export default withStyles(styles, { withTheme: true })(SearchSelect);
