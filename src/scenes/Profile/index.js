@@ -14,7 +14,6 @@ import CardHeader from '../../components/Card/CardHeader';
 import CardAvatar from '../../components/Card/CardAvatar';
 import CustomInput from '../../components/CustomInput';
 import Button from '../../components/CustomButtons/Button';
-import { } from '@material-ui/core';
 import defaultImage from '../../assets/images/avatar-default-icon.png'
 
 const styles = theme => ({
