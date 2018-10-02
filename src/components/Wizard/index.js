@@ -44,9 +44,9 @@ class Wizard extends Component {
     this.state = {
       currentStep: 0,
       color: this.props.color,
-      nextButton: this.props.steps.length > 1 ? true : false,
+      nextButton: this.props.steps.length > 1,
       previousButton: false,
-      finishButton: this.props.steps.length === 1 ? true : false,
+      finishButton: this.props.steps.length === 1,
       width: width,
       movingTabStyle: {
         transition: "transform 0s"
@@ -196,14 +196,12 @@ class Wizard extends Component {
   finishButtonClick() {
     if (
       this.props.validate &&
-      ((this[this.props.steps[this.state.currentStep].stepId].isValidated !==
-        undefined &&
+      ((this[this.props.steps[this.state.currentStep].stepId].isValidated !== undefined &&
         this[this.props.steps[this.state.currentStep].stepId].isValidated()) ||
-        this[this.props.steps[this.state.currentStep].stepId].isValidated ===
-          undefined) &&
+        this[this.props.steps[this.state.currentStep].stepId].isValidated === undefined) &&
       this.props.finishButtonClick !== undefined
     ) {
-      this.props.finishButtonClick();
+      this.props.finishButtonClick(this.state.allStates);
     }
   }
 

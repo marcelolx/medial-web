@@ -152,8 +152,8 @@ class SearchSelect extends React.Component {
       formControlProps,
       error,
       helperText,
-      errorHelperText } = this.props;        
-
+      errorHelperText } = this.props;
+      
     const selectStyles = {
       input: base => ({
         ...base,
@@ -163,7 +163,7 @@ class SearchSelect extends React.Component {
         },
       }),
     }; 
-
+    
     return (
       <FormControl
         {...formControlProps}
@@ -192,7 +192,7 @@ SearchSelect.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   opcoes: PropTypes.array.isRequired,
-  value: PropTypes.object.isRequired,
+  value: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
   formControlProps: PropTypes.object,
   error: PropTypes.bool,
