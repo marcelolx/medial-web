@@ -9,23 +9,12 @@ import * as mediacaoStepActions from '../../../../services/admin/mediacao/nova/a
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA } from './stepTypes';
 import { TextMaskCNPJ, TextMaskPhone } from '../../../../components/Masks';
+import { findStepStateIndex, viewInState, viewError } from './helpers';
 
 const style = {
   disabled: {
     color: 'black',
   }
-}
-
-function findStepStateIndex(stepId, allStates) {
-  return Object.keys(allStates).filter(
-    function(key) {
-      return (Object.keys(allStates[key]).filter(
-        function(prop) {
-          return prop === stepId;
-        }
-      ).length === 1)
-    }
-  );  
 }
 
 class Empresa extends React.Component {
@@ -79,7 +68,6 @@ class Empresa extends React.Component {
 
     return(
       <React.Fragment>
-
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
@@ -278,33 +266,13 @@ class Empresa extends React.Component {
     );
   }
 
-  handleViewErro = () => {
-    return(
-      <GridContainer justify="center">
-        <GridItem xs={12} sm={12} md={3}>
-          <h4>
-            Ops... Tivemos um problema, volte para a página anterior, verifique as informações fornecidas
-            e avance novamente.
-          </h4>
-        </GridItem>
-      </GridContainer>
-    );
-  }
-
-  handlePreviousViewInState = (allStates) => {
-    return (Object.keys(allStates).filter(key => 
-        (Object.keys(allStates[key]).filter(keyname => 
-          (keyname === BUSCAR_EMPRESA)).length === 1)
-      ).length === 1);
-  }
-
   render() {    
     const { allStates, mediacaoEmpresas } = this.props;    
 
     if (allStates[0] === undefined) {
       return null;
     } else {      
-      if (this.handlePreviousViewInState(allStates)) {
+      if (viewInState(allStates, BUSCAR_EMPRESA)) {
         const viewIndex = findStepStateIndex(BUSCAR_EMPRESA, allStates);
         const empresa = mediacaoEmpresas.empresas[allStates[viewIndex].BUSCAR_EMPRESA.checked];
 
@@ -315,7 +283,7 @@ class Empresa extends React.Component {
         }
       }
 
-      return this.handleViewErro();
+      return viewError();
     }    
   }
 }

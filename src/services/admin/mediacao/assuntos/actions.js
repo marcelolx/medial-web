@@ -4,8 +4,12 @@ import { API } from '../../../API';
 export function getConflitos() {
   return function(dispatch) {
     return API.get(`/assunto/getConflitos`)
-      .then(response => dispatch(getConflitosComplete(response.data)))
-      .catch(err => dispatch(getConflitosError(err)));
+      .then(response => {
+        dispatch(getConflitosComplete(response.data))
+      })
+      .catch(err => {
+        dispatch(getConflitosError(err))
+      });
   }
 }
 

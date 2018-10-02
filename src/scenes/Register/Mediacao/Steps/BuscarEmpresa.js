@@ -82,6 +82,10 @@ class BuscarEmpresa extends React.Component {
     const newChecked = [...checked];
     
     if (currentIndex === -1) {
+      this.setState({
+        solicitarCadastroEmpresa: false,
+      });
+      
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
@@ -260,8 +264,10 @@ class BuscarEmpresa extends React.Component {
                       onClick={this.handleCheck('solicitarCadastroEmpresa')}
                       checkedIcon={<Check className={classes.checkedIcon} />}
                       icon={<Check className={classes.uncheckedIcon} />}
+                      disabled={(this.state.checked.length > 0)}
+                      checked={(this.state.solicitarCadastroEmpresa && (this.state.checked.length === 0))}
                       classes={{
-                        checked: classes.checked
+                        checked: classes.checked,
                       }}
                     />
                   }
