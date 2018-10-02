@@ -20,8 +20,31 @@ export function loadProfile(token) {
           case 403:{
             console.log('Não autorizado')
             dispatch(unauthorizedError())
+            break;
+          }
+          default: {
+            break;
           }
         }
+        return;
+      })
+  }
+}
+
+export function salvarDadosBasicos(token,data) {
+
+  const config = {
+    headers:{
+      Authorization: token,
+    }
+  }
+
+  return function(dispatch) {
+    return API.post('/usuario/atualizarDadosBasicos',data,config)
+      .then(response => {
+        dispatch(sucessoAlteracao(response.data))
+      })
+      .catch(err => {
         return;
       })
   }
@@ -37,6 +60,12 @@ function unauthorizedError() {
 function loadProfileComplete(response) {
   return {
     type: PROFILE_COMPLETE,
+    payload: response,
+  }
+}
+
+function sucessoAlteracao(response) {
+  return {
     payload: response,
   }
 }

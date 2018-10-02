@@ -13,6 +13,7 @@ import GridContainer from '../../components/Grid/GridContainer';
 import CardHeader from '../../components/Card/CardHeader';
 import CardAvatar from '../../components/Card/CardAvatar';
 import CustomInput from '../../components/CustomInput';
+import Snackbar from '../../components/Snackbar/Snackbar';
 import Button from '../../components/CustomButtons/Button';
 import defaultImage from '../../assets/images/avatar-default-icon.png'
 
@@ -62,6 +63,9 @@ class Profile extends Component {
       numero: ``,
       editar: true,
       alterarImagem: false,
+      emailLogin:``,
+      senha:``,
+      senhaConfirmacao:``
     }
   }
   handleChange = name => event => {
@@ -72,6 +76,29 @@ class Profile extends Component {
 
   componentDidMount() {
     this.props.actions.loadProfile(this.props.auth.token);
+  }
+  atualizarPerfil(place) {
+
+    let data={
+      nome: this.state.nome,
+      email: this.state.email,
+      telefone: this.state.telefone,
+    }
+
+
+    this.props.actions.salvarDadosBasicos(this.props.auth.token,data);
+    debugger;
+
+    var x = [];
+    x[place] = true;
+    this.setState(x);
+    this.alertTimeout = setTimeout(
+      function () {
+        x[place] = false;
+        this.setState(x);
+      }.bind(this),
+      6000
+    );
   }
 
   componentDidUpdate() {
@@ -92,11 +119,12 @@ class Profile extends Component {
         bairro: this.props.profileInfo.endereco.bairro,
         cep: this.props.profileInfo.endereco.cep,
         avatar: this.props.profileInfo.avatar,
+        emailLogin:this.props.profileInfo.email,
         editar: true
       });
     }
   }
-  alterarImagem= () => {
+  alterarImagem = () => {
     this.setState({
       alterarImagem: true,
     });
@@ -109,7 +137,7 @@ class Profile extends Component {
 
     if (this.state.alterarImagem) {
       inputValue = <input type="file" />;
-      valueButton = <Button color="sucess" round>   Alterar   </Button>;
+      valueButton = <Button color="success" round>   Alterar   </Button>;
     } else {
       valueButton = <Button color="success" round onClick={this.alterarImagem}>
         Atualizar Imagem
@@ -170,7 +198,15 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
-              <Button color="secondary">Atualizar</Button>
+              <Snackbar
+                place="tc"
+                color="warning"
+                message="Sucesso! Seus dados foram atualizados.(Mentira, Ainda não. Até a Próxima)"
+                open={this.state.tc}
+                closeNotification={() => this.setState({ tc: false })}
+                close
+              />
+              <Button color="secondary" onClick={() => this.atualizarPerfil("tc")}>Atualizar</Button>
             </Card>
             <Card>
               <CardHeader color="primary">
@@ -184,7 +220,6 @@ class Profile extends Component {
                       id="rua"
                       inputProps={{
                         value: this.state.rua,
-                        disable: this.state.editar,
                         onChange: this.handleChange('rua')
                       }}
                       formControlProps={{
@@ -198,7 +233,6 @@ class Profile extends Component {
                       id="numero"
                       inputProps={{
                         value: this.state.numero,
-                        disable: this.state.editar,
                         onChange: this.handleChange('numero')
                       }}
                       formControlProps={{
@@ -215,7 +249,6 @@ class Profile extends Component {
                         onChange: this.handleChange('bairro')
                       }}
                       formControlProps={{
-                        disable: this.state.editar,
                         fullWidth: true
                       }}
                     />
@@ -230,7 +263,6 @@ class Profile extends Component {
                         fullWidth: true
                       }}
                       inputProps={{
-                        disable: this.state.editar,
                         value: this.state.cidade.label
                       }}
                     />
@@ -243,7 +275,6 @@ class Profile extends Component {
                         fullWidth: true
                       }}
                       inputProps={{
-                        disable: this.state.editar,
                         value: this.state.estado.label
                       }}
                     />
@@ -256,9 +287,59 @@ class Profile extends Component {
                         fullWidth: true
                       }}
                       inputProps={{
-                        disable: this.state.editar,
                         value: this.state.cep,
                         onChange: this.handleChange('cep')
+                      }}
+                    />
+                  </GridItem>
+                </GridContainer>
+              </CardBody>
+              <Button color="secondary">Alterar</Button>
+            </Card>   
+            <Card>
+              <CardHeader color="primary">
+                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Login</h4>
+              </CardHeader>
+              <CardBody>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Email"
+                      id="emailLogin"
+                      inputProps={{
+                        value: this.state.emailLogin,
+                        onChange: this.handleChange('emailLogin')
+                      }}
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Senha"
+                      id="senha"
+                      inputProps={{
+                        type: 'password',
+                        value: this.state.senha,
+                        onChange: this.handleChange('senha')
+                      }}
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <CustomInput
+                      labelText="Confirmação Senha"
+                      id="senhaConfirmacao"
+                      inputProps={{
+                        type:'password',
+                        value: this.state.senhaConfirmacao,
+                        onChange: this.handleChange('senhaConfirmacao')
+                      }}
+                      formControlProps={{
+                        fullWidth: true
                       }}
                     />
                   </GridItem>
