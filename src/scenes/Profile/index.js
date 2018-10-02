@@ -63,9 +63,9 @@ class Profile extends Component {
       numero: ``,
       editar: true,
       alterarImagem: false,
-      emailLogin:``,
-      senha:``,
-      senhaConfirmacao:``
+      emailLogin: ``,
+      senha: ``,
+      senhaConfirmacao: ``
     }
   }
   handleChange = name => event => {
@@ -79,15 +79,14 @@ class Profile extends Component {
   }
   atualizarPerfil(place) {
 
-    let data={
+    let data = {
       nome: this.state.nome,
       email: this.state.email,
       telefone: this.state.telefone,
     }
 
+    this.props.actions.salvarDadosBasicos(this.props.auth.token, data);
 
-    this.props.actions.salvarDadosBasicos(this.props.auth.token,data);
-    debugger;
 
     var x = [];
     x[place] = true;
@@ -119,7 +118,7 @@ class Profile extends Component {
         bairro: this.props.profileInfo.endereco.bairro,
         cep: this.props.profileInfo.endereco.cep,
         avatar: this.props.profileInfo.avatar,
-        emailLogin:this.props.profileInfo.email,
+        emailLogin: this.props.profileInfo.email,
         editar: true
       });
     }
@@ -137,7 +136,7 @@ class Profile extends Component {
 
     if (this.state.alterarImagem) {
       inputValue = <input type="file" />;
-      valueButton = <Button color="success" round>   Alterar   </Button>;
+      valueButton = <Button color="success" round disabled>    Alterar   </Button>;
     } else {
       valueButton = <Button color="success" round onClick={this.alterarImagem}>
         Atualizar Imagem
@@ -294,15 +293,15 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
-              <Button color="secondary">Alterar</Button>
-            </Card>   
+              <Button color="secondary" disabled >Alterar</Button>
+            </Card>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Login</h4>
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
                       labelText="Email"
                       id="emailLogin"
@@ -315,7 +314,9 @@ class Profile extends Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Senha"
                       id="senha"
@@ -329,12 +330,12 @@ class Profile extends Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       labelText="Confirmação Senha"
                       id="senhaConfirmacao"
                       inputProps={{
-                        type:'password',
+                        type: 'password',
                         value: this.state.senhaConfirmacao,
                         onChange: this.handleChange('senhaConfirmacao')
                       }}
@@ -345,7 +346,7 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
-              <Button color="secondary">Alterar</Button>
+              <Button color="secondary" disabled>Alterar</Button>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
