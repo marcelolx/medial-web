@@ -51,6 +51,7 @@ class Profile extends Component {
       nome: ``,
       dataNascimento: ``,
       email: ``,
+      documento: ``,
       dataCadastro: ``,
       ultimoAcesso: ``,
       telefone: ``,
@@ -108,6 +109,7 @@ class Profile extends Component {
         nome: this.props.profileInfo.nome,
         dataNascimento: this.props.profileInfo.dataNascimento,
         email: this.props.profileInfo.email,
+        documento:this.props.profileInfo.documento,
         dataCadastro: this.props.profileInfo.dataCadastro,
         ultimoAcesso: this.props.profileInfo.ultimoAcesso,
         telefone: this.props.profileInfo.telefone,
@@ -164,6 +166,21 @@ class Profile extends Component {
                       formControlProps={{
                         fullWidth: true
                       }}
+                    />
+                  </GridItem>
+                </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <CustomInput
+                      labelText="CPF/CNPJ"
+                      id="documento"
+                      inputProps={{
+                        value: this.state.documento
+                      }}
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      disabled
                     />
                   </GridItem>
                 </GridContainer>

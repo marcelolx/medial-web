@@ -8,6 +8,7 @@ const initialState = {
   dataNascimento: null,
   endereco:[],
   email:null,
+  documento: null,
   telefone: null,
   avatar: null,
 }
@@ -20,6 +21,7 @@ export default function(state = initialState, action) {
           nome: action.payload.nome,
           dataNascimento: action.payload.dataNascimento,
           email: action.payload.email,
+          documento: action.payload.documento,
           dataCadastro: action.payload.dataCadastro,
           ultimoAcesso: action.payload.ultimoAcesso,
           telefone: action.payload.telefone,
