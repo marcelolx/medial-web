@@ -11,6 +11,7 @@ const initialState = {
   documento: null,
   telefone: null,
   avatar: null,
+  emailLogin: '',
 }
 
 export default function(state = initialState, action) {
@@ -27,6 +28,7 @@ export default function(state = initialState, action) {
           telefone: action.payload.telefone,
           endereco: action.payload.endereco,
           avatar: action.payload.avatar,
+          emailLogin: action.payload.emailLogin,
       } )
     default:
       return state

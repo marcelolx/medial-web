@@ -120,7 +120,7 @@ class Profile extends Component {
         bairro: this.props.profileInfo.endereco.bairro,
         cep: this.props.profileInfo.endereco.cep,
         avatar: this.props.profileInfo.avatar,
-        emailLogin: this.props.profileInfo.email,
+        emailLogin: this.props.profileInfo.emailLogin,
         editar: true
       });
     }
@@ -217,7 +217,7 @@ class Profile extends Component {
               <Snackbar
                 place="tc"
                 color="warning"
-                message="Sucesso! Seus dados foram atualizados.(Mentira, Ainda não. Até a Próxima)"
+                message="Sucesso! Seus dados foram atualizados."
                 open={this.state.tc}
                 closeNotification={() => this.setState({ tc: false })}
                 close
