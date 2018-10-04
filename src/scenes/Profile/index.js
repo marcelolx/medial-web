@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import * as profileActions from '../../services/admin/profile/actions';
 
 
+import * as estadosActions from '../../services/graphql/estados/actions';
+import * as cidadesActions from '../../services/graphql/cidades/actions';
 import * as authActions from '../../services/admin/authentication/actions';
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
@@ -13,9 +15,12 @@ import GridContainer from '../../components/Grid/GridContainer';
 import CardHeader from '../../components/Card/CardHeader';
 import CardAvatar from '../../components/Card/CardAvatar';
 import CustomInput from '../../components/CustomInput';
+import SearchSelect from '../../components/SearchSelect';
 import Snackbar from '../../components/Snackbar/Snackbar';
 import Button from '../../components/CustomButtons/Button';
 import defaultImage from '../../assets/images/avatar-default-icon.png'
+
+import { BUSCAR_CIDADE, BUSCAR_ESTADO } from './types';
 
 const styles = theme => ({
   root: {
@@ -56,8 +61,8 @@ class Profile extends Component {
       ultimoAcesso: ``,
       telefone: ``,
       pais: ``,
-      estado: ``,
-      cidade: ``,
+      estado: [],
+      cidade: [],
       rua: ``,
       cep: ``,
       bairro: ``,
@@ -66,7 +71,8 @@ class Profile extends Component {
       alterarImagem: false,
       emailLogin: ``,
       senha: ``,
-      senhaConfirmacao: ``
+      senhaConfirmacao: ``,
+      primeiraRiquisicao: true,
     }
   }
   handleChange = name => event => {
@@ -77,6 +83,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.props.actions.loadProfile(this.props.auth.token);
+    this.props.actions.getCountryStates(1);
   }
   atualizarPerfil(place) {
 
@@ -109,12 +116,12 @@ class Profile extends Component {
         nome: this.props.profileInfo.nome,
         dataNascimento: this.props.profileInfo.dataNascimento,
         email: this.props.profileInfo.email,
-        documento:this.props.profileInfo.documento,
+        documento: this.props.profileInfo.documento,
         dataCadastro: this.props.profileInfo.dataCadastro,
         ultimoAcesso: this.props.profileInfo.ultimoAcesso,
         telefone: this.props.profileInfo.telefone,
-        cidade: this.props.profileInfo.endereco.cidade.label,
-        estado: this.props.profileInfo.endereco.estado.label,
+        cidade: this.props.profileInfo.endereco.cidade,
+        estado: this.props.profileInfo.endereco.estado,
         rua: this.props.profileInfo.endereco.rua,
         numero: this.props.profileInfo.endereco.numero,
         bairro: this.props.profileInfo.endereco.bairro,
@@ -124,7 +131,47 @@ class Profile extends Component {
         editar: true
       });
     }
+
+    if (this.state.primeiraRiquisicao) {
+
+      if (this.props.estados.list.length > 0) {
+        this.buscarCidades(this.state.estado.value);
+        this.setState({ 'primeiraRiquisicao': false });
+      }
+    }
+
+
   }
+
+  handleSelectChange = name => selecionado => {
+    this.setState({ [name]: selecionado });
+
+    if (name === 'estado') {
+      this.setState({ 'cidade': [] });
+      this.buscarCidades(selecionado.value)
+    }
+
+  }
+
+  buscarCidades(cidade) {
+    this.props.actions.getStateCities(cidade);
+  }
+
+  buscarListaAssuntos(idConflito) {
+    this.setState({
+      assuntos: [],
+    });
+
+    this.props.actions.getCidades(idConflito);
+  }
+
+  limparListasCidades() {
+    this.setState({
+      cidade: []
+    });
+    this.props.actions.clearCidades();
+  }
+
   alterarImagem = () => {
     this.setState({
       alterarImagem: true,
@@ -132,7 +179,9 @@ class Profile extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, cidades, estados } = this.props;
+
+
     let inputValue;
     let valueButton;
 
@@ -270,29 +319,33 @@ class Profile extends Component {
                     />
                   </GridItem>
                 </GridContainer>
-                <GridContainer>
+                <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
-                      labelText="Cidade"
-                      id="cidade"
+                    <SearchSelect
+                      opcoes={estados.list}
+                      name="estado"
+                      onChange={(name, value) => this.handleSelectChange(name, value)}
+                      value={this.state.estado}
+                      placeholder="EStados"
                       formControlProps={{
                         fullWidth: true
                       }}
-                      inputProps={{
-                        value: this.state.cidade.label
-                      }}
+                      error={((this.state.errorCode === BUSCAR_ESTADO) && (this.state.conflitos.length === 0))}
+                      errorHelperText="Selecione o tipo de conflito"
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
-                      labelText="Estado"
-                      id="estado"
+                    <SearchSelect
+                      opcoes={cidades.list}
+                      name="cidade"
+                      onChange={(name, value) => this.handleSelectChange(name, value)}
+                      value={this.state.cidade}
+                      placeholder="Cidades"
                       formControlProps={{
-                        fullWidth: true
+                        fullWidth: true,
                       }}
-                      inputProps={{
-                        value: this.state.estado.label
-                      }}
+                      error={((this.state.errorCode === BUSCAR_CIDADE) && (this.state.assuntos.length === 0))}
+                      errorHelperText="Selecione o assunto relacionado ao conflito"
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -390,6 +443,8 @@ class Profile extends Component {
 const mapStateToProps = state => ({
   auth: state.auth,
   profileInfo: state.profileInfo,
+  cidades: state.cidades,
+  estados: state.estados,
 });
 
 
@@ -397,6 +452,8 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...authActions,
     ...profileActions,
+    ...cidadesActions,
+    ...estadosActions,
   }, dispatch)
 });
 
