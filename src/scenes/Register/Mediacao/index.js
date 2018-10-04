@@ -82,7 +82,7 @@ class Mediacao extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  mediacaoEmpresas: state.mediacaoEmpresas,
+  mediacaoEmpresas: state.empresa,
 });
 
 export default compose(

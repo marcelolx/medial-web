@@ -166,7 +166,7 @@ class Confirmacao extends Component {
 }
 
 const mapStateToProps = state => ({
-  mediacaoEmpresas: state.mediacaoEmpresas,
+  mediacaoEmpresas: state.empresa,
 });
 
 export default compose(
