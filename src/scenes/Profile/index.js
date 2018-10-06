@@ -126,22 +126,8 @@ class Profile extends Component {
   }
 
 
-  change(event, stateName, type, stateNameEqualTo, maxValue) {
+  change(event, stateName, type) {
     switch (type) {
-      
-      case "nome":
-        if (this.verifyLength(event.target.value, 8)) {
-          this.setState({
-            [stateName + "State"]: "success"
-          });
-        } else {
-          this.setState({
-            [stateName + "State"]: "error"
-          });
-        }
-        break;
-
-
       case "email":
         if (this.verifyEmail(event.target.value)) {
           this.setState({
@@ -155,6 +141,17 @@ class Profile extends Component {
         break;
       case "senha":
         if (this.verifyLength(event.target.value, 8)) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      case "texto":
+        if (this.verifyLength(event.target.value, 3)) {
           this.setState({
             [stateName + "State"]: "success"
           });
@@ -191,6 +188,20 @@ class Profile extends Component {
           this.verifyNumber(event.target.value) &&
           event.target.value.toString().length >= 10 &&
           event.target.value.toString().length <= 11
+        ) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      case "cep":
+        if (
+          this.verifyNumber(event.target.value) &&
+          event.target.value.toString().length === 8
         ) {
           this.setState({
             [stateName + "State"]: "success"
@@ -371,7 +382,7 @@ class Profile extends Component {
                       inputProps={{
                         value: this.state.nome,
                         onChange: event =>
-                           this.change(event, "nome", "nome")
+                           this.change(event, "nome", "texto")
                       }}
                       id="nome"
                       formControlProps={{
@@ -383,7 +394,7 @@ class Profile extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
-                      labelText="CPF/CNPJ"
+                      labelText="CPF/CNPJ *"
                       id="documento"
                       inputProps={{
                         value: this.state.documento
@@ -400,7 +411,7 @@ class Profile extends Component {
                     <CustomInput
                       success={this.state.telefoneState === "success"}
                       error={this.state.telefoneState === "error"}
-                      labelText="Telefone"
+                      labelText="Telefone *"
                       id="telefone"
                       inputProps={{
                         value: this.state.telefone,
@@ -417,7 +428,7 @@ class Profile extends Component {
                     <CustomInput
                       success={this.state.emailState === "success"}
                       error={this.state.emailState === "error"}
-                      labelText="Email"
+                      labelText="Email *"
                       id="email"
                       inputProps={{
                         value: this.state.email,
@@ -441,11 +452,14 @@ class Profile extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
+                      success={this.state.ruaState === "success"}
+                      error={this.state.ruaState === "error"}
                       labelText="Rua"
                       id="rua"
                       inputProps={{
                         value: this.state.rua,
-                        onChange: this.handleChange('rua')
+                        onChange: event =>
+                        this.change(event, "rua", "texto")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -454,11 +468,14 @@ class Profile extends Component {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
+                      success={this.state.numeroState === "success"}
+                      error={this.state.numeroState === "error"}
                       labelText="Número"
                       id="numero"
                       inputProps={{
                         value: this.state.numero,
-                        onChange: this.handleChange('numero')
+                        onChange: event =>
+                        this.change(event, "numero", "numero")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -467,11 +484,14 @@ class Profile extends Component {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
+                      success={this.state.bairroState === "success"}
+                      error={this.state.bairroState === "error"}
                       labelText="Bairro"
                       id="bairro"
                       inputProps={{
                         value: this.state.bairro,
-                        onChange: this.handleChange('bairro')
+                        onChange: event =>
+                        this.change(event, "bairro", "texto")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -486,7 +506,7 @@ class Profile extends Component {
                       name="estado"
                       onChange={(name, value) => this.handleSelectChange(name, value)}
                       value={this.state.estado}
-                      placeholder="EStados"
+                      placeholder="Estados"
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -510,6 +530,8 @@ class Profile extends Component {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
                     <CustomInput
+                      success={this.state.cepState === "success"}
+                      error={this.state.cepState === "error"}
                       labelText="CEP"
                       id="cep"
                       formControlProps={{
@@ -517,7 +539,8 @@ class Profile extends Component {
                       }}
                       inputProps={{
                         value: this.state.cep,
-                        onChange: this.handleChange('cep')
+                        onChange: event =>
+                        this.change(event, "cep", "cep")
                       }}
                     />
                   </GridItem>
@@ -533,11 +556,14 @@ class Profile extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
+                      success={this.state.emailLoginState === "success"}
+                      error={this.state.emailLoginState === "error"}
                       labelText="Email"
                       id="emailLogin"
                       inputProps={{
                         value: this.state.emailLogin,
-                        onChange: this.handleChange('emailLogin')
+                        onChange: event =>
+                        this.change(event, "emailLogin", "email")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -548,12 +574,15 @@ class Profile extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
+                      success={this.state.senhaState === "success"}
+                      error={this.state.senhaState === "error"}
                       labelText="Senha"
                       id="senha"
                       inputProps={{
                         type: 'password',
                         value: this.state.senha,
-                        onChange: this.handleChange('senha')
+                        onChange: event =>
+                        this.change(event, "senha", "senha")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -562,12 +591,15 @@ class Profile extends Component {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
+                      success={this.state.senhaConfirmacaoState === "success"}
+                      error={this.state.senhaConfirmacaoState === "error"}
                       labelText="Confirmação Senha"
                       id="senhaConfirmacao"
                       inputProps={{
                         type: 'password',
                         value: this.state.senhaConfirmacao,
-                        onChange: this.handleChange('senhaConfirmacao')
+                        onChange: event =>
+                        this.change(event, "senhaConfirmacao", "senhaConfirmacao")
                       }}
                       formControlProps={{
                         fullWidth: true
