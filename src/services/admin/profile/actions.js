@@ -83,6 +83,29 @@ export function atualizarDadosLogin(data) {
 }
 
 
+export function atualizarDadosEndereco(data) {
+  return function(dispatch) {
+    return API.post('/usuario/atualizarDadosEndereco',data)
+      .then(response => {
+        dispatch(sucessoAlteracao(response.data))
+      })
+      .catch(err => {
+        switch(err.response.status){
+          case 403:{
+            console.log('Não autorizado')
+            dispatch(unauthorizedError())
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+        return;
+      })
+  }
+}
+
+
 function unauthorizedError() {
   return {
     type: UNAUTHORIZED,
