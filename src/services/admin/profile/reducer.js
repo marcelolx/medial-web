@@ -1,4 +1,4 @@
-import { PROFILE_COMPLETE } from "./actionTypes";
+import { PROFILE_COMPLETE,ALTERACAO_SUCESSO } from "./actionTypes";
 
 const initialState = {
   id: null,
@@ -29,6 +29,10 @@ export default function(state = initialState, action) {
           endereco: action.payload.endereco,
           avatar: action.payload.avatar,
           emailLogin: action.payload.emailLogin,
+      } )
+      case ALTERACAO_SUCESSO: 
+      return Object.assign({}, state,{
+          ...state
       } )
     default:
       return state

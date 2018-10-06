@@ -1,5 +1,5 @@
 import { API } from "../../API";
-import { PROFILE_COMPLETE } from "./actionTypes";
+import { PROFILE_COMPLETE,ALTERACAO_SUCESSO } from "./actionTypes";
 import { UNAUTHORIZED } from "../../errors/actionTypes"
 
 export function loadProfile(token) {
@@ -11,7 +11,7 @@ export function loadProfile(token) {
   }
 
   return function(dispatch) {
-    return API.get('/usuario/adquirir',config)
+    return API.get('/profile/adquirir',config)
       .then(response => {
         dispatch(loadProfileComplete(response.data))
       })
@@ -31,21 +31,17 @@ export function loadProfile(token) {
   }
 }
 
-export function salvarDadosBasicos(token,data) {
+export function salvarDadosBasicos(data) {
 
-  const config = {
-    headers:{
-      Authorization: token,
-    }
-  }
 
   return function(dispatch) {
-    return API.post('/usuario/atualizarDadosBasicos',data,config)
+    return API.post('/profile/atualizarDadosBasicos',data)
       .then(response => {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
         switch(err.response.status){
+          
           case 403:{
             console.log('Não autorizado')
             dispatch(unauthorizedError())
@@ -62,7 +58,7 @@ export function salvarDadosBasicos(token,data) {
 
 export function atualizarDadosLogin(data) {
   return function(dispatch) {
-    return API.post('/usuario/atualizarDadosLogin',data)
+    return API.post('/profile/atualizarDadosLogin',data)
       .then(response => {
         dispatch(sucessoAlteracao(response.data))
       })
@@ -85,7 +81,7 @@ export function atualizarDadosLogin(data) {
 
 export function atualizarDadosEndereco(data) {
   return function(dispatch) {
-    return API.post('/usuario/atualizarDadosEndereco',data)
+    return API.post('/profile/atualizarDadosEndereco',data)
       .then(response => {
         dispatch(sucessoAlteracao(response.data))
       })
@@ -121,6 +117,7 @@ function loadProfileComplete(response) {
 
 function sucessoAlteracao(response) {
   return {
+    type: ALTERACAO_SUCESSO,
     payload: response,
   }
 }

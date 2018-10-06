@@ -240,7 +240,7 @@ class Profile extends Component {
       telefone: this.state.telefone,
     }
 
-    this.props.actions.salvarDadosBasicos(this.props.auth.token, data);
+    this.props.actions.salvarDadosBasicos(data);
     this.successNotification();
   }
 
