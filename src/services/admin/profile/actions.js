@@ -45,6 +45,38 @@ export function salvarDadosBasicos(token,data) {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
+        switch(err.response.status){
+          case 403:{
+            console.log('Não autorizado')
+            dispatch(unauthorizedError())
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+        return;
+      })
+  }
+}
+
+export function atualizarDadosLogin(data) {
+  return function(dispatch) {
+    return API.post('/usuario/atualizarDadosLogin',data)
+      .then(response => {
+        dispatch(sucessoAlteracao(response.data))
+      })
+      .catch(err => {
+        switch(err.response.status){
+          case 403:{
+            console.log('Não autorizado')
+            dispatch(unauthorizedError())
+            break;
+          }
+          default: {
+            break;
+          }
+        }
         return;
       })
   }

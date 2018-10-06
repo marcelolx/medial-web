@@ -20,8 +20,6 @@ import Snackbar from '../../components/Snackbar/Snackbar';
 import Button from '../../components/CustomButtons/Button';
 import defaultImage from '../../assets/images/avatar-default-icon.png'
 
-import { BUSCAR_CIDADE, BUSCAR_ESTADO } from './types';
-
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -229,25 +227,13 @@ class Profile extends Component {
     this.props.actions.loadProfile(this.props.auth.token);
     this.props.actions.getCountryStates(1);
   }
-  atualizarPerfil(place) {
+  atualizarPerfil() {
 
-    if (this.state.nomeState === "error") {
-      this.setState({'errorNotification':true});
-      this.notification('errorNotification');
+    if (this.state.nomeState === "error"|| this.state.emailState === "error" || this.state.telefoneState === "error") {
+      this.errorNotification();
       return;
     }
-    if (this.state.emailState === "error") {
-      this.setState({'errorNotification':true});
-      this.notification('errorNotification');
-      return;
-    }
-    if (this.state.telefoneState === "error") {
-      this.setState({'errorNotification':true});
-      this.notification('errorNotification');
-      return;
-    }
-    this.setState({'successNotification':true});
-    this.notification('successNotification');
+   
     let data = {
       nome: this.state.nome,
       email: this.state.email,
@@ -255,9 +241,72 @@ class Profile extends Component {
     }
 
     this.props.actions.salvarDadosBasicos(this.props.auth.token, data);
-
-
+    this.successNotification();
   }
+
+ 
+  atualizarEndereco(){
+
+
+    if (this.state.ruaState === "error"
+    || this.state.numeroState === "error"
+    || this.state.cepState === "error"
+    || this.state.bairroState === "error"
+    || this.state.cidadeState === "error"
+    || this.state.estadoState === "error") {
+      this.errorNotification();
+      return;
+    } 
+    let data = {
+      rua: this.state.rua,
+      numero: this.state.numero,
+      cep: this.state.cep,
+      bairro: this.state.bairro,
+      cidade: this.state.cidade,
+      estado: this.state.estado,
+    }
+    
+
+    this.props.actions.atualizarDadosEndereco(this.props.auth.token, data);
+    this.successNotification();
+  }
+
+  atualizarLogin(){
+
+    if (this.state.senhaState.length === 0
+    || this.state.senhaConfirmacaoState.length === 0 ) {
+      this.setState({senhaState: "error",senhaConfirmacaoState:"error"})
+      this.errorNotification();
+      return;
+    } 
+    if (this.state.senhaState === "error"
+    || this.state.senhaConfirmacaoState === "error"
+    || this.state.emailLogin === "error") {
+      this.errorNotification();
+      return;
+    } 
+    let data = {
+      email: this.state.email,
+      senha: this.state.senha,
+      senhaConfirmacao: this.state.senhaConfirmacao,
+    }
+    
+
+    this.props.actions.atualizarDadosLogin(data);
+    this.successNotification();
+  }
+
+  successNotification(){
+    this.setState({'errorNotification':false});
+    this.setState({'successNotification':true});
+    this.notification('successNotification');
+  }
+  errorNotification(){
+
+    this.setState({'errorNotification':true});
+    this.notification('errorNotification');
+  }
+
   componentDidUpdate() {
 
     if (this.state.id !== this.props.profileInfo.id) {
@@ -285,13 +334,13 @@ class Profile extends Component {
     if (this.state.primeiraRiquisicao) {
 
       if (this.props.estados.list.length > 0) {
-        this.buscarCidades(this.state.estado.value);
+        
+        this.buscarCidades(this.state.estado.value||24);
         this.setState({
           'primeiraRiquisicao': false
         });
       }
     }
-
 
   }
 
@@ -299,10 +348,21 @@ class Profile extends Component {
     this.setState({
       [name]: selecionado
     });
-
+    if (selecionado.length !== 0) {       
+      this.setState({
+        [name + "State"]: "success"
+      });
+    } else {
+      this.setState({
+        [name + "State"]: "error"
+      });
+    }
     if (name === 'estado') {
       this.setState({
         'cidade': []
+      });
+      this.setState({
+       'cidadeState': "error"
       });
       this.buscarCidades(selecionado.value)
     }
@@ -397,7 +457,8 @@ class Profile extends Component {
                       labelText="CPF/CNPJ *"
                       id="documento"
                       inputProps={{
-                        value: this.state.documento
+                        value: this.state.documento,
+                        disabled: true
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -510,7 +571,7 @@ class Profile extends Component {
                       formControlProps={{
                         fullWidth: true
                       }}
-                      error={((this.state.errorCode === BUSCAR_ESTADO) && (this.state.conflitos.length === 0))}
+                      error={this.state.estadoState === "error"}
                       errorHelperText="Selecione o tipo de conflito"
                     />
                   </GridItem>
@@ -524,7 +585,7 @@ class Profile extends Component {
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      error={((this.state.errorCode === BUSCAR_CIDADE) && (this.state.assuntos.length === 0))}
+                      error={this.state.cidadeState === "error"}
                       errorHelperText="Selecione o assunto relacionado ao conflito"
                     />
                   </GridItem>
@@ -546,7 +607,7 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
-              <Button color="secondary" disabled >Alterar</Button>
+              <Button color="secondary" onClick={() => this.atualizarEndereco()} >Alterar</Button>
             </Card>
             <Card>
               <CardHeader color="primary">
@@ -608,7 +669,7 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
-              <Button color="secondary" disabled>Alterar</Button>
+              <Button color="secondary"  onClick={() => this.atualizarLogin()}>Alterar</Button>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
