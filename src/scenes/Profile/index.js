@@ -52,6 +52,19 @@ class Profile extends Component {
     super(props);
 
     this.state = {
+      nomeState: "",
+      emailState: "",
+      telefoneState: "",
+      ruaState: "",
+      numeroState: "",
+      bairroState: "",
+      estadoState: "",
+      cidadeState: "",
+      cepState: "",
+      emailLoginState: "",
+      senhaState: "",
+      senhaConfirmacaoState: "",
+
       id: null,
       nome: ``,
       dataNascimento: ``,
@@ -81,12 +94,149 @@ class Profile extends Component {
     });
   };
 
+  verifyEmail(value) {
+    var emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (emailRex.test(value)) {
+      return true;
+    }
+    return false;
+  }
+  // function that verifies if a string has a given length or not
+  verifyLength(value, length) {
+    if (value.length >= length) {
+      return true;
+    }
+    return false;
+  }
+  // function that verifies if value contains only numbers
+  verifyNumber(value) {
+    var numberRex = new RegExp("^[0-9]+$");
+    if (numberRex.test(value)) {
+      return true;
+    }
+    return false;
+  }
+
+  // function that verifies if two strings are equal
+  compare(string1, string2) {
+    if (string1 === string2) {
+      return true;
+    }
+    return false;
+  }
+
+
+  change(event, stateName, type, stateNameEqualTo, maxValue) {
+    switch (type) {
+      
+      case "nome":
+        if (this.verifyLength(event.target.value, 8)) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+
+
+      case "email":
+        if (this.verifyEmail(event.target.value)) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      case "senha":
+        if (this.verifyLength(event.target.value, 8)) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      case "senhaConfirmacao":
+        if (this.verifyLength(event.target.value, 8) && this.compare(event.target.value, this.state.senha)) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      case "numero":
+        if (this.verifyNumber(event.target.value)) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      case "telefone":
+        if (
+          this.verifyNumber(event.target.value) &&
+          event.target.value.toString().length >= 10 &&
+          event.target.value.toString().length <= 11
+        ) {
+          this.setState({
+            [stateName + "State"]: "success"
+          });
+        } else {
+          this.setState({
+            [stateName + "State"]: "error"
+          });
+        }
+        break;
+      default:
+        break;
+    }
+    switch (type) {
+      case "checkbox":
+        this.setState({ [stateName]: event.target.checked });
+        break;
+      default:
+        this.setState({ [stateName]: event.target.value });
+        break;
+    }
+  }
+
   componentDidMount() {
     this.props.actions.loadProfile(this.props.auth.token);
     this.props.actions.getCountryStates(1);
   }
   atualizarPerfil(place) {
 
+    if (this.state.nomeState === "error") {
+      this.setState({'errorNotification':true});
+      this.notification('errorNotification');
+      return;
+    }
+    if (this.state.emailState === "error") {
+      this.setState({'errorNotification':true});
+      this.notification('errorNotification');
+      return;
+    }
+    if (this.state.telefoneState === "error") {
+      this.setState({'errorNotification':true});
+      this.notification('errorNotification');
+      return;
+    }
+    this.setState({'successNotification':true});
+    this.notification('successNotification');
     let data = {
       nome: this.state.nome,
       email: this.state.email,
@@ -96,18 +246,7 @@ class Profile extends Component {
     this.props.actions.salvarDadosBasicos(this.props.auth.token, data);
 
 
-    var x = [];
-    x[place] = true;
-    this.setState(x);
-    this.alertTimeout = setTimeout(
-      function () {
-        x[place] = false;
-        this.setState(x);
-      }.bind(this),
-      6000
-    );
   }
-
   componentDidUpdate() {
 
     if (this.state.id !== this.props.profileInfo.id) {
@@ -136,7 +275,9 @@ class Profile extends Component {
 
       if (this.props.estados.list.length > 0) {
         this.buscarCidades(this.state.estado.value);
-        this.setState({ 'primeiraRiquisicao': false });
+        this.setState({
+          'primeiraRiquisicao': false
+        });
       }
     }
 
@@ -144,17 +285,24 @@ class Profile extends Component {
   }
 
   handleSelectChange = name => selecionado => {
-    this.setState({ [name]: selecionado });
+    this.setState({
+      [name]: selecionado
+    });
 
     if (name === 'estado') {
-      this.setState({ 'cidade': [] });
+      this.setState({
+        'cidade': []
+      });
       this.buscarCidades(selecionado.value)
     }
 
   }
 
   buscarCidades(cidade) {
-    this.props.actions.getStateCities(cidade);
+    if (cidade !== undefined) {
+
+      this.props.actions.getStateCities(cidade);
+    }
   }
 
   buscarListaAssuntos(idConflito) {
@@ -178,9 +326,21 @@ class Profile extends Component {
     });
   }
 
+  notification(stat){
+      var x = [];
+      x[stat] = true;
+      this.setState(x);
+      this.alertTimeout = setTimeout(
+        function () {
+          x[stat] = false;
+          this.setState(x);
+        }.bind(this),
+        6000
+      );
+    }
+
   render() {
     const { classes, cidades, estados } = this.props;
-
 
     let inputValue;
     let valueButton;
@@ -192,7 +352,6 @@ class Profile extends Component {
       valueButton = <Button color="success" round onClick={this.alterarImagem}>
         Atualizar Imagem
                    </Button>;
-    }
     return (
       <React.Fragment>
         <GridContainer>
@@ -206,10 +365,13 @@ class Profile extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
-                      labelText="Nome"
+                      success={this.state.nomeState === "success"}
+                      error={this.state.nomeState === "error"}
+                      labelText="Nome *"
                       inputProps={{
                         value: this.state.nome,
-                        onChange: this.handleChange('nome')
+                        onChange: event =>
+                           this.change(event, "nome", "nome")
                       }}
                       id="nome"
                       formControlProps={{
@@ -236,11 +398,14 @@ class Profile extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={5}>
                     <CustomInput
+                      success={this.state.telefoneState === "success"}
+                      error={this.state.telefoneState === "error"}
                       labelText="Telefone"
                       id="telefone"
                       inputProps={{
                         value: this.state.telefone,
-                        onChange: this.handleChange('telefone')
+                        onChange:event =>
+                        this.change(event, "telefone", "telefone")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -250,11 +415,14 @@ class Profile extends Component {
 
                   <GridItem xs={12} sm={12} md={7}>
                     <CustomInput
+                      success={this.state.emailState === "success"}
+                      error={this.state.emailState === "error"}
                       labelText="Email"
                       id="email"
                       inputProps={{
                         value: this.state.email,
-                        onChange: this.handleChange('email')
+                        onChange: event =>
+                        this.change(event, "email", "email")
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -263,15 +431,7 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               </CardBody>
-              <Snackbar
-                place="tc"
-                color="warning"
-                message="Sucesso! Seus dados foram atualizados."
-                open={this.state.tc}
-                closeNotification={() => this.setState({ tc: false })}
-                close
-              />
-              <Button color="secondary" onClick={() => this.atualizarPerfil("tc")}>Atualizar</Button>
+              <Button color="secondary" onClick={() => this.atualizarPerfil()}>Atualizar</Button>
             </Card>
             <Card>
               <CardHeader color="primary">
@@ -434,11 +594,28 @@ class Profile extends Component {
             </Card>
           </GridItem>
         </GridContainer>
-
+        <Snackbar
+          place="tc"
+          color="success"
+          message="Sucesso! Seus dados foram atualizados."
+          open={this.state.successNotification}
+          closeNotification={() => this.setState({ successNotification: false })}
+          close
+          />
+        <Snackbar
+            place="tc"
+            color="warning"
+            message="Erro! Campos estão inválidos"
+            open={this.state.errorNotification}
+            closeNotification={() => this.setState({ errorNotification: false })}
+            close
+            />
       </React.Fragment>
     );
   }
 }
+}
+
 
 const mapStateToProps = state => ({
   auth: state.auth,
