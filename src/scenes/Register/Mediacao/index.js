@@ -50,7 +50,7 @@ class Mediacao extends Component {
 
       data = {
         requerente: this.props.auth.id,
-        requerido: 0,
+        requerido: null,
         assunto: motivo.assuntos.value,
         mensagem: motivo.mensagem,
         pendente: {

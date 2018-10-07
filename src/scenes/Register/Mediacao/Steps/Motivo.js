@@ -59,7 +59,7 @@ class Motivo extends React.Component {
     return isValid;
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     if (this.props.assuntos.conflitos.length === 0) {
       this.props.actions.getConflitos();
     }

@@ -24,7 +24,7 @@ class Root extends Component {
   
   render() {
     const { classes, auth } = this.props;
-
+    
     return (
       <div className={classes.root}>
         {auth.isAuthenticated &&

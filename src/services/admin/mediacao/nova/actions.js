@@ -1,5 +1,5 @@
 import { API } from '../../../API';
-import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR } from './actionTypes';
+import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from './actionTypes';
 
 export function cadastrar(data) {
   console.log(data);
@@ -22,8 +22,6 @@ function startSaveMediation() {
 }
 
 function saveMediationFinish(response) {
-  console.log('response');
-
   return {
     type: SAVE_MEDIATION_COMPLETE,
     payload: response.data,
@@ -31,10 +29,12 @@ function saveMediationFinish(response) {
 }
 
 function saveMediationFail(error) {
-  console.log('error');
-
   return {
     type: SAVE_MEDIATION_ERROR,
     payload: error
   }
+}
+
+export function clearMediationState() {
+  return { type: CLEAR_MEDIATION_STATE }
 }

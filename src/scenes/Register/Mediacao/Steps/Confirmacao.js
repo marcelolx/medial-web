@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA, MOTIVO } from './stepTypes';
 import { findStepStateIndex, viewInState, viewError } from './helpers';
@@ -9,6 +10,9 @@ import GridItem from '../../../../components/Grid/GridItem';
 import CustomInput from '../../../../components/CustomInput';
 import { TextMaskCNPJ } from '../../../../components/Masks';
 import TextField from '@material-ui/core/TextField';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import * as mediacaoActions from '../../../../services/admin/mediacao/nova/actions';
+import { withRouter } from 'react-router-dom';
 
 const style = {
   multilineTextField: {
@@ -19,21 +23,52 @@ const style = {
 class Confirmacao extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-  }
+    this.state = {
+      alert: false
+    };
+  } 
 
   sendState() {
     return this.state;
   }
 
   isValidated() {
-    return (viewInState(this.props.allStates, BUSCAR_EMPRESA) && viewInState(this.props.allStates, MOTIVO));
+    const valido = (viewInState(this.props.allStates, BUSCAR_EMPRESA) && viewInState(this.props.allStates, MOTIVO));
 
+    if (valido) {
+      this.handleGetAlert();
+    }
+
+     return valido;
     //TODO: Broken when company not registered
   }
 
+  componentWillUnmount(){
+    console.log('destruindo...');
+    
+  }
+
+  componentDidMount(){
+    console.log('construindo....');
+    
+  }
+  
+  hideAlertAndRedirectToMediations() {
+    //this.setState({
+    //  alert: false
+    //});
+    this.props.actions.clearMediationState();
+    this.props.history.push('/');
+  }
+
+  handleGetAlert() {
+    this.setState({
+      alert: true
+    });
+  }
+
   render() {
-    const { classes, allStates, mediacaoEmpresas } = this.props;
+    const { classes, allStates, mediacaoEmpresas, mediacao } = this.props;
 
     if (viewInState(allStates, BUSCAR_EMPRESA) && viewInState(allStates, MOTIVO)) {
       const viewEmpresaIndex = findStepStateIndex(BUSCAR_EMPRESA, allStates);
@@ -43,8 +78,30 @@ class Confirmacao extends Component {
       const motivo = allStates[viewMotivoIndex].MOTIVO;
     
       if ((empresa !== undefined) && (motivo !== undefined)) {
+        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8)) {          
+          setTimeout(
+            function() {
+              this.hideAlertAndRedirectToMediations()
+            }.bind(this), 2000);
+        }
+
         return(
           <React.Fragment>
+            {
+              this.state.alert ? 
+              (
+                <SweetAlert
+                  style={{ display: "block", marginTop: "-100px" }}
+                  title={mediacao.mensagem || 'Validando informações...'} //Quando feita mediação, exibir o protocolo talvez também?
+                  onConfirm={() => this.hideAlertAndRedirectToMediations().bind(this)}
+                  showConfirm={false}
+                >
+                  {((mediacao.id > 0) && (mediacao.protocolo.length > 8)) 
+                    ? 'Você será redirecionado para a página inicial...'
+                    : 'Aguarde a solicitação finalizar...'}
+                </SweetAlert>
+              ) : null
+            }
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={5}>
                 <CustomInput
@@ -167,9 +224,16 @@ class Confirmacao extends Component {
 
 const mapStateToProps = state => ({
   mediacaoEmpresas: state.empresa,
+  mediacao: state.novaMediacao,
 });
 
-export default compose(
-  connect(mapStateToProps),
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...mediacaoActions,
+  }, dispatch)
+});
+
+export default withRouter(compose(
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(style)
-)(Confirmacao);
+)(Confirmacao));

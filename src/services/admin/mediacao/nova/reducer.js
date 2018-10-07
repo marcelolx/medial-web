@@ -1,4 +1,4 @@
-import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR } from "./actionTypes";
+import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from "./actionTypes";
 import getAdaptedMessage from '../messages';
 
 const initialState = { 
@@ -13,17 +13,24 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         id: 0,
         protocolo: '',
-        mensagem: 'Solicitando mediação'
+        mensagem: 'Solicitando mediação...'
       })
     case SAVE_MEDIATION_COMPLETE: 
       return Object.assign({}, state, {
-        ...action.payload
+        ...action.payload,
+        mensagem: 'Mediação solicitada com sucesso!'
       })
     case SAVE_MEDIATION_ERROR: 
       return Object.assign({}, state, {
         id: 0,
         protocolo: '',
         mensagem: getAdaptedMessage(action.payload.message)
+      })
+    case CLEAR_MEDIATION_STATE:
+      return Object.assign({}, state, {
+        id: 0,
+        protocolo: '',
+        mensagem: '',
       })
     default: 
       return state;
