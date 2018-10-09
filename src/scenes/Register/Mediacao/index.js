@@ -12,6 +12,8 @@ import { BUSCAR_EMPRESA, EMPRESA, MOTIVO, CONFIRMACAO } from './Steps/stepTypes'
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { findStepStateIndex } from './Steps/helpers';
+import * as novaMediacaoActions from '../../../services/admin/mediacao/nova/actions';
+import bindActionCreators from 'redux/src/bindActionCreators';
 
 const steps = [
   { stepName: 'Pesquisar empresa', stepComponent: BuscarEmpresa, stepId: BUSCAR_EMPRESA },
@@ -48,7 +50,7 @@ class Mediacao extends Component {
 
       data = {
         requerente: this.props.auth.id,
-        requerido: 0,
+        requerido: null,
         assunto: motivo.assuntos.value,
         mensagem: motivo.mensagem,
         pendente: {
@@ -60,7 +62,7 @@ class Mediacao extends Component {
       }
     }
 
-    console.log(JSON.stringify(data));
+    this.props.actions.cadastrar(data);
   }
 
   render(){
@@ -82,10 +84,16 @@ class Mediacao extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  mediacaoEmpresas: state.mediacaoEmpresas,
+  mediacaoEmpresas: state.empresa,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...novaMediacaoActions
+  }, dispatch)
 });
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withStyles(mediacaoStyles)
 )(Mediacao);

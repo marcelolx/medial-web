@@ -1,30 +1,40 @@
 import { API } from '../../../API';
-import { COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR, COMPANY_MATCH_SEARCH_START } from './actionTypes';
+import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from './actionTypes';
 
-export function getEmpresas(fantasia) {
+export function cadastrar(data) {
+  console.log(data);
+  
   return function(dispatch) {
-    dispatch(startCompanySearch());
+    dispatch(startSaveMediation());
 
-    return API.get(`/empresa/getEmpresas?fantasia=${fantasia}`)
-      .then(response => dispatch(getEmpresasComplete(response.data)))
-      .catch(err => dispatch(getEmpresasError(err)))
+    return API.post('/mediacao/cadastrar', data)
+      .then(response => {
+        dispatch(saveMediationFinish(response))
+      })
+      .catch(err => {
+        dispatch(saveMediationFail(err))
+      });
   }
 }
 
-function startCompanySearch() {
-  return { type: COMPANY_MATCH_SEARCH_START }
+function startSaveMediation() {
+  return { type: SAVE_MEDIATION_START }
 }
 
-function getEmpresasComplete(data) {  
+function saveMediationFinish(response) {
   return {
-    type: COMPANY_MATCH_SEARCH_COMPLETE,
-    payload: data
+    type: SAVE_MEDIATION_COMPLETE,
+    payload: response.data,
   }
 }
 
-function getEmpresasError(erro) {
+function saveMediationFail(error) {
   return {
-    type: COMPANY_MATCH_SEARCH_ERROR,
-    payload: erro
+    type: SAVE_MEDIATION_ERROR,
+    payload: error
   }
+}
+
+export function clearMediationState() {
+  return { type: CLEAR_MEDIATION_STATE }
 }

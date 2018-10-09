@@ -5,7 +5,7 @@ import GridItem from '../../../../components/Grid/GridItem';
 import CustomInput from '../../../../components/CustomInput';
 import { withStyles } from '@material-ui/core';
 import bindActionCreators from 'redux/src/bindActionCreators';
-import * as mediacaoStepActions from '../../../../services/admin/mediacao/nova/actions';
+import * as empresaActions from '../../../../services/admin/empresa/actions';
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA } from './stepTypes';
 import { TextMaskCNPJ, TextMaskPhone } from '../../../../components/Masks';
@@ -250,7 +250,7 @@ class Empresa extends React.Component {
             />
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
-            <CustomInput 
+            <CustomInput
               labelText="Número"
               id="numero-empresa"
               formControlProps={{
@@ -289,12 +289,12 @@ class Empresa extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  mediacaoEmpresas: state.mediacaoEmpresas,
+  mediacaoEmpresas: state.empresa,
 });
 
 const mapDispatchProps = dispatch => ({
   actions: bindActionCreators({
-    ...mediacaoStepActions,
+    ...empresaActions,
   }, dispatch)
 });
 
