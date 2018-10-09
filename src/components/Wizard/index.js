@@ -131,13 +131,13 @@ class Wizard extends Component {
       if (this[this.props.steps[this.state.currentStep].stepId].sendState !== undefined) {
         const index = (this.state.allStates[0] !== undefined) ? 
           findItemToRemove(this.props.steps[this.state.currentStep].stepId, this.state.allStates) : [];
-
-        const newAllStates = [...this.state.allStates];
+        
+        const newAllStates = (this.state.allStates.length !== undefined) ? [...this.state.allStates] : [];
 
         if (index.length > 0) {
           newAllStates.splice(index[0], 1);
         }
-        
+
         this.setState({
           allStates: [
             ...newAllStates,
