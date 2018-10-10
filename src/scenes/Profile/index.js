@@ -267,7 +267,7 @@ class Profile extends Component {
     }
     
 
-    this.props.actions.atualizarDadosEndereco(this.props.auth.token, data);
+    this.props.actions.atualizarDadosEndereco(data);
     this.successNotification();
   }
 
