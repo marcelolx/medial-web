@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 const styles = theme => ({
   content: {
     flexGrow: 1,
-    backgroundColor: '#99999938',
     paddingRight: '15px',
     minWidth: 0,
   },
