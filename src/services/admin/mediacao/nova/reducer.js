@@ -1,37 +1,38 @@
-import { COMPANY_MATCH_SEARCH_START, COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR } from './actionTypes';
+import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from "./actionTypes";
+import getAdaptedMessage from '../messages';
 
-const initialState = {
-  empresas: [],
-  encontrou: false,
-  buscando: false,
-  message: '',
+const initialState = { 
+  id: 0,
+  protocolo: '',
+  mensagem: ''
 }
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case COMPANY_MATCH_SEARCH_START: {
+    case SAVE_MEDIATION_START: 
       return Object.assign({}, state, {
-        empresas: [],
-        encontrou: false,
-        buscando: true,
-        message: 'Buscando empresas'
+        id: 0,
+        protocolo: '',
+        mensagem: 'Solicitando mediação...'
       })
-    }
-    case COMPANY_MATCH_SEARCH_COMPLETE:
+    case SAVE_MEDIATION_COMPLETE: 
       return Object.assign({}, state, {
-        empresas: action.payload,
-        encontrou: (action.payload.length > 0),
-        buscando: false,
-        message: (action.payload.length === 0) ? 'Nenhuma empresa encontrada com este nome' : ''
+        ...action.payload,
+        mensagem: 'Mediação solicitada com sucesso!'
       })
-    case COMPANY_MATCH_SEARCH_ERROR:
+    case SAVE_MEDIATION_ERROR: 
       return Object.assign({}, state, {
-        empresas: [],
-        encontrou: false,
-        buscando: false,
-        message: 'Falha ao buscar as empresas'
-      })  
-    default:
+        id: 0,
+        protocolo: '',
+        mensagem: getAdaptedMessage(action.payload.message)
+      })
+    case CLEAR_MEDIATION_STATE:
+      return Object.assign({}, state, {
+        id: 0,
+        protocolo: '',
+        mensagem: '',
+      })
+    default: 
       return state;
   }
 }

@@ -16,7 +16,7 @@ import CardHeader from '../../../../components/Card/CardHeader';
 import CardBody from '../../../../components/Card/CardBody';
 import CardIcon from '../../../../components/Card/CardIcon';
 import Assignment from "@material-ui/icons/Assignment";
-import * as mediacaoStepActions from '../../../../services/admin/mediacao/nova/actions';
+import * as empresaActions from '../../../../services/admin/empresa/actions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const style = {
@@ -283,12 +283,12 @@ class BuscarEmpresa extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  mediacaoEmpresas: state.mediacaoEmpresas,
+  mediacaoEmpresas: state.empresa,
 });
 
 const mapDispatchProps = dispatch => ({
   actions: bindActionCreators({
-    ...mediacaoStepActions,
+    ...empresaActions,
   }, dispatch)
 });
 
