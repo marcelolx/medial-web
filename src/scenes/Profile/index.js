@@ -333,7 +333,7 @@ class Profile extends Component {
 
     if (this.state.primeiraRiquisicao) {
 
-      if (this.props.estados.list.length > 0) {
+      if (this.props.estados.list!= null && this.props.estados.list.length > 0) {
         
         this.buscarCidades(this.state.estado.value||24);
         this.setState({
@@ -376,13 +376,6 @@ class Profile extends Component {
     }
   }
 
-  buscarListaAssuntos(idConflito) {
-    this.setState({
-      assuntos: [],
-    });
-
-    this.props.actions.getCidades(idConflito);
-  }
 
   limparListasCidades() {
     this.setState({
@@ -572,7 +565,7 @@ class Profile extends Component {
                         fullWidth: true
                       }}
                       error={this.state.estadoState === "error"}
-                      errorHelperText="Selecione o tipo de conflito"
+                      errorHelperText="Selecione o estado"
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
@@ -586,7 +579,7 @@ class Profile extends Component {
                         fullWidth: true,
                       }}
                       error={this.state.cidadeState === "error"}
-                      errorHelperText="Selecione o assunto relacionado ao conflito"
+                      errorHelperText="Selecione a cidade"
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>

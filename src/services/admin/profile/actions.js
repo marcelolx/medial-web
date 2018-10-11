@@ -16,14 +16,17 @@ export function loadProfile(token) {
         dispatch(loadProfileComplete(response.data))
       })
       .catch(err => {
-        switch(err.response.status){
-          case 403:{
-            console.log('Não autorizado')
-            dispatch(unauthorizedError())
-            break;
-          }
-          default: {
-            break;
+        if (err.response !== undefined) {
+        
+          switch(err.response.status){
+            case 403:{
+              console.log('Não autorizado')
+              dispatch(unauthorizedError())
+              break;
+            }
+            default: {
+              break;
+            }
           }
         }
         return;
@@ -40,18 +43,7 @@ export function salvarDadosBasicos(data) {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
-        switch(err.response.status){
-          
-          case 403:{
-            console.log('Não autorizado')
-            dispatch(unauthorizedError())
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-        return;
+        
       })
   }
 }
@@ -63,17 +55,7 @@ export function atualizarDadosLogin(data) {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
-        switch(err.response.status){
-          case 403:{
-            console.log('Não autorizado')
-            dispatch(unauthorizedError())
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-        return;
+      
       })
   }
 }
@@ -86,17 +68,7 @@ export function atualizarDadosEndereco(data) {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
-        switch(err.response.status){
-          case 403:{
-            console.log('Não autorizado')
-            dispatch(unauthorizedError())
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-        return;
+      
       })
   }
 }
