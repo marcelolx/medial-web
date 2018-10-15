@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import GridContainer from '../../../../components/Grid/GridContainer';
 import GridItem from '../../../../components/Grid/GridItem';
 import CustomInput from '../../../../components/CustomInput';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import * as empresaActions from '../../../../services/admin/empresa/actions';
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA } from './stepTypes';
 import { TextMaskCNPJ, TextMaskPhone } from '../../../../components/Masks';
-import { findStepStateIndex, viewInState, viewError } from './helpers';
+import { findStepStateIndex, viewInState, viewError, validateEmail, validateCNPJ } from './helpers';
+import { CNPJ_INFORMADO_INVALIDO, EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO } from '../../../../utils/Messages/errorMessages';
+import getAdaptedMessage from '../../../../services/admin/mediacao/messages';
 
 const style = {
   disabled: {
@@ -27,6 +29,7 @@ class Empresa extends React.Component {
       email: '',
       telefone: '',
       error: false,
+      errorType: '',
     }
   }
 
@@ -45,18 +48,33 @@ class Empresa extends React.Component {
         email: this.state.email,
         telefone: this.state.telefone,
       }
+
+      const validMail = validateEmail(data.email);
+      const validCNPJ = validateCNPJ(data.cnpj);
       
-      if (Object.keys(data).filter(key => data[key] === '').length > 0) {
+      if ((Object.keys(data).filter(key => data[key] === '').length > 0) ||
+         (!validMail || !validCNPJ)) {
+
+        const errorType = !validMail 
+          ? EMAIL_INVALIDO 
+          : !validCNPJ 
+            ? CNPJ_INFORMADO_INVALIDO 
+            : '';
+
         this.setState({
-          error: true
+          error: true,
+          errorType: errorType,
         });
         
         return false;
-      }  
-
-      return true;
+      }
     }
 
+    this.setState({
+      error: false,
+      errorType: '',
+    });
+    
     return true;
   }
 
@@ -65,13 +83,14 @@ class Empresa extends React.Component {
   }
 
   handleViewSolicitarCadastroEmpresa = () => {
+    const { mediacao } = this.props;
 
     return(
       <React.Fragment>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
-              error={this.state.error && this.state.nome === ''}
+              error={(this.state.error && this.state.nome === '') || mediacao.errorCode === NOME_NAO_INFORMADO}
               labelText="Nome da empresa"
               id="nome-empresa"
               formControlProps={{
@@ -81,12 +100,12 @@ class Empresa extends React.Component {
                 value: this.state.nome,
                 onChange: this.handleChange('nome')
               }}
-              errorHelperText="Informe o nome da empresa"
+              errorHelperText={mediacao.mensagem || 'Informe o nome da empresa'}
             />
           </GridItem>        
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput 
-              error={this.state.error && this.state.email === ''}
+              error={(this.state.error && (this.state.email === '' || this.state.errorType === EMAIL_INVALIDO)) || mediacao.errorCode === EMAIL_INVALIDO}
               labelText="E-mail da empresa"
               id="email-empresa"
               formControlProps={{
@@ -96,14 +115,14 @@ class Empresa extends React.Component {
                 value: this.state.email,
                 onChange: this.handleChange('email')
               }}
-              errorHelperText="Informe o email da empresa"
+              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorType) || 'Informe o email da empresa'}
             />
           </GridItem>        
         </GridContainer>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
-              error={this.state.error && this.state.cnpj === ''}
+              error={(this.state.error && (this.state.cnpj === ''|| this.state.errorType === CNPJ_INFORMADO_INVALIDO)) || mediacao.errorCode === CNPJ_INFORMADO_INVALIDO}
               labelText="CNPJ"
               id="cnpj-empresa"
               formControlProps={{
@@ -114,12 +133,12 @@ class Empresa extends React.Component {
                 onChange: this.handleChange('cnpj'),
                 inputComponent: TextMaskCNPJ
               }}
-              errorHelperText="Informe o cnpj da empresa"
+              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorType) || 'Informe o cnpj da empresa'}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
-              error={this.state.error && this.state.telefone === ''}
+              error={(this.state.error && this.state.telefone === '') || mediacao.errorCode === TELEFONE_NAO_INFORMADO}
               labelText="Telefone da empresa"
               id="telefone-empresa"
               formControlProps={{
@@ -130,7 +149,7 @@ class Empresa extends React.Component {
                 onChange: this.handleChange('telefone'),
                 inputComponent: TextMaskPhone
               }}
-              errorHelperText="Informe o telefone para contato com a empresa"
+              errorHelperText={mediacao.mensagem || 'Informe o telefone para contato com a empresa'}
             />
           </GridItem>
         </GridContainer>
@@ -271,7 +290,7 @@ class Empresa extends React.Component {
 
     if (allStates[0] === undefined) {
       return null;
-    } else {      
+    } else {
       if (viewInState(allStates, BUSCAR_EMPRESA)) {
         const viewIndex = findStepStateIndex(BUSCAR_EMPRESA, allStates);
         const empresa = mediacaoEmpresas.empresas[allStates[viewIndex].BUSCAR_EMPRESA.checked];
@@ -290,6 +309,7 @@ class Empresa extends React.Component {
 
 const mapStateToProps = state => ({
   mediacaoEmpresas: state.empresa,
+  mediacao: state.novaMediacao,
 });
 
 const mapDispatchProps = dispatch => ({

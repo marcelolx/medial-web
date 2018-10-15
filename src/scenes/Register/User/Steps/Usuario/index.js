@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, FormHelperText, InputAdornment, IconButton, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import FormLabel from '@material-ui/core/FormControl';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import FormControl from '@material-ui/core/FormControl';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
 import * as errorActions from '../../../../../services/errors/actions';
-import { EMAIL_INVALIDO, EMAIL_CADASTRADO, SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM } from '../../../../../services/register/user/messages';
+import { EMAIL_CADASTRADO, SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM } from '../../../../../services/register/user/messages';
 import handleFieldShowError from '../../../../../utils/validateFields';
+import { EMAIL_INVALIDO } from '../../../../../utils/Messages/errorMessages';
 
 const styles = theme => ({
   root: {

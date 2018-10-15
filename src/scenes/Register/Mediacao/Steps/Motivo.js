@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO } from './stepTypes';
+import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../services/admin/mediacao/messages';
 
 const style = {
   multilineTextField: {
@@ -95,7 +96,7 @@ class Motivo extends React.Component {
   }
 
   render() {
-    const { classes, assuntos } = this.props;
+    const { classes, assuntos, mediacao } = this.props;
         
     return(
       <React.Fragment>
@@ -117,7 +118,7 @@ class Motivo extends React.Component {
         </GridContainer>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={5}>
-            <SearchSelect 
+            <SearchSelect
               opcoes={assuntos.assuntos}
               name="assuntos"
               onChange={(name, value) => this.handleSelectChange(name, value)}
@@ -126,8 +127,8 @@ class Motivo extends React.Component {
               formControlProps={{
                 fullWidth: true,
               }}
-              error={((this.state.errorCode === SELECIONAR_CONFLITO_E_ASSUNTO) && (this.state.assuntos.length === 0))}
-              errorHelperText="Selecione o assunto relacionado ao conflito"
+              error={((this.state.errorCode === SELECIONAR_CONFLITO_E_ASSUNTO) && (this.state.assuntos.length === 0)) || (mediacao.errorCode === ASSUNTO_INVALIDO)}
+              errorHelperText={mediacao.mensagem || 'Selecione o assunto relacionado ao conflito'}
             />
           </GridItem>
         </GridContainer>
@@ -150,8 +151,8 @@ class Motivo extends React.Component {
                 onChange={this.handleChange('mensagem')}
               />
               { 
-                (this.state.errorCode === MINIMO_CARACTERES_500) &&
-                <FormHelperText id="mensagem-error-text">Informe uma mensagem com no mínimo 500 caracteres.</FormHelperText>
+                ((this.state.errorCode === MINIMO_CARACTERES_500) || (mediacao.errorCode === MENSAGEM_MENOS_500_CARACTERES)) &&
+                <FormHelperText id="mensagem-error-text">{mediacao.mensagem || 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
               }
             </FormControl>
           </GridItem>
@@ -162,7 +163,8 @@ class Motivo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  assuntos: state.mediacaoAssuntos
+  assuntos: state.mediacaoAssuntos,
+  mediacao: state.novaMediacao,
 });
 
 const mapDispatchToProps = dispatch => ({

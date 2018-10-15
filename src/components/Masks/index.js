@@ -27,7 +27,7 @@ export function TextMaskCNPJ(props) {
     <MaskedInput 
       {...other}
       ref={inputRef}
-      mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
+      mask={[/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
       placeholderChar={'\u2000'}
       showMask={false}
     />
