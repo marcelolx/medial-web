@@ -8,13 +8,12 @@ import PropTypes from 'prop-types';
 const styles = theme => ({
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    paddingRight: '15px',
     minWidth: 0,
   },
   toolbar: theme.mixins.toolbar,
   logged: {
-    paddingLeft: 264,
+    paddingLeft: 255,
   },
   notLogged: {
     //maxWidth: '400px', Se definimos 400px aqui, tanto para tela de login quanto para tela de cadastro fica esse tamanho ou menor

@@ -8,7 +8,9 @@ import paisesReducer from './graphql/paises/reducer';
 import estadosReducer from './graphql/estados/reducer';
 import cidadesReducer from './graphql/cidades/reducer';
 import registerCompleteReducer from './register/complete/reducer';
-import { reducer as permissions } from 'react-redux-permissions';
+import empresaReducer from './admin/empresa/reducer';
+import mediacaoAssuntosReducer from './admin/mediacao/assuntos/reducer';
+import novaMediacaoReducer from './admin/mediacao/nova/reducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -19,6 +21,8 @@ export default combineReducers({
   estados: estadosReducer,
   cidades: cidadesReducer,
   registerComplete: registerCompleteReducer,
-  permissions: permissions,
+  empresa: empresaReducer,
+  mediacaoAssuntos: mediacaoAssuntosReducer,
+  novaMediacao: novaMediacaoReducer,
   emailValidacao: emailValidacaoReducer
 });
