@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
-import { withStyles, FormControl, InputLabel, Input, FormHelperText, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, MenuItem } from "@material-ui/core";
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import TextField from '@material-ui/core/TextField';
+import FormLabel from '@material-ui/core/FormLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
@@ -8,7 +18,8 @@ import { TextMaskCPF, TextMaskCNPJ } from '../../../../../components/Masks'
 import * as stepsActions from '../../../../../services/steps/actions';
 import * as registerUserActions from '../../../../../services/register/user/actions';
 import handleFieldShowError from '../../../../../utils/validateFields';
-import { NOME_NAO_INFORMADO, CPF_INVALIDO, CPF_CNPJ_CADASTRADO, RG_IE_NAO_INFORMADO, DATA_IGUAL_DATA_ATUAL, NOME_MAE_NAO_INFORMADO, ESTADO_CIVIL_NAO_INFORMADO, ESCOLARIDADE_NAO_INFORMADA, FANTASIA_NAO_INFORMADO, CNPJ_INFORMADO_INVALIDO, RAMO_EMPRESARIAL_NAO_INFORMADO } from '../../../../../services/register/user/messages';
+import { CPF_INVALIDO, CPF_CNPJ_CADASTRADO, RG_IE_NAO_INFORMADO, DATA_IGUAL_DATA_ATUAL, NOME_MAE_NAO_INFORMADO, ESTADO_CIVIL_NAO_INFORMADO, ESCOLARIDADE_NAO_INFORMADA, FANTASIA_NAO_INFORMADO, RAMO_EMPRESARIAL_NAO_INFORMADO } from '../../../../../services/register/user/messages';
+import { CNPJ_INFORMADO_INVALIDO, NOME_NAO_INFORMADO } from "../../../../../utils/Messages/errorMessages";
 
 const styles = theme => ({
   root: {

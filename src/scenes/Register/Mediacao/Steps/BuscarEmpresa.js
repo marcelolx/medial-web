@@ -18,6 +18,7 @@ import CardIcon from '../../../../components/Card/CardIcon';
 import Assignment from "@material-ui/icons/Assignment";
 import * as empresaActions from '../../../../services/admin/empresa/actions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { EMPRESA_INVALIDA } from '../../../../services/admin/mediacao/messages';
 
 const style = {
   ...empresasTableStyle,
@@ -146,7 +147,7 @@ class BuscarEmpresa extends React.Component {
   }
 
   render() {
-    const { classes, mediacaoEmpresas } = this.props;
+    const { classes, mediacaoEmpresas, mediacao } = this.props;
 
     return(
       <React.Fragment>
@@ -218,7 +219,11 @@ class BuscarEmpresa extends React.Component {
               />
               </CardBody>
               { //TODO: Tá feio, ajustar uma hora, deus me livre
-                (((mediacaoEmpresas.empresas.length > 0) && (this.state.checked.length === 0)) ?
+                (mediacao.errorCode === EMPRESA_INVALIDA) ?
+                  <h5 className={classes.errorTextHelper}>
+                    {mediacao.mensagem}
+                  </h5>
+                : (((mediacaoEmpresas.empresas.length > 0) && (this.state.checked.length === 0)) ?
                   <h5 className={classes.errorTextHelper}>
                     Selecione uma empresa
                   </h5>
@@ -243,7 +248,7 @@ class BuscarEmpresa extends React.Component {
                 || 
                 (this.state.messageNext !== '' &&
                   <h5 className={classes.errorTextHelper}>
-                    {this.state.messageNext}  
+                    {this.state.messageNext}
                   </h5>
                 )
               }
@@ -284,6 +289,7 @@ class BuscarEmpresa extends React.Component {
 
 const mapStateToProps = state => ({
   mediacaoEmpresas: state.empresa,
+  mediacao: state.novaMediacao,
 });
 
 const mapDispatchProps = dispatch => ({
@@ -292,7 +298,7 @@ const mapDispatchProps = dispatch => ({
   }, dispatch)
 });
 
-export default compose(  
+export default compose(
   connect(mapStateToProps, mapDispatchProps),
   withStyles(style)
 )(BuscarEmpresa);
