@@ -43,6 +43,7 @@ const styles = theme => ({
 
 class Login extends Component {
   state = {
+    emailEnviado: false,
     email: '',
     password: '',
     showPassword: false,
@@ -51,7 +52,7 @@ class Login extends Component {
   componentDidMount() {
     this.redirectLogged();
 
-    if( this.props.location.search !== null && this.props.location.search !== ""){
+    if (this.props.location.search !== null && this.props.location.search !== "") {
       const data = queryString.parse(this.props.location.search);
       this.props.actions.validacaoEmail(data)
     }
@@ -62,9 +63,12 @@ class Login extends Component {
 
     const { emailValidacao } = this.props;
 
-    if(emailValidacao.value !== null){
+    if (emailValidacao.value !== null && !this.state.emailEnviado) {
       this.sucessoCadastro();
-     }
+      this.setState({
+        emailEnviado:true,
+      });
+    }
   }
 
 
@@ -97,17 +101,17 @@ class Login extends Component {
     })
   }
 
-  sucessoCadastro = () => { 
+  sucessoCadastro = () => {
     const { emailValidacao } = this.props;
 
     withReactContent(Swal).fire({
-        title: emailValidacao.value ? <p>Cadastro realizado com sucesso!</p> : <p>Problema ao realizar a confirmaçao do cadastro</p> ,
-        type: emailValidacao.value ? 'success':'error',
-        timer: 3000,
-        showConfirmButton: true,
+      title: emailValidacao.value ? <p>Cadastro realizado com sucesso!</p> : <p>Problema ao realizar a confirmaçao do cadastro</p>,
+      type: emailValidacao.value ? 'success' : 'error',
+      timer: 3000,
+      showConfirmButton: true,
     });
-    
-    
+
+
   }
 
 

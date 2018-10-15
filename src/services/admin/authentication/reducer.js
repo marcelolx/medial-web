@@ -1,4 +1,4 @@
-import { LOGIN_COMPLETE, LOGOUT_COMPLETE } from './actionTypes';
+import { LOGIN_COMPLETE, LOGOUT_COMPLETE,UNAUTHORIZED } from "./actionTypes";
 
 const initialState = {
   token: null,
@@ -24,8 +24,16 @@ export default function(state = initialState, action) {
         id: null,
         accessLevel: null,
         isAuthenticated: false,
-        message: '',
+        message: 'Você saiu com sucesso do sistema',
       }); 
+      case UNAUTHORIZED: 
+        return Object.assign({}, state, {
+          token: null,
+          id: null,
+          accessLevel: null,
+          isAuthenticated: false,
+          message: 'Você não está autorizado a acessar essa página',
+        });
     default:
       return state
   }

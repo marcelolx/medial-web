@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import authReducer from './admin/authentication/reducer';
 import emailValidacaoReducer from './admin/emailValid/reducer';
+import profileInfoReducer from './admin/profile/reducer';
 import errorsReducer from './errors/reducer';
 import stepsReducer from './steps/reducer';
 import registerUserReducer from './register/user/reducer';
@@ -21,8 +22,9 @@ export default combineReducers({
   estados: estadosReducer,
   cidades: cidadesReducer,
   registerComplete: registerCompleteReducer,
+  emailValidacao: emailValidacaoReducer,
+  profileInfo: profileInfoReducer,
   empresa: empresaReducer,
   mediacaoAssuntos: mediacaoAssuntosReducer,
   novaMediacao: novaMediacaoReducer,
-  emailValidacao: emailValidacaoReducer
 });
