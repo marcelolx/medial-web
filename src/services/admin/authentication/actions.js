@@ -15,8 +15,6 @@ export function login(email, password) {
 }
 
 function loginComplete(response) {
-  console.log('loginComplete');
-  console.log(response);
 
   return {
     type: LOGIN_COMPLETE,

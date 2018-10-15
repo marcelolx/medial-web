@@ -13,7 +13,11 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Logo from '../../components/Root/Logo';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
+import queryString from 'query-string';
 import * as authActions from '../../services/admin/authentication/actions';
+import * as emailValidacao from '../../services/admin/emailValid/actions';
 import { LOGIN_ERROR } from '../../services/errors/actionTypes';
 
 
@@ -46,11 +50,23 @@ class Login extends Component {
 
   componentDidMount() {
     this.redirectLogged();
+
+    if( this.props.location.search !== null && this.props.location.search !== ""){
+      const data = queryString.parse(this.props.location.search);
+      this.props.actions.validacaoEmail(data)
+    }
   }
 
   componentDidUpdate() {
     this.redirectLogged();
+
+    const { emailValidacao } = this.props;
+
+    if(emailValidacao.value !== null){
+      this.sucessoCadastro();
+     }
   }
+
 
   redirectLogged() {
     const { auth, history } = this.props;
@@ -58,6 +74,7 @@ class Login extends Component {
     if (auth.isAuthenticated) {
       history.push('/');
     }
+
   }
 
   handleLogin = e => {
@@ -79,6 +96,20 @@ class Login extends Component {
       });
     })
   }
+
+  sucessoCadastro = () => { 
+    const { emailValidacao } = this.props;
+
+    withReactContent(Swal).fire({
+        title: emailValidacao.value ? <p>Cadastro realizado com sucesso!</p> : <p>Problema ao realizar a confirmaçao do cadastro</p> ,
+        type: emailValidacao.value ? 'success':'error',
+        timer: 3000,
+        showConfirmButton: true,
+    });
+    
+    
+  }
+
 
   render() {
     const { classes, error } = this.props;
@@ -149,12 +180,14 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  emailValidacao: state.emailValidacao,
   error: state.error,
 })
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...authActions,
+    ...emailValidacao,
   }, dispatch)
 });
 
