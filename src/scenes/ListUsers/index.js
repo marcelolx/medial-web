@@ -1,6 +1,5 @@
 import React from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -312,11 +311,4 @@ ListUsers.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  user: state.user.data,
-});
-
-export default compose(
-  withStyles(styles),
-  connect(mapStateToProps, {}),
-)(ListUsers);
+export default compose(withStyles(styles))(ListUsers);

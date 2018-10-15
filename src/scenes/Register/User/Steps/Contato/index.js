@@ -9,7 +9,8 @@ import * as errorActions from '../../../../../services/errors/actions';
 import RegisterStepButton from '../../../../../components/Root/RegisterStep/Buttons';
 import { TextMaskPhone, TextMaskCellPhone } from '../../../../../components/Masks';
 import handleFieldShowError from '../../../../../utils/validateFields';
-import { TELEFONE_NAO_INFORMADO, CELULAR_NAO_INFORMADO } from '../../../../../services/register/user/messages';
+import { CELULAR_NAO_INFORMADO } from '../../../../../services/register/user/messages';
+import { TELEFONE_NAO_INFORMADO } from '../../../../../utils/Messages/errorMessages';
 
 const styles = theme => ({
   root: {

@@ -1,14 +1,13 @@
-export const NOME_NAO_INFORMADO = 'NOME_NAO_INFORMADO';
+import getDefaultAdaptedMessage from '../../../utils/Messages/errorMessages';
+
 export const FANTASIA_NAO_INFORMADO = 'FANTASIA_NAO_INFORMADO';
 export const CPF_CNPJ_CADASTRADO = 'CPF_CNPJ_CADASTRADO';
-export const EMAIL_INVALIDO = 'EMAIL_INVALIDO';
 export const EMAIL_CADASTRADO = 'EMAIL_CADASTRADO';
 export const SENHA_NAO_INFORMADA = 'SENHA_NAO_INFORMADA';
 export const SENHA_EXIGE_8_DIGITOS = 'SENHA_EXIGE_8_DIGITOS';
 export const SENHAS_NAO_COINCIDEM = 'SENHAS_NAO_COINCIDEM';
 export const TIPO_TRANSACIONADOR_NAO_INFORMADO = 'TIPO_TRANSACIONADOR_NAO_INFORMADO';
 export const CPF_INVALIDO = 'CPF_INVALIDO';
-export const CNPJ_INFORMADO_INVALIDO = 'CNPJ_INFORMADO_INVALIDO';
 export const RG_IE_NAO_INFORMADO = 'RG_IE_NAO_INFORMADO';
 export const DATA_IGUAL_DATA_ATUAL = 'DATA_IGUAL_DATA_ATUAL';
 export const NOME_MAE_NAO_INFORMADO = 'NOME_MAE_NAO_INFORMADO';
@@ -23,17 +22,12 @@ export const CIDADE_NAO_INFORMADA = 'CIDADE_NAO_INFORMADA';
 export const BAIRRO_NAO_INFORMADO = 'BAIRRO_NAO_INFORMADO';
 export const RUA_NAO_INFORMADA = 'RUA_NAO_INFORMADA';
 export const NUMERO_NAO_INFORMADO = 'NUMERO_NAO_INFORMADO';
-export const TELEFONE_NAO_INFORMADO = 'TELEFONE_NAO_INFORMADO';
 export const CELULAR_NAO_INFORMADO = 'CELULAR_NAO_INFORMADO';
 
 export default function getAdaptedMessage(message) {
   switch(message){
-    case EMAIL_INVALIDO:
-      return 'E-mail informado é inválido';
     case EMAIL_CADASTRADO:
       return 'E-mail já cadastrado no sistema';
-    case NOME_NAO_INFORMADO: 
-      return 'Nome não informado';
     case FANTASIA_NAO_INFORMADO:
       return 'Nome fantasia não informado';
     case CPF_CNPJ_CADASTRADO:
@@ -48,8 +42,6 @@ export default function getAdaptedMessage(message) {
       return 'Selecione a personalidade';
     case CPF_INVALIDO:
       return 'CPF informado inválido';
-    case CNPJ_INFORMADO_INVALIDO: 
-      return 'CNPJ informado inválido';
     case RG_IE_NAO_INFORMADO: 
       return 'RG/IE não informado(a)';
     case DATA_IGUAL_DATA_ATUAL:
@@ -77,12 +69,10 @@ export default function getAdaptedMessage(message) {
     case RUA_NAO_INFORMADA:
       return 'Rua não informada';
     case NUMERO_NAO_INFORMADO:
-      return 'Número não informado';
-    case TELEFONE_NAO_INFORMADO:
-      return 'Telefone não informado';
+      return 'Número não informado';    
     case CELULAR_NAO_INFORMADO:
       return 'Celular não informado';
     default: 
-      return '';
+      return getDefaultAdaptedMessage(message);
   }
 }

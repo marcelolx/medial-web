@@ -9,6 +9,7 @@ const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');
 const Profile = from('./scenes/Profile');
 const RegisterUser = from('./scenes/Register/User');
+const Mediacao = from('./scenes/Register/Mediacao');
 
 function from(path){
   return asyncComponent(() => {
@@ -21,8 +22,9 @@ export default () => (
     <PrivateRoute exact path="/" component={Home} /> 
     <Route path="/login" component={Login} />
     <Route path="/user/register" component={RegisterUser} />
-    <Route path="/users/all" component={ListUsers} />
-    <PrivateRoute path="/profile" component={Profile} />    
+    <PrivateRoute path="/users/all" component={ListUsers} />
+    <PrivateRoute path="/profile" component={Profile} />
+    <PrivateRoute path="/mediacao/new" component={Mediacao} />
     <Route render={() => <Redirect to ="/" />} />
   </Switch>
 );
