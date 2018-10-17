@@ -17,7 +17,6 @@ function findItemToRemove(stepId, allStates) {
     }
   );  
 }
-
 class Wizard extends Component {
 
   constructor(props) {

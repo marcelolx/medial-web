@@ -17,7 +17,7 @@ class Main extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <img src={require('./logo.png')} alt="Logotipo Medial" className={classes.style}/>
+      <img src={require('./../../../assets/img/logo.png')} alt="Logotipo Medial" className={classes.style}/>
     );
   }
 }
