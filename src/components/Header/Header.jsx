@@ -43,7 +43,7 @@ function Header({ ...props }) {
     }
   }
   let pathname  = props.location.pathname;
-  const { classes, color, rtlActive } = props;
+  const { classes, color, rtlActive,nome } = props;
   const appBarClasses = cx({
     [" " + classes[color]]: color
   });
@@ -86,7 +86,7 @@ function Header({ ...props }) {
           </Button> 
         </div>
         <Hidden smDown implementation="css">
-          <HeaderLinks rtlActive={rtlActive} />
+          <HeaderLinks rtlActive={rtlActive} nome={nome} />
         </Hidden>
         <Hidden mdUp implementation="css">
           <Button
@@ -105,6 +105,7 @@ function Header({ ...props }) {
 }
 
 Header.propTypes = {
+  nome: PropTypes.string,
   classes: PropTypes.object.isRequired,
   color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
   rtlActive: PropTypes.bool

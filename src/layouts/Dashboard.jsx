@@ -19,7 +19,7 @@ import dashboardRoutes from "./../routes/dashboard.jsx";
 
 import appStyle from "./../assets/jss/layouts/dashboardStyle.jsx";
 
-import logo from "./../assets/img/logo.png"
+import logo from "./../assets/img/logo_sem_nome.png"
 
 
 const switchRoutes = (
@@ -137,7 +137,6 @@ class Dashboard extends React.Component {
         <Sidebar
           routes={dashboardRoutes}
           logoText={"Medial"}
-          userName={this.props.auth.nome}
           logo={logo}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
@@ -151,6 +150,7 @@ class Dashboard extends React.Component {
           <Header
             sidebarMinimize={this.sidebarMinimize.bind(this)}
             miniActive={this.state.miniActive}
+            nome={this.props.auth.nome}
             routes={dashboardRoutes}
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}

@@ -71,7 +71,6 @@ class Sidebar extends React.Component {
     const {
       classes,
       color,
-      nome,
       logo,
       image,
       logoText,
@@ -79,39 +78,7 @@ class Sidebar extends React.Component {
       bgColor,
       rtlActive
     } = this.props;
-    const itemText =
-      classes.itemText +
-      " " +
-      cx({
-        [classes.itemTextMini]: this.props.miniActive && this.state.miniActive,
-        [classes.itemTextMiniRTL]:
-          rtlActive && this.props.miniActive && this.state.miniActive,
-        [classes.itemTextRTL]: rtlActive
-      });
-    const userWrapperClass =
-      classes.user +
-      " " +
-      cx({
-        [classes.whiteAfter]: bgColor === "white"
-      });
-    var user = (
-      <div className={userWrapperClass}>
-        <List className={classes.list}>
-          <ListItem className={classes.item + " " + classes.userItem}>
-            <NavLink
-              to={"/profile"}
-              className={classes.itemLink }
-            >
-              <ListItemText
-                primary={nome}
-                disableTypography={true}
-                className={itemText }
-              />
-            </NavLink>
-          </ListItem>
-        </List>
-      </div>
-    );
+   
     var links = (
       <List className={classes.list}>
         {routes.map((prop, key) => {
@@ -335,7 +302,6 @@ class Sidebar extends React.Component {
             {brand}
             <SidebarWrapper
               className={sidebarWrapper}
-              user={user}
               headerLinks={<HeaderLinks rtlActive={rtlActive} />}
               links={links}
             />
@@ -361,7 +327,6 @@ class Sidebar extends React.Component {
             {brand}
             <SidebarWrapper
               className={sidebarWrapper}
-              user={user}
               links={links}
             />
             {image !== undefined ? (
@@ -397,7 +362,6 @@ Sidebar.propTypes = {
   logo: PropTypes.string,
   logoText: PropTypes.string,
   image: PropTypes.string,
-  nome: PropTypes.string,
   routes: PropTypes.arrayOf(PropTypes.object)
 };
 

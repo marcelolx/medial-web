@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
         token: action.payload.token,
         id: action.payload.id,
         accessLevel: action.payload.nivelAcesso,
-        nome:  action.payload.nome,
+        nome:  action.payload.nome || 'Usuário',
         isAuthenticated: true,
         message: null,
       });
