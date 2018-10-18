@@ -7,11 +7,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
 import PagesHeader from "./../components/Header/PagesHeader.jsx";
-
 import pagesRoutes from "./../routes/pages.jsx";
 
 import pagesStyle from "./../assets/jss/layouts/pagesStyle.jsx";
-
+import bgImage from "./../assets/img/background.jpg"
 
 class Pages extends React.Component {
   componentDidMount() {
@@ -24,7 +23,11 @@ class Pages extends React.Component {
       
       <div> <PagesHeader {...rest} />
        
-        <div  ref="wrapper">
+        <div className={classes.wrapper} ref="wrapper">
+          <div
+            className={classes.fullPage}
+         //   style={{ backgroundImage: "url(" + bgImage + ")" }}
+          >
              <Switch>
               {pagesRoutes.map((prop, key) => {
                 if (prop.collapse) {
@@ -45,7 +48,7 @@ class Pages extends React.Component {
                 );
               })}
             </Switch>
-          </div>
+          </div></div>
         </div>
     );
   }
@@ -56,8 +59,3 @@ Pages.propTypes = {
 };
 
 export default withStyles(pagesStyle)(Pages);
-
-
-
-// WEBPACK FOOTER //
-// ./src/layouts/Pages.jsx

@@ -27,7 +27,6 @@ const pagesHeaderStyle = theme => ({
     zIndex: "1029",
     color: "#555555",
     border: "0",
-    marginBottom:"50px !important",
     borderRadius: "3px",
     padding: "10px 0",
     transition: "all 150ms ease 0s",

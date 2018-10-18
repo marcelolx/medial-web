@@ -38,7 +38,18 @@ const styles = theme => ({
   },
   half: {
     flexBasis: '45%',
-  }
+  },
+  container: {
+    paddingRight: "15px",
+    marginTop: "60px",
+    paddingLeft: "15px",
+    marginRight: "auto",
+    marginLeft: "auto",
+    zIndex: "4",
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: "100px"
+    }
+  },
 });
 
 class Login extends Component {
@@ -118,8 +129,7 @@ class Login extends Component {
   render() {
     const { classes, error } = this.props;
     return (
-      <React.Fragment>
-        <div className={classes.baseRoot}>
+      <div className={classes.container}>
           <Logo />
           <form onSubmit={this.handleLogin} className={classes.root}>
             <FormControl
@@ -176,8 +186,7 @@ class Login extends Component {
               Entrar
             </Button>
           </form>
-        </div>
-      </React.Fragment>
+          </div>
     );
   }
 }

@@ -8,6 +8,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Hidden from "@material-ui/core/Hidden";
+import Drawer from "@material-ui/core/Drawer";
+import Menu from "@material-ui/icons/Menu";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -84,6 +86,35 @@ class PagesHeader extends React.Component {
             </div>
           </Hidden>
           <Hidden smDown>{list}</Hidden>
+          <Hidden mdUp>
+            <Button
+              className={classes.sidebarButton}
+              color="transparent"
+              justIcon
+              aria-label="open drawer"
+              onClick={this.handleDrawerToggle}
+            >
+              <Menu />
+            </Button>
+          </Hidden>
+          <Hidden mdUp>
+            <Hidden mdUp>
+              <Drawer
+                variant="temporary"
+                anchor={"right"}
+                open={this.state.open}
+                classes={{
+                  paper: classes.drawerPaper
+                }}
+                onClose={this.handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: true // Better open performance on mobile.
+                }}
+              >
+                {list}
+              </Drawer>
+            </Hidden>
+          </Hidden>
         </Toolbar>
       </AppBar>
     );
