@@ -72,7 +72,6 @@ class Sidebar extends React.Component {
       classes,
       color,
       logo,
-      image,
       logoText,
       routes,
       bgColor,
@@ -305,12 +304,7 @@ class Sidebar extends React.Component {
               headerLinks={<HeaderLinks rtlActive={rtlActive} />}
               links={links}
             />
-            {image !== undefined ? (
-              <div
-                className={classes.background}
-                style={{ backgroundImage: "url(" + image + ")" }}
-              />
-            ) : null}
+          
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -329,12 +323,6 @@ class Sidebar extends React.Component {
               className={sidebarWrapper}
               links={links}
             />
-            {image !== undefined ? (
-              <div
-                className={classes.background}
-                style={{ backgroundImage: "url(" + image + ")" }}
-              />
-            ) : null}
           </Drawer>
         </Hidden>
       </div>

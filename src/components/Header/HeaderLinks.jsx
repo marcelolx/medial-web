@@ -5,6 +5,7 @@ import ExitToApp from "@material-ui/icons/ExitToApp";
 import Person from "@material-ui/icons/Person";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { compose, bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import Hidden from "@material-ui/core/Hidden";
 import { connect } from 'react-redux';
 import * as authActions from '../../services/admin/authentication/actions';
@@ -12,7 +13,6 @@ import * as authActions from '../../services/admin/authentication/actions';
 import Button from "./../CustomButtons/Button";
 
 import headerLinksStyle from "./../../assets/jss/components/headerLinksStyle";
-import sweetAlertStyle from "./../../assets/jss/components/sweetAlertStyle.jsx";
 
 class HeaderLinks extends React.Component {
   state = {
@@ -37,7 +37,12 @@ class HeaderLinks extends React.Component {
     });
   }
 
-  confirmacaoLogout = () =>{
+  abrirPerfil = () =>{
+    debugger
+    this.props.actions.push('/login');
+  }
+
+  confirmacaoLogout = () => {
     this.setState({
       alert: (
         <SweetAlert
@@ -68,6 +73,9 @@ class HeaderLinks extends React.Component {
       <div>
         
         {this.state.alert}
+        
+        <Link to={`profile`}>
+         
          <Button
           color="transparent"
           aria-label="Perfil"
@@ -87,6 +95,8 @@ class HeaderLinks extends React.Component {
               </span>
             </Hidden>
         </Button>
+        
+        </Link>
         <Button
           color="transparent"
           aria-label="Sair"
@@ -129,6 +139,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-  withStyles(headerLinksStyle, sweetAlertStyle),
+  withStyles(headerLinksStyle),
   connect(mapStateToProps, mapDispatchToProps),
 )(HeaderLinks);

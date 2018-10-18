@@ -8,6 +8,7 @@ import {
 } from "./../styles";
 
 import customDropdownStyle from "./../components/customDropdownStyle";
+import buttonStyle from "./buttonStyle";
 
 const headerLinksStyle = theme => ({
   ...customDropdownStyle(theme),
@@ -152,7 +153,8 @@ const headerLinksStyle = theme => ({
   headerLinksSvg: {
     width: "20px !important",
     height: "20px !important"
-  }
+  },
+  ...buttonStyle
 });
 
 export default headerLinksStyle;
