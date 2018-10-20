@@ -17,7 +17,6 @@ function findItemToRemove(stepId, allStates) {
     }
   );  
 }
-
 class Wizard extends Component {
 
   constructor(props) {
@@ -268,12 +267,12 @@ class Wizard extends Component {
                     key={key}
                     style={{ width: this.state.width }}
                   >
-                    <a
+                    <span
                       className={classes.stepsAnchor}
                       onClick={() => this.navigationStepChange(key)}
                     >
                       {prop.stepName}
-                    </a>
+                    </span>
                   </li>
                 );
               })}

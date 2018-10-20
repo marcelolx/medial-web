@@ -1,48 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, HashRouter, Route, Switch  } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-
-import getRoutes from '../../routes';
-import Main from './Main';
-import SideNav from './SideNav';
-import AppBar from './AppBar';
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-  },
-});
+import indexRoutes from "./../../routes/index";
+import pageRoutes from "./../../routes/pagesIndex";
 
 class Root extends Component {
-  
   render() {
-    const { classes, auth } = this.props;
-    
-    return (
-      <div className={classes.root}>
-        {auth.isAuthenticated &&
-          <React.Fragment>
-            <AppBar />
-            <SideNav />
-          </React.Fragment>
-        }
-        <Main>
-          { getRoutes() }
-        </Main>
-      </div>
-    );
+    const {auth} = this.props;
+    if(auth.isAuthenticated){
+      return (
+        <div>
+          <HashRouter>
+          <Switch>
+            {indexRoutes.map((prop, key) => {
+              return <Route path={prop.path} component={prop.component} key={key} />;
+            })}
+            </Switch>
+          </HashRouter>
+        </div>
+      );
+    }else{
+      return (
+        <div>
+          <HashRouter>
+          <Switch>
+            {pageRoutes.map((prop, key) => {
+              return <Route path={prop.path} component={prop.component} key={key} />;
+            })}
+            </Switch>
+          </HashRouter>
+        </div>
+      );
+    }
   }
 }
 
 Root.proptypes = {
-  classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 }
 
@@ -51,6 +46,5 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(compose(
-  withStyles(styles),
   connect(mapStateToProps, {}),
 )(Root));
