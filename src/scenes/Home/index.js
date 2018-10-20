@@ -8,9 +8,12 @@ import IfAllGranted from '../../components/Permissions/IfAllGranted';
 import GridContainer from '../../components/Grid/GridContainer';
 import GridItem from '../../components/Grid/GridItem';
 import ImageUpload from '../../components/CustomUpload/ImageUpload';
+import AdminNPJ from '../Dashboard/AdminNPJ.jsx';
 
 class Home extends Component {
   render() {
+    return <AdminNPJ />;
+
     return (
       <React.Fragment>
         <IfGranted expected={99} actual={this.props.auth.accessLevel}>

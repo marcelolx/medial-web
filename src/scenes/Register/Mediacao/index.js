@@ -38,9 +38,9 @@ class Mediacao extends Component {
         assunto: motivo.assuntos.value,
         mensagem: motivo.mensagem,
         pendente: {
-          nome: '',
+          nomeRequerido: '',
           email: '',
-          cnpj: '',
+          documento: '',
           telefone: 0
         }
       }
@@ -54,9 +54,9 @@ class Mediacao extends Component {
         assunto: motivo.assuntos.value,
         mensagem: motivo.mensagem,
         pendente: {
-          nome: novaEmpresa.nome,
+          nomeRequerido: novaEmpresa.nome,
           email: novaEmpresa.email,
-          cnpj: novaEmpresa.cnpj.replace(/\D/g, ''),
+          documento: novaEmpresa.cnpj.replace(/\D/g, ''),
           telefone: novaEmpresa.telefone.replace(/\D/g, '')
         }
       }

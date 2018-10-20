@@ -12,6 +12,7 @@ import registerCompleteReducer from './register/complete/reducer';
 import empresaReducer from './admin/empresa/reducer';
 import mediacaoAssuntosReducer from './admin/mediacao/assuntos/reducer';
 import novaMediacaoReducer from './admin/mediacao/nova/reducer';
+import requeridosPendentesReducer from './admin/mediacao/requeridos/pendentes/reducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   empresa: empresaReducer,
   mediacaoAssuntos: mediacaoAssuntosReducer,
   novaMediacao: novaMediacaoReducer,
+  requeridosPendentes: requeridosPendentesReducer,
 });

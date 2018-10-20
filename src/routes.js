@@ -5,6 +5,8 @@ import PrivateRoute from './scenes/components/PrivateRoute';
 import asyncComponent from './scenes/components/hoc/asyncComponent';
 import ListUsers from './scenes/ListUsers';
 
+import CadastroPendente from './scenes/admin/mediacao/CadastroPendente.jsx';
+
 const Home = from('./scenes/Home');
 const Login = from('./scenes/Login');
 const Profile = from('./scenes/Profile');
@@ -25,6 +27,7 @@ export default () => (
     <PrivateRoute path="/users/all" component={ListUsers} />
     <PrivateRoute path="/profile" component={Profile} />
     <PrivateRoute path="/mediacao/new" component={Mediacao} />
+    <PrivateRoute path="/mediacao/cadastropendente/:id" component={CadastroPendente} />
     <Route render={() => <Redirect to ="/" />} />
   </Switch>
 );
