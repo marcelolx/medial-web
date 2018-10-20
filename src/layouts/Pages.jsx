@@ -10,7 +10,6 @@ import PagesHeader from "./../components/Header/PagesHeader.jsx";
 import pagesRoutes from "./../routes/pages.jsx";
 
 import pagesStyle from "./../assets/jss/layouts/pagesStyle.jsx";
-import bgImage from "./../assets/img/background.jpg"
 
 class Pages extends React.Component {
   componentDidMount() {

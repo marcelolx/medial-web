@@ -9,8 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormControl';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControl';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -117,9 +116,9 @@ class Usuario extends Component {
     const { classes, error, step } = this.props;
     const cancelStep = this.props.onCancelStep.bind(this);
     const getSteps = this.props.onGetSteps.bind(this);
+    const {personalidade} = this.state;
 
-    return(
-      <React.Fragment>        
+    return(       
         <div className={classes.root}>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
@@ -201,26 +200,29 @@ class Usuario extends Component {
           </FormControl>
           <FormControl
             className={[classes.personalidadeForm, classes.fill].join(' ')}
-          >
-            <FormLabel className={classes.personalidadeForm}>Personalidade</FormLabel>
-            <RadioGroup
-              aria-label="Personalidade"
-              name="personalidade1"                           
-              value={this.state.personalidade}
-              onChange={this.handleChange('personalidade')}
-              className={classes.radioGroup}
-            >
+          > 
+           <FormLabel className={classes.personalidadeForm}>Personalidade</FormLabel>
+         
+            <div
+                className={classes.radioGroup}>
               <FormControlLabel 
-                value="F" 
-                control={<Radio />} 
+                control={<Radio 
+                  value="F" 
+                  checked={personalidade=== "F"}
+                  onChange={this.handleChange('personalidade')}
+                />} 
                 label="Pessoa Física" 
               />
               <FormControlLabel 
-                value="J"
-                control={<Radio />} 
+                control={<Radio
+                  value="J"
+                  checked={personalidade === "J"}
+                  onChange={this.handleChange('personalidade')}
+                  />} 
                 label="Pessoa Jurídica" 
               />
-            </RadioGroup>
+              </div>
+            
           </FormControl>
           <RegisterStepButton 
               onCancelStep={() => cancelStep()}
@@ -228,7 +230,6 @@ class Usuario extends Component {
               onValidateFields={() => this.handleValidateFields()}
             />
         </div>
-      </React.Fragment>
     );
   }
 }
