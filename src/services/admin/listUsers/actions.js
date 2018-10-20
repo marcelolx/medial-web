@@ -1,5 +1,5 @@
 import { GET_USERS, GET_USERS_ERROR, CLEAR_USERS } from './actionType';
-import { API } from '../../services/API';
+import { API } from '../../../services/API';
 
 function mapUsers( users){
   return {
