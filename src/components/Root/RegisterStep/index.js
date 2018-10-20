@@ -8,6 +8,7 @@ const styles = theme => ({
   root: {
     maxWidth: '100%',
     margin: '1px',
+    backgroundColor: 'transparent',
   },
   margin: {
     margin: theme.spacing.unit,
@@ -22,11 +23,12 @@ class RegisterStep extends Component {
 
   render() {
     const { activeStep } = this.props.step;
+    const { classes } = this.props;
     const steps = this.props.onGetSteps();
 
     return (
       <React.Fragment>
-        <Stepper activeStep={activeStep} alternativeLabel>
+        <Stepper className={classes.root} activeStep={activeStep} alternativeLabel>
           {steps.map(label => {
             return (
               <Step key={label}>

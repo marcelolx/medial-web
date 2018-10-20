@@ -18,14 +18,12 @@ import Sidebar from "./../components/Sidebar/Sidebar.jsx";
 import dashboardRoutes from "./../routes/dashboard.jsx";
 
 import appStyle from "./../assets/jss/layouts/dashboardStyle.jsx";
-
 import logo from "./../assets/img/logo_sem_nome.png"
 
 
 const switchRoutes = (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
-      
       if (prop.redirect)
         return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
       if (prop.collapse)
@@ -78,7 +76,6 @@ class Dashboard extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
   componentDidMount() {
-    
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.mainPanel, {
         suppressScrollX: true,
@@ -89,9 +86,6 @@ class Dashboard extends React.Component {
     window.addEventListener("resize", this.resizeFunction);
   }
   
-
-  
-
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
@@ -110,9 +104,7 @@ class Dashboard extends React.Component {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
-  getRoute() {
-    return this.props.location.pathname !== "/maps/full-screen-maps";
-  }
+
   sidebarMinimize() {
     this.setState({ miniActive: !this.state.miniActive });
   }
@@ -122,7 +114,7 @@ class Dashboard extends React.Component {
     }
   }
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes,auth, ...rest } = this.props;
     const mainPanel =
       classes.mainPanel +
       " " +
@@ -138,6 +130,7 @@ class Dashboard extends React.Component {
           routes={dashboardRoutes}
           logoText={"Medial"}
           logo={logo}
+          accessLevel= {auth.accessLevel}
           image={this.state.image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}

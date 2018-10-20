@@ -40,7 +40,8 @@ const styles = theme => ({
     flexBasis: '45%',
   },
   container: {
-    paddingRight: "15px",
+    paddingRight: "15px", 
+    maxWidth: '400px',
     marginTop: "60px",
     paddingLeft: "15px",
     marginRight: "auto",

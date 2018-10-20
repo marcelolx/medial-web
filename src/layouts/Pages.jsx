@@ -24,10 +24,7 @@ class Pages extends React.Component {
       <div> <PagesHeader {...rest} />
        
         <div className={classes.wrapper} ref="wrapper">
-          <div
-            className={classes.fullPage}
-         //   style={{ backgroundImage: "url(" + bgImage + ")" }}
-          >
+          <div  className={classes.fullPage}>
              <Switch>
               {pagesRoutes.map((prop, key) => {
                 if (prop.collapse) {

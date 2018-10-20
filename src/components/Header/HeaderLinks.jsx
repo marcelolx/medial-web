@@ -38,7 +38,6 @@ class HeaderLinks extends React.Component {
   }
 
   abrirPerfil = () =>{
-    debugger
     this.props.actions.push('/login');
   }
 
@@ -47,8 +46,8 @@ class HeaderLinks extends React.Component {
       alert: (
         <SweetAlert
           warning
-          style={{ display: "block" }}
-          title="Deseja encerrar sua sessão?"
+          style={{ display: "block",color:`#222` }}
+          title="Deseja sair?"
           onConfirm={() => this.logout()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
@@ -61,7 +60,6 @@ class HeaderLinks extends React.Component {
           cancelBtnText="Cancelar"
           showCancel
         >
-          Você será redicionado para a página principal!
         </SweetAlert>
       )
     });

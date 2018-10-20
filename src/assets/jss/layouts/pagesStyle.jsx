@@ -11,7 +11,7 @@ const pagesStyle = theme => ({
     display: "flex!important",
     margin: "0",
     border: "0",
-    color: "#fff",
+    color: "#000",
     alignItems: "center",
     backgroundSize: "cover",
     backgroundPosition: "center center",
@@ -26,7 +26,7 @@ const pagesStyle = theme => ({
       border: "none !important"
     },
     "&:before": {
-      backgroundColor: "rgba(0, 0, 0, 0.65)"
+      backgroundColor: "rgba(0, 0, 0, 0)"
     },
     "&:before,&:after": {
       display: "block",
@@ -42,8 +42,3 @@ const pagesStyle = theme => ({
 });
 
 export default pagesStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-dashboard-pro-react/layouts/pagesStyle.jsx

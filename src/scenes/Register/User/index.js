@@ -17,14 +17,10 @@ const styles = theme => ({
   root: {
     paddingRight: "15px",
     paddingLeft: "15px",
-    width: "600px",
     marginTop: "60px",
     marginRight: "auto",
     marginLeft: "auto",
     zIndex: "4",
-    [theme.breakpoints.down("sm")]: {
-      paddingBottom: "100px"
-    }
   },
   instructions: {
     marginTop: theme.spacing.unit,
@@ -66,7 +62,7 @@ class RegisterUser extends Component {
     return(
 
         <div className={classes.root}>
-          <Logo></Logo>
+          <Logo/>
           <RegisterStep
             {...this.props}          
             onGetSteps={this.handleGetSteps.bind(this)} 

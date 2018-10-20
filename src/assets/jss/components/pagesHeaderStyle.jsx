@@ -25,7 +25,7 @@ const pagesHeaderStyle = theme => ({
     width: "100%",
     paddingTop: "10px",
     zIndex: "1029",
-    color: "#555555",
+    color: "#000",
     border: "0",
     borderRadius: "3px",
     padding: "10px 0",
@@ -46,10 +46,10 @@ const pagesHeaderStyle = theme => ({
     fontSize: "18px",
     borderRadius: "3px",
     textTransform: "none",
-    color: "#FFFFFF",
+    color: "#333",
     "&:hover,&:focus": {
       background: "transparent",
-      color: "#FFFFFF"
+      color: "#666"
     }
   },
   appResponsive: {
@@ -57,27 +57,27 @@ const pagesHeaderStyle = theme => ({
   },
   primary: {
     backgroundColor: primaryColor,
-    color: "#FFFFFF",
+    color: "#333",
     ...defaultBoxShadow
   },
   info: {
     backgroundColor: infoColor,
-    color: "#FFFFFF",
+    color: "#333",
     ...defaultBoxShadow
   },
   success: {
     backgroundColor: successColor,
-    color: "#FFFFFF",
+    color: "#333",
     ...defaultBoxShadow
   },
   warning: {
     backgroundColor: warningColor,
-    color: "#FFFFFF",
+    color: "#333",
     ...defaultBoxShadow
   },
   danger: {
     backgroundColor: dangerColor,
-    color: "#FFFFFF",
+    color: "#333",
     ...defaultBoxShadow
   },
   list: {
@@ -87,7 +87,7 @@ const pagesHeaderStyle = theme => ({
     marginRight: "-15px",
     paddingLeft: "0",
     listStyle: "none",
-    color: "#FFFFFF",
+    color: "#333",
     paddingTop: "0",
     paddingBottom: "0"
   },
@@ -105,7 +105,7 @@ const pagesHeaderStyle = theme => ({
     }
   },
   navLink: {
-    color: "#FFFFFF",
+    color: "#333",
     margin: "0 5px",
     paddingTop: "15px",
     paddingBottom: "15px",
@@ -119,7 +119,7 @@ const pagesHeaderStyle = theme => ({
     padding: "10px 15px",
     textDecoration: "none",
     "&:hover,&:focus": {
-      color: "#FFFFFF",
+      color: "#888",
       background: "rgba(200, 200, 200, 0.2)"
     }
   },
@@ -178,13 +178,13 @@ const pagesHeaderStyle = theme => ({
       top: "0"
     },
     "&:after": {
-      background: "#000",
+      background: "#ccc",
       opacity: ".8"
     }
   },
   sidebarButton: {
     "&,&:hover,&:focus": {
-      color: "#FFFFFF"
+      color: "#333"
     },
     top: "-2px"
   }

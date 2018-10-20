@@ -1,8 +1,9 @@
 // @material-ui/icons
 import People from "@material-ui/icons/People";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import Apps from "@material-ui/icons/Apps";
-import Home from "./../scenes/Home"
+import Home from "@material-ui/icons/Home";
+import Settings from "@material-ui/icons/Settings";
+import Bookmark from "@material-ui/icons/Bookmark";
+import HomePage from "../scenes/Home/HomePage"
 import Mediacao from "./../scenes/Register/Mediacao"
 import ListUsers from "./../scenes/ListUsers"
 import Profile from "./../scenes/Profile"
@@ -12,20 +13,23 @@ var dashRoutes = [
   {
     path: "/dashboard",
     name: "Início",
-    icon: DashboardIcon,
-    component: Home
+    icon: Home,
+    component: HomePage,
+    nivel:[1,4,99]
   },
   {
     collapse: true,
     path: "/mediacao",
-    name: "Components",
+    name: "Mediação",
     state: "openComponents",
-    icon: Apps,
+    icon: Bookmark,
+    nivel:[1,4,99],
     views: [
       {
         path: "/mediacao/nova",
         name: "Nova Mediação",
         mini: "NM",
+        nivel:[1,4,99],
         component: Mediacao
       },
       {
@@ -41,18 +45,21 @@ var dashRoutes = [
     path: "/administrador",
     name: "Administrador",
     state: "openAdministrador",
-    icon: Apps,
+    nivel:[1,4,99],
+    icon: Settings,
     views: [
       {
         path: "/administrador/usuario/todos",
         name: "Usuários",
         mini: "Us",
+        nivel:[1,4,99],
         component: ListUsers
       },
       {
         path: "/administrador/configuracao",
         name: "Configuração",
         mini: "C",
+        nivel:[1,4,99],
         component: ListUsers
       }
     ]
@@ -61,9 +68,10 @@ var dashRoutes = [
     path: "/profile",
     name: "Meu perfil",
     icon: People,
+    nivel:[1,4,99],
     component: Profile
   },
-  { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
+  { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" }
 ];
 export default dashRoutes;
 

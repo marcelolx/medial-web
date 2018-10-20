@@ -75,13 +75,14 @@ class Sidebar extends React.Component {
       logoText,
       routes,
       bgColor,
-      rtlActive
+      rtlActive,
+      accessLevel
     } = this.props;
    
     var links = (
       <List className={classes.list}>
         {routes.map((prop, key) => {
-          if (prop.redirect) {
+          if (prop.redirect || prop.nivel=== undefined || !prop.nivel.includes(accessLevel) ) {
             return null;
           }
           if (prop.collapse) {
@@ -155,8 +156,8 @@ class Sidebar extends React.Component {
                 <Collapse in={this.state[prop.state]} unmountOnExit>
                   <List className={classes.list + " " + classes.collapseList}>
                     {prop.views.map((prop, key) => {
-                      if (prop.redirect) {
-                        return null;
+                      if (prop.redirect || prop.nivel=== undefined || !prop.nivel.includes(accessLevel) ) {
+                          return null;
                       }
                       const navLinkClasses =
                         classes.collapseItemLink +
@@ -338,6 +339,7 @@ Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
   bgColor: PropTypes.oneOf(["white", "black", "blue"]),
   rtlActive: PropTypes.bool,
+  accessLevel: PropTypes.number,
   color: PropTypes.oneOf([
     "white",
     "red",
@@ -356,6 +358,3 @@ Sidebar.propTypes = {
 export default withStyles(sidebarStyle)(Sidebar);
 
 
-
-// WEBPACK FOOTER //
-// ./src/components/Sidebar/Sidebar.jsx

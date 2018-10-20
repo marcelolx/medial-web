@@ -6,7 +6,7 @@ import IfGranted from '../../components/Permissions/IfGranted';
 import IfAnyGranted from '../../components/Permissions/IfAnyGranted';
 import IfAllGranted from '../../components/Permissions/IfAllGranted';
 
-class Home extends Component {
+class HomePage extends Component {
   render() {
     return (
       <React.Fragment>
@@ -29,4 +29,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 })
 
-export default withRouter(compose(connect(mapStateToProps))(Home));
+export default withRouter(compose(connect(mapStateToProps))(HomePage));
