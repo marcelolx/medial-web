@@ -5,7 +5,7 @@ import Settings from "@material-ui/icons/Settings";
 import Bookmark from "@material-ui/icons/Bookmark";
 import HomePage from "../scenes/Home/HomePage"
 import Mediacao from "./../scenes/Register/Mediacao"
-import ListUsers from "./../scenes/ListUsers"
+import ListUsers from "../scenes/admin/ListUsers"
 import Profile from "./../scenes/Profile"
 
 
@@ -35,6 +35,7 @@ var dashRoutes = [
       {
         path: "/mediacao/todas",
         name: "Mediações",
+        nivel:[1,4,99],
         mini: "M",
         component: Mediacao
       }

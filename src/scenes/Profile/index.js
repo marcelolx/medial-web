@@ -3,11 +3,11 @@ import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import * as profileActions from '../../services/admin/profile/actions';
-
-
 import * as estadosActions from '../../services/graphql/estados/actions';
 import * as cidadesActions from '../../services/graphql/cidades/actions';
 import * as authActions from '../../services/admin/authentication/actions';
+
+
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';

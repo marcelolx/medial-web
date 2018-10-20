@@ -1,6 +1,8 @@
 import React from 'react';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {  withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,7 +18,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import axios from 'axios';
+import * as listActions from '../../services/listUsers/actions';
 
 
 function desc(a, b, orderBy) {
@@ -40,26 +42,6 @@ const rows = [
   { id: 'total', numeric: true, disablePadding: false, label: 'Total de mediações' },
   { id: 'active', numeric: true, disablePadding: false, label: 'Mediações ativas' },
 ];
-
-const GET_ORGANIZATION = `
-  {
-    getUsers{
-      id,
-      name
-      birthDate
-      email
-      active
-      total
-    }
-  }
-`;
-
-const axiosGraphQL = axios.create({
-  baseURL: 'http://localhost:8080/api/graphql',
-  headers: {
-    Authorization: `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb25hc3Nqb0BvdXRsb29rLmNvbSIsImV4cCI6MTUzNjAyOTUwM30.SzCMjFAKd1iuYZ8UcRhaQC5zyaDGWjZ2qplXbxqRmjTuJmyaiQ3vawsoSwnl1nMzPH0W9klIZGNEcae5-WrGfg`,
-  },
-});
 
 class ListUsersHead extends React.Component {
   
@@ -188,18 +170,16 @@ class ListUsers extends React.Component {
     rowsPerPage: 10,
   };
   componentDidMount() {
-    this.onFetchFrom();
+    this.props.actions.getStateUsers(this.state);
   }
-  onFetchFrom = () => {
-    axiosGraphQL
-      .post('', { query: GET_ORGANIZATION })
-      .then(result => {
-        if (result.data.data !== null) {
-          this.setState(() => ({ data :result.data.data.getUsers}));
-        }
-
-      });
-  };
+  
+  componentDidUpdate= () => {
+    if (this.state.data.length === 0 && this.props.data.users.length>0) {
+      this.setState({
+        data: this.props.data.users,
+      })
+    }
+  }
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -226,8 +206,6 @@ class ListUsers extends React.Component {
 
   handleChangePage = (event, page) => {
 
-
-
     this.setState({ page });
   };
 
@@ -241,7 +219,6 @@ class ListUsers extends React.Component {
     const { classes } = this.props;
     const { data, order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
     return (
       <Paper className={classes.root}>
         <ListUsersToolbar />
@@ -311,4 +288,18 @@ ListUsers.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withStyles(styles))(ListUsers);
+const mapStateToProps = state => ({
+  data: state.listUsers,
+  error: state.error,
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...listActions,
+  }, dispatch)
+});
+
+export default withRouter(compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps),
+)(ListUsers)); 
