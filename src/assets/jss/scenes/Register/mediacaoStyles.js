@@ -36,6 +36,9 @@ const mediacaoStyle = {
     marginBottom: "0",
     textAlign: 'center',
   },
+  semPadding: {
+    padding: '0px'
+  }
 };
 
 export default mediacaoStyle;

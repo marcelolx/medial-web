@@ -7,6 +7,7 @@ import HomePage from "../scenes/Home/HomePage"
 import Mediacao from "./../scenes/Register/Mediacao"
 import ListUsers from "../scenes/admin/ListUsers"
 import Profile from "./../scenes/Profile"
+import Configurations from "../scenes/admin/Configurations";
 
 
 var dashRoutes = [
@@ -46,7 +47,7 @@ var dashRoutes = [
     path: "/administrador",
     name: "Administrador",
     state: "openAdministrador",
-    nivel:[1,4,99],
+    nivel:[1],
     icon: Settings,
     views: [
       {
@@ -60,8 +61,8 @@ var dashRoutes = [
         path: "/administrador/configuracao",
         name: "Configuração",
         mini: "C",
-        nivel:[1,4,99],
-        component: ListUsers
+        nivel:[1],
+        component: Configurations
       }
     ]
   },

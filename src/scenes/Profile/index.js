@@ -38,6 +38,9 @@ const styles = theme => ({
   },
   semMargem: {
     margin: 0,
+  },
+  semPadding:{
+    padding: '0px 5px',
   }
 });
 
@@ -406,7 +409,7 @@ class Profile extends Component {
     return (
       <React.Fragment>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
+          <GridItem xs={12} sm={12} md={8} className={classes.semPadding}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Olá, {this.state.nome}</h4>
@@ -587,11 +590,39 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>  <Button color="secondary" onClick={() => this.atualizarEndereco()} >Alterar endereço</Button>
               </CardBody>
-            
             </Card>
-            <Card>
+          </GridItem>
+          <GridItem xs={12} sm={12} md={4}  className={classes.semPadding}>
+            <Card profile>
               <CardHeader color="primary">
-                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Login</h4>
+                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
+              </CardHeader>
+              <CardBody profile>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <legend>Em constructor</legend>
+                  <ImageUpload 
+                    avatar 
+                    adicionarButtonProps={{
+                      color: "secondary",
+                      round: true
+                    }}
+                    alterarButtonProps={{
+                      color: "secondary",
+                      round: true
+                    }}
+                    removerButtonProps={{
+                      color: "danger",
+                      round: true
+                    }}
+                  />
+                </GridItem>
+              </GridContainer>      
+              </CardBody>
+            </Card>
+            <Card profile>
+              <CardHeader color="primary">
+                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
               </CardHeader>
               <CardBody>
                 <GridContainer>
@@ -649,35 +680,6 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               <Button color="secondary"  onClick={() => this.atualizarLogin()}>Alterar acesso</Button>
-              </CardBody>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card profile>
-              <CardHeader color="info">
-                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
-              </CardHeader>
-              <CardBody profile>
-              <GridContainer justify="center">
-                <GridItem xs={12} sm={12} md={12}>
-                  <legend>Em constructor</legend>
-                  <ImageUpload 
-                    avatar 
-                    adicionarButtonProps={{
-                      color: "primary",
-                      round: true
-                    }}
-                    alterarButtonProps={{
-                      color: "primary",
-                      round: true
-                    }}
-                    removerButtonProps={{
-                      color: "danger",
-                      round: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>      
               </CardBody>
             </Card>
           </GridItem>

@@ -26,8 +26,3 @@ const pagesRoutes = [
 ];
 
 export default pagesRoutes;
-
-
-
-// WEBPACK FOOTER //
-// ./src/routes/pages.jsx

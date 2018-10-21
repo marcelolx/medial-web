@@ -5,8 +5,3 @@ var indexRoutes = [
 ];
 
 export default indexRoutes;
-
-
-
-// WEBPACK FOOTER //
-// ./src/routes/index.jsx

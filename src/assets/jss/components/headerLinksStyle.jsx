@@ -9,6 +9,7 @@ import {
 
 import customDropdownStyle from "./../components/customDropdownStyle";
 import buttonStyle from "./buttonStyle";
+import { white } from "ansi-colors";
 
 const headerLinksStyle = theme => ({
   ...customDropdownStyle(theme),
@@ -40,6 +41,7 @@ const headerLinksStyle = theme => ({
     zIndex: "4",
     ...defaultFont,
     fontSize: "14px",
+    color: 'white',
     margin: "0!important",
     textTransform: "none"
   },
@@ -152,14 +154,12 @@ const headerLinksStyle = theme => ({
   },
   headerLinksSvg: {
     width: "20px !important",
-    height: "20px !important"
+    height: "20px !important",
+    [theme.breakpoints.down("md")]: {
+     color: 'white'
+     }
   },
   ...buttonStyle
 });
 
 export default headerLinksStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-dashboard-pro-react/components/headerLinksStyle.jsx

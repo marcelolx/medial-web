@@ -66,9 +66,10 @@ class Mediacao extends Component {
   }
 
   render(){
+    const {classes} = this.props
     return(      
       <GridContainer>
-        <GridItem xs={12} sm={12} mb={8}>
+        <GridItem xs={12} sm={12} mb={8}  className={classes.semPadding}>
           <Wizard 
             validate
             steps={steps}
