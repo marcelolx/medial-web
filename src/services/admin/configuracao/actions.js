@@ -1,36 +1,31 @@
-import { GET_USERS, GET_USERS_ERROR, CLEAR_USERS } from './actionType';
+import { GET_CONFIGURACAO, GET_CONFIGURACAO_ERROR } from './actionType';
 import { API } from '../../../services/API';
 
-function mapUsers( users){
+function mapConfiguracao(data){
   return {
-    type: GET_USERS,
+    type: GET_CONFIGURACAO,
     payload: {
-      users: users,
+      data: data,
     },
   };
 };
 
-function getUserError(erro) {
+function getConfiguracaoError(erro) {
   return {
-    type: GET_USERS_ERROR,
+    type: GET_CONFIGURACAO_ERROR,
     payload: erro,
   };
 };
 
 
-export function getStateUsers(state){
-
+export function getConfiguracao(){
  return function(dispatch) {
-    return API.get('/admin/usuarios/adquirir')
+    return API.get('/admin/configuracao')
       .then(response => {
-        dispatch(mapUsers(response.data));
+        dispatch(mapConfiguracao(response.data));
       })
       .catch(erro => {
-        dispatch(getUserError(erro));
+        dispatch(getConfiguracaoError(erro));
       });
   };
 };
-
-export function clearUsers(){
-  return { type: CLEAR_USERS };
-}

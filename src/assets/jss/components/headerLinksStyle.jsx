@@ -9,7 +9,6 @@ import {
 
 import customDropdownStyle from "./../components/customDropdownStyle";
 import buttonStyle from "./buttonStyle";
-import { white } from "ansi-colors";
 
 const headerLinksStyle = theme => ({
   ...customDropdownStyle(theme),

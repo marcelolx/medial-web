@@ -11,16 +11,15 @@ import NavPills from '../../components/NavPills/NavPills';
 import CardBody from '../../components/Card/CardBody';
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
-import Close from "@material-ui/icons/Close";
 
 import CustomInput from '../../components/CustomInput';
 import CardHeader from '../../components/Card/CardHeader';
 import Button from '../../components/CustomButtons/Button';
 import Table from '../../components/Table';
 import CardIcon from '../../components/Card/CardIcon';
+import SearchSelect from '../../components/Root/RegisterStep/SearchSelect';
 
-
-
+import * as configuracaoActions from './../../services/admin/configuracao/actions'
 
 const styles = theme => ({
   root: {
@@ -63,18 +62,126 @@ const styles = theme => ({
 });
 
 class Configurations extends React.Component {
+
+  constructor(props){
+    super(props);
+
+    this.state={
+      conflitoState: "error",
+      conflitosAssuntosState: "error",
+      assuntoState: "error",
+      conflito: "",
+      assunto: "",
+      conflitoSelect: [],
+      conflitosAssuntos: [
+        {value:1,
+          label:"teste"
+        }],
+      conflitos: [],
+      assuntos: [],
+      atualizar: true,
+    }
+  }
+
+  atualizarConflito = linha =>{
+    alert(`conflito selecionado:` +linha.conflito + ` ` + linha.id)
+  }
+  atualizarAssunto = linha => {
+    alert(`assunto selecionado:` +linha.assunto + ` ` + linha.id)
+  }
+
+  componentDidMount(){
+    this.props.actions.getConfiguracao();
+  }
+  
+
+  verifyLength(value, length) {
+    if (value.length >= length) {
+      return true;
+    }
+    return false;
+  }
+
+  change(event, stateName, type) {
+    switch (type) {
+      case "texto":
+          if (this.verifyLength(event.target.value, 3)) {
+            this.setState({
+              [stateName + "State"]: "success"
+            });
+          } else {
+            this.setState({
+              [stateName + "State"]: "error"
+            });
+          }
+        break;
+      default:
+        break;
+    }
+    this.setState({ [stateName]: event.target.value });
+  }
+  handleSelectChange = name => selecionado => {
+    this.setState({
+      [name]: selecionado
+    });
+    if (selecionado.length !== 0) {       
+      this.setState({
+        [name + "State"]: "success"
+      });
+    } else {
+      this.setState({
+        [name + "State"]: "error"
+      });
+    }
+  }
+
+  componentWillUpdate  = () => {
+    const {classes} = this.props;
+    if (this.state.atualizar) {
+      this.setState({
+        conflitos: this.props.configuracao.conflitos!== undefined 
+          ? this.props.configuracao.conflitos.map((prop, key) => {
+            return {
+              id: prop.id,
+              conflito:  prop.conflito,
+              actions: (     
+                <div>
+                  {
+                    <Button color="success" className={classes.actionButton} key={key}  onClick={() => this.atualizarConflito(prop)}>
+                      <Edit/>
+                    </Button>
+                  }
+                </div>
+              )
+            }
+          })
+        :[],
+        assuntos: this.props.configuracao.assuntos!== undefined 
+          ? this.props.configuracao.assuntos.map((prop, key) => {
+            return {
+              id: prop.id,
+              assunto:  prop.assunto,
+              actions: (     
+                 <div>
+                    {
+                      <Button color="success" className={classes.actionButton} key={key}  onClick={() => this.atualizarAssunto(prop)}>
+                        <Edit/>
+                      </Button>
+                    }
+                 </div>
+              )
+            }
+          })
+        :[],
+        atualizar:false,
+        })
+    }
+  
+  }
+
   render() {
     const {classes}  = this.props;
-    
-    const fillButtons = [
-      { color: "success", icon: Edit }
-    ].map((prop, key) => {
-      return (
-        <Button color={prop.color} className={classes.actionButton} key={key}>
-          <prop.icon className={classes.icon}/>
-        </Button>
-      );
-    });
+    const {conflitosAssuntos} = this.state;
     return (
       <>
        <GridContainer>
@@ -85,50 +192,23 @@ class Configurations extends React.Component {
                     <Person/>
                   </CardIcon>
                    <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Conflitos</h4>
+                   <Button color="primary" onClick={() => this.salvarAssunto()}>Novo Conflito</Button>
                </CardHeader>
               <CardBody>
-                <NavPills
-                  color="info"
-                  horizontal={{
-                    tabsGrid: { xs: 12, sm: 12, md: 4 },
-                    contentGrid: { xs: 12, sm: 12, md: 8 }
-                  }}
-                  tabs={[
-                    {
-                      tabButton: "Conflitos",
-                      tabContent: (
+           
                         <Table
                         tableHead={[
                           "#",
                           "Conflitos",
                           "Acões"
                         ]}
-                        tableData={[
-                          [
-                            "1",
-                            "Tipo",
-                            fillButtons
-                          ],
-                          ["2",
-                           "Serviço",
-                            fillButtons
-                          ],
-                          [
-                            "3",
-                            "Serviço",
-                            fillButtons
-                          ],
-                          [
-                            "4",
-                            "Produto",
-                            fillButtons
-                          ],
-                          [
-                            "5",
-                            "Viagem",
-                            fillButtons
+                        tableData={this.state.conflitos !== undefined ? this.state.conflitos.map(
+                          n=> [
+                           n.id,
+                           n.conflito,
+                           n.actions
                           ]
-                        ]}
+                        ):[]}
                         customCellClasses={[
                           classes.center,
                           classes.right,
@@ -140,26 +220,26 @@ class Configurations extends React.Component {
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
-                      )
-                    },
-                    {
-                      tabButton: "Novo Conflito",
-                      tabContent: (
-                        <>
+                     
                         <GridItem xs={12} sm={12} md={12}>
-                          <CustomInput
+                        <CustomInput
+                            success={this.state.conflitoState === "success"}
+                            error={this.state.conflitoState === "error"}
                             labelText="Conflito *"
                             id="conflito"
                             formControlProps={{
                               fullWidth: true
+                            }} 
+                            inputProps={{
+                              value: this.state.conflito,
+                              onChange: event =>
+                              this.change(event, "conflito", "texto")
                             }}
                           />
                         </GridItem>
-                    </>
-                      )
-                    }
-                  ]}
-                />
+                        
+                        <Button color="secondary" onClick={() => this.salvarAssunto()}>Salvar Conflito</Button>
+                        
               </CardBody>
             </Card>
           </GridItem>
@@ -170,67 +250,22 @@ class Configurations extends React.Component {
                     <Person/>
                   </CardIcon>
                    <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Assuntos</h4>
+                   <Button color="primary" onClick={() => this.salvarAssunto()}>Novo Assunto</Button>
                </CardHeader>
               <CardBody>
-                <NavPills
-                  color="info"
-                  horizontal={{
-                    tabsGrid: { xs: 12, sm: 12, md: 4 },
-                    contentGrid: { xs: 12, sm: 12, md: 8 }
-                  }}
-                  tabs={[
-                    {
-                      tabButton: "Assuntos",
-                      tabContent: (
                         <Table
                         tableHead={[
                           "#",
                           "Assuntos",
                           "Acões"
                         ]}
-                        tableData={[
-                          [
-                            "1",
-                            "Troca",
-                            fillButtons
-                          ],
-                          ["2", "Aluguem", fillButtons],
-                          [
-                            "3",
-                            "Venda",
-                            fillButtons
-                          ],
-                          [
-                            "4",
-                            "Mike Monday",
-                            fillButtons
-                          ],
-                          [
-                            "5",
-                            "Paul Dickens",
-                            fillButtons
-                          ], [
-                            "21",
-                            "Andrew Mike",
-                            fillButtons
-                          ],
-                          ["22", "John Doe", fillButtons],
-                          [
-                            "32",
-                            "Alex Mike",
-                            fillButtons
-                          ],
-                          [
-                            "42",
-                            "Mike Monday",
-                            fillButtons
-                          ],
-                          [
-                            "52",
-                            "Paul Dickens",
-                            fillButtons
+                        tableData={this.state.assuntos !== undefined ? this.state.assuntos.map(
+                          n=> [
+                           n.id,
+                           n.assunto,
+                           n.actions
                           ]
-                        ]}
+                        ):[]}
                         customCellClasses={[
                           classes.center,
                           classes.right,
@@ -242,33 +277,37 @@ class Configurations extends React.Component {
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
-                      )
-                    },
-                    {
-                      tabButton: "Novo Assunto",
-                      tabContent: (
-                        <>
+                        <GridItem xs={12} sm={12} md={4}>
+                            <SearchSelect
+                              opcoes={conflitosAssuntos}
+                              name="conflitoSelect"
+                              onChange={(name, value) => this.handleSelectChange(name, value)}
+                              value={this.state.conflitoSelect}
+                              placeholder="Conflitos"
+                              formControlProps={{
+                                fullWidth: true,
+                              }}
+                              error={this.state.conflitosAssuntosState === "error"}
+                              errorHelperText="Selecione o conflito"
+                            />
+                        </GridItem>
                         <GridItem xs={12} sm={12} md={12}>
                           <CustomInput
-                            labelText="Conflito *"
-                            id="assuntoConflito"
-                            formControlProps={{
-                              fullWidth: true
-                            }}
-                          />
-                          <CustomInput
+                            success={this.state.assuntoState === "success"}
+                            error={this.state.assuntoState === "error"}
                             labelText="Assunto *"
                             id="assunto"
                             formControlProps={{
                               fullWidth: true
+                            }} 
+                            inputProps={{
+                              value: this.state.assunto,
+                              onChange: event =>
+                              this.change(event, "assunto", "texto")
                             }}
                           />
                         </GridItem>
-                    </>
-                      )
-                    }
-                  ]}
-                />
+                        <Button color="secondary" onClick={() => this.salvarAssunto()}>Salvar Assunto</Button>
               </CardBody>
             </Card>
           </GridItem>
@@ -284,10 +323,12 @@ Configurations.propTypes = {
 
 const mapStateToProps = state => ({
   error: state.error,
+  configuracao: state.configuracao,
 })
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
+    ...configuracaoActions,
   }, dispatch)
 });
 

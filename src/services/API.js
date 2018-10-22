@@ -1,9 +1,10 @@
 import axios from 'axios';
-
-const ip = 'http://localhost:8080/api/';
+const dev = true;
+const ip = 'http://api.downet.com.br/api/';
+const ipDev = 'http://localhost:8080/api/';
 
 export const API = axios.create({
-  baseURL: ip,
+  baseURL: dev ? ipDev: ip,
   timeout: 15000,
 });
 
@@ -25,7 +26,7 @@ API.interceptors.request.use((config) => {
 });
 
 export const GraphQLAPI = axios.create({
-  baseURL: ip+'graphql',
+  baseURL:  (dev ? ipDev: ip) + 'graphql',
 });
 
 export default API;

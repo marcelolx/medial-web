@@ -622,7 +622,7 @@ class Profile extends Component {
             </Card>
             <Card profile>
               <CardHeader color="primary">
-                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
+                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Login</h4>
               </CardHeader>
               <CardBody>
                 <GridContainer>

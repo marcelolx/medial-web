@@ -1,2 +1,0 @@
-export const BUSCAR_ESTADO = 'BUSCAR_ESTADO';
-export const BUSCAR_CIDADE = 'BUSCAR_CIDADE';

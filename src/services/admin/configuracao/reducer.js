@@ -1,25 +1,24 @@
-import { GET_USERS, GET_USERS_ERROR, CLEAR_USERS } from './actionType';
+import { GET_CONFIGURACAO, GET_CONFIGURACAO_ERROR } from './actionType';
 
 const initialState = {
-  users: [],
-  message: null,
+  conflitos: [],
+  assuntos: [],
+  message: [],
 }
 
-export default function(state , action) {
+export default function(state , action) { 
+  
   switch (action.type) {
-    case GET_USERS:
+    case GET_CONFIGURACAO:
       return Object.assign({}, state, {
-        users: action.payload.users,
+        conflitos: action.payload.data.conflitos,
+        assuntos: action.payload.data.assuntos,
       });
-    case GET_USERS_ERROR: 
+    case GET_CONFIGURACAO_ERROR: 
       return Object.assign({}, state, {
-        users: [],
-        message: 'Não foi possível buscar os usuários',
-      });
-    case CLEAR_USERS:
-      return Object.assign({}, state, {
-        users: [],
-        message: null,
+        assuntos: [],
+        conflitos: [],
+        message: action.payload.message,
       });
     default:
       return initialState;

@@ -58,9 +58,9 @@ class ImageUpload extends React.Component {
           ) : (
             <span>
               <Button {...alterarButtonProps} onClick={() => this.handleClick()}>
-                Alterar
+                Enviar
               </Button>
-              {avatar ? <br /> : null}
+             {avatar ? <br /> : null}
               <Button {...removerButtonProps} onClick={() => this.handleRemover()}>
                 <i className="fas fa-times"/> Remover
               </Button>
