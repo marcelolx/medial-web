@@ -1,6 +1,5 @@
 import React from 'react';
 import withRouter from 'react-router-dom/withRouter';
-import PropTypes from "prop-types";
 import GridContainer from '../../../components/Grid/GridContainer';
 import GridItem from '../../../components/Grid/GridItem';
 import Card from '../../../components/Card/Card';
@@ -10,8 +9,14 @@ import CardBody from '../../../components/Card/CardBody';
 import CustomInput from '../../../components/CustomInput';
 import { TextMaskCNPJ, TextMaskCellPhone } from '../../../components/Masks';
 import Button from '../../../components/CustomButtons/Button';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import getAdaptedMessage, { SOLICITADO_CADASTRO_EMPRESA } from '../../../services/admin/mediacao/messages';
+import * as requeridoPendenteActions from '../../../services/admin/mediacao/requeridos/pendentes/action';
+import bindActionCreators from 'redux/src/bindActionCreators';
+import Snackbar from '../../../components/Snackbar/Snackbar';
  
-
 const styles = ({
   semMargen: {
     margin: 0,
@@ -30,17 +35,50 @@ const styles = ({
   }
 });
 
-//No menu ficaria --> Mediacao -> Cadastros Pendentes
-//url: /mediacao/cadastropendente/id
 class CadastroPendente extends React.Component {  
   constructor(props) {
     super(props);
-    console.log(this.props);
     
     this.state = {
+      cadastroPendente: this.getCadastroPendente(this.props.match.params.id),
       mensagemHistorico: '',
-      confirmacaoCadastroSolicitada: false,
+      mensagemHistoricoEmpty: false,
+      successNotification: false,
     }
+  }
+
+  getCadastroPendente(paramId) {
+    const { pendentes } = this.props.requeridosPendentes;
+
+    if (pendentes && pendentes.length > 0) {
+      return pendentes[
+        Object
+          .keys(pendentes)
+          .filter(key => (pendentes[key].idCadastroPendente === parseInt(paramId)))[0]
+      ];
+    } else {
+      console.log('faria request');
+    }
+
+    return null;
+  }
+
+  getHistoricos() {
+    const { cadastroPendente } = this.state;
+    
+    return cadastroPendente.historico ? (
+      cadastroPendente.historico.map((historico, key) => {
+        return(
+          <Card key={key}>
+            <CardBody>
+              Mediador: {historico.nomeMediador}<br/>
+              Status: {getAdaptedMessage(historico.situacao)}<br/>
+              Mensagem: {historico.mensagem}
+            </CardBody>
+          </Card>
+        );
+      })
+    ) : null
   }
 
   handleChange = prop => event => {
@@ -48,24 +86,105 @@ class CadastroPendente extends React.Component {
   };
 
   handleEnviaMensagemHistorico() {
-    console.log('Envia mensagem');
+    if (this.state.mensagemHistorico !== '') {
+      this.setState({
+        mensagemHistoricoEmpty: false
+      });
+
+      const { cadastroPendente } = this.state;
+      const mensagemData = {
+        requeridoPendente: cadastroPendente.idCadastroPendente,
+        mediador: this.props.auth.id,
+        situacao: cadastroPendente.situacao,
+        mensagem: this.state.mensagemHistorico
+      };
+      
+      this.props.actions.salvarHistorico(mensagemData);
+    } else {
+      this.setState({
+        mensagemHistoricoEmpty: true,
+      })
+    }
   }
 
   handleConfirmarSolicitacaoCadastro() {
-    console.log('Confirmar solciitação de cadastro');
+    const { cadastroPendente } = this.state;
+
+    const data = {
+      requeridoPendente: cadastroPendente.idCadastroPendente,
+      mediador: this.props.auth.id,
+      situacao: cadastroPendente.situacao
+    }
+
+    this.props.actions.confirmarSolicitacaoCadastro(data);
+  }
+
+  handleCloseSnackBarSuccessHistorico() {
+    if (this.state.mensagemHistorico !== '') {
+      this.adicionaHistoricoLista();
+      this.setState({ mensagemHistorico: '' });
+      this.props.actions.limparEstadoHistoricoSalvo();
+    }
+  }
+
+  adicionaHistoricoLista() {
+    const novoHistorico = {
+      id: this.props.requeridosPendentes.idHistorico,
+      mediador: this.props.auth.id,
+      mensagem: this.state.mensagemHistorico,
+      nomeMediador: '', //TODO: Verificar se não temos acesso no auth pelo nome já....
+      situacao: this.state.cadastroPendente.situacao,
+    };
+
+    let cadPendente = this.state.cadastroPendente;
+    let historico = cadPendente.historico || [];
+    historico.unshift(novoHistorico);
+    cadPendente.historico = historico;
+
+    this.setState({
+      cadastroPendente: cadPendente
+    });
+  }
+
+  fecharSnackBarHistoricoSalvo() {
+    if (this.props.requeridosPendentes.sucessoSalvarHistorico) {
+      setTimeout(
+        function() {
+          this.handleCloseSnackBarSuccessHistorico()
+        }.bind(this), 650);
+    }
+  }
+
+  fecharSnackBarSolicitacaoCadastroConfirmada() {
+    if (this.props.requeridosPendentes.cadastroConfirmado) {
+      setTimeout(
+        function() {
+          let cadPendente = this.state.cadastroPendente;
+          cadPendente.situacao = SOLICITADO_CADASTRO_EMPRESA;
+
+          this.setState({
+            cadastroPendente: cadPendente
+          });
+          
+          this.props.actions.confirmarSolicitacaoCadastroFinish();
+        }.bind(this), 650);
+    }
   }
 
   render() {
-    const { classes, transacionadorPendente } = this.props;
+    const { classes } = this.props;
+    const { cadastroPendente } = this.state;
 
-    return (
+    this.fecharSnackBarHistoricoSalvo();
+
+    return cadastroPendente === null ? null : (
       <React.Fragment>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={10} lg={6}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastro Empresa Pendente</h4>
-                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{"Empresa:" && (transacionadorPendente !== null) ? transacionadorPendente.nome : 'Empresa: Nome da empresa aqui'}</p>
+                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{"Empresa: " + cadastroPendente.nomeRequerido}</p>
               </CardHeader>
               <CardBody>
                 <Card>
@@ -75,8 +194,7 @@ class CadastroPendente extends React.Component {
                         <CustomInput
                           labelText="Protocolo"
                           inputProps={{
-                            //value: this.state.nome,
-                            value: '#16102018123456',
+                            value: cadastroPendente.protocolo,
                             disabled: true,
                           }}
                           id="protocolo"
@@ -89,8 +207,7 @@ class CadastroPendente extends React.Component {
                         <CustomInput
                           labelText="Nome do Solicitante"
                           inputProps={{
-                            //value: this.state.nome,
-                            value: 'Marcelo Lauxen',
+                            value: cadastroPendente.nomeRequerente,
                             disabled: true,
                           }}
                           id="nome-solicitante"
@@ -103,8 +220,7 @@ class CadastroPendente extends React.Component {
                         <CustomInput
                           labelText="Data da solicitação"
                           inputProps={{
-                            //value: this.state.nome,
-                            value: '16/10/2018',
+                            value: moment(cadastroPendente.dataSolicitacao).format('DD-MM-YYYY'),
                             disabled: true,
                           }}
                           id="data-solicitacao"
@@ -123,8 +239,7 @@ class CadastroPendente extends React.Component {
                         <CustomInput
                           labelText="Nome do Requerido"
                           inputProps={{
-                            //value: this.state.nome,
-                            value: 'Sysmo Sistemas LTDA',
+                            value: cadastroPendente.nomeRequerido,
                             disabled: true,
                           }}
                           id="nome-requerido"
@@ -142,8 +257,7 @@ class CadastroPendente extends React.Component {
                           }}
                           inputProps={{
                             disabled: true,
-                            //value: this.state.cnpj,
-                            value: '22.222.222/0001-22',
+                            value: cadastroPendente.cnpjRequerido,
                             inputComponent: TextMaskCNPJ
                           }}
                         />
@@ -157,8 +271,7 @@ class CadastroPendente extends React.Component {
                           }}
                           inputProps={{
                             disabled: true,
-                            //value: this.state.cnpj,
-                            value: 'oktoberfest@seila.com.br  ',
+                            value: cadastroPendente.emailRequerido,
                           }}
                         />
                       </GridItem>
@@ -171,15 +284,14 @@ class CadastroPendente extends React.Component {
                           }}
                           inputProps={{
                             disabled: true,
-                            //value: this.state.cnpj,
-                            value: '(49) 9 9946-2839',
+                            value: cadastroPendente.telefoneRequerido,
                             inputComponent: TextMaskCellPhone
                           }}
                         />
                       </GridItem>
                       <GridItem xs={12}>
                         <h4 className={classes.statusCadastro}>
-                          Cadastro não solicitado
+                          {getAdaptedMessage(cadastroPendente.situacao)}
                         </h4>
                       </GridItem>
                     </GridContainer>
@@ -199,6 +311,7 @@ class CadastroPendente extends React.Component {
                             value: this.state.mensagemHistorico,
                             onChange: this.handleChange('mensagemHistorico')
                           }}
+                          error={this.state.mensagemHistoricoEmpty}
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={12} lg={12}>
@@ -217,7 +330,7 @@ class CadastroPendente extends React.Component {
                   color="secondary"
                   fullWidth
                   onClick={() => this.handleConfirmarSolicitacaoCadastro()}
-                  disabled={this.state.confirmacaoCadastroSolicitada}
+                  disabled={this.state.cadastroPendente.situacao === SOLICITADO_CADASTRO_EMPRESA}
                 >
                   Confirmar a solicitação de cadastro
                 </Button>
@@ -226,44 +339,54 @@ class CadastroPendente extends React.Component {
                     <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Histórico</p>
                   </CardHeader>
                   <CardBody>
-                    <Card>
-                      <CardBody>
-                        Mediador: Administrador NPJ<br/>
-                        Status: Cadastro Solicitado<br/>
-                        Mensagem: Entrado em contato e solicitado cadastro
-                      </CardBody>
-                    </Card>
-                    <Card>
-                      <CardBody>
-                        Mediador: Administrador NPJ<br/>
-                        Status: Cadastro Solicitado<br/>
-                        Mensagem: Entrado em contato novamente, para solicitar o cadastro
-                      </CardBody>
-                    </Card>
-                    <Card>
-                      <CardBody>
-                        Mediador: Administrador NPJ<br/>
-                        Status: Cadastro Solicitado<br/>
-                        Mensagem: Auxílio cadastro
-                      </CardBody>
-                    </Card>
+                    { //TODO: Está re-renderizando toda vez....
+                      this.getHistoricos()
+                    }
                   </CardBody>
                 </Card>
               </CardBody>
             </Card>
           </GridItem>
         </GridContainer>
+        <Snackbar
+          place="tc"
+          color="success"
+          message="Sucesso! Mensagem de histórico enviada."
+          open={this.props.requeridosPendentes.sucessoSalvarHistorico}
+          closeNotification={() => this.handleCloseSnackBarSuccessHistorico()}
+          close
+        />
+        <Snackbar
+          place="tc"
+          color="warning"
+          message="Enviando mensagem de histórico..."
+          open={this.props.requeridosPendentes.salvandoHistorico}
+          close
+        />
+        <Snackbar
+          place="tc"
+          color="success"
+          message="Sucesso! Confirmada solicitação de cadastro!"
+          open={this.props.requeridosPendentes.cadastroConfirmado}
+          close
+        />
       </React.Fragment>
     );
   }
 }
 
-CadastroPendente.defaultProps = {
-  transacionadorPendente: null
-}
+const mapStateToProps = state => ({
+  requeridosPendentes: state.requeridosPendentes,
+  auth: state.auth
+});
 
-CadastroPendente.propTypes = {
-  transacionadorPendente: PropTypes.object,
-};
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...requeridoPendenteActions
+  }, dispatch)
+})
 
-export default withRouter(withStyles(styles)(CadastroPendente));
+export default withRouter(compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(CadastroPendente));

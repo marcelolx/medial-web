@@ -52,7 +52,6 @@ class AdminNPJ extends React.Component {
 
   botao(cadastroPendente) {
     const { classes }  = this.props;
-    console.log(cadastroPendente);
     
     return (
       <Button
