@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import GridContainer from '../../components/Grid/GridContainer';
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
-import NavPills from '../../components/NavPills/NavPills';
 import CardBody from '../../components/Card/CardBody';
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
@@ -25,8 +24,12 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit,
-  }, right: {
-    textAlign: "right"
+  }, 
+  textRight: {
+    textAlign: "right",
+  },
+  right: {
+    float: "right",
   },
   center: {
     textAlign: "center"
@@ -55,6 +58,8 @@ const styles = theme => ({
     padding: "0 5px",
   },
   titleCard:{
+    width: "100px",
+    float: "left",
     marginTop:"10px",
     fontWeight:300,
     color:"#3C4858"
@@ -192,7 +197,7 @@ class Configurations extends React.Component {
                     <Person/>
                   </CardIcon>
                    <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Conflitos</h4>
-                   <Button color="primary" onClick={() => this.salvarAssunto()}>Novo Conflito</Button>
+                   <Button color="primary" className={classes.right}  onClick={() => this.salvarAssunto()}>Novo Conflito</Button>
                </CardHeader>
               <CardBody>
            
@@ -211,12 +216,12 @@ class Configurations extends React.Component {
                         ):[]}
                         customCellClasses={[
                           classes.center,
-                          classes.right,
+                          classes.textRight,
                         ]}
                         customClassesForCells={[0, 2]}
                         customHeadCellClasses={[
                           classes.center,
-                          classes.right,
+                          classes.textRight,
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
@@ -250,7 +255,7 @@ class Configurations extends React.Component {
                     <Person/>
                   </CardIcon>
                    <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Assuntos</h4>
-                   <Button color="primary" onClick={() => this.salvarAssunto()}>Novo Assunto</Button>
+                   <Button color="primary" className={classes.right} onClick={() => this.salvarAssunto()}>Novo Assunto</Button>
                </CardHeader>
               <CardBody>
                         <Table
@@ -268,12 +273,12 @@ class Configurations extends React.Component {
                         ):[]}
                         customCellClasses={[
                           classes.center,
-                          classes.right,
+                          classes.textRight,
                         ]}
                         customClassesForCells={[0, 2]}
                         customHeadCellClasses={[
                           classes.center,
-                          classes.right,
+                          classes.textRight,
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
