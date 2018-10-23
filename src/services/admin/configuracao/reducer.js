@@ -1,8 +1,9 @@
-import { GET_CONFIGURACAO, GET_CONFIGURACAO_ERROR } from './actionType';
+import { GET_CONFIGURACAO,GET_CONFLITOS, GET_CONFIGURACAO_ERROR,GET_CONFLITOS_ERROR } from './actionType';
 
 const initialState = {
   conflitos: [],
   assuntos: [],
+  conflitosAssuntos: [],
   message: [],
 }
 
@@ -11,6 +12,7 @@ export default function(state , action) {
   switch (action.type) {
     case GET_CONFIGURACAO:
       return Object.assign({}, state, {
+        ...state,
         conflitos: action.payload.data.conflitos,
         assuntos: action.payload.data.assuntos,
       });
@@ -19,6 +21,19 @@ export default function(state , action) {
         assuntos: [],
         conflitos: [],
         message: action.payload.message,
+      });
+    case GET_CONFLITOS: 
+      return Object.assign({}, state, {
+        ...state,
+        conflitosAssuntos: action.payload,
+    
+      });
+      case GET_CONFLITOS_ERROR: 
+      return Object.assign({}, state, {
+        ...state,
+        conflitosAssuntos:[],
+        message: action.payload.message,
+    
       });
     default:
       return initialState;

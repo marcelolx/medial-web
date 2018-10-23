@@ -24,6 +24,7 @@
     "react-input-mask": "^2.0.4",
     "react-number-format": "^3.6.2",
     "react-redux": "^5.0.7",
+    "react-responsive-modal": "^3.4.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
     "react-select": "^2.1.0",

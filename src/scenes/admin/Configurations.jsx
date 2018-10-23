@@ -10,6 +10,7 @@ import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
+import Modal from 'react-responsive-modal';
 
 import CustomInput from '../../components/CustomInput';
 import CardHeader from '../../components/Card/CardHeader';
@@ -65,7 +66,6 @@ const styles = theme => ({
     color:"#3C4858"
   }
 });
-
 class Configurations extends React.Component {
 
   constructor(props){
@@ -73,32 +73,114 @@ class Configurations extends React.Component {
 
     this.state={
       conflitoState: "error",
-      conflitosAssuntosState: "error",
+      conflitoAssuntoState: "error",
       assuntoState: "error",
       conflito: "",
       assunto: "",
-      conflitoSelect: [],
-      conflitosAssuntos: [
-        {value:1,
-          label:"teste"
-        }],
+      conflitoAssunto: [],
       conflitos: [],
       assuntos: [],
       atualizar: true,
+      modalAssunto: false,
+      modalConflito: false,
+      codigo:null,
     }
+    this.openModal = this.openModal.bind(this);
+  }
+  openModal(modal) {
+    if (modal === "modalAssunto") {
+      this.props.actions.getConflitos();
+    }
+      
+    this.setState({[modal]: true});
+  }
+  closeModal(modal) {
+    this.setState({[modal]: false});
   }
 
   atualizarConflito = linha =>{
-    alert(`conflito selecionado:` +linha.conflito + ` ` + linha.id)
+    this.setState({
+      conflito: linha.conflito,
+      codigo:linha.id,
+      conflitoState: "success",
+    })
+
+    this.openModal("modalConflito");
+  }
+
+  onBlurModal =() =>{
+    this.setState({
+      codigo: null,
+      conflitoState: "error",
+      conflitoAssuntoState: "error",
+      assuntoState: "error",
+      conflitoAssunto:null,
+      conflito: ``,
+      assunto:``,
+    })
   }
   atualizarAssunto = linha => {
-    alert(`assunto selecionado:` +linha.assunto + ` ` + linha.id)
+    this.setState({
+      conflitoAssunto: {"value":linha.codigoConflito,"label":linha.conflito},
+      assunto: linha.assunto ,
+      conflitoAssuntoState: "success",
+      assuntoState: "success",
+      codigo:linha.id,
+    })
+   this.openModal("modalAssunto");
   }
 
   componentDidMount(){
     this.props.actions.getConfiguracao();
   }
+
+
+  salvarConflito =() =>{
+
+    if (this.state.conflitoState === "error"){
+      this.error();
+      return;
+    }
+
+    let data = {
+      id: this.state.codigo,
+      conflito: this.state.conflito,
+    }
+    this.props.actions.salvarConflito(data);
+    this.props.actions.getConfiguracao();
+    
+    this.sucessoRecarregar("modalConflito");
+  }
   
+  sucessoRecarregar= tipoModal =>{
+    this.closeModal(tipoModal);
+    this.setState({
+      atualizar: true,
+    })
+
+  
+  }
+
+  salvarAssunto =() =>{
+    if (this.state.conflitoAssuntoState === "error" || this.state.assuntoState === "error"){
+      this.error();
+      
+      return;
+    }
+
+    let data = {
+      id: this.state.codigo,
+      assunto: this.state.assunto,
+      codigoConflito: this.state.conflitoAssunto.value,
+    }
+    this.props.actions.salvarAssunto(data);
+  
+    this.sucessoRecarregar("modalAssunto");
+  }
+
+  error=()=>{
+    alert("Erro")
+  }
 
   verifyLength(value, length) {
     if (value.length >= length) {
@@ -121,6 +203,7 @@ class Configurations extends React.Component {
           }
         break;
       default:
+          
         break;
     }
     this.setState({ [stateName]: event.target.value });
@@ -141,11 +224,12 @@ class Configurations extends React.Component {
   }
 
   componentWillUpdate  = () => {
-    const {classes} = this.props;
     if (this.state.atualizar) {
+      const {classes} = this.props;
       this.setState({
         conflitos: this.props.configuracao.conflitos!== undefined 
           ? this.props.configuracao.conflitos.map((prop, key) => {
+            debugger
             return {
               id: prop.id,
               conflito:  prop.conflito,
@@ -166,6 +250,7 @@ class Configurations extends React.Component {
             return {
               id: prop.id,
               assunto:  prop.assunto,
+              conflito: prop.conflito,
               actions: (     
                  <div>
                     {
@@ -186,7 +271,8 @@ class Configurations extends React.Component {
 
   render() {
     const {classes}  = this.props;
-    const {conflitosAssuntos} = this.state;
+    const {conflitosAssuntos} = this.props.configuracao;
+    
     return (
       <>
        <GridContainer>
@@ -197,7 +283,7 @@ class Configurations extends React.Component {
                     <Person/>
                   </CardIcon>
                    <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Conflitos</h4>
-                   <Button color="primary" className={classes.right}  onClick={() => this.salvarAssunto()}>Novo Conflito</Button>
+                   <Button color="primary" className={classes.right}  onClick={() => this.openModal("modalConflito")}>Novo Conflito</Button>
                </CardHeader>
               <CardBody>
            
@@ -207,8 +293,9 @@ class Configurations extends React.Component {
                           "Conflitos",
                           "Acões"
                         ]}
-                        tableData={this.state.conflitos !== undefined ? this.state.conflitos.map(
-                          n=> [
+                        tableData={ this.state.conflitos !== undefined ? this.state.conflitos.map(
+                          n=> 
+                          [
                            n.id,
                            n.conflito,
                            n.actions
@@ -225,8 +312,8 @@ class Configurations extends React.Component {
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
-                     
-                        <GridItem xs={12} sm={12} md={12}>
+                        <Modal open={this.state.modalConflito}  onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalConflito")} center>
+                          
                         <CustomInput
                             success={this.state.conflitoState === "success"}
                             error={this.state.conflitoState === "error"}
@@ -241,10 +328,8 @@ class Configurations extends React.Component {
                               this.change(event, "conflito", "texto")
                             }}
                           />
-                        </GridItem>
-                        
-                        <Button color="secondary" onClick={() => this.salvarAssunto()}>Salvar Conflito</Button>
-                        
+                        <Button className={classes.right} color="secondary" onClick={() => this.salvarConflito()}>Salvar Conflito</Button>
+               </Modal>
               </CardBody>
             </Card>
           </GridItem>
@@ -255,19 +340,21 @@ class Configurations extends React.Component {
                     <Person/>
                   </CardIcon>
                    <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Assuntos</h4>
-                   <Button color="primary" className={classes.right} onClick={() => this.salvarAssunto()}>Novo Assunto</Button>
+                   <Button color="primary" className={classes.right} onClick={() => this.openModal("modalAssunto")}>Novo Assunto</Button>
                </CardHeader>
               <CardBody>
                         <Table
                         tableHead={[
                           "#",
-                          "Assuntos",
+                          "Assunto",
+                          "Conflito",
                           "Acões"
                         ]}
                         tableData={this.state.assuntos !== undefined ? this.state.assuntos.map(
                           n=> [
                            n.id,
                            n.assunto,
+                           n.conflito,
                            n.actions
                           ]
                         ):[]}
@@ -275,28 +362,30 @@ class Configurations extends React.Component {
                           classes.center,
                           classes.textRight,
                         ]}
-                        customClassesForCells={[0, 2]}
+                        customClassesForCells={[0, 3]}
                         customHeadCellClasses={[
                           classes.center,
                           classes.textRight,
                         ]}
-                        customHeadClassesForCells={[0, 2]}
+                        customHeadClassesForCells={[0, 3]}
                       />
-                        <GridItem xs={12} sm={12} md={4}>
+              </CardBody> 
+            
+                 <Modal open={this.state.modalAssunto} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalAssunto")} center>
                             <SearchSelect
                               opcoes={conflitosAssuntos}
-                              name="conflitoSelect"
+                              name="conflitoAssunto"
                               onChange={(name, value) => this.handleSelectChange(name, value)}
-                              value={this.state.conflitoSelect}
+                              value={this.state.conflitoAssunto}
                               placeholder="Conflitos"
                               formControlProps={{
                                 fullWidth: true,
                               }}
-                              error={this.state.conflitosAssuntosState === "error"}
+                              error={this.state.conflitoAssuntoState === "error"}
+                              success={this.state.conflitoAssuntoState === "success"}
                               errorHelperText="Selecione o conflito"
                             />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={12}>
+                       
                           <CustomInput
                             success={this.state.assuntoState === "success"}
                             error={this.state.assuntoState === "error"}
@@ -311,12 +400,13 @@ class Configurations extends React.Component {
                               this.change(event, "assunto", "texto")
                             }}
                           />
-                        </GridItem>
-                        <Button color="secondary" onClick={() => this.salvarAssunto()}>Salvar Assunto</Button>
-              </CardBody>
+                       
+                        <Button color="secondary" className={classes.right}  onClick={() => this.salvarAssunto()}>Salvar Assunto</Button>
+               </Modal>
             </Card>
           </GridItem>
         </GridContainer>
+        
      </>
     );
   }
