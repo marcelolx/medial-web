@@ -1,5 +1,17 @@
 import API from '../../../../API';
-import { BUSCAR_REQUERIDOS_PENDENTES_START, BUSCAR_REQUERIDOS_PENDENTES_COMPLETE, BUSCAR_REQUERIDOS_PENDENTES_ERROR, SALVAR_HISTORICO_START, SALVAR_HISTORICO_COMPLETE, SALVAR_HISTORICO_ERROR, SALVAR_HISTORICO_FINISH, CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE, CONFIRMAR_SOLICITACAO_CADASTRO_ERROR, CONFIRMAR_SOLICITACAO_CADASTRO_FINISH } from './actionTypes';
+import { 
+  BUSCAR_REQUERIDOS_PENDENTES_START, 
+  BUSCAR_REQUERIDOS_PENDENTES_COMPLETE, 
+  BUSCAR_REQUERIDOS_PENDENTES_ERROR, 
+  SALVAR_HISTORICO_START, 
+  SALVAR_HISTORICO_COMPLETE, 
+  SALVAR_HISTORICO_ERROR, 
+  SALVAR_HISTORICO_FINISH, 
+  CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE, 
+  CONFIRMAR_SOLICITACAO_CADASTRO_ERROR, 
+  CONFIRMAR_SOLICITACAO_CADASTRO_FINISH,
+  BUSCAR_REQUERIDO_PENDENTE_COMPLETE,
+  BUSCAR_REQUERIDO_PENDENTE_ERROR } from './actionTypes';
 
 
 export function buscarRequeridosPendentes() {
@@ -96,4 +108,30 @@ function confirmarSolicitacaoCadastroError(error) {
 
 export function confirmarSolicitacaoCadastroFinish() {
   return { type: CONFIRMAR_SOLICITACAO_CADASTRO_FINISH };
+}
+
+export function getCadastroPendente(idCadastroPendente) {
+  return function(dispatch) {
+    return API.get(`/mediacao/requeridopendente?idRequeridoPendente=${idCadastroPendente}`)
+      .then(response => {
+        dispatch(getCadastroPendenteComplete(response))
+      })
+      .catch(erro => {
+        dispatch(getCadastroPendenteError(erro))
+      })
+  }
+}
+
+function getCadastroPendenteComplete(response) {
+  return {
+    type: BUSCAR_REQUERIDO_PENDENTE_COMPLETE,
+    payload: response.data
+  }
+}
+
+function getCadastroPendenteError(erro) {
+  return {
+    type: BUSCAR_REQUERIDO_PENDENTE_ERROR,
+    payload: erro
+  }
 }

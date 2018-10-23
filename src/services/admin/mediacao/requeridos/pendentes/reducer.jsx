@@ -1,9 +1,22 @@
-import { BUSCAR_REQUERIDOS_PENDENTES_START, BUSCAR_REQUERIDOS_PENDENTES_COMPLETE, BUSCAR_REQUERIDOS_PENDENTES_ERROR, SALVAR_HISTORICO_START, SALVAR_HISTORICO_COMPLETE, SALVAR_HISTORICO_ERROR, SALVAR_HISTORICO_FINISH, CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE, CONFIRMAR_SOLICITACAO_CADASTRO_ERROR, CONFIRMAR_SOLICITACAO_CADASTRO_FINISH } from './actionTypes';
+import { 
+  BUSCAR_REQUERIDOS_PENDENTES_START, 
+  BUSCAR_REQUERIDOS_PENDENTES_COMPLETE, 
+  BUSCAR_REQUERIDOS_PENDENTES_ERROR, 
+  SALVAR_HISTORICO_START, 
+  SALVAR_HISTORICO_COMPLETE, 
+  SALVAR_HISTORICO_ERROR, 
+  SALVAR_HISTORICO_FINISH, 
+  CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE, 
+  CONFIRMAR_SOLICITACAO_CADASTRO_ERROR, 
+  CONFIRMAR_SOLICITACAO_CADASTRO_FINISH,
+  BUSCAR_REQUERIDO_PENDENTE_COMPLETE,
+  BUSCAR_REQUERIDO_PENDENTE_ERROR } from './actionTypes';
 
 const initialState = {
   buscando: false,
   sucesso: false,
   pendentes: [],
+  cadastroPendente: null,
   salvandoHistorico: false,
   sucessoSalvarHistorico: false,
   idHistorico: 0,
@@ -83,6 +96,20 @@ export default function(state = initialState, action) {
         ...state,
         cadastroConfirmado: false,
         erroConfirmarCadastro: false,
+      })
+    case BUSCAR_REQUERIDO_PENDENTE_COMPLETE: 
+      return Object.assign({}, state, {
+        ...state,
+        buscando: false,
+        sucesso: true,
+        cadastroPendente: action.payload,        
+      })
+    case BUSCAR_REQUERIDO_PENDENTE_ERROR:
+      return Object.assign({}, state, {
+        ...state,
+        buscando: false,
+        sucesso: false,
+        cadastroPendente: null
       })
     default:
       return state;

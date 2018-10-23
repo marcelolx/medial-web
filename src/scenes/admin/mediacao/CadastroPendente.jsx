@@ -40,31 +40,18 @@ class CadastroPendente extends React.Component {
     super(props);
     
     this.state = {
-      cadastroPendente: this.getCadastroPendente(this.props.match.params.id),
       mensagemHistorico: '',
       mensagemHistoricoEmpty: false,
       successNotification: false,
     }
   }
 
-  getCadastroPendente(paramId) {
-    const { pendentes } = this.props.requeridosPendentes;
-
-    if (pendentes && pendentes.length > 0) {
-      return pendentes[
-        Object
-          .keys(pendentes)
-          .filter(key => (pendentes[key].idCadastroPendente === parseInt(paramId)))[0]
-      ];
-    } else {
-      console.log('faria request');
-    }
-
-    return null;
+  componentDidMount() {
+    this.props.actions.getCadastroPendente(this.props.match.params.id);
   }
 
   getHistoricos() {
-    const { cadastroPendente } = this.state;
+    const { cadastroPendente } = this.props.requeridosPendentes;
     
     return cadastroPendente.historico ? (
       cadastroPendente.historico.map((historico, key) => {
@@ -85,13 +72,15 @@ class CadastroPendente extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleEnviaMensagemHistorico() {
+  handleEnviaMensagemHistorico(e) {
+    e.preventDefault();
+
     if (this.state.mensagemHistorico !== '') {
       this.setState({
         mensagemHistoricoEmpty: false
       });
 
-      const { cadastroPendente } = this.state;
+      const { cadastroPendente } = this.props.requeridosPendentes;
       const mensagemData = {
         requeridoPendente: cadastroPendente.idCadastroPendente,
         mediador: this.props.auth.id,
@@ -108,15 +97,18 @@ class CadastroPendente extends React.Component {
   }
 
   handleConfirmarSolicitacaoCadastro() {
-    const { cadastroPendente } = this.state;
+    const { cadastroPendente } = this.props.requeridosPendentes;
 
     const data = {
+      idMediacao: cadastroPendente.idMediacao,
       requeridoPendente: cadastroPendente.idCadastroPendente,
       mediador: this.props.auth.id,
       situacao: cadastroPendente.situacao
     }
 
     this.props.actions.confirmarSolicitacaoCadastro(data);
+
+    //TODO: Após confirmar, precisamos atualizar essa info na tela.
   }
 
   handleCloseSnackBarSuccessHistorico() {
@@ -133,17 +125,10 @@ class CadastroPendente extends React.Component {
       mediador: this.props.auth.id,
       mensagem: this.state.mensagemHistorico,
       nomeMediador: '', //TODO: Verificar se não temos acesso no auth pelo nome já....
-      situacao: this.state.cadastroPendente.situacao,
+      situacao: this.props.requeridosPendentes.cadastroPendente.situacao,
     };
-
-    let cadPendente = this.state.cadastroPendente;
-    let historico = cadPendente.historico || [];
-    historico.unshift(novoHistorico);
-    cadPendente.historico = historico;
-
-    this.setState({
-      cadastroPendente: cadPendente
-    });
+    
+    this.props.requeridosPendentes.cadastroPendente.historico.unshift(novoHistorico);
   }
 
   fecharSnackBarHistoricoSalvo() {
@@ -159,13 +144,9 @@ class CadastroPendente extends React.Component {
     if (this.props.requeridosPendentes.cadastroConfirmado) {
       setTimeout(
         function() {
-          let cadPendente = this.state.cadastroPendente;
+          let cadPendente = this.props.requeridosPendentes.cadastroPendente;
           cadPendente.situacao = SOLICITADO_CADASTRO_EMPRESA;
 
-          this.setState({
-            cadastroPendente: cadPendente
-          });
-          
           this.props.actions.confirmarSolicitacaoCadastroFinish();
         }.bind(this), 650);
     }
@@ -173,9 +154,10 @@ class CadastroPendente extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { cadastroPendente } = this.state;
+    const { cadastroPendente } = this.props.requeridosPendentes;
 
     this.fecharSnackBarHistoricoSalvo();
+    this.fecharSnackBarSolicitacaoCadastroConfirmada();
 
     return cadastroPendente === null ? null : (
       <React.Fragment>
@@ -318,7 +300,7 @@ class CadastroPendente extends React.Component {
                         <Button 
                           color="secondary" 
                           className={classes.botaoEnviar}
-                          onClick={() => this.handleEnviaMensagemHistorico()}
+                          onClick={(e) => this.handleEnviaMensagemHistorico(e)}
                         >
                           Enviar                          
                         </Button>
@@ -330,7 +312,7 @@ class CadastroPendente extends React.Component {
                   color="secondary"
                   fullWidth
                   onClick={() => this.handleConfirmarSolicitacaoCadastro()}
-                  disabled={this.state.cadastroPendente.situacao === SOLICITADO_CADASTRO_EMPRESA}
+                  disabled={this.props.requeridosPendentes.cadastroPendente.situacao === SOLICITADO_CADASTRO_EMPRESA}
                 >
                   Confirmar a solicitação de cadastro
                 </Button>
