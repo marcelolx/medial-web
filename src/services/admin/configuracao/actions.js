@@ -74,10 +74,8 @@ export function salvarAssunto(data){
   return function(dispatch) {
      return API.put('/admin/assunto',data)
        .then(response => {
-         debugger
        })
        .catch(erro => {
-         debugger
        });
    };
  };
@@ -88,10 +86,8 @@ export function salvarConflito(data){
   return function(dispatch) {
      return API.put('/admin/conflito',data)
        .then(response => {
-         debugger
        })
        .catch(erro => {
-         debugger
        });
    };
  };

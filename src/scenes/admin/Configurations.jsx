@@ -229,7 +229,6 @@ class Configurations extends React.Component {
       this.setState({
         conflitos: this.props.configuracao.conflitos!== undefined 
           ? this.props.configuracao.conflitos.map((prop, key) => {
-            debugger
             return {
               id: prop.id,
               conflito:  prop.conflito,
