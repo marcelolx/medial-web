@@ -43,6 +43,8 @@ class CadastroPendente extends React.Component {
       mensagemHistorico: '',
       mensagemHistoricoEmpty: false,
       successNotification: false,
+      erroCamposSemInfo: false,
+      messageErroCamposSemInfo: ''
     }
   }
 
@@ -89,6 +91,7 @@ class CadastroPendente extends React.Component {
       };
       
       this.props.actions.salvarHistorico(mensagemData);
+      this.setState({ mensagemHistorico: '' });
     } else {
       this.setState({
         mensagemHistoricoEmpty: true,
@@ -103,32 +106,33 @@ class CadastroPendente extends React.Component {
       idMediacao: cadastroPendente.idMediacao,
       requeridoPendente: cadastroPendente.idCadastroPendente,
       mediador: this.props.auth.id,
-      situacao: cadastroPendente.situacao
+      situacao: SOLICITADO_CADASTRO_EMPRESA
     }
 
-    this.props.actions.confirmarSolicitacaoCadastro(data);
+    const blankInputs = Object.keys(data).filter(key => data[key] === '');
 
-    //TODO: Após confirmar, precisamos atualizar essa info na tela.
+    (blankInputs.length === 0) 
+      ? this.props.actions.confirmarSolicitacaoCadastro(data) 
+      : this.exibirErroCampoSemInfo("Erro interno, não foi possível confirmar a solicitação");
+  }
+
+  exibirErroCampoSemInfo(mensagem) {
+    this.setState({
+      erroCamposSemInfo: true,
+      messageErroCamposSemInfo: mensagem
+    });
+
+    setTimeout(
+      function() {
+        this.setState({
+          erroCamposSemInfo: false,
+          messageErroCamposSemInfo: ''
+        });
+      }.bind(this), 650);
   }
 
   handleCloseSnackBarSuccessHistorico() {
-    if (this.state.mensagemHistorico !== '') {
-      this.adicionaHistoricoLista();
-      this.setState({ mensagemHistorico: '' });
-      this.props.actions.limparEstadoHistoricoSalvo();
-    }
-  }
-
-  adicionaHistoricoLista() {
-    const novoHistorico = {
-      id: this.props.requeridosPendentes.idHistorico,
-      mediador: this.props.auth.id,
-      mensagem: this.state.mensagemHistorico,
-      nomeMediador: '', //TODO: Verificar se não temos acesso no auth pelo nome já....
-      situacao: this.props.requeridosPendentes.cadastroPendente.situacao,
-    };
-    
-    this.props.requeridosPendentes.cadastroPendente.historico.unshift(novoHistorico);
+    this.props.actions.limparEstadoHistoricoSalvo();
   }
 
   fecharSnackBarHistoricoSalvo() {
@@ -144,9 +148,6 @@ class CadastroPendente extends React.Component {
     if (this.props.requeridosPendentes.cadastroConfirmado) {
       setTimeout(
         function() {
-          let cadPendente = this.props.requeridosPendentes.cadastroPendente;
-          cadPendente.situacao = SOLICITADO_CADASTRO_EMPRESA;
-
           this.props.actions.confirmarSolicitacaoCadastroFinish();
         }.bind(this), 650);
     }
@@ -321,9 +322,7 @@ class CadastroPendente extends React.Component {
                     <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Histórico</p>
                   </CardHeader>
                   <CardBody>
-                    { //TODO: Está re-renderizando toda vez....
-                      this.getHistoricos()
-                    }
+                    { this.getHistoricos() }
                   </CardBody>
                 </Card>
               </CardBody>
@@ -350,6 +349,13 @@ class CadastroPendente extends React.Component {
           color="success"
           message="Sucesso! Confirmada solicitação de cadastro!"
           open={this.props.requeridosPendentes.cadastroConfirmado}
+          close
+        />
+        <Snackbar 
+          place="tc"
+          color="warning"
+          message={this.state.messageErroCamposSemInfo}
+          open={this.state.erroCamposSemInfo}
           close
         />
       </React.Fragment>

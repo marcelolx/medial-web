@@ -19,7 +19,6 @@ const initialState = {
   cadastroPendente: null,
   salvandoHistorico: false,
   sucessoSalvarHistorico: false,
-  idHistorico: 0,
   erroSalvarHistorico: '',
   cadastroConfirmado: false,
   erroConfirmarCadastro: false,
@@ -59,8 +58,7 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         ...state,
         salvandoHistorico: false,
-        sucessoSalvarHistorico: action.payload > 0,
-        idHistorico: action.payload,
+        sucessoSalvarHistorico: action.payload.valor,
         erroSalvarHistorico: '',
       })
     case SALVAR_HISTORICO_ERROR:
@@ -68,7 +66,6 @@ export default function(state = initialState, action) {
         ...state,
         salvandoHistorico: false,
         sucessoSalvarHistorico: false,
-        idHistorico: 0,
         erroSalvarHistorico: action.payload,
       })
     case SALVAR_HISTORICO_FINISH:
@@ -77,12 +74,11 @@ export default function(state = initialState, action) {
         salvandoHistorico: false,
         sucessoSalvarHistorico: false,
         erroSalvarHistorico: '',
-        idHistorico: 0,
       })
     case CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE: 
       return Object.assign({}, state, {
         ...state,
-        cadastroConfirmado: true,
+        cadastroConfirmado: action.payload.valor,
         erroConfirmarCadastro: false,
       })
     case CONFIRMAR_SOLICITACAO_CADASTRO_ERROR:

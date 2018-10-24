@@ -50,7 +50,10 @@ export function salvarHistorico(historico) {
     dispatch(salvarHistoricoStart());
     return API.post('/mediacao/historico/salvar', historico)
       .then(response => {
-        dispatch(salvarHistoricoComplete(response))
+        if (response.data) {
+          dispatch(salvarHistoricoComplete(response));
+          dispatch(getCadastroPendente(historico.requeridoPendente));
+        }
       })
       .catch(err => {
         dispatch(salvarHistoricoError(err))
@@ -63,6 +66,8 @@ function salvarHistoricoStart() {
 }
 
 function salvarHistoricoComplete(response) {  
+  console.log(response.data);
+  
   return {
     type: SALVAR_HISTORICO_COMPLETE,
     payload: response.data
@@ -84,7 +89,10 @@ export function confirmarSolicitacaoCadastro(data) {
   return function(dispatch) {
     return API.post('/mediacao/atualizarSituacao', data)
       .then(response => {
-        dispatch(confirmarSolicitacaoCadastroComplete(response))
+        if (response.data) {
+          dispatch(confirmarSolicitacaoCadastroComplete(response));
+          dispatch(getCadastroPendente(data.requeridoPendente));
+        }
       })
       .catch(err => {
         dispatch(confirmarSolicitacaoCadastroError(err))
@@ -93,6 +101,7 @@ export function confirmarSolicitacaoCadastro(data) {
 }
 
 function confirmarSolicitacaoCadastroComplete(response) {
+  console.log(response.data);
   return {
     type: CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE,
     payload: response.data
