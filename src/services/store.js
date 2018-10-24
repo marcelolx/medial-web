@@ -13,7 +13,7 @@ const store = createStore(
 
 store.subscribe(() => {
   const state = store.getState();
-    
+  
   const persist = {
     auth: state.auth,
   }

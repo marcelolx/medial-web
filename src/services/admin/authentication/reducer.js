@@ -6,6 +6,7 @@ const initialState = {
   accessLevel: null,
   isAuthenticated: false,
   message: '',
+  nome: '',
 }
 
 export default function(state = initialState, action) {
@@ -15,6 +16,7 @@ export default function(state = initialState, action) {
         token: action.payload.token,
         id: action.payload.id,
         accessLevel: action.payload.nivelAcesso,
+        nome:  action.payload.nome || 'Usuário',
         isAuthenticated: true,
         message: null,
       });
@@ -23,6 +25,7 @@ export default function(state = initialState, action) {
         token: null,
         id: null,
         accessLevel: null,
+        nome: '',
         isAuthenticated: false,
         message: 'Você saiu com sucesso do sistema',
       }); 
@@ -31,6 +34,7 @@ export default function(state = initialState, action) {
           token: null,
           id: null,
           accessLevel: null,
+          nome: '',
           isAuthenticated: false,
           message: 'Você não está autorizado a acessar essa página',
         });

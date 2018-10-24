@@ -67,7 +67,7 @@ class Mediacao extends Component {
 
   render(){
     return(      
-      <GridContainer>
+      <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={8}>
           <Wizard 
             validate

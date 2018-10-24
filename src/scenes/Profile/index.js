@@ -3,22 +3,21 @@ import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import * as profileActions from '../../services/admin/profile/actions';
-
-
 import * as estadosActions from '../../services/graphql/estados/actions';
 import * as cidadesActions from '../../services/graphql/cidades/actions';
 import * as authActions from '../../services/admin/authentication/actions';
+
+
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import GridContainer from '../../components/Grid/GridContainer';
 import CardHeader from '../../components/Card/CardHeader';
-import CardAvatar from '../../components/Card/CardAvatar';
 import CustomInput from '../../components/CustomInput';
 import SearchSelect from '../../components/SearchSelect';
 import Snackbar from '../../components/Snackbar/Snackbar';
 import Button from '../../components/CustomButtons/Button';
-import defaultImage from '../../assets/images/avatar-default-icon.png'
+import ImageUpload from '../../components/CustomUpload/ImageUpload';
 
 const styles = theme => ({
   root: {
@@ -26,12 +25,10 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
+  
   close: {
     width: theme.spacing.unit * 4,
     height: theme.spacing.unit * 4,
-  },
-  margin: {
-    margin: theme.spacing.unit,
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
@@ -406,16 +403,6 @@ class Profile extends Component {
   render() {
     const { classes, cidades, estados } = this.props;
 
-    let inputValue;
-    let valueButton;
-
-    if (this.state.alterarImagem) {
-      inputValue = <input type="file" />;
-      valueButton = <Button color="success" round disabled>    Alterar   </Button>;
-    } else {
-      valueButton = <Button color="success" round onClick={this.alterarImagem}>
-        Atualizar Imagem
-                   </Button>;
     return (
       <React.Fragment>
         <GridContainer>
@@ -495,8 +482,8 @@ class Profile extends Component {
                     />
                   </GridItem>
                 </GridContainer>
+                <Button color="secondary" onClick={() => this.atualizarPerfil()}>Atualizar Perfil</Button>
               </CardBody>
-              <Button color="secondary" onClick={() => this.atualizarPerfil()}>Atualizar</Button>
             </Card>
             <Card>
               <CardHeader color="primary">
@@ -504,7 +491,7 @@ class Profile extends Component {
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={12}>
                     <CustomInput
                       success={this.state.ruaState === "success"}
                       error={this.state.ruaState === "error"}
@@ -520,7 +507,7 @@ class Profile extends Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       success={this.state.numeroState === "success"}
                       error={this.state.numeroState === "error"}
@@ -536,7 +523,7 @@ class Profile extends Component {
                       }}
                     />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
                       success={this.state.bairroState === "success"}
                       error={this.state.bairroState === "error"}
@@ -598,9 +585,9 @@ class Profile extends Component {
                       }}
                     />
                   </GridItem>
-                </GridContainer>
+                </GridContainer>  <Button color="secondary" onClick={() => this.atualizarEndereco()} >Alterar endereço</Button>
               </CardBody>
-              <Button color="secondary" onClick={() => this.atualizarEndereco()} >Alterar</Button>
+            
             </Card>
             <Card>
               <CardHeader color="primary">
@@ -661,8 +648,8 @@ class Profile extends Component {
                     />
                   </GridItem>
                 </GridContainer>
+              <Button color="secondary"  onClick={() => this.atualizarLogin()}>Alterar acesso</Button>
               </CardBody>
-              <Button color="secondary"  onClick={() => this.atualizarLogin()}>Alterar</Button>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
@@ -670,12 +657,27 @@ class Profile extends Component {
               <CardHeader color="info">
                 <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
               </CardHeader>
-              <CardAvatar profile>
-                <img src={this.state.avatar || defaultImage} alt="Avatar do Usuário" />
-              </CardAvatar>
               <CardBody profile>
-                {inputValue}
-                {valueButton}
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <legend>Em constructor</legend>
+                  <ImageUpload 
+                    avatar 
+                    adicionarButtonProps={{
+                      color: "primary",
+                      round: true
+                    }}
+                    alterarButtonProps={{
+                      color: "primary",
+                      round: true
+                    }}
+                    removerButtonProps={{
+                      color: "danger",
+                      round: true
+                    }}
+                  />
+                </GridItem>
+              </GridContainer>      
               </CardBody>
             </Card>
           </GridItem>
@@ -699,7 +701,6 @@ class Profile extends Component {
       </React.Fragment>
     );
   }
-}
 }
 
 

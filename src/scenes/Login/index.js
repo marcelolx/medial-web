@@ -38,7 +38,19 @@ const styles = theme => ({
   },
   half: {
     flexBasis: '45%',
-  }
+  },
+  container: {
+    paddingRight: "15px", 
+    maxWidth: '400px',
+    marginTop: "60px",
+    paddingLeft: "15px",
+    marginRight: "auto",
+    marginLeft: "auto",
+    zIndex: "4",
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: "100px"
+    }
+  },
 });
 
 class Login extends Component {
@@ -118,8 +130,7 @@ class Login extends Component {
   render() {
     const { classes, error } = this.props;
     return (
-      <React.Fragment>
-        <div className={classes.baseRoot}>
+      <div className={classes.container}>
           <Logo />
           <form onSubmit={this.handleLogin} className={classes.root}>
             <FormControl
@@ -169,15 +180,14 @@ class Login extends Component {
                 <FormHelperText id="email-error-text">{error.adaptedMessage}</FormHelperText>
               }
             </FormControl>
-            <Button component={Link} to="/user/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
+            <Button component={Link} to="/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
               Cadastre-se
             </Button>
             <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
               Entrar
             </Button>
           </form>
-        </div>
-      </React.Fragment>
+          </div>
     );
   }
 }

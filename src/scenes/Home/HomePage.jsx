@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import IfAnyGranted from '../../components/Permissions/IfAnyGranted';
-import AdminNPJ from '../Dashboard/AdminNPJ.jsx';
+import AdminNPJ from '../Dashboard/AdminNPJ';
 
-class Home extends Component {
+class HomePage extends Component {
   render() {
     return (
       <React.Fragment>
@@ -21,4 +21,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 })
 
-export default withRouter(compose(connect(mapStateToProps))(Home));
+export default withRouter(compose(connect(mapStateToProps))(HomePage));

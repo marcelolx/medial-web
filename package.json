@@ -13,6 +13,7 @@
     "material-ui-pickers": "^1.0.0-rc.12",
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
+    "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
     "react": "^16.4.1",
