@@ -13,6 +13,7 @@ import empresaReducer from './admin/empresa/reducer';
 import mediacaoAssuntosReducer from './admin/mediacao/assuntos/reducer';
 import novaMediacaoReducer from './admin/mediacao/nova/reducer';
 import listUsersReducer from './admin/listUsers/reducer'
+import requeridosPendentesReducer from './admin/mediacao/requeridos/pendentes/reducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -29,4 +30,5 @@ export default combineReducers({
   mediacaoAssuntos: mediacaoAssuntosReducer,
   novaMediacao: novaMediacaoReducer,
   listUsers: listUsersReducer,
+  requeridosPendentes: requeridosPendentesReducer
 });
