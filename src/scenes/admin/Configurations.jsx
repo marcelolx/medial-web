@@ -147,7 +147,6 @@ class Configurations extends React.Component {
       conflito: this.state.conflito,
     }
     this.props.actions.salvarConflito(data);
-    this.props.actions.getConfiguracao();
     
     this.sucessoRecarregar("modalConflito");
   }
