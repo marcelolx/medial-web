@@ -33,7 +33,14 @@ const styles = ({
   },
   botaoCadastroSolicitado: {
     flexBasis: '100%',
-  }
+  },
+  paddingGrid:{
+    padding: "0 5px",
+  },
+
+  paddingBody:{
+    padding: "0 10px",
+  },
 });
 
 class CadastroPendente extends React.Component {  
@@ -162,19 +169,19 @@ class CadastroPendente extends React.Component {
     this.fecharSnackBarSolicitacaoCadastroConfirmada();
 
     return cadastroPendente === null ? null : (
-      <React.Fragment>
-        <GridContainer justify="center">
-          <GridItem xs={12} sm={12} md={10} lg={6}>
+      <React.Fragment >
+        <GridContainer justify="center" >
+          <GridItem xs={12} sm={12} md={10} lg={6} className={classes.paddingGrid}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastro Empresa Pendente</h4>
                 <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{"Empresa: " + cadastroPendente.nomeRequerido}</p>
               </CardHeader>
-              <CardBody>
+              <CardBody className={classes.paddingBody}>
                 <Card>
                   <CardBody>
                     <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
+                      <GridItem xs={12} sm={12} md={4} >
                         <CustomInput
                           labelText="Protocolo"
                           inputProps={{
@@ -187,7 +194,7 @@ class CadastroPendente extends React.Component {
                           }}
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={5}>
+                      <GridItem xs={12} sm={12} md={5} >
                         <CustomInput
                           labelText="Nome do Solicitante"
                           inputProps={{
@@ -200,7 +207,7 @@ class CadastroPendente extends React.Component {
                           }}
                         />
                       </GridItem>
-                      <GridItem xs={12} sm={12} md={3}>
+                      <GridItem xs={12} sm={12} md={3} >
                         <CustomInput
                           labelText="Data da solicitação"
                           inputProps={{
@@ -215,9 +222,9 @@ class CadastroPendente extends React.Component {
                       </GridItem>
                     </GridContainer>
                   </CardBody>
-                </Card>
+                </Card> 
                 <Card>
-                  <CardBody>
+                  <CardBody >
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={6}>
                         <CustomInput
@@ -322,7 +329,7 @@ class CadastroPendente extends React.Component {
                   <CardHeader color="primary">
                     <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Histórico</p>
                   </CardHeader>
-                  <CardBody>
+                  <CardBody className={classes.paddingBody}>
                     { this.getHistoricos() }
                   </CardBody>
                 </Card>

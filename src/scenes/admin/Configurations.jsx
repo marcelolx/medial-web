@@ -284,7 +284,6 @@ class Configurations extends React.Component {
                    <Button color="primary" className={classes.right}  onClick={() => this.openModal("modalConflito")}>Novo Conflito</Button>
                </CardHeader>
               <CardBody>
-           
                         <Table
                         tableHead={[
                           "#",

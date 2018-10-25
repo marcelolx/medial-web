@@ -2,17 +2,9 @@ import { createElement } from 'react';
 import PropTypes from 'prop-types';
 
 const IfAnyGranted = (props) => {
-  const expected = props.expected,
-  actual = props.actual ? Array.isArray(props.actual) ? props.actual : [props.actual] : [];
+  const expected = props.expected;
 
-  let found = false;
-  for (var i = 0; i < expected.length; i++) {
-    if (actual.indexOf(expected[i]) !== -1) {
-      found = true;
-      break;
-    }
-  }
-  if (found) {
+  if (expected.includes(props.actual)) {
     return createElement(props.element, null, props.children);
   } else {
     return props.unauthorized;
