@@ -8,6 +8,7 @@ import Mediacao from "./../scenes/Register/Mediacao"
 import ListUsers from "../scenes/admin/ListUsers"
 import Profile from "./../scenes/Profile"
 import Configurations from "../scenes/admin/Configurations";
+import CadastroPendente from "../scenes/admin/mediacao/CadastroPendente";
 
 
 var dashRoutes = [
@@ -73,7 +74,15 @@ var dashRoutes = [
     nivel:[1,4,99],
     component: Profile
   },
-  { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" }
+  { 
+    path: "/mediacao/cadastropendente/:id",
+    name: "Mediacao",
+    icon: People,
+    nivel:[1,2],
+    naoExibe: true,
+    component: CadastroPendente
+  },
+  { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" },
 ];
 export default dashRoutes;
 
