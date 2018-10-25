@@ -13,10 +13,11 @@ class Root extends Component {
       return (
         <div>
           <HashRouter>
-          <Switch>
-            {indexRoutes.map((prop, key) => {
-              return <Route path={prop.path} component={prop.component} key={key} />;
-            })}
+            <Switch>
+              {indexRoutes.map((prop, key) => {
+                return <Route path={prop.path} component={prop.component} key={key} />;
+              })}
+
             </Switch>
           </HashRouter>
         </div>
@@ -25,10 +26,10 @@ class Root extends Component {
       return (
         <div>
           <HashRouter>
-          <Switch>
-            {pageRoutes.map((prop, key) => {
-              return <Route path={prop.path} component={prop.component} key={key} />;
-            })}
+            <Switch>
+              {pageRoutes.map((prop, key) => {
+                return <Route path={prop.path} component={prop.component} key={key} />;
+              })}
             </Switch>
           </HashRouter>
         </div>
