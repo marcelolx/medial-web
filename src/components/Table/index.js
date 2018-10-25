@@ -187,7 +187,7 @@ CustomTable.defaultProps = {
   customClassesForCells: [],
   customHeadCellClasses: [],
   customHeadClassesForCells: [],
-  footer: false,
+  footer: true,
   rowsPerPage: 5,
 };
 

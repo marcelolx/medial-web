@@ -16,6 +16,7 @@ import getAdaptedMessage, { SOLICITADO_CADASTRO_EMPRESA } from '../../../service
 import * as requeridoPendenteActions from '../../../services/admin/mediacao/requeridos/pendentes/action';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import Snackbar from '../../../components/Snackbar/Snackbar';
+import queryString from 'query-string';
  
 const styles = ({
   semMargen: {
@@ -49,7 +50,7 @@ class CadastroPendente extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.getCadastroPendente(this.props.match.params.id);
+    this.props.actions.getCadastroPendente(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
   }
 
   getHistoricos() {

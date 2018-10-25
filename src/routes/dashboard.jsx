@@ -75,8 +75,8 @@ var dashRoutes = [
     component: Profile
   },
   { 
-    path: "/mediacao/cadastropendente/:id",
-    name: "Mediacao",
+    path: "/mediacao/cadastropendente",
+    name: "Cadastros Pendentes",
     icon: People,
     nivel:[1,2],
     naoExibe: true,

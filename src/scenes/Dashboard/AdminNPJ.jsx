@@ -32,7 +32,7 @@ class AdminNPJ extends React.Component {
   }
 
   handleClickCadastroPendente = idCadastroPendente => {
-    this.props.history.push(`/mediacao/cadastropendente/${idCadastroPendente}`);
+    this.props.history.push(`/mediacao/cadastropendente?id=${idCadastroPendente}`);
   }
 
   dataToTableData = () => {
