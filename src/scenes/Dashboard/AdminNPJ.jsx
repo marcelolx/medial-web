@@ -2,26 +2,16 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GridContainer from '../../components/Grid/GridContainer';
-import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardHeader from '../../components/Card/CardHeader';
 import CardBody from '../../components/Card/CardBody';
 import Table from '../../components/Table';
 import Edit from "@material-ui/icons/Edit";
 import Button from '../../components/CustomButtons/Button';
-import adminCadastroPendenteStyle from '../../assets/jss/scenes/Dashboard/adminCadastroPendenteStyle';
+import adminCardTableStyle from '../../assets/jss/scenes/Dashboard/adminCardTableStyle';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/action';
-
-
-const styles = ({
-  ...adminCadastroPendenteStyle,
-  semMargen: {
-    margin: 0,
-  }
-});
 
 class AdminNPJ extends React.Component {
 
@@ -71,37 +61,33 @@ class AdminNPJ extends React.Component {
 
     return(
       <React.Fragment>
-        <GridContainer>
-          <GridItem xs={12} sm={8} md={6} lg={6}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
-                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
-              </CardHeader>
-              <CardBody>
-                <Table 
-                  tableHead={[
-                    "#",
-                    "Nome",
-                    "",
-                  ]}
-                  tableData={this.dataToTableData()}
-                  customCellClasses={[
-                    classes.center,
-                    classes.right
-                  ]}
-                  customClassesForCells={[0, 2]}
-                  customHeadCellClasses={[
-                    classes.center,
-                    classes.right
-                  ]}
-                  customHeadClassesForCells={[0,2]}
-                  footer
-                />
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
+            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
+          </CardHeader>
+          <CardBody>
+            <Table 
+              tableHead={[
+                "#",
+                "Nome",
+                "",
+              ]}
+              tableData={this.dataToTableData()}
+              customCellClasses={[
+                classes.center,
+                classes.right
+              ]}
+              customClassesForCells={[0, 2]}
+              customHeadCellClasses={[
+                classes.center,
+                classes.right
+              ]}
+              customHeadClassesForCells={[0,2]}
+              footer
+            />
+          </CardBody>
+        </Card>
       </React.Fragment>
     );
   }
@@ -118,6 +104,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(compose(
-  withStyles(styles),
+  withStyles(adminCardTableStyle),
   connect(mapStateToProps, mapDispatchToProps)
 )(AdminNPJ));
