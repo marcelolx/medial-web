@@ -17,7 +17,7 @@ import CardHeader from '../../components/Card/CardHeader';
 import Button from '../../components/CustomButtons/Button';
 import Table from '../../components/Table';
 import CardIcon from '../../components/Card/CardIcon';
-import SearchSelect from '../../components/Root/RegisterStep/SearchSelect';
+import SearchSelect from '../../components/SearchSelect';
 
 import * as configuracaoActions from './../../services/admin/configuracao/actions'
 
@@ -224,48 +224,52 @@ class Configurations extends React.Component {
 
   componentWillUpdate  = () => {
     if (this.state.atualizar) {
-      const {classes} = this.props;
-      this.setState({
-        conflitos: this.props.configuracao.conflitos!== undefined 
-          ? this.props.configuracao.conflitos.map((prop, key) => {
-            return {
-              id: prop.id,
-              conflito:  prop.conflito,
-              actions: (     
-                <div>
-                  {
-                    <Button color="success" className={classes.actionButton} key={key}  onClick={() => this.atualizarConflito(prop)}>
-                      <Edit/>
-                    </Button>
-                  }
-                </div>
-              )
-            }
-          })
-        :[],
-        assuntos: this.props.configuracao.assuntos!== undefined 
-          ? this.props.configuracao.assuntos.map((prop, key) => {
-            return {
-              id: prop.id,
-              assunto:  prop.assunto,
-              conflito: prop.conflito,
-              actions: (     
-                 <div>
-                    {
-                      <Button color="success" className={classes.actionButton} key={key}  onClick={() => this.atualizarAssunto(prop)}>
-                        <Edit/>
-                      </Button>
-                    }
-                 </div>
-              )
-            }
-          })
-        :[],
-        atualizar:false,
-        })
+        this.atribuirBotoes()
     }
   
   }
+
+  atribuirBotoes = () => {
+    const {classes} = this.props;
+    this.setState({
+      conflitos: this.props.configuracao.conflitos!== undefined 
+        ? this.props.configuracao.conflitos.map((prop, key) => {
+          return {
+            id: prop.id,
+            conflito:  prop.conflito,
+            actions: (     
+              <div>
+                {
+                  <Button color="success" className={classes.actionButton} key={key}  onClick={() => this.atualizarConflito(prop)}>
+                    <Edit/>
+                  </Button>
+                }
+              </div>
+            )
+          }
+        })
+      :[],
+      assuntos: this.props.configuracao.assuntos!== undefined 
+        ? this.props.configuracao.assuntos.map((prop, key) => {
+          return {
+            id: prop.id,
+            assunto:  prop.assunto,
+            conflito: prop.conflito,
+            actions: (     
+               <div>
+                  {
+                    <Button color="success" className={classes.actionButton} key={key}  onClick={() => this.atualizarAssunto(prop)}>
+                      <Edit/>
+                    </Button>
+                  }
+               </div>
+            )
+          }
+        })
+      :[],
+      atualizar:false,
+      })
+  } 
 
   render() {
     const {classes}  = this.props;
@@ -379,7 +383,6 @@ class Configurations extends React.Component {
                                 fullWidth: true,
                               }}
                               error={this.state.conflitoAssuntoState === "error"}
-                              success={this.state.conflitoAssuntoState === "success"}
                               errorHelperText="Selecione o conflito"
                             />
                        
@@ -396,6 +399,7 @@ class Configurations extends React.Component {
                               onChange: event =>
                               this.change(event, "assunto", "texto")
                             }}
+                            errorHelperText="Selecione o conflito"
                           />
                        
                         <Button color="secondary" className={classes.right}  onClick={() => this.salvarAssunto()}>Salvar Assunto</Button>

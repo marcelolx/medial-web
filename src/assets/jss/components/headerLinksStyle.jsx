@@ -154,7 +154,7 @@ const headerLinksStyle = theme => ({
   headerLinksSvg: {
     width: "20px !important",
     height: "20px !important",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
      color: 'white'
      }
   },
