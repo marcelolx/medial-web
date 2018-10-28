@@ -242,7 +242,7 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.cpf_cnpj, [CPF_INVALIDO, CPF_CNPJ_CADASTRADO]) &&
-            <FormHelperText id="cpf-error-text">{error.adaptedMessage || 'Preencha o CPF'}</FormHelperText>
+            <FormHelperText id="cpf-error-text">{error.adaptedMessage.message || 'Preencha o CPF'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -260,7 +260,7 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
-            <FormHelperText id="rg-error-text">{error.adaptedMessage || 'Preencha o RG'}</FormHelperText>
+            <FormHelperText id="rg-error-text">{error.adaptedMessage.message || 'Preencha o RG'}</FormHelperText>
           }
         </FormControl>
         <FormControl 
@@ -280,7 +280,7 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.dataNascimento, [DATA_IGUAL_DATA_ATUAL], '1900-01-01') &&
-            <FormHelperText id="birthday-error-text">{error.adaptedMessage || 'Preencha a data de nascimento'}</FormHelperText>
+            <FormHelperText id="birthday-error-text">{error.adaptedMessage.message || 'Preencha a data de nascimento'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -298,7 +298,7 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
-            <FormHelperText id="mother-error-text">{error.adaptedMessage || 'Preencha o nome da mãe'}</FormHelperText>
+            <FormHelperText id="mother-error-text">{error.adaptedMessage.message || 'Preencha o nome da mãe'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -351,7 +351,7 @@ class Sobre extends Component {
           </TextField>
           {
             handleFieldShowError(this.props, this.state.estadoCivil, [ESTADO_CIVIL_NAO_INFORMADO]) &&
-            <FormHelperText id="estadocivil-error-text">{error.adaptedMessage || 'Selecione seu estado civil'}</FormHelperText>
+            <FormHelperText id="estadocivil-error-text">{error.adaptedMessage.message || 'Selecione seu estado civil'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -381,7 +381,7 @@ class Sobre extends Component {
           </TextField>
           {
             handleFieldShowError(this.props, this.state.escolaridade, [ESCOLARIDADE_NAO_INFORMADA]) &&
-            <FormHelperText id="escolaridade-error-text">{error.adaptedMessage || 'Selecione sua escolaridade'}</FormHelperText>
+            <FormHelperText id="escolaridade-error-text">{error.adaptedMessage.message || 'Selecione sua escolaridade'}</FormHelperText>
           }
         </FormControl>
       </React.Fragment>
@@ -432,7 +432,7 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO]) &&
-            <FormHelperText id="razao-socail-error-text">{error.adaptedMessage || 'Informe a razão social da empresa'}</FormHelperText>
+            <FormHelperText id="razao-socail-error-text">{error.adaptedMessage.message || 'Informe a razão social da empresa'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -469,7 +469,7 @@ class Sobre extends Component {
             onChange={this.handleChange('cpf_cnpj')}            
           />
           {handleFieldShowError(this.props, this.state.cpf_cnpj, [CNPJ_INFORMADO_INVALIDO, CPF_CNPJ_CADASTRADO]) &&
-            <FormHelperText id="cnpj-error-text">{error.adaptedMessage || 'Informe o CNPJ'}</FormHelperText>
+            <FormHelperText id="cnpj-error-text">{error.adaptedMessage.message.message || 'Informe o CNPJ'}</FormHelperText>
           }        
         </FormControl>
         <FormControl
@@ -487,7 +487,7 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
-            <FormHelperText id="ie-error-text">{error.adaptedMessage || 'Informe a Inscrição Estadual'}</FormHelperText>
+            <FormHelperText id="ie-error-text">{error.adaptedMessage.message || 'Informe a Inscrição Estadual'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -517,7 +517,7 @@ class Sobre extends Component {
           </TextField>
           {
             handleFieldShowError(this.props, this.state.ramoEmpresarial, [RAMO_EMPRESARIAL_NAO_INFORMADO]) &&
-            <FormHelperText id="ramoempresarial-error-text">{error.adaptedMessage || 'Selecione o ramo empresarial da empresa'}</FormHelperText>
+            <FormHelperText id="ramoempresarial-error-text">{error.adaptedMessage.message || 'Selecione o ramo empresarial da empresa'}</FormHelperText>
           }
         </FormControl>
       </React.Fragment>

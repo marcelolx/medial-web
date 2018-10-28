@@ -18,7 +18,7 @@ const pagesRoutes = [
   {
     path: "/register",
     name: "Cadastre-se",
-    short: "Cadastre",
+    short: "Cadastre-se",
     mini: "CA",
     icon: PersonAdd,
     component: User

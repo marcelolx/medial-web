@@ -47,13 +47,12 @@ class RegisterStepButtons extends Component {
           >
             Cancelar
           </Button>
-          <Button 
-            disabled={activeStep === 0}
+          {activeStep !== 0? <Button 
             onClick={this.handleBackStep}
             className={classes.margin}
           >
             Voltar
-          </Button>
+          </Button>: null}
           <Button 
             type="submit" 
             variant="contained" 

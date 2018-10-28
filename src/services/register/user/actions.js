@@ -15,7 +15,7 @@ function userRegisterComplete(response) {
 function userRegisterError(error) {
   const { status, message } = error.data; //Verificar se o objeto existe
   console.log(status + ' ' + message);  
-
+  
   return {
     type: USER_REGISTER_FAIL,
     payload: {
