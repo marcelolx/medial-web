@@ -85,7 +85,7 @@ class Contato extends Component {
             />
             {
               handleFieldShowError(this.props, this.state.telefone, [TELEFONE_NAO_INFORMADO]) &&
-              <FormHelperText id="telefone-error-text">{error.message || 'Informe o telefone'}</FormHelperText>
+              <FormHelperText id="telefone-error-text">{error.message.message || 'Informe o telefone'}</FormHelperText>
             }
           </FormControl>
           <FormControl

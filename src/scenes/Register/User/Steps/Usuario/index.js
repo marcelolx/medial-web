@@ -136,7 +136,7 @@ class Usuario extends Component {
             />
             {
               handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO], '', [SENHA_EXIGE_8_DIGITOS]) &&
-              <FormHelperText id="email-error-text">{error.adaptedMessage || 'Preencha o email'}</FormHelperText>
+              <FormHelperText id="email-error-text">{error.adaptedMessage.message || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -164,7 +164,7 @@ class Usuario extends Component {
             />
             {
               (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS])) &&
-              <FormHelperText id="password-error-text">{error.adaptedMessage || 'Preencha a senha'}</FormHelperText>
+              <FormHelperText id="password-error-text">{error.adaptedMessage.message || 'Preencha a senha'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -195,7 +195,7 @@ class Usuario extends Component {
             {
               (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM]) ||
               (step.beforeNextStepError && (this.state.confirmacaoSenha !== this.state.senha))) &&
-              <FormHelperText id="passwordConfirmation-error-text">{error.adaptedMessage || 'Confirme a senha'}</FormHelperText>
+              <FormHelperText id="passwordConfirmation-error-text">{error.adaptedMessage.message || 'Confirme a senha'}</FormHelperText>
             }
           </FormControl>
           <FormControl

@@ -4,14 +4,12 @@ import {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
-  secondaryCardHeader,
   roseCardHeader
-} from '../styles';
+} from "../styles";
 const cardIconStyle = {
   cardIcon: {
-    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader,&$secondaryCardHeader": {
+    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
       borderRadius: "3px",
-      backgroundColor: "#999",
       padding: "15px",
       marginTop: "-20px",
       marginRight: "15px",
@@ -23,8 +21,8 @@ const cardIconStyle = {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
-  secondaryCardHeader,
   roseCardHeader
 };
 
 export default cardIconStyle;
+

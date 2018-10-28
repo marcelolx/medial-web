@@ -81,6 +81,11 @@ class Login extends Component {
         emailEnviado:true,
       });
     }
+
+    if (this.props.auth.erroLogin) {
+      this.erroLogin();
+      this.props.actions.errorTrue();
+    }
   }
 
 
@@ -113,6 +118,16 @@ class Login extends Component {
     })
   }
 
+  erroLogin = () => {
+    withReactContent(Swal).fire({
+      title: <p>{this.props.auth.message}</p>,
+      type: 'error',
+      timer: 2000,
+      showConfirmButton: true,
+    });
+  }
+
+  
   sucessoCadastro = () => {
     const { emailValidacao } = this.props;
 
@@ -122,9 +137,8 @@ class Login extends Component {
       timer: 3000,
       showConfirmButton: true,
     });
-
-
   }
+
 
 
   render() {
@@ -180,10 +194,10 @@ class Login extends Component {
                 <FormHelperText id="email-error-text">{error.adaptedMessage}</FormHelperText>
               }
             </FormControl>
-            <Button component={Link} to="/register" variant="flat" className={[classes.margin, classes.half].join(' ')}>
+            <Button component={Link} to="/register" variant="text" className={[classes.margin, classes.half].join(' ')}>
               Cadastre-se
             </Button>
-            <Button type="submit" variant="raised" color="primary" className={[classes.margin, classes.half].join(' ')}>
+            <Button type="submit" variant="contained" color="primary" className={[classes.margin, classes.half].join(' ')}>
               Entrar
             </Button>
           </form>

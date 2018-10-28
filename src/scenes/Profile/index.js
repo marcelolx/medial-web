@@ -18,6 +18,7 @@ import SearchSelect from '../../components/SearchSelect';
 import Snackbar from '../../components/Snackbar/Snackbar';
 import Button from '../../components/CustomButtons/Button';
 import ImageUpload from '../../components/CustomUpload/ImageUpload';
+import { TextMaskCellPhone } from '../../components/Masks';
 
 const styles = theme => ({
   root: {
@@ -38,6 +39,9 @@ const styles = theme => ({
   },
   semMargem: {
     margin: 0,
+  },
+  semPadding:{
+    padding: '0px 5px',
   }
 });
 
@@ -120,6 +124,9 @@ class Profile extends Component {
     return false;
   }
 
+  replaceNaoNumeros = (phone) =>{
+        return phone.replace(/[^0-9]/g, "")
+  }
 
   change(event, stateName, type) {
     switch (type) {
@@ -179,10 +186,10 @@ class Profile extends Component {
         }
         break;
       case "telefone":
+        let telefone = this.replaceNaoNumeros(event.target.value.toString());
         if (
-          this.verifyNumber(event.target.value) &&
-          event.target.value.toString().length >= 10 &&
-          event.target.value.toString().length <= 11
+          telefone.length >= 10 &&
+          telefone.length <= 11
         ) {
           this.setState({
             [stateName + "State"]: "success"
@@ -234,7 +241,7 @@ class Profile extends Component {
     let data = {
       nome: this.state.nome,
       email: this.state.email,
-      telefone: this.state.telefone,
+      telefone: this.replaceNaoNumeros(this.state.telefone),
     }
 
     this.props.actions.salvarDadosBasicos(data);
@@ -406,7 +413,7 @@ class Profile extends Component {
     return (
       <React.Fragment>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
+          <GridItem xs={12} sm={12} md={8} className={classes.semPadding}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Olá, {this.state.nome}</h4>
@@ -452,12 +459,13 @@ class Profile extends Component {
                     <CustomInput
                       success={this.state.telefoneState === "success"}
                       error={this.state.telefoneState === "error"}
-                      labelText="Telefone *"
+                      labelText="Celular *"
                       id="telefone"
                       inputProps={{
                         value: this.state.telefone,
                         onChange:event =>
-                        this.change(event, "telefone", "telefone")
+                        this.change(event, "telefone", "telefone"),
+                        inputComponent: TextMaskCellPhone
                       }}
                       formControlProps={{
                         fullWidth: true
@@ -587,9 +595,37 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>  <Button color="secondary" onClick={() => this.atualizarEndereco()} >Alterar endereço</Button>
               </CardBody>
-            
             </Card>
-            <Card>
+          </GridItem>
+          <GridItem xs={12} sm={12} md={4}  className={classes.semPadding}>
+            <Card profile>
+              <CardHeader color="primary">
+                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
+              </CardHeader>
+              <CardBody profile>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <legend>Em constructor</legend>
+                  <ImageUpload 
+                    avatar 
+                    adicionarButtonProps={{
+                      color: "secondary",
+                      round: true
+                    }}
+                    alterarButtonProps={{
+                      color: "secondary",
+                      round: true
+                    }}
+                    removerButtonProps={{
+                      color: "danger",
+                      round: true
+                    }}
+                  />
+                </GridItem>
+              </GridContainer>      
+              </CardBody>
+            </Card>
+            <Card profile>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Login</h4>
               </CardHeader>
@@ -649,35 +685,6 @@ class Profile extends Component {
                   </GridItem>
                 </GridContainer>
               <Button color="secondary"  onClick={() => this.atualizarLogin()}>Alterar acesso</Button>
-              </CardBody>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card profile>
-              <CardHeader color="info">
-                <h4 className={[classes.cardTitleWhite, classes.semMargem].join(' ')}>Avatar</h4>
-              </CardHeader>
-              <CardBody profile>
-              <GridContainer justify="center">
-                <GridItem xs={12} sm={12} md={12}>
-                  <legend>Em constructor</legend>
-                  <ImageUpload 
-                    avatar 
-                    adicionarButtonProps={{
-                      color: "primary",
-                      round: true
-                    }}
-                    alterarButtonProps={{
-                      color: "primary",
-                      round: true
-                    }}
-                    removerButtonProps={{
-                      color: "danger",
-                      round: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>      
               </CardBody>
             </Card>
           </GridItem>

@@ -40,6 +40,7 @@ const headerLinksStyle = theme => ({
     zIndex: "4",
     ...defaultFont,
     fontSize: "14px",
+    color: 'white',
     margin: "0!important",
     textTransform: "none"
   },
@@ -152,14 +153,12 @@ const headerLinksStyle = theme => ({
   },
   headerLinksSvg: {
     width: "20px !important",
-    height: "20px !important"
+    height: "20px !important",
+    [theme.breakpoints.down("sm")]: {
+     color: 'white'
+     }
   },
   ...buttonStyle
 });
 
 export default headerLinksStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-dashboard-pro-react/components/headerLinksStyle.jsx

@@ -33,12 +33,12 @@ const defaultFont = {
   lineHeight: "1.5em"
 };
 
-const primaryColor = "#7abb70";
-const secondaryColor = "#3874a5";
+const primaryColor = "#00D9C4";
+const secondaryColor = "#086EF0";
 const warningColor = "#ff9800";
 const dangerColor = "#f44336";
 const successColor = "#4caf50";
-const infoColor = "#00acc1";
+const infoColor = "#EC6745";
 const roseColor = "#e91e63";
 const grayColor = "#999999";
 
@@ -54,7 +54,7 @@ const secondaryBoxShadow = {
 };
 const infoBoxShadow = {
   boxShadow:
-    "0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2)"
+    "0 12px 20px -10px rgba(236, 103, 69, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(236, 103, 69, 0.2)"
 };
 const successBoxShadow = {
   boxShadow:
@@ -86,15 +86,15 @@ const dangerCardHeader = {
   ...dangerBoxShadow
 };
 const infoCardHeader = {
-  background: "linear-gradient(60deg, #26c6da, #00acc1)",
+  background: "linear-gradient(60deg, #EC6745, #EC8368)",
   ...infoBoxShadow
 };
 const primaryCardHeader = {
-  background: "linear-gradient(60deg, #7abb70, #66bc58)",
+  background: "linear-gradient(60deg, #00CDD9, #00D9C4)",
   ...primaryBoxShadow
 };
 const secondaryCardHeader = {
-  background: "linear-gradient(60deg, #3874a5, #226daa)",
+  background: "linear-gradient(60deg, #EC6745, #EC8368)",
   ...secondaryBoxShadow
 };
 const roseCardHeader = {

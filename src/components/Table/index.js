@@ -157,7 +157,7 @@ class CustomTable extends React.Component {
             })}
           </TableBody>
           {
-            footer ? (
+            footer && tableData.length > rowsPerPage ? (
               <TableFooter>
                 <TableRow>
                   <TablePagination 
@@ -166,6 +166,7 @@ class CustomTable extends React.Component {
                     rowsPerPage={rowsPerPage}
                     page={this.state.page}
                     onChangePage={this.handleChangePage}
+                    labelRowsPerPage= {false}
                   />
                 </TableRow>
               </TableFooter>
@@ -187,7 +188,7 @@ CustomTable.defaultProps = {
   customClassesForCells: [],
   customHeadCellClasses: [],
   customHeadClassesForCells: [],
-  footer: false,
+  footer: true,
   rowsPerPage: 5,
 };
 

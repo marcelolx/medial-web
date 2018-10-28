@@ -1,6 +1,6 @@
 import { API } from "../../API";
-import { LOGIN_COMPLETE, LOGOUT_COMPLETE } from "./actionTypes";
-import { LOGIN_ERROR } from '../../errors/actionTypes';
+import { LOGIN_COMPLETE, LOGOUT_COMPLETE,LOGIN_ERROR_UPDATE } from "./actionTypes";
+import { LOGIN_ERROR , } from '../../errors/actionTypes';
 
 export function login(email, password) {
   return function(dispatch) {
@@ -35,6 +35,14 @@ export function logout() {
   }
 }
 
+export function errorTrue() {
+  return function(dispatch) {
+    dispatch(errorTrueComplete())
+  }
+}
+function errorTrueComplete() {
+  return { type: LOGIN_ERROR_UPDATE }
+}
 function logoutComplete() {
   window.localStorage.removeItem('state');
 

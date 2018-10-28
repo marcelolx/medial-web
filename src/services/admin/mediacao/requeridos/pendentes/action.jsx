@@ -65,8 +65,7 @@ function salvarHistoricoStart() {
   return { type: SALVAR_HISTORICO_START }
 }
 
-function salvarHistoricoComplete(response) {  
-  console.log(response.data);
+function salvarHistoricoComplete(response) {   
   
   return {
     type: SALVAR_HISTORICO_COMPLETE,
@@ -101,7 +100,6 @@ export function confirmarSolicitacaoCadastro(data) {
 }
 
 function confirmarSolicitacaoCadastroComplete(response) {
-  console.log(response.data);
   return {
     type: CONFIRMAR_SOLICITACAO_CADASTRO_COMPLETE,
     payload: response.data

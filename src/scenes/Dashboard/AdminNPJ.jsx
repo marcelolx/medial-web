@@ -32,7 +32,7 @@ class AdminNPJ extends React.Component {
   }
 
   handleClickCadastroPendente = idCadastroPendente => {
-    this.props.history.push(`/mediacao/cadastropendente/${idCadastroPendente}`);
+    this.props.history.push(`/mediacao/cadastropendente?id=${idCadastroPendente}`);
   }
 
   dataToTableData = () => {
@@ -72,7 +72,7 @@ class AdminNPJ extends React.Component {
     return(
       <React.Fragment>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={6} lg={6}>
+          <GridItem xs={12} sm={8} md={6} lg={6}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
@@ -88,16 +88,14 @@ class AdminNPJ extends React.Component {
                   tableData={this.dataToTableData()}
                   customCellClasses={[
                     classes.center,
-                    classes.right,
                     classes.right
                   ]}
-                  customClassesForCells={[0, 8, 2]}
+                  customClassesForCells={[0, 2]}
                   customHeadCellClasses={[
                     classes.center,
-                    classes.right,
                     classes.right
                   ]}
-                  customHeadClassesForCells={[0, 8, 2]}
+                  customHeadClassesForCells={[0,2]}
                   footer
                 />
               </CardBody>

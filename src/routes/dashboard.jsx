@@ -7,6 +7,8 @@ import HomePage from "../scenes/Home/HomePage"
 import Mediacao from "./../scenes/Register/Mediacao"
 import ListUsers from "../scenes/admin/ListUsers"
 import Profile from "./../scenes/Profile"
+import Configurations from "../scenes/admin/Configurations";
+import CadastroPendente from "../scenes/admin/mediacao/CadastroPendente";
 
 
 var dashRoutes = [
@@ -46,7 +48,7 @@ var dashRoutes = [
     path: "/administrador",
     name: "Administrador",
     state: "openAdministrador",
-    nivel:[1,4,99],
+    nivel:[1],
     icon: Settings,
     views: [
       {
@@ -60,8 +62,8 @@ var dashRoutes = [
         path: "/administrador/configuracao",
         name: "Configuração",
         mini: "C",
-        nivel:[1,4,99],
-        component: ListUsers
+        nivel:[1],
+        component: Configurations
       }
     ]
   },
@@ -72,7 +74,15 @@ var dashRoutes = [
     nivel:[1,4,99],
     component: Profile
   },
-  { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" }
+  { 
+    path: "/mediacao/cadastropendente",
+    name: "Cadastros Pendentes",
+    icon: People,
+    nivel:[1,2],
+    naoExibe: true,
+    component: CadastroPendente
+  },
+  { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" },
 ];
 export default dashRoutes;
 

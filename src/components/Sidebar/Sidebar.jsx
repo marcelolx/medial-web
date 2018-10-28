@@ -82,7 +82,7 @@ class Sidebar extends React.Component {
     var links = (
       <List className={classes.list}>
         {routes.map((prop, key) => {
-          if (prop.redirect || prop.nivel=== undefined || !prop.nivel.includes(accessLevel) ) {
+          if (prop.redirect || prop.nivel=== undefined || !prop.nivel.includes(accessLevel) || prop.naoExibe) {
             return null;
           }
           if (prop.collapse) {
