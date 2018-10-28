@@ -46,7 +46,7 @@ class RegisterUser extends Component {
       case 3:
         return <Contato onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
       default:
-        return 'Unknown Step';
+        return <Usuario onCancelStep={() => this.handleLoginPage()} onGetSteps={() => this.handleGetSteps()}/>;
     }
   }
 
