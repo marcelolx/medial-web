@@ -13,13 +13,7 @@ class Usuario extends React.Component {
 
   dataToTableData = () => {
     return [
-      [
-        1,
-        '201827101',
-        'Tio Sam',
-        'Aguardando cadastro da empresa.',
-        this.botao({})
-      ] 
+      
     ];
   }
 
@@ -44,7 +38,7 @@ class Usuario extends React.Component {
 
     return(
       <React.Fragment>
-        <Card>
+        <Card minHeight>
           <CardHeader color="primary">
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediações</h4>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediações atribuídas</p>

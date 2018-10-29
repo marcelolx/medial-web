@@ -46,11 +46,11 @@ const drawerMiniWidth = 80;
 
 const primaryBoxShadow = {
   boxShadow:
-    "0 12px 20px -10px rgba(122, 187, 112, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(122, 187, 112, 0.2)"
+    "0 12px 20px -10px rgba(0, 217, 196, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 217, 196, 0.2)"
 };
 const secondaryBoxShadow = {
   boxShadow:
-    "0 12px 20px -10px rgba(56, 116, 165, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 7px 8px -5px rgba(56, 116, 165, 0.2)"
+    "0 12px 20px -10px rgba(8, 110, 240, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 7px 8px -5px rgba(8, 110, 240, 0.2)"
 };
 const infoBoxShadow = {
   boxShadow:
@@ -94,7 +94,7 @@ const primaryCardHeader = {
   ...primaryBoxShadow
 };
 const secondaryCardHeader = {
-  background: "linear-gradient(60deg, #EC6745, #EC8368)",
+  background: "linear-gradient(60deg, #4579ec, #086EF0)",
   ...secondaryBoxShadow
 };
 const roseCardHeader = {

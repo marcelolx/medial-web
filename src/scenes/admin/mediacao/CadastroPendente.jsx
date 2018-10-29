@@ -31,13 +31,9 @@ const styles = ({
     position: 'inherit',
     float: 'right',
   },
-  botaoCadastroSolicitado: {
-    flexBasis: '100%',
-  },
   paddingGrid:{
     padding: "0 5px",
   },
-
   paddingBody:{
     padding: "0 10px",
   },

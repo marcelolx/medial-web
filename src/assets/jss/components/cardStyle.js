@@ -28,6 +28,9 @@ const cardStyle = {
       marginTop: "0px",
       paddingTop: "0px"
     }
+  },
+  cardMinHeight: {
+    minHeight: '400px'
   }
 };
 
