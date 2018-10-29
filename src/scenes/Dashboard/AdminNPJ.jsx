@@ -14,6 +14,7 @@ import adminCadastroPendenteStyle from '../../assets/jss/scenes/Dashboard/adminC
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/action';
+import Negociador from './Negociador';
 
 
 const styles = ({
@@ -72,7 +73,7 @@ class AdminNPJ extends React.Component {
     return(
       <React.Fragment>
         <GridContainer>
-          <GridItem xs={12} sm={8} md={6} lg={6}>
+          <GridItem xs={12} sm={6} md={6} lg={6}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
@@ -101,6 +102,8 @@ class AdminNPJ extends React.Component {
               </CardBody>
             </Card>
           </GridItem>
+          
+        {<Negociador/>}
         </GridContainer>
       </React.Fragment>
     );
