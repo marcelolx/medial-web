@@ -34,5 +34,5 @@ export default combineReducers({
   listUsers: listUsersReducer,
   configuracao: configuracaoReducer,
   requeridosPendentes: requeridosPendentesReducer,
-  negociador: negociadorReducer,
+  negociadores: negociadorReducer,
 });

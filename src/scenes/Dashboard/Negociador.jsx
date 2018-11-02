@@ -15,48 +15,59 @@ import * as negociadorActions from '../../services/dashboard/negociador/actions'
 
 
 const styles = ({
-  ...negociadorStyle
+  ...negociadorStyle,
+  imagemUser:{
+      width: '100%'
+  }
 });
 
 class Negociador extends React.Component {
 
   componentDidMount() {
-    
+    this.props.actions.adquirirNegociadores();
+  }
+
+  removerNegociador(negociador,empresa) {
+    this.props.actions.removerNegociador(empresa,negociador);
   }
 
 
-
   render() {
-    const { classes } = this.props;
-
+    const { classes,negociadores } = this.props;
     return(
       <React.Fragment>
-          <GridItem xs={12} sm={6} md={3} lg={3}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Negociador</h4>
-              </CardHeader>
-              <CardBody pricing className={classes.card}>
-                    <div className={classes.icon}>
-                      <PersonOutline className={classes.iconColor} />
-                    </div>
-                    <h3
-                      className={`${classes.cardTitle} ${classes.marginTop20}`}
-                    >
-                     Nenhum Selecionado
-                    </h3>
-                    <Button round color="secondary">
-                       Remover
-                    </Button>
-                  </CardBody>
-            </Card>
-          </GridItem>
+         {negociadores.negociadores.map(negociador => {
+            return (
+                <GridItem xs={12} sm={6} md={3} lg={3}>
+                  <Card>
+                    <CardHeader color="primary">
+                      <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Negociador</h4>
+                    </CardHeader>
+                    <CardBody pricing className={classes.card}>
+                          <div className={classes.icon}>
+                            {negociador.avatar?<img className={classes.imagemUser}  src={negociador.avatar} alt={negociador.negociador}/>
+                            : <PersonOutline className={classes.iconColor} />}
+                          </div>
+                          <h4
+                            className={`${classes.cardTitle} ${classes.marginTop20}`}
+                          >
+                          {negociador.negociador}
+                          </h4>
+                          <h4> Situação: {negociador.ativo ===1? "Ativo" : "Desativado"}</h4> 
+                          <Button round color="secondary" onClick={() =>this.removerNegociador(negociador.id,negociador.empresa)}>
+                            Remover
+                          </Button>
+                        </CardBody>
+                  </Card>
+                </GridItem>
+           );
+          }, this)}
       </React.Fragment>
     );
   }
 }
 const mapStateToProps = state => ({
-  requeridosPendentes: state.requeridosPendentes
+  negociadores: state.negociadores
 });
 
 const mapDispatchToProps = dispatch => ({
