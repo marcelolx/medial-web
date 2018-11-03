@@ -2,7 +2,6 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GridContainer from '../../components/Grid/GridContainer';
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardHeader from '../../components/Card/CardHeader';
@@ -14,7 +13,6 @@ import adminCadastroPendenteStyle from '../../assets/jss/scenes/Dashboard/adminC
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/action';
-import Negociador from './Negociador';
 
 
 const styles = ({
@@ -71,9 +69,7 @@ class AdminNPJ extends React.Component {
     const { classes } = this.props;
 
     return(
-      <React.Fragment>
-        <GridContainer>
-          <GridItem xs={12} sm={6} md={6} lg={6}>
+          <GridItem xs={12} sm={12} md={6} lg={6}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
@@ -102,10 +98,6 @@ class AdminNPJ extends React.Component {
               </CardBody>
             </Card>
           </GridItem>
-          
-        {<Negociador/>}
-        </GridContainer>
-      </React.Fragment>
     );
   }
 }

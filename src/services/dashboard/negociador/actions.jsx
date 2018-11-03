@@ -4,7 +4,9 @@ import { REMOVER_NEGOCIADOR_COMPLETE,
    ADICIONAR_NEGOCIADOR_COMPLETE,
    ADICIONAR_NEGOCIADOR_ERROR,
    ADQUIRIR_NEGOCIADORES_COMPLETE,
-   ADQUIRIR_NEGOCIADORES_ERROR } from "./actionTypes";
+   ADQUIRIR_NEGOCIADORES_ERROR,
+   ADQUIRIR_TOTAL_COMPLETE,
+   ADQUIRIR_TOTAL_ERROR } from "./actionTypes";
 
 export function removerNegociador(empresa, negociador) {
   const config = {data: 
@@ -13,6 +15,8 @@ export function removerNegociador(empresa, negociador) {
     return API.delete('/empresa/negociador',config )
       .then(response => {
         dispatch(removerNegociadorComplete(response.data))
+        dispatch(adquirirNegociadores())
+        
       })
       .catch(err => {
         dispatch(removerNegociadorError(err))
@@ -40,6 +44,7 @@ export function adicionarNegociador(empresa, negociador) {
     return API.put('/empresa/negociador', {empresa: empresa, negociador: negociador})
       .then(response => {
         dispatch(adicionarNegociadorComplete(response.data))
+        dispatch(adquirirNegociadores())
       })
       .catch(err => {
         dispatch(adicionarNegociadorError(err))
@@ -86,6 +91,35 @@ function adquirirNegociadoresComplete(response) {
 function adquirirNegociadoresError(error) {
   return {
     type: ADQUIRIR_NEGOCIADORES_ERROR,
+    payload: error,
+  }
+}
+
+
+
+export function quantidadeNegociadores() {
+  return function(dispatch) {
+    return API.get('/empresa/quantidadeNegociadores')
+      .then(response => {
+        dispatch(quantidadeNegociadoresComplete(response.data))
+      })
+      .catch(err => {
+        dispatch(quantidadeNegociadoresError(err))
+      })
+  }
+}
+
+function quantidadeNegociadoresComplete(response) {
+
+  return {
+    type: ADQUIRIR_TOTAL_COMPLETE,
+    payload: response,
+  }
+}
+
+function quantidadeNegociadoresError(error) {
+  return {
+    type: ADQUIRIR_TOTAL_ERROR,
     payload: error,
   }
 }

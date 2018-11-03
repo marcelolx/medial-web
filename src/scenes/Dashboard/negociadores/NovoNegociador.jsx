@@ -27,8 +27,8 @@ class Negociador extends React.Component {
     this.props.actions.adquirirNegociadores();
   }
 
-  removerNegociador(negociador,empresa) {
-    this.props.actions.removerNegociador(empresa,negociador);
+  adicionarNegociador(negociador,empresa) {
+    this.props.actions.adicionarNegociador(empresa,negociador);
   }
 
 
@@ -54,7 +54,7 @@ class Negociador extends React.Component {
                           {negociador.negociador}
                           </h4>
                           <h4> Situação: {negociador.ativo ===1? "Ativo" : "Desativado"}</h4> 
-                          <Button round color="secondary" onClick={() =>this.removerNegociador(negociador.id,negociador.empresa)}>
+                          <Button round color="secondary" onClick={() =>this.adicionarNegociador(negociador.id,negociador.empresa)}>
                             Remover
                           </Button>
                         </CardBody>
