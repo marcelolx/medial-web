@@ -39,17 +39,18 @@ class EmpresaNegociador extends React.Component {
     const { classes , negociadores } = this.props;
 
     return(
-          <GridItem xs={12} sm={12} md={6} lg={6}>
+          <GridItem xs={12} sm={12} md={6} lg={3}>
             <Card>
               <CardHeader color="primary">
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Negociadores</h4>
-                </CardHeader>
+              </CardHeader>
               <CardBody profile  className={[classes.card,classes.botaoVisualizar].join(' ')}>
                 <h4>Você possui 
-                {negociadores.quantidadeNegociadores ===0 ? " nenhum": " "+negociadores.quantidadeNegociadores}
-                 {negociadores.quantidadeNegociadores <= 1 ? " negociador": " negociadores"} na sua empresa</h4>
+                 {negociadores.quantidadeNegociadores ===0 ? " nenhum": ` ${negociadores.quantidadeNegociadores}`}
+                 {negociadores.quantidadeNegociadores <= 1 ? " negociador ": " negociadores "} 
+                 na sua empresa</h4>
                 <Button round color="secondary" onClick={() =>this.abrirTelaNegociadores()}>
-                {negociadores.quantidadeNegociadores ===0 ? "Adicionar" : "Visualizar"}
+                   Visualizar
                 </Button>
               </CardBody>
             </Card>

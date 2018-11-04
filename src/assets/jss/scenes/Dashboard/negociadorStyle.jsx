@@ -4,6 +4,9 @@ import {
   grayColor
 } from "../../styles";
 
+import buttonStyle from "../../components/buttonStyle";
+
+
 const adminCadastroPendenteStyle = {
   right: {
     textAlign: "right"
@@ -20,8 +23,15 @@ const adminCadastroPendenteStyle = {
   },
   actionButtonRound: {
     width: "auto",
-    height: "auto",
+    height: "auto", 
     minWidth: "auto",
+  },
+  iconList: {
+    verticalAlign: "middle",
+    width: "17px",
+    height: "17px",
+    top: "-1px",
+    position: "relative"
   },
   semMargen: {
     margin: 0,
@@ -73,7 +83,8 @@ const adminCadastroPendenteStyle = {
   },
   card: {
     textAlign: 'center'
-  }
+  },
+  ...buttonStyle
 }
 
 export default adminCadastroPendenteStyle;

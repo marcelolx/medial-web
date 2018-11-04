@@ -6,9 +6,13 @@ import { REMOVER_NEGOCIADOR_COMPLETE,
    ADQUIRIR_NEGOCIADORES_COMPLETE,
    ADQUIRIR_NEGOCIADORES_ERROR,
    ADQUIRIR_TOTAL_COMPLETE,
-   ADQUIRIR_TOTAL_ERROR } from "./actionTypes";
+   ADQUIRIR_TOTAL_ERROR,
+   BUSCAR_PESSOAS_ERROR,
+   BUSCAR_PESSOAS_COMPLETE,
+   CLEAR_PESSOAS
+   } from "./actionTypes";
 
-export function removerNegociador(empresa, negociador) {
+export function removerNegociador(empresa, negociador,janelaNovoNegociador,pesquisaRealizada) {
   const config = {data: 
         {empresa: empresa, negociador: negociador}};
   return function(dispatch) {
@@ -16,7 +20,9 @@ export function removerNegociador(empresa, negociador) {
       .then(response => {
         dispatch(removerNegociadorComplete(response.data))
         dispatch(adquirirNegociadores())
-        
+        if (janelaNovoNegociador) {
+          dispatch(buscarPessoasNegociador(pesquisaRealizada))
+        }
       })
       .catch(err => {
         dispatch(removerNegociadorError(err))
@@ -39,15 +45,17 @@ function removerNegociadorError(error) {
   }
 }
 
-export function adicionarNegociador(empresa, negociador) {
-  return function(dispatch) {
-    return API.put('/empresa/negociador', {empresa: empresa, negociador: negociador})
-      .then(response => {
-        dispatch(adicionarNegociadorComplete(response.data))
-        dispatch(adquirirNegociadores())
-      })
-      .catch(err => {
-        dispatch(adicionarNegociadorError(err))
+export function adicionarNegociador(negociador,pesquisa) {
+  const config = {negociador: negociador};
+        return function(dispatch) {
+          return API.put('/empresa/negociador',config)
+            .then(response => {
+              dispatch(adicionarNegociadorComplete(response.data))
+              dispatch(adquirirNegociadores())
+              dispatch(buscarPessoasNegociador(pesquisa))
+            })
+            .catch(err => {
+              dispatch(adicionarNegociadorError(err))
       })
   }
 }
@@ -123,3 +131,39 @@ function quantidadeNegociadoresError(error) {
     payload: error,
   }
 }
+
+export function buscarPessoasNegociador(pesquisa) {
+
+
+  return function(dispatch) {
+    return API.get(`/empresa/buscarPessoasNegociador?pesquisa=${pesquisa}`)
+      .then(response => {
+        dispatch(buscarPessoasNegociadorComplete(response.data))
+      })
+      .catch(err => {
+        dispatch(buscarPessoasNegociadorError(err))
+      })
+  }
+}
+
+function buscarPessoasNegociadorComplete(response) {
+
+  return {
+    type: BUSCAR_PESSOAS_COMPLETE,
+    payload: response,
+  }
+}
+
+function buscarPessoasNegociadorError(error) {
+  return {
+    type: BUSCAR_PESSOAS_ERROR,
+    payload: error,
+  }
+}
+export function clearNegociadoresPesquisa() {
+  return {
+    type: CLEAR_PESSOAS
+  }
+}
+
+

@@ -4,10 +4,14 @@ import { REMOVER_NEGOCIADOR_ERROR,
          ADQUIRIR_NEGOCIADORES_COMPLETE,
          CARREGANDO,
          ADQUIRIR_TOTAL_COMPLETE,
-         ADQUIRIR_TOTAL_ERROR} from "./actionTypes";
+         ADQUIRIR_TOTAL_ERROR,
+         BUSCAR_PESSOAS_COMPLETE,
+         BUSCAR_PESSOAS_ERROR,
+         CLEAR_PESSOAS} from "./actionTypes";
 
 const initialState = {
   negociadores: [],
+  pessoas: [],
   quantidadeNegociadores: 0,
 }
 
@@ -49,7 +53,27 @@ export default function(state = initialState, action) {
         quantidadeNegociadores:0,
         error: action.payload.message,
         carregando: false,
+      });
+    case BUSCAR_PESSOAS_ERROR:
+      return Object.assign({}, state, {
+        ...state,
+        pessoas: [],
+        error: action.payload.message,
+        carregando: false,
       }); 
+    case BUSCAR_PESSOAS_COMPLETE:
+      return Object.assign({}, state, {
+        ...state,
+        pessoas: action.payload,
+        error: '',
+        carregando: false,
+      }); 
+    case CLEAR_PESSOAS: 
+    return Object.assign({}, state, {
+      ...state,
+      pessoas: [],
+      carregando: false,
+    }); 
     default:
       return state
   }
