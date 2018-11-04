@@ -1,11 +1,9 @@
-import { createElement } from 'react';
 import PropTypes from 'prop-types';
 
 const IfAnyGranted = (props) => {
   const expected = props.expected;
-
   if (expected.includes(props.actual)) {
-    return createElement(props.element, null, props.children);
+    return  props.children;
   } else {
     return props.unauthorized;
   }
@@ -19,7 +17,7 @@ IfAnyGranted.propTypes = {
 }
 
 IfAnyGranted.defaultProps = {
-  element: 'div',
+  element: 'webview',
   unauthorized: null,
 }
 

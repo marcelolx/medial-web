@@ -13,11 +13,11 @@ class HomePage extends Component {
       <React.Fragment>
         <GridContainer>
             <IfAnyGranted expected={[1,2]} actual={this.props.auth.accessLevel}>
-         {//TODO  o IfGrand não funciona bem quando aplicado a responsividade para maais cardas. 
-         }
-            </IfAnyGranted>  
-            <AdminNPJ />        
-            <EmpresaNegociador />
+                 <AdminNPJ />       
+            </IfAnyGranted>   
+            <IfAnyGranted expected={[1,4]} actual={this.props.auth.accessLevel}>
+                <EmpresaNegociador />  
+            </IfAnyGranted>   
         </GridContainer>
       </React.Fragment>
     );

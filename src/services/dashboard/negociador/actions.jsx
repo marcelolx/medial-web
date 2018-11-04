@@ -9,13 +9,15 @@ import { REMOVER_NEGOCIADOR_COMPLETE,
    ADQUIRIR_TOTAL_ERROR,
    BUSCAR_PESSOAS_ERROR,
    BUSCAR_PESSOAS_COMPLETE,
-   CLEAR_PESSOAS
+   CLEAR_PESSOAS,
+   CARREGANDO
    } from "./actionTypes";
 
 export function removerNegociador(empresa, negociador,janelaNovoNegociador,pesquisaRealizada) {
   const config = {data: 
         {empresa: empresa, negociador: negociador}};
   return function(dispatch) {
+    dispatch(carregando())
     return API.delete('/empresa/negociador',config )
       .then(response => {
         dispatch(removerNegociadorComplete(response.data))
@@ -48,6 +50,7 @@ function removerNegociadorError(error) {
 export function adicionarNegociador(negociador,pesquisa) {
   const config = {negociador: negociador};
         return function(dispatch) {
+          dispatch(carregando())
           return API.put('/empresa/negociador',config)
             .then(response => {
               dispatch(adicionarNegociadorComplete(response.data))
@@ -78,6 +81,7 @@ function adicionarNegociadorError(error) {
 
 export function adquirirNegociadores() {
   return function(dispatch) {
+    dispatch(carregando())
     return API.get('/empresa/negociadores')
       .then(response => {
         dispatch(adquirirNegociadoresComplete(response.data))
@@ -107,6 +111,7 @@ function adquirirNegociadoresError(error) {
 
 export function quantidadeNegociadores() {
   return function(dispatch) {
+    dispatch(carregando())
     return API.get('/empresa/quantidadeNegociadores')
       .then(response => {
         dispatch(quantidadeNegociadoresComplete(response.data))
@@ -136,6 +141,7 @@ export function buscarPessoasNegociador(pesquisa) {
 
 
   return function(dispatch) {
+    dispatch(carregando())
     return API.get(`/empresa/buscarPessoasNegociador?pesquisa=${pesquisa}`)
       .then(response => {
         dispatch(buscarPessoasNegociadorComplete(response.data))
@@ -163,6 +169,12 @@ function buscarPessoasNegociadorError(error) {
 export function clearNegociadoresPesquisa() {
   return {
     type: CLEAR_PESSOAS
+  }
+}
+
+function carregando() {
+  return {
+    type: CARREGANDO,
   }
 }
 

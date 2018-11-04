@@ -17,7 +17,7 @@ import SweetAlert from 'react-bootstrap-sweetalert/lib/dist/SweetAlert';
 import CustomInput from '../../../components/CustomInput';
 import Table from '../../../components/Table';
 import CheckCircle from "@material-ui/icons/CheckCircle";
-
+import Loader from '../../../components/Loader';
 
 const styles = ({
   ...negociadorStyle,
@@ -67,9 +67,8 @@ class Negociador extends React.Component {
         <SweetAlert
           warning
           style={{ display: "block",color:`#222` }}
-          title={`Deseja remover ${nome} de seus negociadores?`}
           onConfirm={() => this.removerNegociador(negociador,empresa)}
-          onCancel={() => this.hideAlert()}
+          onCancel={this.hideAlert}
           confirmBtnCssClass={
             this.props.classes.button + " " + this.props.classes.success
           }
@@ -80,32 +79,34 @@ class Negociador extends React.Component {
           cancelBtnText="Cancelar"
           showCancel
         >
+          <h4>{`Deseja remover ${nome} de seus negociadores?`}</h4>
         </SweetAlert>
       )
     });
   }
 
-  alterarExibirAdicionarNegociador(exibir){
+  alterarExibirAdicionarNegociador = exibir => () =>{
+
     if (!exibir) {
       this.props.actions.clearNegociadoresPesquisa();
-      
     }
     this.setState({novoNegociador: exibir});
   }
-  pesquisarNegociadores(){
+
+  pesquisarNegociadores = () =>{
+
     if(30 >= this.state.pesquisa.length && this.state.pesquisa.length >= 3){
       this.setState({pesquisaState: '', pesquisaRealizada: this.state.pesquisa });
       this.props.actions.buscarPessoasNegociador(this.state.pesquisa);
 
     }else{
+
        this.setState({pesquisaState: 'error'});
     }
-
   }
 
-  change(event){
-    
-    this.setState({ "pesquisa": event.target.value });
+  change = (evt) => {
+    this.setState({ "pesquisa": evt.target.value });
   }
 
   novoNegociador(){
@@ -125,7 +126,7 @@ class Negociador extends React.Component {
                       errorHelperText="Mínimo de 3 caracteres"
                       inputProps={{
                         value: this.state.pesquisa,
-                        onChange: event => this.change(event)
+                        onChange: this.change
                       }}
                       id="nome"
                       formControlProps={{
@@ -135,10 +136,10 @@ class Negociador extends React.Component {
               </GridItem>
               
               <GridItem xs={12} sm={12} md={6} lg={6} >
-                  <Button round color="secondary" onClick={() =>this.pesquisarNegociadores()}>
+                  <Button round color="secondary" onClick={this.pesquisarNegociadores}>
                     Pesquisar
                   </Button>
-                  <Button simple color="danger" size="sm"  onClick={() =>this.alterarExibirAdicionarNegociador(false)}>
+                  <Button simple color="danger" size="sm"  onClick={this.alterarExibirAdicionarNegociador(false)}>
                     Fechar
                   </Button>
               </GridItem >
@@ -147,7 +148,7 @@ class Negociador extends React.Component {
                               "#",
                               "Nome",
                               "CPF/CNPJ",
-                              "Selecionar",
+                              "Adicionar",
                             ]}
                             tableData={this.dataToTableData()}
                             customCellClasses={[
@@ -188,13 +189,14 @@ class Negociador extends React.Component {
     return negociadoresRetorno;
   }
 
-  handleNovoNegociador(negociador){
+  handleNovoNegociador = negociador => () =>{
+
     this.props.actions.adicionarNegociador(negociador, this.state.pesquisaRealizada);
     this.hideAlertNovo()
   }
 
   
-  hideAlertNovo =() => {
+  hideAlertNovo = () => {
     this.setState({
       alertNovo: null
     });
@@ -207,9 +209,8 @@ class Negociador extends React.Component {
         <SweetAlert
           info
           style={{ display: "block",color:`#222` }}
-          title ={`Deseja adicionar ${nome} aos seus negociadores?`}
-          onConfirm={() => this.handleNovoNegociador(negociador)}
-          onCancel={() => this.hideAlertNovo()}
+          onConfirm={this.handleNovoNegociador(negociador)}
+          onCancel={this.hideAlertNovo}
           confirmBtnCssClass={
             classes.button + " " + classes.success
           }
@@ -222,12 +223,13 @@ class Negociador extends React.Component {
           cancelBtnText="Cancelar"
           showCancel
         >
+        <h4>{`Deseja adicionar ${nome} aos seus negociadores?`}</h4>
         </SweetAlert>
       )
     });
   }
 
-  botao(negociador) {
+  botao = negociador => {
     const { classes }  = this.props;
     
     return (
@@ -245,18 +247,19 @@ class Negociador extends React.Component {
 
   render() {
     const { classes,negociadores } = this.props;
-
+    
     return(
       <React.Fragment>
-        
         {this.state.alert}
         {this.state.alertNovo}
         
         <GridContainer>
-        
+
+        <Loader open={negociadores.carregando}/>
+      
          {negociadores.negociadores.map(negociador => {
             return (
-              <GridItem xs={12} sm={12} md={6} lg={4} key={negociador.id} className = {classes.cardInteiro}>
+              <GridItem xs={12} sm={12} md={6} lg={3} key={negociador.id} className = {classes.cardInteiro}>
                   <Card className = {classes.cardInteiro}>
                     <CardBody pricing className={classes.card}>
                           <div className={classes.icon}>
@@ -292,7 +295,7 @@ class Negociador extends React.Component {
                           >
                             Adicionar novo negociador para sua empresa?
                           </h4>
-                          <Button round color="info" onClick={() =>this.alterarExibirAdicionarNegociador(true)}>
+                          <Button round color="info" onClick={this.alterarExibirAdicionarNegociador(true)}>
                             Adicionar
                           </Button>
                         </CardBody>

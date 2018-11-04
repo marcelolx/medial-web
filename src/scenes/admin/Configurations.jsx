@@ -22,6 +22,8 @@ import verifyLength from '../../utils/utils';
 
 import * as configuracaoActions from './../../services/admin/configuracao/actions'
 
+
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -66,8 +68,14 @@ const styles = theme => ({
     fontWeight:300,
     color:"#3C4858"
   },
-  modal: {
-    width: '15px',
+  modal:{
+    padding: '35px 25px 15px 25px'
+  },
+  overlay: {
+    zIndex: 99999,
+  },
+  closeButton:{
+    cursor: "pointer"
   }
 });
 class Configurations extends React.Component {
@@ -92,6 +100,9 @@ class Configurations extends React.Component {
     }
     this.openModal = this.openModal.bind(this);
   }
+
+
+
   openModal(modal) {
     if (modal === "modalAssunto") {
       this.props.actions.getConflitos();
@@ -286,6 +297,7 @@ class Configurations extends React.Component {
   render() {
     const {classes}  = this.props;
     const {conflitosAssuntos} = this.props.configuracao;
+  
     return (
       <>
        <GridContainer>
@@ -324,7 +336,7 @@ class Configurations extends React.Component {
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
-                        <Modal open={this.state.modalConflito}  onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalConflito")} center>
+                        <Modal open={this.state.modalConflito}  classNames={classes} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalConflito")} center>
                           
                         <CustomInput
                             success={this.state.conflitoState === "success"}
@@ -384,9 +396,9 @@ class Configurations extends React.Component {
                       />
               </CardBody> 
             
-                 <Modal  open={this.state.modalAssunto} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalAssunto")} center>
+                 <Modal open={this.state.modalAssunto}  classNames={classes} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalAssunto")} center>
                             <SearchSelect
-                              opcoes={conflitosAssuntos}
+                              opcoes={conflitosAssuntos || []}
                               name="conflitoAssunto"
                               onChange={(name, value) => this.handleSelectChange(name, value)}
                               value={this.state.conflitoAssunto}
