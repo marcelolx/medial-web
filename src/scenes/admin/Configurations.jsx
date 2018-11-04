@@ -84,9 +84,9 @@ class Configurations extends React.Component {
     super(props);
 
     this.state={
-      conflitoState: "error",
-      conflitoAssuntoState: "error",
-      assuntoState: "error",
+      conflitoState: "",
+      conflitoAssuntoState: "",
+      assuntoState: "",
       conflito: "",
       assunto: "",
       conflitoAssunto: [],
@@ -124,7 +124,7 @@ class Configurations extends React.Component {
     this.openModal("modalConflito");
   }
 
-  onBlurModal =() =>{
+  onBlurModal = () =>{
     this.setState({
       codigo: null,
       conflitoState: "error",
@@ -178,7 +178,7 @@ class Configurations extends React.Component {
   
   }
 
-  salvarAssunto =() =>{
+  salvarAssunto = () =>{
     this.errorRemove();
     if (this.state.conflitoAssuntoState === "error" || this.state.assuntoState === "error"){
       this.error();
@@ -195,7 +195,7 @@ class Configurations extends React.Component {
     this.sucessoRecarregar("modalAssunto");
   }
 
-  errorRemove=()=>{
+  errorRemove =() => {
     this.setState({'mensagemErro': null})
   }
 
@@ -349,11 +349,11 @@ class Configurations extends React.Component {
                             inputProps={{
                               value: this.state.conflito,
                               onChange: event =>
-                              this.change(event, "conflito", "range",3,15)
+                              this.change(event, "conflito", "range",3,25)
                             }}
                           />
                         <p>{this.state.mensagemErro && this.state.conflitoState === "error"? this.state.mensagemErro: null }</p>
-                        <Button className={classes.right} color="secondary" onClick={() => this.salvarConflito()}>Salvar Conflito</Button>
+                        <Button className={classes.right} color="secondary" onClick={this.salvarConflito}>Salvar Conflito</Button>
                </Modal>
               </CardBody>
             </Card>
@@ -396,7 +396,7 @@ class Configurations extends React.Component {
                       />
               </CardBody> 
             
-                 <Modal open={this.state.modalAssunto}  classNames={classes} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalAssunto")} center>
+                 <Modal open={this.state.modalAssunto}  classNames={classes} onExited={this.onBlurModal} onClose={()=>this.closeModal("modalAssunto")} center>
                             <SearchSelect
                               opcoes={conflitosAssuntos || []}
                               name="conflitoAssunto"
@@ -420,12 +420,12 @@ class Configurations extends React.Component {
                             inputProps={{
                               value: this.state.assunto,
                               onChange: event =>
-                              this.change(event, "assunto", "range",3,15)
+                              this.change(event, "assunto", "range",3,25)
                             }}
                             errorHelperText="Informe o nome do assunto"
                           />
                         <p>{this.state.mensagemErro && this.state.assuntoState === "error"? this.state.mensagemErro: null }</p>
-                        <Button color="secondary" className={classes.right}  onClick={() => this.salvarAssunto()}>Salvar Assunto</Button>
+                        <Button color="secondary" className={classes.right}  onClick={this.salvarAssunto}>Salvar Assunto</Button>
                </Modal>
             </Card>
           </GridItem>
