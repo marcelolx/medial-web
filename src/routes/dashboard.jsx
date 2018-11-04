@@ -9,6 +9,7 @@ import ListUsers from "../scenes/admin/ListUsers"
 import Profile from "./../scenes/Profile"
 import Configurations from "../scenes/admin/Configurations";
 import CadastroPendente from "../scenes/admin/mediacao/CadastroPendente";
+import Negociador from "../scenes/Dashboard/negociadores/Negociador";
 
 
 var dashRoutes = [
@@ -81,6 +82,14 @@ var dashRoutes = [
     nivel:[1,2],
     naoExibe: true,
     component: CadastroPendente
+  },
+  { 
+    path: "/negociadores",
+    name: "Negociadores",
+    icon: People,
+    nivel:[1,2],
+    naoExibe: true,
+    component: Negociador
   },
   { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" },
 ];
