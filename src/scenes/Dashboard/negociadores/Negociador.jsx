@@ -28,9 +28,6 @@ const styles = ({
     display: 'block',
       float: 'right',
   },
-  h2: {
-    fontSize: '14px',
-  }
 });
 
 class Negociador extends React.Component {
@@ -80,6 +77,7 @@ class Negociador extends React.Component {
           showCancel
         >
           <h4>{`Deseja remover ${nome} de seus negociadores?`}</h4>
+          <p>{`Depois de remover o negociador, ele deixará de realizar as mediações da sua empresa.`}</p>
         </SweetAlert>
       )
     });
@@ -105,6 +103,12 @@ class Negociador extends React.Component {
     }
   }
 
+  handleKeyPress= (e) =>{
+      if (e.key === 'Enter') {
+          this.pesquisarNegociadores(); 
+      }
+  }
+
   change = (evt) => {
     this.setState({ "pesquisa": evt.target.value });
   }
@@ -126,7 +130,9 @@ class Negociador extends React.Component {
                       errorHelperText="Mínimo de 3 caracteres"
                       inputProps={{
                         value: this.state.pesquisa,
-                        onChange: this.change
+                        onChange: this.change,
+                        onKeyPress:this.handleKeyPress
+
                       }}
                       id="nome"
                       formControlProps={{
@@ -217,13 +223,13 @@ class Negociador extends React.Component {
           cancelBtnCssClass={
             classes.button + " " + classes.danger + " " + classes.simple
           }
-          customClass = {classes.h2 }
 
           confirmBtnText="Adicionar"
           cancelBtnText="Cancelar"
           showCancel
         >
         <h4>{`Deseja adicionar ${nome} aos seus negociadores?`}</h4>
+        <p>{`Depois de adicionar o negociador, ele ficará responsável por realizar as mediações da sua empresa.`}</p>
         </SweetAlert>
       )
     });
