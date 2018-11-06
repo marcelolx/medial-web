@@ -48,7 +48,7 @@ function buscarRequeridosPendentesError(error) {
 export function salvarHistorico(historico) {
   return function(dispatch) {
     dispatch(salvarHistoricoStart());
-    return API.post('/mediacao/historico/salvar', historico)
+    return API.put('/mediacao/historico/salvar', historico)
       .then(response => {
         if (response.data) {
           dispatch(salvarHistoricoComplete(response));
@@ -86,7 +86,7 @@ export function limparEstadoHistoricoSalvo() {
 
 export function confirmarSolicitacaoCadastro(data) {
   return function(dispatch) {
-    return API.post('/mediacao/atualizarSituacao', data)
+    return API.put('/mediacao/atualizarSituacao', data)
       .then(response => {
         if (response.data) {
           dispatch(confirmarSolicitacaoCadastroComplete(response));
