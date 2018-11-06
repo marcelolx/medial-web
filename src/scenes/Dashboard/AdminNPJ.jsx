@@ -11,7 +11,7 @@ import Button from '../../components/CustomButtons/Button';
 import adminCardTableStyle from '../../assets/jss/scenes/Dashboard/adminCardTableStyle';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/action';
+import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/actions';
 
 class AdminNPJ extends React.Component {
 

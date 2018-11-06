@@ -9,15 +9,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Edit from "@material-ui/icons/Edit";
 import Button from '../../components/CustomButtons/Button';
 import { bindActionCreators } from 'redux';
-import * as  mediacoesActions from '../../services/admin/mediacao/mediacoes/action';
+import * as  mediacoesActions from '../../services/admin/mediacao/mediacoes/actions';
 import { connect } from 'react-redux';
 import getAdaptedMessage from '../../services/admin/mediacao/messages';
+import { withRouter } from 'react-router-dom';
 
 class Usuario extends React.Component {
 
   componentDidMount() {
     if (this.props.mediacoes.lista.length === 0) {
-      this.props.actions.buscarMediacoes(this.props.auth.accessLevel, this.props.auth.id);
+      this.props.actions.buscarMediacoes(this.props.auth.id);
     }
   }
 
@@ -40,7 +41,7 @@ class Usuario extends React.Component {
   }
 
   handleClickMediacao = idMediacao => {
-
+    this.props.history.push(`/mediacao/protocolo?id=${idMediacao}`);
   }
 
   botao(mediacao) {
@@ -108,7 +109,7 @@ const mapDispatchToProps = dispatch => ({
   }, dispatch)
 });
 
-export default compose(
+export default withRouter(compose(
   withStyles(adminCardTableStyle),
   connect(mapStateToProps, mapDispatchToProps)
-)(Usuario);
+)(Usuario));

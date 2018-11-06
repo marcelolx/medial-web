@@ -1,11 +1,11 @@
 import API from '../../../API';
-import { BUSCAR_MEDIACOES_START, BUSCAR_MEDIACOES_ERROR, BUSCAR_MEDIACOES_COMPLETE } from './actionType';
+import { BUSCAR_MEDIACOES_START, BUSCAR_MEDIACOES_ERROR, BUSCAR_MEDIACOES_COMPLETE } from './actionTypes';
 
-export function buscarMediacoes(nivelAcesso, idUsuario) {
+export function buscarMediacoes(idUsuario) {
   return function(dispatch) {
     dispatch(buscarMediacoesStart());
 
-    return API.get(`/mediacao/todas?nivelAcesso=${nivelAcesso}&idUsuario=${idUsuario}`)
+    return API.get(`/mediacao/todas?idUsuario=${idUsuario}`)
       .then(response => {
         dispatch(buscarMediacoesComplete(response))
       })

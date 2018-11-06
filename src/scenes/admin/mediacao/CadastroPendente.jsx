@@ -13,7 +13,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import getAdaptedMessage, { SOLICITADO_CADASTRO_EMPRESA } from '../../../services/admin/mediacao/messages';
-import * as requeridoPendenteActions from '../../../services/admin/mediacao/requeridos/pendentes/action';
+import * as requeridoPendenteActions from '../../../services/admin/mediacao/requeridos/pendentes/actions';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import Snackbar from '../../../components/Snackbar/Snackbar';
 import queryString from 'query-string';
