@@ -8,16 +8,42 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Edit from "@material-ui/icons/Edit";
 import Button from '../../components/CustomButtons/Button';
+import { bindActionCreators } from 'redux';
+import * as  mediacoesActions from '../../services/admin/mediacao/mediacoes/action';
+import { connect } from 'react-redux';
+import getAdaptedMessage from '../../services/admin/mediacao/messages';
 
 class Usuario extends React.Component {
 
-  dataToTableData = () => {
-    return [
-      
-    ];
+  componentDidMount() {
+    if (this.props.mediacoes.lista.length === 0) {
+      this.props.actions.buscarMediacoes(this.props.auth.accessLevel, this.props.auth.id);
+    }
   }
 
-  botao(cadastroPendente) {
+  dataToTableData = () => {
+    const { mediacoes } = this.props;
+    
+    let localMediacoes = [];
+    
+    mediacoes.lista.forEach(element => {
+      localMediacoes = localMediacoes.concat([[
+        (mediacoes.lista.indexOf(element) + 1).toString(),
+        element.protocolo,
+        element.nomeRequerente,
+        getAdaptedMessage(element.situacao),
+        this.botao(element)
+      ]])
+    });
+    
+    return localMediacoes;
+  }
+
+  handleClickMediacao = idMediacao => {
+
+  }
+
+  botao(mediacao) {
     const { classes }  = this.props;
     
     return (
@@ -25,8 +51,8 @@ class Usuario extends React.Component {
           round
           color="primary"
           className={classes.actionButton + " " + classes.actionButtonRound}
-          key={cadastroPendente.idCadastroPendente}
-          onClick={() => this.handleClickCadastroPendente(cadastroPendente.idCadastroPendente)}
+          key={mediacao.idMediacao}
+          onClick={() => this.handleClickMediacao(mediacao.idMediacao)}
         >
           <Edit className={classes.icon} />
         </Button>
@@ -71,4 +97,18 @@ class Usuario extends React.Component {
   }
 }
 
-export default compose(withStyles(adminCardTableStyle))(Usuario);
+const mapStateToProps = state => ({
+  auth: state.auth,
+  mediacoes: state.mediacoes
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...mediacoesActions
+  }, dispatch)
+});
+
+export default compose(
+  withStyles(adminCardTableStyle),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Usuario);
