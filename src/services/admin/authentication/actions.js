@@ -48,3 +48,15 @@ function logoutComplete() {
 
   return { type: LOGOUT_COMPLETE }
 }
+
+export function validarLogin(token){
+  return function(dispatch) {
+    return API.post('/usuario/validarLogin', {"valor": token})
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        dispatch(logoutComplete());
+      })
+  }
+}
