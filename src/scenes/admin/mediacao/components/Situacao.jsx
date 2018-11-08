@@ -5,6 +5,8 @@ import CardBody from '../../../../components/Card/CardBody';
 import FaceIcon from '@material-ui/icons/Face';
 import CustomChip from '../../../../components/Chip/Chip';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import connect from 'react-redux';
 
 const style = theme => ({
   semMargen: {
@@ -34,7 +36,7 @@ class Situacao extends React.Component {
           <CardBody>
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Requerente: Marcelo Lauxen"
+              label="Requerente: Não definido"
               color="success"
               variant="outlined"
               width="fullWidth"
@@ -42,7 +44,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Requerido: Medial LTDA"
+              label="Requerido: Não definido"
               color="success"
               variant="outlined"
               width="fullWidth"
@@ -50,7 +52,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Mediador: Fernanda Trentin"
+              label="Mediador: Não definido"
               clickable
               color="success"
               variant="outlined"
@@ -59,7 +61,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Negociador: Fulano"
+              label="Negociador: Não definido"
               color="success"
               variant="outlined"
               width="fullWidth"
@@ -72,4 +74,17 @@ class Situacao extends React.Component {
   }
 }
 
-export default withStyles(style)(Situacao);
+const mapStateToProps = state => ({
+  situacao: state.mediacaoSituacao
+});
+
+/*const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+
+  }, dispatch)
+})*/
+
+export default compose(
+  withStyles(style),
+  connect(mapStateToProps)
+)(Situacao);

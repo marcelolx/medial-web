@@ -17,6 +17,7 @@ import configuracaoReducer from './admin/configuracao/reducer'
 import requeridosPendentesReducer from './admin/mediacao/requeridos/pendentes/reducer';
 import mediacoesReducer from './admin/mediacao/mediacoes/reducer';
 import mediacaoReducer from './admin/mediacao/reducer';
+import mediacaoSituacaoReducer from './admin/mediacao/situacao/reducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -36,5 +37,6 @@ export default combineReducers({
   configuracao: configuracaoReducer,
   requeridosPendentes: requeridosPendentesReducer,
   mediacoes: mediacoesReducer,
-  mediacao: mediacaoReducer
+  mediacao: mediacaoReducer,
+  mediacaoSituacao: mediacaoSituacaoReducer
 });
