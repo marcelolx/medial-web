@@ -11,7 +11,7 @@ export function buscarMediacao(idMediacao) {
         dispatch(buscarSituacaoMediacao(idMediacao));
       })
       .catch(error => {
-        dispatch(buscarMediacaoError(error.response))
+        dispatch(buscarMediacaoError(error))
       });
   }
 }
@@ -28,8 +28,9 @@ function buscarMediacaoComplete(response) {
 }
 
 function buscarMediacaoError(error) {
+  console.log(error); //TODO: Quando for Network Error, chamar uma action de erro geral do sistema?
   return {
     type: BUSCAR_MEDIACAO_ERROR,
-    payload: error.data
+    payload: error.response.data
   }
 }

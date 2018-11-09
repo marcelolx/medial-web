@@ -6,7 +6,8 @@ import FaceIcon from '@material-ui/icons/Face';
 import CustomChip from '../../../../components/Chip/Chip';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
+import getAdaptedMessage from '../../../../services/admin/mediacao/messages';
 
 const style = theme => ({
   semMargen: {
@@ -23,20 +24,25 @@ const style = theme => ({
 });
 
 class Situacao extends React.Component {
+
+  handleGetValue(name) {
+    return this.props.situacao[name] ? this.props.situacao[name] : 'Pendente';
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, situacao } = this.props;
 
     return (
       <React.Fragment>
         <Card>
           <CardHeader color="success">
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Situação</h4>
-            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Em Andamento</p>
+            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{getAdaptedMessage(situacao.situacao)}</p>
           </CardHeader>
           <CardBody>
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Requerente: Não definido"
+              label={"Requerente: " + this.handleGetValue('nomeRequerente')}
               color="success"
               variant="outlined"
               width="fullWidth"
@@ -44,7 +50,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Requerido: Não definido"
+              label={"Requerido: " + this.handleGetValue('nomeRequerido')}
               color="success"
               variant="outlined"
               width="fullWidth"
@@ -52,7 +58,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Mediador: Não definido"
+              label={"Mediador: " + this.handleGetValue('nomeMediador')}
               clickable
               color="success"
               variant="outlined"
@@ -61,7 +67,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label="Negociador: Não definido"
+              label={"Negociador: " + this.handleGetValue('nomeNegociador')}
               color="success"
               variant="outlined"
               width="fullWidth"
