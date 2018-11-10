@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 
 const style = {
   grid: {
-    margin: "0 -15px",
-    width: "calc(100% + 30px)"
+    margin: "0 -5px",
+    width: "calc(100% + 10px)"
   }
 };
 

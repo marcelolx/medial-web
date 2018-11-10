@@ -72,6 +72,9 @@ const tableStyle = theme => ({
       minWidth: "32px"
     }
   },
+  tableId: {
+    width: '80px',
+  },
   tableCellTotal: {
     fontWeight: "500",
     fontSize: "1.25em",
@@ -120,6 +123,10 @@ const tableStyle = theme => ({
     "&:hover": {
       backgroundColor: "#c4e3f3"
     }
+  },
+  naoHaDados: {
+    width: '100%',
+    textAlign: 'center'
   }
 });
 

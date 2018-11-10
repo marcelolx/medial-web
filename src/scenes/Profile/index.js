@@ -7,6 +7,8 @@ import * as estadosActions from '../../services/graphql/estados/actions';
 import * as cidadesActions from '../../services/graphql/cidades/actions';
 import * as authActions from '../../services/admin/authentication/actions';
 
+import {replaceNaoNumeros,verifyEmail} from '../../utils/utils'
+import Loader from '../../components/Loader'
 
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
@@ -93,13 +95,6 @@ class Profile extends Component {
     });
   };
 
-  verifyEmail(value) {
-    var emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (emailRex.test(value)) {
-      return true;
-    }
-    return false;
-  }
   // function that verifies if a string has a given length or not
   verifyLength(value, length) {
     if (value.length >= length) {
@@ -124,14 +119,11 @@ class Profile extends Component {
     return false;
   }
 
-  replaceNaoNumeros = (phone) =>{
-        return phone.replace(/[^0-9]/g, "")
-  }
 
   change(event, stateName, type) {
     switch (type) {
       case "email":
-        if (this.verifyEmail(event.target.value)) {
+        if (verifyEmail(event.target.value)) {
           this.setState({
             [stateName + "State"]: "success"
           });
@@ -186,7 +178,7 @@ class Profile extends Component {
         }
         break;
       case "telefone":
-        let telefone = this.replaceNaoNumeros(event.target.value.toString());
+        let telefone = replaceNaoNumeros(event.target.value.toString());
         if (
           telefone.length >= 10 &&
           telefone.length <= 11
@@ -241,16 +233,13 @@ class Profile extends Component {
     let data = {
       nome: this.state.nome,
       email: this.state.email,
-      telefone: this.replaceNaoNumeros(this.state.telefone),
+      telefone: replaceNaoNumeros(this.state.telefone),
     }
 
     this.props.actions.salvarDadosBasicos(data);
-    this.successNotification();
   }
 
- 
   atualizarEndereco(){
-
 
     if (this.state.ruaState === "error"
     || this.state.numeroState === "error"
@@ -269,10 +258,8 @@ class Profile extends Component {
       cidade: this.state.cidade,
       estado: this.state.estado,
     }
-    
 
     this.props.actions.atualizarDadosEndereco(data);
-    this.successNotification();
   }
 
   atualizarLogin(){
@@ -297,14 +284,8 @@ class Profile extends Component {
     
 
     this.props.actions.atualizarDadosLogin(data);
-    this.successNotification();
   }
 
-  successNotification(){
-    this.setState({'errorNotification':false});
-    this.setState({'successNotification':true});
-    this.notification('successNotification');
-  }
   errorNotification(){
 
     this.setState({'errorNotification':true});
@@ -407,11 +388,37 @@ class Profile extends Component {
       );
     }
 
+
+    notificationCloseAuto(){
+      setTimeout(
+        function () {
+          this.props.actions.closeNotification()
+        }.bind(this),
+        6000
+      );
+    }
+
+  alteracaoStatus(status){
+    this.notificationCloseAuto();
+   return <Snackbar
+    place="tr"
+    color={status?"success":"warning"}
+    message={status?"Seus dados foram atualizados": "Erro! Não foi possivel atualizar os dados..."}
+    open
+    closeNotification={() => this.props.actions.closeNotification()}
+    close
+    />
+  }
+
   render() {
-    const { classes, cidades, estados } = this.props;
+    const { classes, cidades, estados,profileInfo } = this.props;
 
     return (
       <React.Fragment>
+
+        {profileInfo.exibirAlteracao? this.alteracaoStatus(profileInfo.sucessoAlteracao): null}
+
+        <Loader open={profileInfo.carregando}/>
         <GridContainer>
           <GridItem xs={12} sm={12} md={8} className={classes.semPadding}>
             <Card>
@@ -690,21 +697,13 @@ class Profile extends Component {
           </GridItem>
         </GridContainer>
         <Snackbar
-          place="tc"
-          color="success"
-          message="Sucesso! Seus dados foram atualizados."
-          open={this.state.successNotification}
-          closeNotification={() => this.setState({ successNotification: false })}
-          close
-          />
-        <Snackbar
             place="tc"
             color="warning"
             message="Erro! Campos estão inválidos"
             open={this.state.errorNotification}
             closeNotification={() => this.setState({ errorNotification: false })}
             close
-            />
+            /> 
       </React.Fragment>
     );
   }

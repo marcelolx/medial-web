@@ -18,8 +18,11 @@ import Button from '../../components/CustomButtons/Button';
 import Table from '../../components/Table';
 import CardIcon from '../../components/Card/CardIcon';
 import SearchSelect from '../../components/SearchSelect';
+import verifyLength from '../../utils/utils';
 
 import * as configuracaoActions from './../../services/admin/configuracao/actions'
+
+
 
 const styles = theme => ({
   root: {
@@ -64,6 +67,15 @@ const styles = theme => ({
     marginTop:"10px",
     fontWeight:300,
     color:"#3C4858"
+  },
+  modal:{
+    padding: '35px 25px 15px 25px'
+  },
+  overlay: {
+    zIndex: 99999,
+  },
+  closeButton:{
+    cursor: "pointer"
   }
 });
 class Configurations extends React.Component {
@@ -72,9 +84,9 @@ class Configurations extends React.Component {
     super(props);
 
     this.state={
-      conflitoState: "error",
-      conflitoAssuntoState: "error",
-      assuntoState: "error",
+      conflitoState: "",
+      conflitoAssuntoState: "",
+      assuntoState: "",
       conflito: "",
       assunto: "",
       conflitoAssunto: [],
@@ -84,9 +96,13 @@ class Configurations extends React.Component {
       modalAssunto: false,
       modalConflito: false,
       codigo:null,
+      mensagemErro: '',
     }
     this.openModal = this.openModal.bind(this);
   }
+
+
+
   openModal(modal) {
     if (modal === "modalAssunto") {
       this.props.actions.getConflitos();
@@ -108,7 +124,7 @@ class Configurations extends React.Component {
     this.openModal("modalConflito");
   }
 
-  onBlurModal =() =>{
+  onBlurModal = () =>{
     this.setState({
       codigo: null,
       conflitoState: "error",
@@ -117,6 +133,8 @@ class Configurations extends React.Component {
       conflitoAssunto:null,
       conflito: ``,
       assunto:``,
+      mensagemErro: null,
+
     })
   }
   atualizarAssunto = linha => {
@@ -134,8 +152,8 @@ class Configurations extends React.Component {
     this.props.actions.getConfiguracao();
   }
 
-
   salvarConflito =() =>{
+    this.errorRemove();
 
     if (this.state.conflitoState === "error"){
       this.error();
@@ -160,10 +178,10 @@ class Configurations extends React.Component {
   
   }
 
-  salvarAssunto =() =>{
+  salvarAssunto = () =>{
+    this.errorRemove();
     if (this.state.conflitoAssuntoState === "error" || this.state.assuntoState === "error"){
       this.error();
-      
       return;
     }
 
@@ -177,32 +195,41 @@ class Configurations extends React.Component {
     this.sucessoRecarregar("modalAssunto");
   }
 
+  errorRemove =() => {
+    this.setState({'mensagemErro': null})
+  }
+
   error=()=>{
-    alert("Erro")
+    this.setState({'mensagemErro': 'Favor, revisar os campos para continuar'})
   }
 
-  verifyLength(value, length) {
-    if (value.length >= length) {
-      return true;
-    }
-    return false;
+  stateSuccess(stateName){
+    this.setState({ [stateName + "State"]: "success" });
   }
 
-  change(event, stateName, type) {
+  stateError(stateName){
+    this.setState({ [stateName + "State"]: "error" });
+  }
+
+  change(event, stateName, type, min, max) {
+    
     switch (type) {
       case "texto":
-          if (this.verifyLength(event.target.value, 3)) {
-            this.setState({
-              [stateName + "State"]: "success"
-            });
+          if (verifyLength(event.target.value, 3)) {
+            this.stateSuccess(stateName);
           } else {
-            this.setState({
-              [stateName + "State"]: "error"
-            });
+            this.stateError(stateName);
           }
         break;
-      default:
+       case "range":
           
+        if (verifyLength(event.target.value, min) && !verifyLength(event.target.value, max)) {
+          this.stateSuccess(stateName);
+        } else {
+          this.stateError(stateName);
+        }
+        break;
+      default:
         break;
     }
     this.setState({ [stateName]: event.target.value });
@@ -212,13 +239,9 @@ class Configurations extends React.Component {
       [name]: selecionado
     });
     if (selecionado.length !== 0) {       
-      this.setState({
-        [name + "State"]: "success"
-      });
+      this.stateSuccess(name);
     } else {
-      this.setState({
-        [name + "State"]: "error"
-      });
+      this.stateError(name);
     }
   }
 
@@ -274,7 +297,7 @@ class Configurations extends React.Component {
   render() {
     const {classes}  = this.props;
     const {conflitosAssuntos} = this.props.configuracao;
-    
+  
     return (
       <>
        <GridContainer>
@@ -313,7 +336,7 @@ class Configurations extends React.Component {
                         ]}
                         customHeadClassesForCells={[0, 2]}
                       />
-                        <Modal open={this.state.modalConflito}  onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalConflito")} center>
+                        <Modal open={this.state.modalConflito}  classNames={classes} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalConflito")} center>
                           
                         <CustomInput
                             success={this.state.conflitoState === "success"}
@@ -326,10 +349,11 @@ class Configurations extends React.Component {
                             inputProps={{
                               value: this.state.conflito,
                               onChange: event =>
-                              this.change(event, "conflito", "texto")
+                              this.change(event, "conflito", "range",3,25)
                             }}
                           />
-                        <Button className={classes.right} color="secondary" onClick={() => this.salvarConflito()}>Salvar Conflito</Button>
+                        <p>{this.state.mensagemErro && this.state.conflitoState === "error"? this.state.mensagemErro: null }</p>
+                        <Button className={classes.right} color="secondary" onClick={this.salvarConflito}>Salvar Conflito</Button>
                </Modal>
               </CardBody>
             </Card>
@@ -372,9 +396,9 @@ class Configurations extends React.Component {
                       />
               </CardBody> 
             
-                 <Modal open={this.state.modalAssunto} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal("modalAssunto")} center>
+                 <Modal open={this.state.modalAssunto}  classNames={classes} onExited={this.onBlurModal} onClose={()=>this.closeModal("modalAssunto")} center>
                             <SearchSelect
-                              opcoes={conflitosAssuntos}
+                              opcoes={conflitosAssuntos || []}
                               name="conflitoAssunto"
                               onChange={(name, value) => this.handleSelectChange(name, value)}
                               value={this.state.conflitoAssunto}
@@ -385,7 +409,6 @@ class Configurations extends React.Component {
                               error={this.state.conflitoAssuntoState === "error"}
                               errorHelperText="Selecione o conflito"
                             />
-                       
                           <CustomInput
                             success={this.state.assuntoState === "success"}
                             error={this.state.assuntoState === "error"}
@@ -397,12 +420,12 @@ class Configurations extends React.Component {
                             inputProps={{
                               value: this.state.assunto,
                               onChange: event =>
-                              this.change(event, "assunto", "texto")
+                              this.change(event, "assunto", "range",3,25)
                             }}
-                            errorHelperText="Selecione o conflito"
+                            errorHelperText="Informe o nome do assunto"
                           />
-                       
-                        <Button color="secondary" className={classes.right}  onClick={() => this.salvarAssunto()}>Salvar Assunto</Button>
+                        <p>{this.state.mensagemErro && this.state.assuntoState === "error"? this.state.mensagemErro: null }</p>
+                        <Button color="secondary" className={classes.right}  onClick={this.salvarAssunto}>Salvar Assunto</Button>
                </Modal>
             </Card>
           </GridItem>

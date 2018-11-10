@@ -1,15 +1,16 @@
 // @material-ui/icons
-import People from '@material-ui/icons/People';
-import Home from '@material-ui/icons/Home';
-import Settings from '@material-ui/icons/Settings';
-import Bookmark from '@material-ui/icons/Bookmark';
-import HomePage from '../scenes/Home/HomePage'
-import NovaMediacao from "./../scenes/Register/Mediacao"
-import Mediacao from './../scenes/admin/mediacao/Mediacao';
-import ListUsers from '../scenes/admin/ListUsers';
-import Profile from './../scenes/Profile';
-import Configurations from '../scenes/admin/Configurations';
-import CadastroPendente from '../scenes/admin/mediacao/CadastroPendente';
+import People from "@material-ui/icons/People";
+import Home from "@material-ui/icons/Home";
+import Settings from "@material-ui/icons/Settings";
+import Bookmark from "@material-ui/icons/Bookmark";
+import HomePage from '../scenes/Home/HomePage';
+import NovaMediacao from "../scenes/Register/Mediacao";
+import Mediacao from '../scenes/admin/mediacao/Mediacao';
+import ListUsers from "../scenes/admin/ListUsers";
+import Profile from "./../scenes/Profile";
+import Configurations from "../scenes/admin/Configurations";
+import CadastroPendente from "../scenes/admin/mediacao/CadastroPendente";
+import Negociador from "../scenes/Dashboard/negociadores/Negociador";
 
 
 var dashRoutes = [
@@ -91,7 +92,16 @@ var dashRoutes = [
     naoExibe: true,
     component: Mediacao
   },
+  { 
+    path: "/negociadores",
+    name: "Negociadores",
+    icon: People,
+    nivel:[1,2],
+    naoExibe: true,
+    component: Negociador
+  },
   { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },
+  { redirect: true, path: "/",   nivel:[1,4,99], pathTo: "/dashboard", name: "Dashboard" },
 ];
 export default dashRoutes;
 

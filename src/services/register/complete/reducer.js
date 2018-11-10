@@ -4,7 +4,7 @@ import getAdaptedMessage from '../user/messages';
 const initialState = {
   complete: false,
   error: false,
-  message: '',
+  message: {"step":0,"message": ''},
 }
 
 export default function(state = initialState, action) {

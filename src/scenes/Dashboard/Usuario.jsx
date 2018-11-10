@@ -65,7 +65,7 @@ class Usuario extends React.Component {
 
     return(
       <React.Fragment>
-        <Card minHeight>
+        <Card className = {classes.cardInteiro}>
           <CardHeader color="primary">
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediações</h4>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediações atribuídas</p>
@@ -83,12 +83,12 @@ class Usuario extends React.Component {
                 classes.center,
                 classes.right
               ]}
-              customClassesForCells={[0, 4]}
+              customClassesForCells={[0, 2]}
               customHeadCellClasses={[
                 classes.center,
                 classes.right
               ]}
-              customHeadClassesForCells={[0,4]}
+              customHeadClassesForCells={[0, 2]}
               footer
             />
           </CardBody>

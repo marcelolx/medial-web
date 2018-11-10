@@ -7622,6 +7622,10 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-loading@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
+
 react-minimalist-portal@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-minimalist-portal/-/react-minimalist-portal-2.3.1.tgz#4853e3f48a74a32c1b8767601887cdf7941eeba3"
@@ -8855,9 +8859,9 @@ sweetalert2-react-content@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sweetalert2-react-content/-/sweetalert2-react-content-1.0.1.tgz#0403145a1af819504e394df0dfc6194df67068a0"
 
-sweetalert2@^7.28.8:
-  version "7.28.8"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.28.8.tgz#57916f1effe893b3233a22ddba03f75a8f1dbe92"
+sweetalert2@^7.28.11:
+  version "7.28.11"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-7.28.11.tgz#a4f3ef54f28a76f3cbbf8c963c8bc0a03a55208e"
 
 symbol-observable@1.0.4:
   version "1.0.4"

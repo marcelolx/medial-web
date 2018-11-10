@@ -137,7 +137,7 @@ class Endereco extends Component {
     return(
       (step.beforeNextStepError && field.value === undefined) ||
       ((storeField.list.length === 0) && (storeField.message !== null)) ||
-      (Object.keys(typeErros).filter(key => typeErros[key] === error.message).length > 0));
+      (Object.keys(typeErros).filter(key => typeErros[key] === error.message.message).length > 0));
   }
 
   render() {
@@ -179,7 +179,7 @@ class Endereco extends Component {
             />
             {
               this.handleFieldListShowError(this.props, this.state.estado, estados, [ESTADO_NAO_INFORMADO]) && 
-              <FormHelperText id="estado-error-text">{error.message || 'Informe o Estado'}</FormHelperText>
+              <FormHelperText id="estado-error-text">{error.message.message || 'Informe o Estado'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -196,7 +196,7 @@ class Endereco extends Component {
             />
             {
               this.handleFieldListShowError(this.props, this.state.cidade, cidades, [CIDADE_NAO_INFORMADA]) &&
-              <FormHelperText id="cidade-error-text">{error.message || 'Informe a Cidade'}</FormHelperText>
+              <FormHelperText id="cidade-error-text">{error.message.message || 'Informe a Cidade'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -215,7 +215,7 @@ class Endereco extends Component {
             />
             {
               handleFieldShowError(this.props, this.state.cep, [CEP_NAO_INFORMADO]) && 
-              <FormHelperText id="cep-error-text">{error.message || 'Informe o CEP'}</FormHelperText>
+              <FormHelperText id="cep-error-text">{error.message.message || 'Informe o CEP'}</FormHelperText>
             }
           </FormControl>
           <FormControl 
@@ -233,7 +233,7 @@ class Endereco extends Component {
             />
             {
               handleFieldShowError(this.props, this.state.bairro, [BAIRRO_NAO_INFORMADO]) && 
-              <FormHelperText id="bairro-error-text">{error.message || 'Informe o Bairro'}</FormHelperText>
+              <FormHelperText id="bairro-error-text">{error.message.message || 'Informe o Bairro'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -251,7 +251,7 @@ class Endereco extends Component {
             />
             {
               handleFieldShowError(this.props, this.state.rua, [RUA_NAO_INFORMADA]) &&
-              <FormHelperText id="rua-error-text">{error.message || 'Informe a Rua'}</FormHelperText>
+              <FormHelperText id="rua-error-text">{error.message.message || 'Informe a Rua'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -270,7 +270,7 @@ class Endereco extends Component {
             />
             {
               handleFieldShowError(this.props, this.state.numero, [NUMERO_NAO_INFORMADO]) &&
-              <FormHelperText id="numero-error-text">{error.message || 'Informe o número do seu endereço'}</FormHelperText>
+              <FormHelperText id="numero-error-text">{error.message.message || 'Informe o número do seu endereço'}</FormHelperText>
             }
           </FormControl>
           <RegisterStepButton 

@@ -2,6 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
+import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardHeader from '../../components/Card/CardHeader';
 import CardBody from '../../components/Card/CardBody';
@@ -60,7 +61,7 @@ class AdminNPJ extends React.Component {
     const { classes } = this.props;
 
     return(
-      <React.Fragment>
+      <GridItem xs={12} sm={12} md={6} lg={6}>
         <Card minHeight>
           <CardHeader color="primary">
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
@@ -88,7 +89,7 @@ class AdminNPJ extends React.Component {
             />
           </CardBody>
         </Card>
-      </React.Fragment>
+      </GridItem>
     );
   }
 }

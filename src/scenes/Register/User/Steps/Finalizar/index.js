@@ -50,32 +50,32 @@ class Finalizar extends Component {
             variant="subheading"
             className={[classes.margin, classes.warning].join(' ')}
           >
-            {registerComplete.message + '... Você será redirecionado para realizar os ajustes...'}
+            {registerComplete.message.message + '... Você será redirecionado para realizar os ajustes...'}
           </Typography> : 
           <Typography 
             variant="subheading"
             className={classes.margin}
           >
-            {registerComplete.message || 'Aguarde...'}
+            {registerComplete.message.message || 'Aguarde...'}
           </Typography>
         }        
       </React.Fragment>     
     );
   }
-  
+
   render() {
     const { classes, registerComplete, onFinishRegisterUser } = this.props;
-    
+
     if (registerComplete.error) {
       setTimeout(
         function() {
-          this.props.actions.changeStep(0)
-        }.bind(this), 5000);
+          this.props.actions.changeStep(registerComplete.message.step)
+        }.bind(this), 2000);
     } else if (registerComplete.complete) {
       setTimeout(
         function() {          
           onFinishRegisterUser()
-        }, 5000);
+        }, 1500);
     }
 
     return(
