@@ -69,35 +69,35 @@ class AdminNPJ extends React.Component {
     const { classes } = this.props;
 
     return(
-          <GridItem xs={12} sm={12} md={6} lg={6}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
-                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
-              </CardHeader>
-              <CardBody>
-                <Table 
-                  tableHead={[
-                    "#",
-                    "Nome",
-                    "",
-                  ]}
-                  tableData={this.dataToTableData()}
-                  customCellClasses={[
-                    classes.center,
-                    classes.right
-                  ]}
-                  customClassesForCells={[0, 2]}
-                  customHeadCellClasses={[
-                    classes.center,
-                    classes.right
-                  ]}
-                  customHeadClassesForCells={[0,2]}
-                  footer
-                />
-              </CardBody>
-            </Card>
-          </GridItem>
+      <GridItem xs={12} sm={12} md={6} lg={6}>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
+            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
+          </CardHeader>
+          <CardBody>
+            <Table 
+              tableHead={[
+                "#",
+                "Nome",
+                "",
+              ]}
+              tableData={this.dataToTableData()}
+              customCellClasses={[
+                classes.center,
+                classes.right
+              ]}
+              customClassesForCells={[0, 2]}
+              customHeadCellClasses={[
+                classes.center,
+                classes.right
+              ]}
+              customHeadClassesForCells={[0,2]}
+              footer
+            />
+          </CardBody>
+        </Card>
+      </GridItem>
     );
   }
 }

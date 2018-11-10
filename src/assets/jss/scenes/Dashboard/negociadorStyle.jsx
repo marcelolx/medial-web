@@ -7,7 +7,7 @@ import {
 import buttonStyle from "../../components/buttonStyle";
 
 
-const adminCadastroPendenteStyle = {
+const negociadorStyle = {
   right: {
     textAlign: "right"
   },
@@ -87,4 +87,4 @@ const adminCadastroPendenteStyle = {
   ...buttonStyle
 }
 
-export default adminCadastroPendenteStyle;
+export default negociadorStyle;
