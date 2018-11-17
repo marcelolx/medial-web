@@ -49,9 +49,9 @@ function logoutComplete() {
   return { type: LOGOUT_COMPLETE }
 }
 
-export function validarLogin(token){
+export function validarLogin(){
   return function(dispatch) {
-    return API.post('/usuario/validarLogin', {"valor": token})
+    return API.post('/usuario/validarLogin')
       .then(response => {
         console.log(response);
       })

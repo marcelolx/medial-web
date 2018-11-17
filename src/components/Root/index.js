@@ -14,7 +14,7 @@ componentDidMount(){
   const {auth} = this.props; 
   
     if (auth.isAuthenticated) {
-      this.props.actions.validarLogin(auth.token);
+      this.props.actions.validarLogin();
     } 
 }
 
