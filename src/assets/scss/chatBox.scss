@@ -1,0 +1,14 @@
+.talk-box {
+
+  &-wrapper {
+    width: 100%;
+  }
+
+  &-body {
+    height: 340px;
+    overflow: auto;
+    background: #f3f3f3;
+    padding-bottom: 16px;
+  }
+
+}

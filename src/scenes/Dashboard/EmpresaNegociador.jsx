@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import GridItem from '../../components/Grid/GridItem';
 import Card from '../../components/Card/Card';
 import CardHeader from '../../components/Card/CardHeader';
-import adminCadastroPendenteStyle from '../../assets/jss/scenes/Dashboard/adminCadastroPendenteStyle';
+import negociadorStyle from '../../assets/jss/scenes/Dashboard/negociadorStyle';
 import CardBody from '../../components/Card/CardBody';
 import * as negociadorActions from '../../services/dashboard/negociador/actions';
 import { withRouter } from 'react-router-dom';
@@ -14,7 +14,7 @@ import Button from '../../components/CustomButtons/Button';
 
 
 const styles = ({
-  ...adminCadastroPendenteStyle,
+  ...negociadorStyle,
   semMargen: {
     margin: 0,
   },

@@ -1,4 +1,4 @@
-const adminCadastroPendenteStyle = {
+const adminCardTableStyle = {
   right: {
     textAlign: "right"
   },
@@ -23,7 +23,10 @@ const adminCadastroPendenteStyle = {
     height: "17px",
     top: "-1px",
     position: "relative"
+  },
+  semMargen: {
+    margin: 0,
   }
 }
 
-export default adminCadastroPendenteStyle;
+export default adminCardTableStyle;

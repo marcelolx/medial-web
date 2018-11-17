@@ -22,7 +22,7 @@ function CustomInput({ ...props }) {
     labelProps,
     inputProps,
     error,
-    success,
+    success
   } = props;
 
   const labelClasses = classNames({
@@ -34,7 +34,7 @@ function CustomInput({ ...props }) {
     [classes.underlineSuccess]: success && !error,
     [classes.underline]: true
   });
-  const marginTop = classNames({
+  const rootClasses = classNames({
     [classes.marginTop]: labelText === undefined
   });
   return (
@@ -54,7 +54,7 @@ function CustomInput({ ...props }) {
       ) : null}
       <Input
         classes={{
-          root: marginTop,
+          root: rootClasses,
           disabled: classes.disabled,
           underline: underlineClasses
         }}
@@ -82,7 +82,7 @@ CustomInput.propTypes = {
   inputProps: PropTypes.object,
   formControlProps: PropTypes.object,
   error: PropTypes.bool,
-  success: PropTypes.bool,
+  success: PropTypes.bool
 };
 
 export default withStyles(customInputStyle)(CustomInput);

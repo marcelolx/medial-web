@@ -1,0 +1,72 @@
+@mixin talk-bubble-pointer($borderColor, $leftOffset, $rightOffset) {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: auto;
+  border: 6px solid;
+  border-color: $borderColor transparent transparent transparent;
+  top: 0px;
+  left: $leftOffset;
+  right: $rightOffset;
+}
+
+@mixin talk-bubble($backgroundColor) {
+  background: $backgroundColor;
+  padding: 6px;
+  margin: 6px 10px;
+  position: relative;
+  border-radius: 4px;
+  max-width: 75%;
+}
+
+.talk-message {
+
+ &-wrapper {
+   display: flex;
+   flex-direction: column;
+   &.right {
+     align-items: flex-end;
+   }
+   &.left {
+     align-items: flex-start;
+   }
+ }
+
+ &-content {
+   &-wrapper {
+     &.right {
+       @include talk-bubble(#cfd8dc);
+       &:after {
+         @include talk-bubble-pointer(#cfd8dc, auto, -6px);
+       }
+     }
+
+     &.left {
+       @include talk-bubble(#cfd8dc);
+       &:after {
+         @include talk-bubble-pointer(#cfd8dc, -6px, auto);
+       }
+     }
+   }
+   &-span {
+     word-wrap: break-word;
+   }
+ }
+
+ &-metadata {
+   font-size: 11px;
+   color: rgba(0, 0, 0, .54);
+   margin-right: 12px;
+   margin-left: 12px;
+   &-timestamp {
+
+   }
+
+   &-author {
+     &.self-posted {
+       display: none;
+     }
+   }
+ }
+}

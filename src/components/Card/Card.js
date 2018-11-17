@@ -12,6 +12,7 @@ function Card({ ...props }) {
     plain,
     profile,
     chart,
+    minHeight,
     ...rest
   } = props;
   const cardClasses = classNames({
@@ -19,6 +20,7 @@ function Card({ ...props }) {
     [classes.cardPlain]: plain,
     [classes.cardProfile]: profile,
     [classes.cardChart]: chart,
+    [classes.cardMinHeight]: minHeight,
     [className]: className !== undefined
   });
   return (
@@ -33,7 +35,8 @@ Card.propTypes = {
   className: PropTypes.string,
   plain: PropTypes.bool,
   profile: PropTypes.bool,
-  chart: PropTypes.bool
+  chart: PropTypes.bool,
+  minHeight: PropTypes.bool
 };
 
 export default withStyles(cardStyle)(Card);

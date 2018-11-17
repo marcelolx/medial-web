@@ -62,6 +62,12 @@ const customInputStyle = {
     paddingBottom: "10px",
     margin: "5px 0 0 0",
     position: "relative"
+  },
+  textCenterAlign: {
+    textAlign: 'center'
+  },
+  textRightAlign: {
+    textAlign: 'right'
   }
 };
 

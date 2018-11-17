@@ -22,7 +22,7 @@ const steps = [
   { stepName: 'Confirmação', stepComponent: Confirmacao, stepId: CONFIRMACAO }
 ];
 
-class Mediacao extends Component {
+class NovaMediacao extends Component {
 
   handleFinish = (allStates) => {
     let data;
@@ -96,4 +96,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withStyles(mediacaoStyles)
-)(Mediacao);
+)(NovaMediacao);

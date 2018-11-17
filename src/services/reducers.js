@@ -15,6 +15,9 @@ import novaMediacaoReducer from './admin/mediacao/nova/reducer';
 import listUsersReducer from './admin/listUsers/reducer'
 import configuracaoReducer from './admin/configuracao/reducer'
 import requeridosPendentesReducer from './admin/mediacao/requeridos/pendentes/reducer';
+import mediacoesReducer from './admin/mediacao/mediacoes/reducer';
+import mediacaoReducer from './admin/mediacao/reducer';
+import mediacaoSituacaoReducer from './admin/mediacao/situacao/reducer';
 import negociadorReducer from './dashboard/negociador/reducer'
 
 export default combineReducers({
@@ -34,5 +37,8 @@ export default combineReducers({
   listUsers: listUsersReducer,
   configuracao: configuracaoReducer,
   requeridosPendentes: requeridosPendentesReducer,
-  negociadores: negociadorReducer,
+  mediacoes: mediacoesReducer,
+  mediacao: mediacaoReducer,
+  mediacaoSituacao: mediacaoSituacaoReducer,
+  negociadores: negociadorReducer
 });

@@ -48,11 +48,11 @@ class CustomTable extends React.Component {
         <Table className={classes.table}>
           {tableHead !== undefined ? (
             <TableHead className={classes[tableHeaderColor]}>
-              <TableRow className={classes.tableRow+ " " + classes.tableId}>
+              <TableRow className={classes.tableRow /*+ " " + classes.tableId*/}>
                 {tableHead.map((prop, key) => {
                   const tableCellClasses =
                     classes.tableHeadCell +
-                    " " + classes.tableId+
+                    //" " + classes.tableId+ //TODO: Repensar nisso, só deveria aplicar quando a coluna tiver # ..... estava bugando todas as outras tables, limitando as colunas em 80px
                     " " +
                     classes.tableCell +
                     " " +
@@ -89,7 +89,7 @@ class CustomTable extends React.Component {
               });
               if (prop.total) {
                 return (
-                  <TableRow key={key} hover={hover} className={tableRowClasses+ " " + classes.tableId}>
+                <TableRow key={key} hover={hover} className={tableRowClasses /*+ " " + classes.tableId */}>
                     <TableCell
                       className={classes.tableCell}
                       colSpan={prop.colspan}
@@ -135,7 +135,7 @@ class CustomTable extends React.Component {
                 <TableRow
                   key={key}
                   hover={hover}
-                  className={classes.tableRow + " " + tableRowClasses+ " " + classes.tableId}
+                  className={classes.tableRow + " " + tableRowClasses /*+ " " + classes.tableId */}
                 >
                   {prop.map((prop, key) => {
                     const tableCellClasses =

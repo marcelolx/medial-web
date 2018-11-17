@@ -9,18 +9,10 @@ import CardBody from '../../components/Card/CardBody';
 import Table from '../../components/Table';
 import Edit from "@material-ui/icons/Edit";
 import Button from '../../components/CustomButtons/Button';
-import adminCadastroPendenteStyle from '../../assets/jss/scenes/Dashboard/adminCadastroPendenteStyle';
+import adminCardTableStyle from '../../assets/jss/scenes/Dashboard/adminCardTableStyle';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/action';
-
-
-const styles = ({
-  ...adminCadastroPendenteStyle,
-  semMargen: {
-    margin: 0,
-  }
-});
+import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/actions';
 
 class AdminNPJ extends React.Component {
 
@@ -70,7 +62,7 @@ class AdminNPJ extends React.Component {
 
     return(
       <GridItem xs={12} sm={12} md={6} lg={6}>
-        <Card>
+        <Card minHeight>
           <CardHeader color="primary">
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
@@ -113,6 +105,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(compose(
-  withStyles(styles),
+  withStyles(adminCardTableStyle),
   connect(mapStateToProps, mapDispatchToProps)
 )(AdminNPJ));

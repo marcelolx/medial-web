@@ -15,6 +15,11 @@ export const FECHADA_POR_DECURSO_PRAZO = 'FECHADA_POR_DECURSO_PRAZO';
 export const CANCELADA = 'CANCELADA';
 export const CONCLUIDA = 'CONCLUIDA';
 export const ENCAMINHADO_PROCESSO_JUDICIAL = 'ENCAMINHADO_PROCESSO_JUDICIAL';
+export const ACORDO = 'ACORDO';
+export const CHAT = 'CHAT'; 
+export const ENTROU = 'ENTROU'
+export const MOTIVO = 'MOTIVO'
+export const SAIU = 'SAIU';
 
 export default function getAdaptedMessage(message) {
   switch(message){

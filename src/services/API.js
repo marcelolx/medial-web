@@ -1,10 +1,11 @@
 import axios from 'axios';
+
 const dev = true;
-const ip = 'http://api.downet.com.br/api/';
-const ipDev = 'http://localhost:8080/api/';
+const ip = 'http://api.downet.com.br';
+const ipDev = 'http://localhost:8080';
 
 export const API = axios.create({
-  baseURL: dev ? ipDev: ip,
+  baseURL: (dev ? ipDev: ip) + '/api/',
   timeout: 15000,
 });
 
@@ -26,7 +27,17 @@ API.interceptors.request.use((config) => {
 });
 
 export const GraphQLAPI = axios.create({
-  baseURL:  (dev ? ipDev: ip) + 'graphql',
+  baseURL:  (dev ? ipDev: ip) + '/api/graphql',
 });
+
+export function getWebSocketAddres() {
+  return (dev ? ipDev : ip) + '/websocket';
+}
+
+export function getHeaders() {
+  const localState = JSON.parse(window.localStorage.getItem('state')) || {};  
+
+  return localState.auth.token;
+}
 
 export default API;
