@@ -8,6 +8,7 @@ import Mensagens from './components/Mensagens';
 import Solicitacao from './components/Solicitacao';
 
 class Mediacao extends React.PureComponent {
+
   render() {
     return(
       <React.Fragment>
