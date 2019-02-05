@@ -7,13 +7,15 @@ import CardFooter from '../../../../components/Card/CardFooter';
 import { getWebSocketAddres } from '../../../../services/API';
 import SockJsClient from 'react-stomp';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import ChatInput from '../../../../components/Chat/ChatInput';
 import ChatBox from '../../../../components/Chat/ChatBox';
 import { CHAT, ENTROU, SAIU } from '../../../../services/admin/mediacao/messages';
 
+import * as mediacaoActions from './../../../../services/admin/mediacao/actions';
 
-const style = theme => ({  
+const style = theme => ({
   cardMensagens: {
     height: '478px'
   },
@@ -40,7 +42,21 @@ class Mensagens extends React.Component {
     this.state = {
       messages: [],
       clientConnected: false,
-      topic: ''
+      topic: '',
+      offset: 0,
+    }
+  }
+
+  componentWillMount() {
+    let limit = 20;
+    let offset = this.state.offset;
+    this.props.actions.adquirirMensagem(this.props.idMediacao,offset, limit);
+    this.setState({ offset: offset + limit });
+  }
+
+  componentWillUpdate() {
+    if (this.props.mediacao.isLoadedMensagem) {
+      this.props.actions.limparDadosMensagens();
     }
   }
 
@@ -60,7 +76,7 @@ class Mensagens extends React.Component {
     const topic = `/medial/chat/${this.props.mediacao.mediacao.protocolo}`;
 
     this.sendMessageTo('addUser', ENTROU, '', topic);
-    
+
     this.setState({
       clientConnected: true,
       topic
@@ -80,29 +96,29 @@ class Mensagens extends React.Component {
 
       this.clientRef.sendMessage(`${topic}/${endpoint}`, JSON.stringify(data));
       return true;
-    } catch(e) {
+    } catch (e) {
       return false;
     }
   }
-  
+
   onErrorConnect(error) {
     console.log(error);
     console.log('não conectou');
-    
-    
+
+
     //connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     //connectingElement.style.color = 'red';
   }
 
   onSockJSClient() {
     return (
-      <SockJsClient 
+      <SockJsClient
         url={getWebSocketAddres()}
         topics={[`/channel/${this.props.mediacao.mediacao.protocolo}`]}
-        onConnect={ () => { this.onConnected() } }
-        onError={ (error) => { this.onErrorConnect(error) } }
+        onConnect={() => { this.onConnected() }}
+        onError={(error) => { this.onErrorConnect(error) }}
         onMessage={(msg) => { this.onMessageReceived(msg) }}
-        ref={ (client) => { this.clientRef = client }} 
+        ref={(client) => { this.clientRef = client }}
       />
     );
   }
@@ -110,7 +126,7 @@ class Mensagens extends React.Component {
   render() {
     const { classes } = this.props;
 
-    return(
+    return (
       <React.Fragment>
         {this.props.mediacao.mediacao !== null ? this.onSockJSClient() : null}
         <Card className={classes.cardMensagens}>
@@ -118,16 +134,16 @@ class Mensagens extends React.Component {
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mensagens</h4>
           </CardHeader>
           <CardBody>
-            <ChatBox 
-               currentUserId={ this.props.auth.id.toString() }
-               currentUser={ this.props.auth.nome } 
-               messages={ this.state.messages }
+            <ChatBox
+              currentUserId={this.props.auth.id.toString()}
+              currentUser={this.props.auth.nome}
+              messages={this.state.messages}
             />
           </CardBody>
           <CardFooter>
             <ChatInput
-              onSendMessage={ this.onSendMessage }
-              disabled={ !this.state.clientConnected }
+              onSendMessage={this.onSendMessage}
+              disabled={!this.state.clientConnected}
             />
           </CardFooter>
         </Card>
@@ -141,7 +157,14 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...mediacaoActions,
+  }, dispatch)
+});
+
+
 export default compose(
   withStyles(style),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Mensagens);
