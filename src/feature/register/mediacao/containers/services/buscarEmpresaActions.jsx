@@ -1,4 +1,4 @@
-import { API } from '../../../../../services/API';
+import { API } from '../../../../../core/http/API';
 import { COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR, COMPANY_MATCH_SEARCH_START } from './buscarEmpresaActionTypes';
 
 export function getEmpresas(fantasia) {

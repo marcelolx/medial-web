@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import tableStyle from '../assets/jss/components/tableStyle';
+import tableStyle from '../../assets/jss/components/tableStyle';
 import { TableFooter, TablePagination } from '@material-ui/core';
 
 class CustomTable extends React.Component {

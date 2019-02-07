@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import * as profileActions from '../../services/admin/profile/actions';
-import * as estadosActions from '../../services/graphql/estados/actions';
-import * as cidadesActions from '../../services/graphql/cidades/actions';
-import * as authActions from '../../services/admin/authentication/actions';
+import * as profileActions from './services/profileActions';
+import * as estadosActions from '../../core/services/graphql/estados/estadosActions';
+import * as cidadesActions from '../../core/services/graphql/cidades/cidadesActions';
+import * as authActions from '../../core/services/authentication/loginActions';
 
-import {replaceNaoNumeros,verifyEmail} from '../../utils/utils'
-import Loader from '../../core/components/Loader'
+import {replaceNaoNumeros,verifyEmail} from '../../core/utils/utils';
+import Loader from '../../core/components/Loader';
 
 import GridItem from '../../core/components/grid/GridItem';
 import Card from '../../core/components/card/Card';

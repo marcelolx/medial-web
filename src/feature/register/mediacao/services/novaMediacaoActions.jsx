@@ -1,4 +1,4 @@
-import { API } from '../../../../services/API';
+import { API } from '../../../../core/http/API';
 import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from './novaMediacaoActionTypes';
 
 export function cadastrar(data) {

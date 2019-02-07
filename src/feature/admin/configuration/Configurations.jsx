@@ -18,7 +18,7 @@ import Button from '../../../core/components/CustomButton';
 import Table from '../../../core/components/CustomTable';
 import CardIcon from '../../../core/components/card/CardIcon';
 import SearchSelect from '../../../core/components/SearchSelect';
-import verifyLength from '../../utils/utils';
+import verifyLength from '../../../core/utils/utils';
 
 import * as configuracaoActions from './services/configurationActions'
 

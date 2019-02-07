@@ -7,7 +7,7 @@ import CustomChip from '../../../../../components/Chip/Chip';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import getAdaptedMessage from '../../../../services/admin/mediacao/messages';
+import getAdaptedMessage from '../utils/mediacaoMessagesHelper';
 
 const style = theme => ({
   semMargen: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import GridContainer from '../../../../components/Grid/GridContainer';
-import GridItem from '../../../../components/Grid/GridItem';
+import GridContainer from '../../../../core/components/grid/GridContainer';
+import GridItem from '../../../../core/components/grid/GridItem';
 
 export function findStepStateIndex(stepId, allStates) {
   return Object.keys(allStates).filter(

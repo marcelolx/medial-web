@@ -15,7 +15,7 @@ import ViewList from '@material-ui/icons/ViewList';
 
 // core components
 import HeaderLinks from './HeaderLinks';
-import Button from '../custombuttons/Button';
+import Button from '../CustomButton';
 
 import headerStyle from '../../../assets/jss/components/headerStyle';
 

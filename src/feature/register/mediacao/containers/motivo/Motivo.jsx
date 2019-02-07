@@ -1,17 +1,17 @@
 import React from 'react';
-import GridContainer from '../../../../components/Grid/GridContainer';
+import GridContainer from '../../../../core/components/grid/GridContainer';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GridItem from '../../../../components/Grid/GridItem';
+import GridItem from '../../../../core/components/grid/GridItem';
 import { bindActionCreators } from 'redux';
 import * as assuntosActions from '../../../../services/admin/mediacao/assuntos/actions';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import SearchSelect from '../../../../components/SearchSelect';
+import SearchSelect from '../../../../../core/components/SearchSelect';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO } from './stepTypes';
-import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../admin/mediacao/constants/messages';
+import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO } from '../../constants/mediacaoStepConstants';
+import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../admin/mediacao/utils/mediacaoMessagesHelper';
 
 const style = {
   multilineTextField: {
@@ -20,14 +20,12 @@ const style = {
 };
 
 class Motivo extends React.Component {
-  constructor(props) {
-    super(props);    
-    this.state = {
-      conflitos: [],
-      assuntos: [],
-      mensagem: '',
-      errorCode: '',
-    };
+  
+  state = {
+    conflitos: [],
+    assuntos: [],
+    mensagem: '',
+    errorCode: '',
   }
 
   sendState() {
@@ -36,7 +34,7 @@ class Motivo extends React.Component {
 
   isValidated() {
     let isValid = (
-      ((this.state.conflitos.value !== undefined) && (this.state.conflitos.value > 0)) && 
+      ((this.state.conflitos.value !== undefined) && (this.state.conflitos.value > 0)) &&
       ((this.state.assuntos.value !== undefined) && (this.state.assuntos.value > 0)));
 
     if (!isValid) {
@@ -56,7 +54,7 @@ class Motivo extends React.Component {
         errorCode: ''
       });
     }
-    
+
     return isValid;
   }
 
@@ -70,8 +68,8 @@ class Motivo extends React.Component {
     this.setState({ [name]: selecionado });
 
     if (name === 'conflitos') {
-      (selecionado.value !== undefined) 
-        ? this.buscarListaAssuntos(selecionado.value) 
+      (selecionado.value !== undefined)
+        ? this.buscarListaAssuntos(selecionado.value)
         : this.limparListasAssutos();
     }
   }
@@ -97,12 +95,12 @@ class Motivo extends React.Component {
 
   render() {
     const { classes, assuntos, mediacao } = this.props;
-        
-    return(
+
+    return (
       <React.Fragment>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={5}>
-            <SearchSelect 
+            <SearchSelect
               opcoes={assuntos.conflitos}
               name="conflitos"
               onChange={(name, value) => this.handleSelectChange(name, value)}
@@ -150,7 +148,7 @@ class Motivo extends React.Component {
                 value={this.state.mensagem}
                 onChange={this.handleChange('mensagem')}
               />
-              { 
+              {
                 ((this.state.errorCode === MINIMO_CARACTERES_500) || (mediacao.errorCode === MENSAGEM_MENOS_500_CARACTERES)) &&
                 <FormHelperText id="mensagem-error-text">{mediacao.mensagem || 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
               }

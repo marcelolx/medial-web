@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import mediacaoStyles from '../../../assets/jss/scenes/Register/mediacaoStyles';
+import mediacaoStyles from '../../../assets/jss/scenes/register/mediacaoStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GridItem from '../../../components/Grid/GridItem';
-import GridContainer from '../../../components/Grid/GridContainer';
-import Wizard from '../../../components/Wizard';
-import BuscarEmpresa from './Steps/BuscarEmpresa';
-import Motivo from './Steps/Motivo';
-import Empresa from './Steps/Empresa';
-import Confirmacao from './Steps/Confirmacao';
-import { BUSCAR_EMPRESA, EMPRESA, MOTIVO, CONFIRMACAO } from './Steps/stepTypes';
+import GridItem from '../../../core/components/grid/GridItem';
+import GridContainer from '../../../core/components/grid/GridContainer';
+import Wizard from '../../../core/components/Wizard';
+import BuscarEmpresa from './containers/BuscarEmpresa';
+import Motivo from './containers/motivo/Motivo';
+import Empresa from './containers/Empresa';
+import Confirmacao from './containers/Confirmacao';
+import { BUSCAR_EMPRESA, EMPRESA, MOTIVO, CONFIRMACAO } from './constants/mediacaoStepConstants';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { findStepStateIndex } from './Steps/helpers';
-import * as novaMediacaoActions from '../../../services/admin/mediacao/nova/actions';
+import { findStepStateIndex } from './utils/mediacaoHelper';
+import * as novaMediacaoActions from './services/novaMediacaoActions';
 import bindActionCreators from 'redux/src/bindActionCreators';
 
 const steps = [

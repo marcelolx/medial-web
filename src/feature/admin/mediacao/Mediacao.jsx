@@ -1,11 +1,11 @@
 import React from 'react';
-import GridContainer from '../../../../../components/Grid/GridContainer';
-import GridItem from '../../../../../components/Grid/GridItem';
-import Situacao from '../components/Situacao';
-import Acordos from '../components/Acordos';
-import Anexos from '../components/Anexos';
-import Mensagens from '../components/Mensagens';
-import Solicitacao from '../components/Solicitacao';
+import GridContainer from '../../../../../components/grid/GridContainer';
+import GridItem from '../../../../../components/grid/GridItem';
+import Situacao from './containers/Situacao';
+import Acordos from './containers/Acordos';
+import Anexos from './containers/Anexos';
+import Mensagens from './containers/Mensagens';
+import Solicitacao from './containers/Solicitacao';
 
 class Mediacao extends React.PureComponent {
 

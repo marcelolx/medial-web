@@ -1,6 +1,6 @@
-import { API } from "../../../services/API";
-import { PROFILE_COMPLETE,ALTERACAO_SUCESSO,ALTERACAO_ERRO,CARREGANDO,CLOSE_NOTIFICATION } from "./profileActionTypes";
-import { UNAUTHORIZED } from "../../errors/actionTypes"
+import { API } from '../../../core/http/API';
+import { PROFILE_COMPLETE,ALTERACAO_SUCESSO,ALTERACAO_ERRO,CARREGANDO,CLOSE_NOTIFICATION } from './profileActionTypes';
+import { UNAUTHORIZED } from '../../../core/services/errors/errorActionTypes'
 
 export function loadProfile(token) {
 

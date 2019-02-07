@@ -10,7 +10,7 @@ import Hidden from "@material-ui/core/Hidden";
 import { connect } from 'react-redux';
 import * as authActions from '../../services/authentication/loginActions';
 
-import Button from '../custombuttons/Button';
+import Button from '../CustomButton';
 
 import headerLinksStyle from '../../../assets/jss/components/headerLinksStyle';
 

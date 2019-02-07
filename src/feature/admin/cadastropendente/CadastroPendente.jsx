@@ -7,7 +7,7 @@ import CardHeader from '../../../../../components/Card/CardHeader';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CardBody from '../../../../../components/Card/CardBody';
 import CustomInput from '../../../../../components/CustomInput';
-import { TextMaskCNPJ, TextWMaskCellPhone } from '../../../../../components/Masks';
+import { TextMaskCNPJ, TextMaskCellPhone } from '../../../../../components/Masks';
 import Button from '../../../../../components/CustomButtons/Button';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';

@@ -17,7 +17,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 
 // core components
-import Button from '../custombuttons/Button';
+import Button from '../CustomButton';
 
 import pagesRoutes from './../../routes/pages';
 

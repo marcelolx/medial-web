@@ -4,13 +4,13 @@ import Home from '@material-ui/icons/Home';
 import Settings from '@material-ui/icons/Settings';
 import Bookmark from '@material-ui/icons/Bookmark';
 import HomePage from '../../feature/home/HomePage';
-import NovaMediacao from '../../feature/register/Mediacao';
+import NovaMediacao from '../../feature/register/mediacao/NovaMediacao';
 import Mediacao from '../../feature/admin/mediacao/Mediacao';
 import ListUsers from '../../feature/admin/listusers/ListUsers';
 import Profile from '../../feature/profile/Profile';
 import Configurations from '../../feature/admin/configuration/Configurations';
-import CadastroPendente from '../../feature/admin/mediacao/CadastroPendente';
-import Negociador from '../../feature/dashboard/negociadores/Negociador';
+import CadastroPendente from '../../feature/admin/cadastropendente/CadastroPendente';
+import Negociador from '../../feature/dashboard/negociador/Negociador';
 
 
 var dashRoutes = [

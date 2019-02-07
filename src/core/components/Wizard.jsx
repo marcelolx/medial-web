@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '../CustomButtons/Button';
+import Button from './CustomButton';
 import Card from './Card/Card';
 import wizardStyle from '../../assets/jss/components/wizardStyle';
 

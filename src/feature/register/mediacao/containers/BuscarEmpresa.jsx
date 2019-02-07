@@ -2,23 +2,23 @@ import React from 'react';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
-import GridContainer from '../../../../components/Grid/GridContainer';
-import GridItem from '../../../../components/Grid/GridItem';
-import CustomInput from '../../../../components/CustomInput';
+import GridContainer from '../../../../core/components/grid/GridContainer';
+import GridItem from '../../../../core/components/grid/GridItem';
+import CustomInput from '../../../../core/components/CustomInput';
 import Checkbox from '@material-ui/core/Checkbox';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '../../../../components/CustomButtons/Button';
-import Table from '../../../../components/Table';
+import Button from '../../../../core/components/CustomButton';
+import Table from '../../../../core/components/CustomTable';
 import empresasTableStyle from '../../../../assets/jss/scenes/empresasTableStyle';
 import Check from "@material-ui/icons/Check";
-import Card from '../../../../components/Card/Card';
-import CardHeader from '../../../../components/Card/CardHeader';
-import CardBody from '../../../../components/Card/CardBody';
-import CardIcon from '../../../../components/Card/CardIcon';
+import Card from '../../../../core/components/card/Card';
+import CardHeader from '../../../../core/components/card/CardHeader';
+import CardBody from '../../../../core/components/card/CardBody';
+import CardIcon from '../../../../core/components/card/CardIcon';
 import Assignment from "@material-ui/icons/Assignment";
-import * as empresaActions from '../../../../services/admin/empresa/actions';
+import * as empresaActions from './services/buscarEmpresaActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { EMPRESA_INVALIDA } from '../../../../services/admin/mediacao/messages';
+import { EMPRESA_INVALIDA } from '../../../admin/mediacao/utils/mediacaoMessagesHelper';
 
 const style = {
   ...empresasTableStyle,
