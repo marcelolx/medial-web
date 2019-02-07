@@ -1,5 +1,5 @@
-import { GET_ASSUNTOS_COMPLETE, GET_ASSUNTOS_ERROR, GET_CONFLITOS_COMPLETE, GET_CONFLITOS_ERROR, CLEAR_ASSUNTOS } from './motivoActionTypes';
-import { API } from '../../../API';
+import { GET_ASSUNTOS_COMPLETE, GET_ASSUNTOS_ERROR, GET_CONFLITOS_COMPLETE, GET_CONFLITOS_ERROR, CLEAR_ASSUNTOS } from './assuntosActionTypes';
+import { API } from '../../../../../../core/http/API';
 
 export function getConflitos() {
   return function(dispatch) {

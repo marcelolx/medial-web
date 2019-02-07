@@ -1,21 +1,21 @@
 import React from 'react';
 import withRouter from 'react-router-dom/withRouter';
-import GridContainer from '../../../../../components/Grid/GridContainer';
-import GridItem from '../../../../../components/Grid/GridItem';
-import Card from '../../../../../components/Card/Card';
-import CardHeader from '../../../../../components/Card/CardHeader';
+import GridContainer from '../../../core/components/grid/GridContainer';
+import GridItem from '../../../core/components/grid/GridItem';
+import Card from '../../../core/components/card/Card';
+import CardHeader from '../../../core/components/card/CardHeader';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CardBody from '../../../../../components/Card/CardBody';
-import CustomInput from '../../../../../components/CustomInput';
-import { TextMaskCNPJ, TextMaskCellPhone } from '../../../../../components/Masks';
-import Button from '../../../../../components/CustomButtons/Button';
+import CardBody from '../../../core/components/card/CardBody';
+import CustomInput from '../../../core/components/CustomInput';
+import { TextMaskCNPJ, TextMaskCellPhone } from '../../../core/components/Masks';
+import Button from '../../../core/components/CustomButton';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import getAdaptedMessage, { SOLICITADO_CADASTRO_EMPRESA } from '../../../../../services/admin/mediacao/messages';
-import * as requeridoPendenteActions from '../../../../../services/admin/mediacao/requeridos/pendentes/actions';
-import bindActionCreators from 'redux/src/bindActionCreators';
-import Snackbar from '../../../../../components/Snackbar/Snackbar';
+import getAdaptedMessage, { SOLICITADO_CADASTRO_EMPRESA } from '../mediacao/utils/mediacaoMessagesHelper';
+import * as requeridoPendenteActions from './services/requeridoPendenteActions';
+import { bindActionCreators } from 'redux';
+import Snackbar from '../../../core/components/snackbar/Snackbar';
 import queryString from 'query-string';
  
 const styles = ({

@@ -1,16 +1,16 @@
 import React from 'react';
-import Card from '../../../../../components/card/Card';
-import CardHeader from '../../../../../components/card/CardHeader';
-import CardBody from '../../../../../components/card/CardBody';
+import Card from '../../../../core/components/card/Card';
+import CardHeader from '../../../../core/components/card/CardHeader';
+import CardBody from '../../../../core/components/card/CardBody';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CardFooter from '../../../../../components/card/CardFooter';
+import CardFooter from '../../../../core/components/card/CardFooter';
 import { getWebSocketAddres } from '../../../../core/http/API';
 import SockJsClient from 'react-stomp';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
-import ChatInput from '../../../../../components/chat/ChatInput';
-import ChatBox from '../../../../../components/chat/ChatBox';
+import ChatInput from '../../../../core/components/chat/ChatInput';
+import ChatBox from '../../../../core/components/chat/ChatBox';
 import { CHAT, ENTROU, SAIU } from '../utils/mediacaoMessagesHelper';
 
 import * as mediacaoActions from '../services/mediacaoActions';

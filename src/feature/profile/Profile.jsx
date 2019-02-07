@@ -17,7 +17,7 @@ import GridContainer from '../../core/components/grid/GridContainer';
 import CardHeader from '../../core/components/card/CardHeader';
 import CustomInput from '../../core/components/CustomInput';
 import SearchSelect from '../../core/components/SearchSelect';
-import Snackbar from '../../core/components/Snackbar/Snackbar';
+import Snackbar from '../../core/components/snackbar/Snackbar';
 import Button from '../../core/components/CustomButton';
 import ImageUpload from '../../core/components/ImageUpload';
 import { TextMaskCellPhone } from '../../core/components/Masks';

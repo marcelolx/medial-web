@@ -1,4 +1,4 @@
-import API from '../../../../API';
+import API from '../../../../core/http/API';
 import { 
   BUSCAR_REQUERIDOS_PENDENTES_START, 
   BUSCAR_REQUERIDOS_PENDENTES_COMPLETE, 

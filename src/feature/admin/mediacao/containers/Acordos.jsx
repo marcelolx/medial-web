@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from '../../../../../components/Card/Card';
-import CardHeader from '../../../../../components/Card/CardHeader';
-import CardBody from '../../../../../components/Card/CardBody';
+import Card from '../../../../core/components/card/Card';
+import CardHeader from '../../../../core/components/card/CardHeader';
+import CardBody from '../../../../core/components/card/CardBody';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '../../../../../components/CustomButtons/Button';
-import CardFooter from '../../../../../components/Card/CardFooter';
+import Button from '../../../../core/components/CustomButton';
+import CardFooter from '../../../../core/components/card/CardFooter';
 
 const style = ({
   semMargen: {

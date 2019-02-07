@@ -10,7 +10,7 @@ import estadosReducer from '../services/graphql/estados/estadosReducer';
 import cidadesReducer from '../services/graphql/cidades/cidadesReducer';
 import registerCompleteReducer from '../../feature/register/user/services/complete/registerUserCompleteReducer';
 import empresaReducer from '../../feature/register/mediacao/containers/services/buscarEmpresaReducer';
-import mediacaoAssuntosReducer from '../../feature/register/mediacao/containers/motivo/services/motivoReducer';
+import mediacaoAssuntosReducer from '../../feature/register/mediacao/containers/motivo/services/assuntosReducer';
 import novaMediacaoReducer from '../../feature/register/mediacao/services/novaMediacaoReducer';
 import listUsersReducer from '../../feature/admin/listusers/services/usersReducer';
 import configuracaoReducer from '../../feature/admin/configuration/services/configurationReducer';

@@ -3,7 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from './CustomButton';
-import Card from './Card/Card';
+import Card from './card/Card';
 import wizardStyle from '../../assets/jss/components/wizardStyle';
 
 function findItemToRemove(stepId, allStates) {

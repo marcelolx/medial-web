@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '../CustomButtons/Button';
+import Button from '../CustomButton';
 import AttachFile from '@material-ui/icons/AttachFile';
 import CustomInput from '../CustomInput';
 

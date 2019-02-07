@@ -1,9 +1,9 @@
 import React from 'react';
-import GridContainer from '../../../../core/components/grid/GridContainer';
+import GridContainer from '../../../../../core/components/grid/GridContainer';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GridItem from '../../../../core/components/grid/GridItem';
+import GridItem from '../../../../../core/components/grid/GridItem';
 import { bindActionCreators } from 'redux';
-import * as assuntosActions from '../../../../services/admin/mediacao/assuntos/actions';
+import * as assuntosActions from './services/assuntosActions';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import SearchSelect from '../../../../../core/components/SearchSelect';
@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO } from '../../constants/mediacaoStepConstants';
-import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../admin/mediacao/utils/mediacaoMessagesHelper';
+import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../admin/mediacao/utils/mediacaoMessagesHelper';
 
 const style = {
   multilineTextField: {

@@ -2,22 +2,22 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import GridItem from '../../../../../components/grid/GridItem';
-import Card from '../../../../../components/card/Card';
-import CardHeader from '../../../../../components/card/CardHeader';
-import CardBody from '../../../../../components/card/CardBody';
+import GridItem from '../../../core/components/grid/GridItem';
+import Card from '../../../core/components/card/Card';
+import CardHeader from '../../../core/components/card/CardHeader';
+import CardBody from '../../../core/components/card/CardBody';
 import { bindActionCreators } from 'redux';
-import negociadorStyle from '../../../assets/jss/scenes/Dashboard/negociadorStyle';
+import negociadorStyle from '../../../assets/jss/scenes/dashboard/negociadorStyle';
 import { withRouter } from 'react-router-dom';
 import PersonOutline from '@material-ui/icons/PersonOutline';
-import Button from '../../../../../components/CustomButtons/Button';
+import Button from '../../../core/components/CustomButton';
 import * as negociadorActions from './services/negociadorActions';
-import GridContainer from '../../../../../components/Grid/GridContainer';
-import SweetAlert from 'react-bootstrap-sweetalert/lib/dist/SweetAlert';
-import CustomInput from '../../../../../components/CustomInput';
-import Table from '../../../../../components/Table';
+import GridContainer from '../../../core/components/grid/GridContainer';
+import { SweetAlert } from 'react-bootstrap-sweetalert';
+import CustomInput from '../../../core/components/CustomInput';
+import Table from '../../../core/components/CustomTable';
 import CheckCircle from "@material-ui/icons/CheckCircle";
-import Loader from '../../../../../components/Loader';
+import Loader from '../../../core/components/Loader';
 
 const styles = ({
   ...negociadorStyle,

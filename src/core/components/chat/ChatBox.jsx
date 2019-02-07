@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ChatMessage from './ChatMessage';
 import { animateScroll as scroll } from 'react-scroll';
-import '../../assets/scss/chatBox.scss';
+import '../../../assets/scss/chatBox.scss';
 
 const htmlId = require('react-html-id');
 

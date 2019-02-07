@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import cardFooterStyle from '../../assets/jss/components/cardFooterStyle';
+import cardFooterStyle from '../../../assets/jss/components/cardFooterStyle';
 
 function CardFooter({ ...props }) {
   const {

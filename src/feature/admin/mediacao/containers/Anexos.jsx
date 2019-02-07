@@ -1,7 +1,7 @@
 import React from 'react';
-import Card from '../../../../../components/Card/Card';
-import CardHeader from '../../../../../components/Card/CardHeader';
-import CardBody from '../../../../../components/Card/CardBody';
+import Card from '../../../../core/components/card/Card';
+import CardHeader from '../../../../core/components/card/CardHeader';
+import CardBody from '../../../../core/components/card/CardBody';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const style = ({

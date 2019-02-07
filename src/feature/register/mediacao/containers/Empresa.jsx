@@ -5,10 +5,10 @@ import GridItem from '../../../../core/components/grid/GridItem';
 import CustomInput from '../../../../core/components/CustomInput';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { BUSCAR_EMPRESA } from './stepTypes';
+import { BUSCAR_EMPRESA } from '../constants/mediacaoStepConstants';
 import { TextMaskCNPJ, TextMaskPhone } from '../../../../core/components/Masks';
-import { findStepStateIndex, viewInState, viewError, validateEmail, validateCNPJ } from './helpers';
-import { CNPJ_INFORMADO_INVALIDO, EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO } from '../../../../core/utils/Messages/errorMessages';
+import { findStepStateIndex, viewInState, viewError, validateEmail, validateCNPJ } from '../utils/mediacaoHelper';
+import { CNPJ_INFORMADO_INVALIDO, EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO } from '../../../../core/utils/messages/errorMessages';
 import getAdaptedMessage from '../../../../feature/admin/mediacao/utils/mediacaoMessagesHelper';
 
 const style = {

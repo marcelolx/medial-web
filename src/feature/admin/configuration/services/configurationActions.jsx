@@ -1,5 +1,5 @@
 import { GET_CONFIGURACAO,GET_CONFLITOS, GET_CONFIGURACAO_ERROR,GET_CONFLITOS_ERROR } from './configurationActionType';
-import { API } from '../../../../../services/API';
+import { API } from '../../../../core/http/API';
 
 function mapConfiguracao(data){
   return {

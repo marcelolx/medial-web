@@ -18,7 +18,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import * as listActions from './services/actions';
+import * as listActions from './services/usersActions';
 
 
 function desc(a, b, orderBy) {
