@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../CustomButtons/Button';
-import avatar from '../../assets/img/avatar.png';
+import avatar from '../../../assets/img/avatar.png';
 
 class ImageUpload extends React.Component {
   constructor(props) {

@@ -10,7 +10,7 @@ import CardBody from '../../../core/components/card/CardBody';
 import * as negociadorActions from './services/negociadorActions';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import Button from '../../../core/components/custombuttons/Button';
+import Button from '../../../core/components/CustomButton';
 
 
 const styles = ({

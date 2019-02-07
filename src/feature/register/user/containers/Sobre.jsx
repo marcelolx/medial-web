@@ -14,7 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
-import { TextMaskCPF, TextMaskCNPJ } from '../../../../core/components/masks/Masks';
+import { TextMaskCPF, TextMaskCNPJ } from '../../../../core/components/Masks';
 import * as stepsActions from '../../../../core/services/steps/stepsActions';
 import * as registerUserActions from '../services/user/registerUserActions'
 import handleFieldShowError from '../../../../core/utils/validateFields.jsx';

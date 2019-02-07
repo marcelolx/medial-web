@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
 import PagesHeader from '../../core/components/header/PagesHeader';
-import pagesRoutes from '../../../core/routes/pages';
+import pagesRoutes from '../../core/routes/pages';
 
 import pagesStyle from '../../assets/jss/layouts/pagesStyle';
 

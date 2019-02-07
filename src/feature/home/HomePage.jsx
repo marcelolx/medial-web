@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import IfAnyGranted from '../../../core/components/Permissions/IfAnyGranted';
+import IfAnyGranted from '../../core/components/permissions/IfAnyGranted';
 import AdminNPJ from '../dashboard/AdminNPJ';
 import Usuario from '../dashboard/usuario/Usuario';
-import GridContainer from '../../../core/components/Grid/GridContainer';
-import GridItem from '../../../core/components/Grid/GridItem';
+import GridContainer from '../../core/components/grid/GridContainer';
+import GridItem from '../../core/components/grid/GridItem';
 import EmpresaNegociador from '../dashboard/negociador/EmpresaNegociador';
 
 class HomePage extends Component {

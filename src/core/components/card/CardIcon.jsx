@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import cardIconStyle from '../../assets/jss/components/cardIconStyle';
+import cardIconStyle from '../assets/jss/components/cardIconStyle';
 
 function CardIcon({ ...props }) {
   const { classes, className, children, color, ...rest } = props;

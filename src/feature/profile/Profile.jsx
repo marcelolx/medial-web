@@ -8,19 +8,19 @@ import * as cidadesActions from '../../services/graphql/cidades/actions';
 import * as authActions from '../../services/admin/authentication/actions';
 
 import {replaceNaoNumeros,verifyEmail} from '../../utils/utils'
-import Loader from '../../components/Loader'
+import Loader from '../../core/components/Loader'
 
-import GridItem from '../../components/Grid/GridItem';
-import Card from '../../components/Card/Card';
-import CardBody from '../../components/Card/CardBody';
-import GridContainer from '../../components/Grid/GridContainer';
-import CardHeader from '../../components/Card/CardHeader';
-import CustomInput from '../../components/CustomInput';
-import SearchSelect from '../../components/SearchSelect';
-import Snackbar from '../../components/Snackbar/Snackbar';
-import Button from '../../components/CustomButtons/Button';
-import ImageUpload from '../../components/CustomUpload/ImageUpload';
-import { TextMaskCellPhone } from '../../components/Masks';
+import GridItem from '../../core/components/grid/GridItem';
+import Card from '../../core/components/card/Card';
+import CardBody from '../../core/components/card/CardBody';
+import GridContainer from '../../core/components/grid/GridContainer';
+import CardHeader from '../../core/components/card/CardHeader';
+import CustomInput from '../../core/components/CustomInput';
+import SearchSelect from '../../core/components/SearchSelect';
+import Snackbar from '../../core/components/Snackbar/Snackbar';
+import Button from '../../core/components/CustomButton';
+import ImageUpload from '../../core/components/ImageUpload';
+import { TextMaskCellPhone } from '../../core/components/Masks';
 
 const styles = theme => ({
   root: {

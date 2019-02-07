@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import { withStyles, FormControl, FormHelperText, InputLabel, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
-import { TextMaskCEP, TextMaskForNumbers } from '../../../../core/components/masks/Masks';
+import { TextMaskCEP, TextMaskForNumbers } from '../../../../core/components/Masks';
 import SearchSelect from '../../../../core/components/root/registerstep/searchselect/SearchSelect';
 import * as paisesActions from '../../../../core/services/graphql/paises/paisesActions';
 import * as estadosActions from '../../../../core/services/graphql/estados/estadosActions';

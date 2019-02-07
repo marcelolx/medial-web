@@ -12,7 +12,7 @@ import {
   infoColor,
   roseColor,
   grayColor
-} from '../../assets/jss/styles';
+} from '../assets/jss/styles';
 
 const styles = ({
   primary: {

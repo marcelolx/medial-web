@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {  withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import GridContainer from '../../../components/Grid/GridContainer';
-import GridItem from '../../../components/Grid/GridItem';
-import Card from '../../../components/Card/Card';
-import CardBody from '../../../components/Card/CardBody';
+import GridContainer from '../../../core/components/grid/GridContainer';
+import GridItem from '../../../core/components/grid/GridItem';
+import Card from '../../../core/components/card/Card';
+import CardBody from '../../../core/components/card/CardBody';
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
 import Modal from 'react-responsive-modal';
 
-import CustomInput from '../../../components/CustomInput';
-import CardHeader from '../../../components/Card/CardHeader';
-import Button from '../../../components/CustomButtons/Button';
-import Table from '../../../components/Table';
-import CardIcon from '../../../components/Card/CardIcon';
-import SearchSelect from '../../../components/SearchSelect';
+import CustomInput from '../../../core/components/CustomInput';
+import CardHeader from '../../../core/components/card/CardHeader';
+import Button from '../../../core/components/CustomButton';
+import Table from '../../../core/components/CustomTable';
+import CardIcon from '../../../core/components/card/CardIcon';
+import SearchSelect from '../../../core/components/SearchSelect';
 import verifyLength from '../../utils/utils';
 
 import * as configuracaoActions from './services/configurationActions'

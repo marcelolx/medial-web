@@ -7,7 +7,7 @@ import * as stepsActions from '../../../../core/services/steps/stepsActions';
 import * as registerUserActions from '../services/user/registerUserActions'
 import * as errorActions from '../../../../core/services/errors/errorActions';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
-import { TextMaskPhone, TextMaskCellPhone } from '../../../../core/components/masks/Masks';
+import { TextMaskPhone, TextMaskCellPhone } from '../../../../core/components/Masks';
 import handleFieldShowError from '../../../../core/utils/validateFields.jsx';
 import { CELULAR_NAO_INFORMADO } from '../utils/registerUserMessagesHelper';
 import { TELEFONE_NAO_INFORMADO } from '../../../../core/utils/messages/errorMessages';
