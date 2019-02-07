@@ -1,5 +1,5 @@
 import { BUSCAR_MEDIACAO_SITUACAO_START, BUSCAR_MEDIACAO_SITUACAO_COMPLETE, BUSCAR_MEDIACAO_SITUACAO_ERROR } from './situacaoMediacaoActionTypes';
-import API from '../../../API';
+import API from '../../../../../core/http/API';
 
 export function buscarSituacaoMediacao(idMediacao) {
   return function(dispatch) {

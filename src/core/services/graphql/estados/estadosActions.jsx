@@ -1,5 +1,5 @@
 import { GET_STATES, GET_STATES_ERROR, CLEAR_STATES } from './estadosActionTypes';
-import { GraphQLAPI } from '../../../services/API';
+import { GraphQLAPI } from '../../../http/API';
 
 function mapStates(country, states) {
   const _states = states

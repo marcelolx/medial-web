@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose } from "recompose";
 import { withStyles, Button } from "@material-ui/core";
 import { connect } from 'react-redux';
-import * as stepsActions from '../../../../../services/steps/stepsActions';
+import * as stepsActions from '../../../../services/steps/stepsActions';
 import { bindActionCreators } from "redux";
 
 

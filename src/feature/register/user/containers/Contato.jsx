@@ -3,14 +3,14 @@ import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import { withStyles, FormControl, FormHelperText, InputLabel, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
-import * as stepsActions from '../../../../../services/steps/actions';
-import * as registerUserActions from '../../../../../services/register/user/actions';
-import * as errorActions from '../../../../services/errors/actions';
+import * as stepsActions from '../../../../core/services/steps/stepsActions';
+import * as registerUserActions from '../services/user/registerUserActions'
+import * as errorActions from '../../../../core/services/errors/errorActions';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
 import { TextMaskPhone, TextMaskCellPhone } from '../../../../core/components/masks/Masks';
-import handleFieldShowError from '../../../../../utils/validateFields';
-import { CELULAR_NAO_INFORMADO } from '../../../../../services/register/user/messages';
-import { TELEFONE_NAO_INFORMADO } from '../../../../../utils/Messages/errorMessages';
+import handleFieldShowError from '../../../../core/utils/validateFields.jsx';
+import { CELULAR_NAO_INFORMADO } from '../utils/registerUserMessagesHelper';
+import { TELEFONE_NAO_INFORMADO } from '../../../../core/utils/messages/errorMessages';
 
 const styles = theme => ({
   root: {

@@ -1,17 +1,17 @@
 import React from 'react';
-import Card from '../../../core/components/Card/Card';
-import CardHeader from '../../../core/components/Card/CardHeader';
-import CardBody from '../../../core/components/Card/CardBody';
+import Card from '../../../core/components/card/Card';
+import CardHeader from '../../../core/components/card/CardHeader';
+import CardBody from '../../../core/components/card/CardBody';
 import Table from '../../../core/components/Table';
-import adminCardTableStyle from '../../../assets/jss/scenes/Dashboard/adminCardTableStyle';
+import adminCardTableStyle from '../../../assets/jss/scenes/dashboard/adminCardTableStyle.jsx';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Edit from "@material-ui/icons/Edit";
 import Button from '../../../core/components/custombuttons/Button';
 import { bindActionCreators } from 'redux';
-import * as  mediacoesActions from './services/actions';
+import * as  mediacoesActions from '../../admin/mediacao/services/mediacaoActions';
 import { connect } from 'react-redux';
-import getAdaptedMessage from '../../../services/admin/mediacao/messages';
+import getAdaptedMessage from '../../admin/mediacao/utils/mediacaoMessagesHelper';
 import { withRouter } from 'react-router-dom';
 
 class Usuario extends React.Component {

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import Logo from '../../../../core/components/root/logo';
-import RegisterStep from '../../../../core/components/root/registerstep';
+import Logo from '../../../core/components/root/logo/Logo';
+import RegisterStep from '../../../core/components/root/registerstep/RegisterStep';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
-import Usuario from './steps/Usuario';
-import Sobre from './steps/Sobre';
-import Endereco from './steps/Endereco';
-import Contato from './steps/Contato';
-import Finalizar from './steps/Finalizar';
+import Usuario from './containers/Usuario';
+import Sobre from './containers/Sobre';
+import Endereco from './containers/Endereco';
+import Contato from './containers/Contato';
+import Finalizar from './containers/Finalizar';
 import * as registerUserActions from './services/user/registerUserActions';
 import * as stepsActions from '../../../core/services/steps/stepsActions';
 

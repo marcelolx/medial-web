@@ -4,10 +4,10 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import IfAnyGranted from '../../../core/components/Permissions/IfAnyGranted';
 import AdminNPJ from '../dashboard/AdminNPJ';
-import Usuario from '../dashboard/Usuario';
+import Usuario from '../dashboard/usuario/Usuario';
 import GridContainer from '../../../core/components/Grid/GridContainer';
 import GridItem from '../../../core/components/Grid/GridItem';
-import EmpresaNegociador from '../dashboard/EmpresaNegociador';
+import EmpresaNegociador from '../dashboard/negociador/EmpresaNegociador';
 
 class HomePage extends Component {
   render() {

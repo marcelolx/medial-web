@@ -1,5 +1,5 @@
 import { GET_CITIES, GET_CITIES_ERROR, CLEAR_CITIES } from './cidadesActionType';
-import { GraphQLAPI } from '../../../services/API';
+import { GraphQLAPI } from '../../../http/API';
 
 function mapCities(state, cities){
   const _cities = cities

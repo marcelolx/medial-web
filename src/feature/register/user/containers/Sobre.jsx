@@ -15,11 +15,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
 import { TextMaskCPF, TextMaskCNPJ } from '../../../../core/components/masks/Masks';
-import * as stepsActions from '../../../../../services/steps/actions';
-import * as registerUserActions from '../../../../../services/register/user/actions';
-import handleFieldShowError from '../../../../../utils/validateFields';
-import { CPF_INVALIDO, CPF_CNPJ_CADASTRADO, RG_IE_NAO_INFORMADO, DATA_IGUAL_DATA_ATUAL, NOME_MAE_NAO_INFORMADO, ESTADO_CIVIL_NAO_INFORMADO, ESCOLARIDADE_NAO_INFORMADA, FANTASIA_NAO_INFORMADO, RAMO_EMPRESARIAL_NAO_INFORMADO } from '../../../../../services/register/user/messages';
-import { CNPJ_INFORMADO_INVALIDO, NOME_NAO_INFORMADO } from "../../../../../utils/Messages/errorMessages";
+import * as stepsActions from '../../../../core/services/steps/stepsActions';
+import * as registerUserActions from '../services/user/registerUserActions'
+import handleFieldShowError from '../../../../core/utils/validateFields.jsx';
+import { CPF_INVALIDO, CPF_CNPJ_CADASTRADO, RG_IE_NAO_INFORMADO, DATA_IGUAL_DATA_ATUAL, NOME_MAE_NAO_INFORMADO, ESTADO_CIVIL_NAO_INFORMADO, ESCOLARIDADE_NAO_INFORMADA, FANTASIA_NAO_INFORMADO, RAMO_EMPRESARIAL_NAO_INFORMADO } from '../utils/registerUserMessagesHelper';
+import { CNPJ_INFORMADO_INVALIDO, NOME_NAO_INFORMADO } from '../../../../core/utils/messages/errorMessages';
 
 const styles = theme => ({
   root: {

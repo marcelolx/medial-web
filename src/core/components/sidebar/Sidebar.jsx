@@ -19,7 +19,7 @@ import Icon from '@material-ui/core/Icon';
 // core components
 import HeaderLinks from '../header/HeaderLinks.jsx';
 
-import sidebarStyle from './../../assets/jss/components/sidebarStyle.jsx';
+import sidebarStyle from '../../../assets/jss/components/sidebarStyle';
 
 
 var ps;

@@ -15,12 +15,12 @@ import FormControl from '@material-ui/core/FormControl';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
-import * as stepsActions from '../../../../../services/steps/actions';
-import * as registerUserActions from '../../../../../services/register/user/actions';
-import * as errorActions from '../../../../../services/errors/actions';
-import { EMAIL_CADASTRADO, SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM } from '../../../../../services/register/user/messages';
-import handleFieldShowError from '../../../../../utils/validateFields';
-import { EMAIL_INVALIDO } from '../../../../../utils/Messages/errorMessages';
+import * as stepsActions from '../../../../core/services/steps/stepsActions';
+import * as registerUserActions from '../services/user/registerUserActions'
+import * as errorActions from '../../../../core/services/errors/errorActions';
+import { EMAIL_CADASTRADO, SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM } from '../utils/registerUserMessagesHelper';
+import handleFieldShowError from '../../../../core/utils/validateFields.jsx';
+import { EMAIL_INVALIDO } from '../../../../core/utils/messages/errorMessages';
 
 const styles = theme => ({
   root: {

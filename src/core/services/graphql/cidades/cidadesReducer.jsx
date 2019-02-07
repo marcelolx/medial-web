@@ -1,4 +1,4 @@
-import { GET_CITIES, GET_CITIES_ERROR, CLEAR_CITIES } from './actionType';
+import { GET_CITIES, GET_CITIES_ERROR, CLEAR_CITIES } from './cidadesActionType';
 
 const initialState = {
   estado: null,

@@ -1,4 +1,4 @@
-import { GET_CONFIGURACAO,GET_CONFLITOS, GET_CONFIGURACAO_ERROR,GET_CONFLITOS_ERROR } from './actionType';
+import { GET_CONFIGURACAO,GET_CONFLITOS, GET_CONFIGURACAO_ERROR,GET_CONFLITOS_ERROR } from './configurationActionType';
 
 const initialState = {
   conflitos: [],

@@ -12,10 +12,10 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 // core components
-import Header from '../../../core/components/header/Header';
-import Sidebar from '../../../core/components/sidebar/Sidebar';
+import Header from '../../core/components/header/Header';
+import Sidebar from '../../core/components/sidebar/Sidebar';
 
-import dashboardRoutes from '../../../core/routes/dashboard';
+import dashboardRoutes from '../../core/routes/dashboard';
 
 import appStyle from '../../assets/jss/layouts/dashboardStyle';
 import logo from './../../assets/img/logo_sem_nome.png'

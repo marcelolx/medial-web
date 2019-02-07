@@ -1,24 +1,24 @@
 import { combineReducers } from 'redux';
-import authReducer from './admin/authentication/reducer';
-import emailValidacaoReducer from './admin/emailValid/reducer';
-import profileInfoReducer from './admin/profile/reducer';
-import errorsReducer from './errors/reducer';
-import stepsReducer from './steps/reducer';
-import registerUserReducer from './register/user/reducer';
-import paisesReducer from './graphql/paises/reducer';
-import estadosReducer from './graphql/estados/reducer';
-import cidadesReducer from './graphql/cidades/reducer';
-import registerCompleteReducer from './register/complete/reducer';
-import empresaReducer from './admin/empresa/reducer';
-import mediacaoAssuntosReducer from './admin/mediacao/assuntos/reducer';
-import novaMediacaoReducer from './admin/mediacao/nova/reducer';
-import listUsersReducer from './admin/listUsers/reducer'
-import configuracaoReducer from './admin/configuracao/reducer'
-import requeridosPendentesReducer from './admin/mediacao/requeridos/pendentes/reducer';
-import mediacoesReducer from './admin/mediacao/mediacoes/reducer';
-import mediacaoReducer from './admin/mediacao/reducer';
-import mediacaoSituacaoReducer from './admin/mediacao/situacao/reducer';
-import negociadorReducer from './dashboard/negociador/reducer'
+import authReducer from '../services/authentication/loginReducer';
+import emailValidacaoReducer from '../../feature/login/services/validEmailReducer';
+import profileInfoReducer from '../../feature/profile/services/profileReducer';
+import errorsReducer from '../services/errors/errorReducer';
+import stepsReducer from '../services/steps/stepsReducer';
+import registerUserReducer from '../../feature/register/user/services/user/registerUserReducer';
+import paisesReducer from '../services/graphql/paises/paisesReducer';
+import estadosReducer from '../services/graphql/estados/estadosReducer';
+import cidadesReducer from '../services/graphql/cidades/cidadesReducer';
+import registerCompleteReducer from '../../feature/register/user/services/complete/registerUserCompleteReducer';
+import empresaReducer from '../../feature/register/mediacao/containers/services/buscarEmpresaReducer';
+import mediacaoAssuntosReducer from '../../feature/register/mediacao/containers/motivo/services/motivoReducer';
+import novaMediacaoReducer from '../../feature/register/mediacao/services/novaMediacaoReducer';
+import listUsersReducer from '../../feature/admin/listusers/services/usersReducer';
+import configuracaoReducer from '../../feature/admin/configuration/services/configurationReducer';
+import requeridosPendentesReducer from '../../feature/admin/cadastropendente/services/requeridoPendenteReducer';
+import mediacoesReducer from '../../feature/admin/mediacao/services/mediacoes/mediacoesReducer';
+import mediacaoReducer from '../../feature/admin/mediacao/services/mediacaoReducer';
+import mediacaoSituacaoReducer from '../../feature/admin/mediacao/services/situacao/situacaoMediacaoReducer';
+import negociadorReducer from '../../feature/dashboard/negociador/services/negociadorReducer';
 
 export default combineReducers({
   auth: authReducer,

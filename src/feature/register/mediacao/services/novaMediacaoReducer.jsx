@@ -1,5 +1,7 @@
-import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from "./actionTypes";
-import getAdaptedMessage from '../../../../services/admin/mediacao/messages';
+import { SAVE_MEDIATION_START, SAVE_MEDIATION_COMPLETE, SAVE_MEDIATION_ERROR, CLEAR_MEDIATION_STATE } from './novaMediacaoActionTypes';
+import getAdaptedMessage from '../../../admin/mediacao/utils/mediacaoMessagesHelper';
+import NovaMediacaoConstants from '../utils/novaMediacaoConstants';
+
 
 const initialState = { 
   id: 0,
@@ -15,13 +17,13 @@ export default function(state = initialState, action) {
         id: 0,
         protocolo: '',
         errorCode: '',
-        mensagem: 'Solicitando mediação...'
+        mensagem: NovaMediacaoConstants.SOLICITANDO_MEDIACAO
       })
     case SAVE_MEDIATION_COMPLETE: 
       return Object.assign({}, state, {
         ...action.payload,
         errorCode: '',
-        mensagem: 'Mediação solicitada com sucesso!'
+        mensagem: NovaMediacaoConstants.MEDIACAO_SOLICITADA
       })
     case SAVE_MEDIATION_ERROR: 
       return Object.assign({}, state, {

@@ -1,5 +1,5 @@
 import { CLEAR_ERRORS, LOGIN_ERROR } from './errorActionTypes';
-import { SENHA_EXIGE_8_DIGITOS } from '../register/user/messages';
+import { SENHA_EXIGE_8_DIGITOS } from '../../../feature/register/user/utils/registerUserMessagesHelper';
 
 export function clearErrors() {
   return { type: CLEAR_ERRORS }

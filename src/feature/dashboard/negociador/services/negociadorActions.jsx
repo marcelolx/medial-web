@@ -1,4 +1,4 @@
-import { API } from '../../../../services/API';
+import { API } from '../../../../core/http/API';
 import { REMOVER_NEGOCIADOR_COMPLETE,
    REMOVER_NEGOCIADOR_ERROR,
    ADICIONAR_NEGOCIADOR_COMPLETE,

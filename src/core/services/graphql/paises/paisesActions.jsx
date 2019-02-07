@@ -1,5 +1,5 @@
 import { GET_COUNTRIES, GET_COUNTRIES_ERROR } from './paisesActionTypes';
-import { GraphQLAPI } from '../../API';
+import { GraphQLAPI } from '../../../http/API';
 
 const GET_COUNTRY = `
   {

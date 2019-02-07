@@ -9,10 +9,10 @@ import CardBody from '../../../core/components/card/CardBody';
 import Table from '../../core/components/Table';
 import Edit from "@material-ui/icons/Edit";
 import Button from '../../../core/components/CustomButtons/Button';
-import adminCardTableStyle from '../../assets/jss/scenes/Dashboard/adminCardTableStyle';
+import adminCardTableStyle from '../../assets/jss/scenes/dashboard/adminCardTableStyle';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as requeridoPendenteActions from '../../services/admin/mediacao/requeridos/pendentes/actions';
+import * as requeridoPendenteActions from '../../feature/admin/cadastropendente/services/requeridoPendenteReducer';
 
 class AdminNPJ extends React.Component {
 

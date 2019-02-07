@@ -1,4 +1,4 @@
-import { GET_STATES, GET_STATES_ERROR, CLEAR_STATES } from './actionTypes';
+import { GET_STATES, GET_STATES_ERROR, CLEAR_STATES } from './estadosActionTypes';
 
 const initialState = {
   pais: null,

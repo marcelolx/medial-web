@@ -1,4 +1,4 @@
-import { REGISTER_COMPLETE, REGISTER_FAIL } from './actionTypes';
+import { REGISTER_COMPLETE, REGISTER_FAIL } from './registerUserCompleteActionTypes';
 import getAdaptedMessage from '../../utils/registerUserMessagesHelper';
 
 const initialState = {

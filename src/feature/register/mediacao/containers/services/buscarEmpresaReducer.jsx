@@ -1,4 +1,4 @@
-import { COMPANY_MATCH_SEARCH_START, COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR } from './actionTypes';
+import { COMPANY_MATCH_SEARCH_START, COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR } from './buscarEmpresaActionTypes';
 
 const initialState = {
   empresas: [],

@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_COUNTRIES_ERROR } from './actionTypes';
+import { GET_COUNTRIES, GET_COUNTRIES_ERROR } from './paisesActionTypes';
 
 const initialState = {
   list: [],

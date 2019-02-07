@@ -7,8 +7,8 @@ import {
   BUSCAR_MENSAGEM_ERROR,
   LIMPAR_DADOS_MENSAGEM
 } from './mediacaoActionTypes';
-import API from '../../../../services/API';
-import { buscarSituacaoMediacao } from '../../../../services/admin/mediacao/situacao/actions';
+import API from '../../../../core/http/API';
+import { buscarSituacaoMediacao } from './situacao/situacaoMediacaoActions';
 
 export function buscarMediacao(idMediacao) {
   return function (dispatch) {

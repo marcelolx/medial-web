@@ -12,7 +12,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Logo from '../../../core/components/root/logo';
+import Logo from '../../core/components/root/logo/Logo';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import queryString from 'query-string';

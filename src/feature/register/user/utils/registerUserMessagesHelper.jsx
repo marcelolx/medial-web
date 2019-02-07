@@ -1,4 +1,4 @@
-import getDefaultAdaptedMessage from '../../../core/utils/messages/errorMessages';
+import getDefaultAdaptedMessage from '../../../../core/utils/messages/errorMessages';
 
 export const FANTASIA_NAO_INFORMADO = 'FANTASIA_NAO_INFORMADO';
 export const CPF_CNPJ_CADASTRADO = 'CPF_CNPJ_CADASTRADO';

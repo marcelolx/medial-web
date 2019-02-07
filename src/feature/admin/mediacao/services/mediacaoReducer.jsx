@@ -6,7 +6,7 @@ import {
   BUSCAR_MENSAGEM_ERROR,
   BUSCAR_MENSAGEM_START,
   LIMPAR_DADOS_MENSAGEM
-} from './actionTypes';
+} from './mediacaoActionTypes';
 
 const initialState = {
   isLoading: false,

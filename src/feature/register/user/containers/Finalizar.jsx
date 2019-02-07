@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import * as registerUserActions from '../../../../../services/register/user/actions';
-import * as stepsActions from '../../../../../services/steps/actions';
+import * as registerUserActions from '../services/user/registerUserActions';
+import * as stepsActions from '../../../../core/services/steps/stepsActions';
 import { compose } from 'recompose';
 import { withStyles, Fade, CircularProgress, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';

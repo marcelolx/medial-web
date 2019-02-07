@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import * as stepsActions from '../../../../../services/steps/actions';
-import * as registerUserActions from '../../../../../services/register/user/actions';
+import * as stepsActions from '../../../../core/services/steps/stepsActions';
+import * as registerUserActions from '../services/user/registerUserActions'
 import { compose } from 'recompose';
 import { withStyles, FormControl, FormHelperText, InputLabel, Input } from '@material-ui/core';
 import { connect } from 'react-redux';
 import RegisterStepButton from '../../../../core/components/root/registerstep/buttons/RegisterStepButtons';
 import { TextMaskCEP, TextMaskForNumbers } from '../../../../core/components/masks/Masks';
 import SearchSelect from '../../../../core/components/root/registerstep/searchselect/SearchSelect';
-import * as paisesActions from '../../../../../services/graphql/paises/actions';
-import * as estadosActions from '../../../../../services/graphql/estados/actions';
-import * as cidadesActions from '../../../../../services/graphql/cidades/actions';
-import handleFieldShowError from '../../../../../utils/validateFields';
-import { PAIS_NAO_INFORMADO, ESTADO_NAO_INFORMADO, CIDADE_NAO_INFORMADA, CEP_NAO_INFORMADO, BAIRRO_NAO_INFORMADO, RUA_NAO_INFORMADA, NUMERO_NAO_INFORMADO } from '../../../../../services/register/user/messages';
+import * as paisesActions from '../../../../core/services/graphql/paises/paisesActions';
+import * as estadosActions from '../../../../core/services/graphql/estados/estadosActions';
+import * as cidadesActions from '../../../../core/services/graphql/cidades/cidadesActions';
+import handleFieldShowError from '../../../../core/utils/validateFields.jsx';
+import { PAIS_NAO_INFORMADO, ESTADO_NAO_INFORMADO, CIDADE_NAO_INFORMADA, CEP_NAO_INFORMADO, BAIRRO_NAO_INFORMADO, RUA_NAO_INFORMADA, NUMERO_NAO_INFORMADO } from '../utils/registerUserMessagesHelper';
 
 const styles = theme => ({
   root: {

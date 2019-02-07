@@ -1,5 +1,5 @@
-import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL, CLEAR_ERRORS, LOGIN_ERROR } from './actionTypes';
-import getAdaptedMessage, { SENHA_EXIGE_8_DIGITOS } from '../register/user/messages';
+import { FORM_SUBMIT_FAIL, USER_REGISTER_FAIL, CLEAR_ERRORS, LOGIN_ERROR } from './errorActionTypes';
+import getAdaptedMessage, { SENHA_EXIGE_8_DIGITOS } from '../../../feature/register/user/utils/registerUserMessagesHelper';
 
 const initialState = {
   status: '',

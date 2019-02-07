@@ -1,4 +1,4 @@
-import { BUSCAR_MEDIACOES_START, BUSCAR_MEDIACOES_COMPLETE, BUSCAR_MEDIACOES_ERROR } from "./actionTypes";
+import { BUSCAR_MEDIACOES_START, BUSCAR_MEDIACOES_COMPLETE, BUSCAR_MEDIACOES_ERROR } from './mediacoesActionTypes';
 
 const initialState = {
   lista: [],

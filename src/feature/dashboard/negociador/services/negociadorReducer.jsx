@@ -7,7 +7,7 @@ import { REMOVER_NEGOCIADOR_ERROR,
          ADQUIRIR_TOTAL_ERROR,
          BUSCAR_PESSOAS_COMPLETE,
          BUSCAR_PESSOAS_ERROR,
-         CLEAR_PESSOAS} from "./actionTypes";
+         CLEAR_PESSOAS} from './negociadorActionTypes';
 
 const initialState = {
   negociadores: [],
