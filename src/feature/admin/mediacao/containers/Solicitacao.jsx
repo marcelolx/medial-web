@@ -44,45 +44,45 @@ class Solicitacao extends React.PureComponent {
     return(
       <React.Fragment>
         <Card>
-          <CardHeader color="success">
+          <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediação</h4>
           </CardHeader>
           <CardBody>
-            <GridContainer justify="center">
+            <GridContainer justify='center'>
               <GridItem 
                 xs={12} sm={12} md={2} lg={2}
                 className={classes.gridItemMargin}
               >
                 <CustomInput
-                  labelText="Protocolo"
+                  labelText='Protocolo'
                   inputProps={{
                     value: '#' + this.getMediacaoValueOrDefault('protocolo'),
                     disabled: true
                   }}
                   className={classes.inputCenterText}
-                  id="protocolo"
+                  id='protocolo'
                   formControlProps={{
                     fullWidth: true
                   }}
                 />
                 <CustomInput
-                  labelText="Conflito"
+                  labelText='Conflito'
                   inputProps={{
                     value: this.getMediacaoValueOrDefault('conflito'),
                     disabled: true,
                   }}
-                  id="conflito"
+                  id='conflito'
                   formControlProps={{
                     fullWidth: true
                   }}
                 />
                 <CustomInput
-                  labelText="Assunto"
+                  labelText='Assunto'
                   inputProps={{
                     value: this.getMediacaoValueOrDefault('assunto'),
                     disabled: true,
                   }}
-                  id="assunto"
+                  id='assunto'
                   formControlProps={{
                     fullWidth: true
                   }}
@@ -90,13 +90,13 @@ class Solicitacao extends React.PureComponent {
               </GridItem>
               <GridItem xs={12} sm={12} md={9} lg={9}>
                 <TextField
-                  label="Motivo"
+                  label='Motivo'
                   multiline
                   disabled
-                  rows="10"
+                  rows='10'
                   className={classes.multilineTextField}
-                  margin="normal"
-                  variant="outlined"
+                  margin='normal'
+                  variant='outlined'
                   value={this.getMediacaoValueOrDefault('motivo')}
                 />
               </GridItem>

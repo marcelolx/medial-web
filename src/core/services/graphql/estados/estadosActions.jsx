@@ -29,7 +29,7 @@ export function getCountryStates(country) {
   
   const GET_STATE = `
     {
-      getStates(country: ` + country + `, search: "") {
+      getStates(country: ` + country + `, search: '') {
         id,
         nome
       }

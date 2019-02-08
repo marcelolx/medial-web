@@ -13,11 +13,8 @@ import { TableFooter, TablePagination } from '@material-ui/core';
 
 class CustomTable extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 0
-    }
+  state = {
+    page: 0
   }
 
   handleChangePage = (event, page) => {
@@ -48,14 +45,14 @@ class CustomTable extends React.Component {
         <Table className={classes.table}>
           {tableHead !== undefined ? (
             <TableHead className={classes[tableHeaderColor]}>
-              <TableRow className={classes.tableRow /*+ " " + classes.tableId*/}>
+              <TableRow className={classes.tableRow /*+ ' ' + classes.tableId*/}>
                 {tableHead.map((prop, key) => {
                   const tableCellClasses =
                     classes.tableHeadCell +
-                    //" " + classes.tableId+ //TODO: Repensar nisso, só deveria aplicar quando a coluna tiver # ..... estava bugando todas as outras tables, limitando as colunas em 80px
-                    " " +
+                    //' ' + classes.tableId+ //TODO: Repensar nisso, só deveria aplicar quando a coluna tiver # ..... estava bugando todas as outras tables, limitando as colunas em 80px
+                    ' ' +
                     classes.tableCell +
-                    " " +
+                    ' ' +
                     cx({
                       [customHeadCellClasses[
                         customHeadClassesForCells.indexOf(key)
@@ -75,7 +72,7 @@ class CustomTable extends React.Component {
           ) : null}
           <TableBody>
             {tableData.slice(this.state.page * rowsPerPage, this.state.page * rowsPerPage + rowsPerPage).map((prop, key) => {
-              var rowColor = "";
+              var rowColor = '';
               var rowColored = false;
               if (prop.color !== undefined) {
                 rowColor = prop.color;
@@ -84,24 +81,24 @@ class CustomTable extends React.Component {
               }
               const tableRowClasses = cx({
                 [classes.tableRowHover]: hover,
-                [classes[rowColor + "Row"]]: rowColored,
+                [classes[rowColor + 'Row']]: rowColored,
                 [classes.tableStripedRow]: striped && key % 2 === 0
               });
               if (prop.total) {
                 return (
-                <TableRow key={key} hover={hover} className={tableRowClasses /*+ " " + classes.tableId */}>
+                  <TableRow key={key} hover={hover} className={tableRowClasses /*+ ' ' + classes.tableId */}>
                     <TableCell
                       className={classes.tableCell}
                       colSpan={prop.colspan}
                     />
                     <TableCell
-                      className={classes.tableCell + " " + classes.tableCellTotal}
+                      className={classes.tableCell + ' ' + classes.tableCellTotal}
                     >
                       Total
                     </TableCell>
                     <TableCell
                       className={
-                        classes.tableCell + " " + classes.tableCellAmount
+                        classes.tableCell + ' ' + classes.tableCellAmount
                       }
                     >
                       {prop.amount}
@@ -123,7 +120,7 @@ class CustomTable extends React.Component {
                       colSpan={prop.colspan}
                     />
                     <TableCell
-                      className={classes.tableCell + " " + classes.right}
+                      className={classes.tableCell + ' ' + classes.right}
                       colSpan={prop.col.colspan}
                     >
                       {prop.col.text}
@@ -135,12 +132,12 @@ class CustomTable extends React.Component {
                 <TableRow
                   key={key}
                   hover={hover}
-                  className={classes.tableRow + " " + tableRowClasses /*+ " " + classes.tableId */}
+                  className={classes.tableRow + ' ' + tableRowClasses /*+ ' ' + classes.tableId */}
                 >
                   {prop.map((prop, key) => {
                     const tableCellClasses =
                       classes.tableCell +
-                      " " +
+                      ' ' +
                       cx({
                         [classes[colorsColls[coloredColls.indexOf(key)]]]:
                           coloredColls.indexOf(key) !== -1,
@@ -161,28 +158,28 @@ class CustomTable extends React.Component {
             footer && tableData.length > rowsPerPage ? (
               <TableFooter>
                 <TableRow>
-                  <TablePagination 
+                  <TablePagination
                     colSpan={3}
                     count={tableData.length}
                     rowsPerPage={rowsPerPage}
                     page={this.state.page}
                     onChangePage={this.handleChangePage}
-                    labelRowsPerPage= {false}
+                    labelRowsPerPage={false}
                   />
                 </TableRow>
               </TableFooter>
             ) : null
           }
-          
+
         </Table>
-       {(tableData || []).length === 0 ? <h4 className={classes.naoHaDados}>Não hà dados</h4>: null}
+        {(tableData || []).length === 0 ? <h4 className={classes.naoHaDados}>Não hà dados</h4> : null}
       </div>
     );
   }
 }
 
 CustomTable.defaultProps = {
-  tableHeaderColor: "gray",
+  tableHeaderColor: 'gray',
   hover: false,
   colorsColls: [],
   coloredColls: [],
@@ -198,14 +195,14 @@ CustomTable.defaultProps = {
 CustomTable.propTypes = {
   classes: PropTypes.object.isRequired,
   tableHeaderColor: PropTypes.oneOf([
-    "warning",
-    "primary",
-    "secondary",
-    "danger",
-    "success",
-    "info",
-    "rose",
-    "gray"
+    'warning',
+    'primary',
+    'secondary',
+    'danger',
+    'success',
+    'info',
+    'rose',
+    'gray'
   ]),
   tableHead: PropTypes.arrayOf(PropTypes.string),
   tableData: PropTypes.array,

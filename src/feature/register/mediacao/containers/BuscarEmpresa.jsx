@@ -10,12 +10,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '../../../../core/components/CustomButton';
 import Table from '../../../../core/components/CustomTable';
 import empresasTableStyle from '../../../../assets/jss/scenes/empresasTableStyle';
-import Check from "@material-ui/icons/Check";
+import Check from '@material-ui/icons/Check';
 import Card from '../../../../core/components/card/Card';
 import CardHeader from '../../../../core/components/card/CardHeader';
 import CardBody from '../../../../core/components/card/CardBody';
 import CardIcon from '../../../../core/components/card/CardIcon';
-import Assignment from "@material-ui/icons/Assignment";
+import Assignment from '@material-ui/icons/Assignment';
 import * as empresaActions from './services/buscarEmpresaActions';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { EMPRESA_INVALIDA } from '../../../admin/mediacao/utils/mediacaoMessagesHelper';
@@ -23,7 +23,7 @@ import { EMPRESA_INVALIDA } from '../../../admin/mediacao/utils/mediacaoMessages
 const style = {
   ...empresasTableStyle,
   inputAdornment: {
-    position: "relative"
+    position: 'relative'
   },
   searchButton: {
     marginTop: '20%',
@@ -43,28 +43,26 @@ const style = {
 };
 
 class BuscarEmpresa extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fantasia: '',
-      solicitarCadastroEmpresa: false,
-      searchWithoutFillFields: false,
-      checked: [],
-      messageNext: '',
-    };
+
+  state = {
+    fantasia: '',
+    solicitarCadastroEmpresa: false,
+    searchWithoutFillFields: false,
+    checked: [],
+    messageNext: '',
   }
 
   sendState() {
     return this.state;
   }
 
-  isValidated() {    
+  isValidated() {
     const oneEmpSelected = (this.state.checked.length === 1);
-    
-    if ((!oneEmpSelected) && 
-        (this.props.mediacaoEmpresas.empresas.length === 0) &&
-        (this.state.checked.length === 0) && 
-        !this.state.solicitarCadastroEmpresa) {
+
+    if ((!oneEmpSelected) &&
+      (this.props.mediacaoEmpresas.empresas.length === 0) &&
+      (this.state.checked.length === 0) &&
+      !this.state.solicitarCadastroEmpresa) {
       this.setState({ messageNext: 'Não é possível avançar sem selecionar uma empresa ou solicitar o cadastro' });
     } else if (this.state.messageNext) {
       this.setState({ messageNext: '' });
@@ -74,19 +72,19 @@ class BuscarEmpresa extends React.Component {
   }
 
   handleCheck = prop => event => {
-    this.setState({ [prop]: event.target.checked });    
+    this.setState({ [prop]: event.target.checked });
   }
 
-  handleToggle(value) {    
+  handleToggle(value) {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-    
+
     if (currentIndex === -1) {
       this.setState({
         solicitarCadastroEmpresa: false,
       });
-      
+
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
@@ -103,7 +101,7 @@ class BuscarEmpresa extends React.Component {
         searchWithoutFillFields: false,
         checked: []
       });
-      
+
       this.props.actions.getEmpresas(this.state.fantasia);
     } else {
       this.setState({
@@ -119,7 +117,7 @@ class BuscarEmpresa extends React.Component {
   handleGetDataGrid = () => {
     const { mediacaoEmpresas, classes } = this.props;
     let empresas = [];
-    
+
     mediacaoEmpresas.empresas.forEach(element => {
       const empresa = [
         (mediacaoEmpresas.empresas.indexOf(element) + 1).toString(),
@@ -139,25 +137,25 @@ class BuscarEmpresa extends React.Component {
         element.endereco.estado.label,
         element.endereco.cidade.label
       ];
-      
+
       empresas = empresas.concat([empresa]);
     });
-    
+
     return empresas;
   }
 
   render() {
     const { classes, mediacaoEmpresas, mediacao } = this.props;
 
-    return(
+    return (
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4}>
-            <CustomInput 
+            <CustomInput
               error={this.state.searchWithoutFillFields}
-              errorHelperText="Informe o Nome Fantasia da empresa"
-              labelText="Nome fantasia"
-              id="nome-fantasia"
+              errorHelperText='Informe o Nome Fantasia da empresa'
+              labelText='Nome fantasia'
+              id='nome-fantasia'
               formControlProps={{
                 fullWidth: true
               }}
@@ -171,100 +169,100 @@ class BuscarEmpresa extends React.Component {
             <Button
               className={classes.searchButton}
               onClick={this.handleBuscarClick}
-              color="primary"
+              color='primary'
             >
               Buscar
             </Button>
           </GridItem>
-        </GridContainer>      
-        <GridContainer justify="center">
+        </GridContainer>
+        <GridContainer justify='center'>
           <GridItem xs={12}>
             <Card>
-              <CardHeader color="primary" icon>
-                <CardIcon color="primary">
+              <CardHeader color='primary' icon>
+                <CardIcon color='primary'>
                   <Assignment />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>
                   Empresas <small>
-                    {" "} 
+                    {' '}
                     - Selecione a empresa a qual deseja iniciar a mediação.
                   </small>
-                </h4>                
+                </h4>
               </CardHeader>
               <CardBody>
-                <Table 
-                striped
-                tableHead={[
-                  "#",
-                  "",
-                  "Nome",
-                  "Fantasia",
-                  "CNPJ",
-                  "Estado",
-                  "Cidade",
-                ]}
-                tableData={this.handleGetDataGrid()}
-                customCellClasses={[
-                  classes.center,
-                  classes.right,
-                  classes.right
-                ]}
-                customClassesForCells={[0, 5, 6]}
-                customHeadCellClasses={[
-                  classes.center,
-                  classes.right,
-                  classes.right
-                ]}
-                customHeadClassesForCells={[0, 5, 6]}
-              />
+                <Table
+                  striped
+                  tableHead={[
+                    '#',
+                    '',
+                    'Nome',
+                    'Fantasia',
+                    'CNPJ',
+                    'Estado',
+                    'Cidade',
+                  ]}
+                  tableData={this.handleGetDataGrid()}
+                  customCellClasses={[
+                    classes.center,
+                    classes.right,
+                    classes.right
+                  ]}
+                  customClassesForCells={[0, 5, 6]}
+                  customHeadCellClasses={[
+                    classes.center,
+                    classes.right,
+                    classes.right
+                  ]}
+                  customHeadClassesForCells={[0, 5, 6]}
+                />
               </CardBody>
               { //TODO: Tá feio, ajustar uma hora, deus me livre
                 (mediacao.errorCode === EMPRESA_INVALIDA) ?
                   <h5 className={classes.errorTextHelper}>
                     {mediacao.mensagem}
                   </h5>
-                : (((mediacaoEmpresas.empresas.length > 0) && (this.state.checked.length === 0)) ?
-                  <h5 className={classes.errorTextHelper}>
-                    Selecione uma empresa
+                  : (((mediacaoEmpresas.empresas.length > 0) && (this.state.checked.length === 0)) ?
+                    <h5 className={classes.errorTextHelper}>
+                      Selecione uma empresa
                   </h5>
-                : (this.state.checked.length > 1) ?
-                  <h5 className={classes.errorTextHelper}>
-                    Selecione somente uma empresa
+                    : (this.state.checked.length > 1) ?
+                      <h5 className={classes.errorTextHelper}>
+                        Selecione somente uma empresa
                   </h5>
-                : null) 
-                || 
-                ((mediacaoEmpresas.buscando) ? 
-                  <h5 className={classes.searchTextHelper}>
-                    {mediacaoEmpresas.message} 
-                  </h5> : null)
-                ||
-                ((!mediacaoEmpresas.buscando && 
-                  !mediacaoEmpresas.encontrou &&
-                  mediacaoEmpresas.message) ? 
-                  <h5 className={classes.errorTextHelper}>
-                    {mediacaoEmpresas.message}
-                  </h5> : null
-                ) 
-                || 
-                (this.state.messageNext !== '' &&
-                  <h5 className={classes.errorTextHelper}>
-                    {this.state.messageNext}
-                  </h5>
-                )
+                      : null)
+                  ||
+                  ((mediacaoEmpresas.buscando) ?
+                    <h5 className={classes.searchTextHelper}>
+                      {mediacaoEmpresas.message}
+                    </h5> : null)
+                  ||
+                  ((!mediacaoEmpresas.buscando &&
+                    !mediacaoEmpresas.encontrou &&
+                    mediacaoEmpresas.message) ?
+                    <h5 className={classes.errorTextHelper}>
+                      {mediacaoEmpresas.message}
+                    </h5> : null
+                  )
+                  ||
+                  (this.state.messageNext !== '' &&
+                    <h5 className={classes.errorTextHelper}>
+                      {this.state.messageNext}
+                    </h5>
+                  )
               }
-              <GridItem 
+              <GridItem
                 xs={12} sm={12} md={4}
                 className={classes.checkCadastroEmpresa}
               >
                 <h5>Não encontrou a empresa que você deseja? Solicite o cadastro da mesma.</h5>
               </GridItem>
-              <GridItem 
+              <GridItem
                 xs={12} sm={12} md={4}
                 className={classes.checkCadastroEmpresa}
-              >                
+              >
                 <FormControlLabel
                   control={
-                    <Checkbox                      
+                    <Checkbox
                       tabIndex={-1}
                       onClick={this.handleCheck('solicitarCadastroEmpresa')}
                       checkedIcon={<Check className={classes.checkedIcon} />}
@@ -276,7 +274,7 @@ class BuscarEmpresa extends React.Component {
                       }}
                     />
                   }
-                  label="Solicitar cadastro da empresa"
+                  label='Solicitar cadastro da empresa'
                 />
               </GridItem>
             </Card>

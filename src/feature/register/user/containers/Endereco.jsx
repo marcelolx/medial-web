@@ -151,126 +151,126 @@ class Endereco extends Component {
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}            
             error={this.handleFieldListShowError(this.props, this.state.pais, paises, [PAIS_NAO_INFORMADO])}
-            aria-describedby="pais-error-text"
+            aria-describedby='pais-error-text'
           >      
             <SearchSelect 
               opcoes={paises.list}
-              name="pais"
+              name='pais'
               onChange={(name, value) => this.handleSelectChange(name, value)}
               value={this.state.pais}              
-              placeholder="País"            
+              placeholder='País'            
             />
             { 
               this.handleFieldListShowError(this.props, this.state.pais, paises, [PAIS_NAO_INFORMADO]) &&
-              <FormHelperText id="pais-error-text">{paises.message || 'Informe o País'}</FormHelperText>
+              <FormHelperText id='pais-error-text'>{paises.message || 'Informe o País'}</FormHelperText>
             }
           </FormControl>          
           <FormControl            
             className={[classes.margin, classes.fill].join(' ')}            
             error={this.handleFieldListShowError(this.props, this.state.estado, estados, [ESTADO_NAO_INFORMADO])}
-            aria-describedby="estado-error-text"
+            aria-describedby='estado-error-text'
           > 
             <SearchSelect 
               opcoes={estados.list}
-              name="estado"
+              name='estado'
               onChange={(name, value) => this.handleSelectChange(name, value)}
               value={this.state.estado}
-              placeholder="Estado"
+              placeholder='Estado'
             />
             {
               this.handleFieldListShowError(this.props, this.state.estado, estados, [ESTADO_NAO_INFORMADO]) && 
-              <FormHelperText id="estado-error-text">{error.message.message || 'Informe o Estado'}</FormHelperText>
+              <FormHelperText id='estado-error-text'>{error.message.message || 'Informe o Estado'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={this.handleFieldListShowError(this.props, this.state.cidade, cidades, [CIDADE_NAO_INFORMADA])}
-            aria-describedby="cidade-error-text"
+            aria-describedby='cidade-error-text'
           >
             <SearchSelect 
               opcoes={cidades.list}
-              name="cidade"
+              name='cidade'
               onChange={(name, value) => this.handleSelectChange(name, value)}
               value={this.state.cidade}
-              placeholder="Cidade"
+              placeholder='Cidade'
             />
             {
               this.handleFieldListShowError(this.props, this.state.cidade, cidades, [CIDADE_NAO_INFORMADA]) &&
-              <FormHelperText id="cidade-error-text">{error.message.message || 'Informe a Cidade'}</FormHelperText>
+              <FormHelperText id='cidade-error-text'>{error.message.message || 'Informe a Cidade'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.cep, [CEP_NAO_INFORMADO])}
-            aria-describedby="cep-error-text"
+            aria-describedby='cep-error-text'
           >
-            <InputLabel htmlFor="input-cep">CEP</InputLabel>
+            <InputLabel htmlFor='input-cep'>CEP</InputLabel>
             <Input 
-              id="input-cep"
-              name="cep"
-              type="text"
+              id='input-cep'
+              name='cep'
+              type='text'
               inputComponent={TextMaskCEP}
               value={this.state.cep}
               onChange={this.handleChange('cep')}
             />
             {
               handleFieldShowError(this.props, this.state.cep, [CEP_NAO_INFORMADO]) && 
-              <FormHelperText id="cep-error-text">{error.message.message || 'Informe o CEP'}</FormHelperText>
+              <FormHelperText id='cep-error-text'>{error.message.message || 'Informe o CEP'}</FormHelperText>
             }
           </FormControl>
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.bairro, [BAIRRO_NAO_INFORMADO])}
-            aria-describedby="bairro-error-text"
+            aria-describedby='bairro-error-text'
           >
-            <InputLabel htmlFor="input-bairro">Bairro</InputLabel>
+            <InputLabel htmlFor='input-bairro'>Bairro</InputLabel>
             <Input 
-              id="input-bairro"
-              name="bairro"
-              type="text"
+              id='input-bairro'
+              name='bairro'
+              type='text'
               value={this.state.bairro}
               onChange={this.handleChange('bairro')}
             />
             {
               handleFieldShowError(this.props, this.state.bairro, [BAIRRO_NAO_INFORMADO]) && 
-              <FormHelperText id="bairro-error-text">{error.message.message || 'Informe o Bairro'}</FormHelperText>
+              <FormHelperText id='bairro-error-text'>{error.message.message || 'Informe o Bairro'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.rua, [RUA_NAO_INFORMADA])}
-            aria-describedby="rua-error-text"
+            aria-describedby='rua-error-text'
           >
-            <InputLabel htmlFor="input-rua">Rua</InputLabel>
+            <InputLabel htmlFor='input-rua'>Rua</InputLabel>
             <Input 
               id='input-rua'
-              name="rua"
-              type="text"
+              name='rua'
+              type='text'
               value={this.state.rua}
               onChange={this.handleChange('rua')}
             />
             {
               handleFieldShowError(this.props, this.state.rua, [RUA_NAO_INFORMADA]) &&
-              <FormHelperText id="rua-error-text">{error.message.message || 'Informe a Rua'}</FormHelperText>
+              <FormHelperText id='rua-error-text'>{error.message.message || 'Informe a Rua'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.numero, [NUMERO_NAO_INFORMADO])}
-            aria-describedby="numero-error-text"
+            aria-describedby='numero-error-text'
           >
-            <InputLabel htmlFor="input-numero">Número</InputLabel>
+            <InputLabel htmlFor='input-numero'>Número</InputLabel>
             <Input 
-              id="input-numero"
-              name="numero"
-              type="text"
+              id='input-numero'
+              name='numero'
+              type='text'
               inputComponent={TextMaskForNumbers}
               value={this.state.numero}              
               onChange={this.handleChange('numero')}
             />
             {
               handleFieldShowError(this.props, this.state.numero, [NUMERO_NAO_INFORMADO]) &&
-              <FormHelperText id="numero-error-text">{error.message.message || 'Informe o número do seu endereço'}</FormHelperText>
+              <FormHelperText id='numero-error-text'>{error.message.message || 'Informe o número do seu endereço'}</FormHelperText>
             }
           </FormControl>
           <RegisterStepButton 

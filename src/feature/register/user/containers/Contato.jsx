@@ -72,39 +72,39 @@ class Contato extends Component {
           <FormControl 
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.telefone, [TELEFONE_NAO_INFORMADO])} 
-            aria-describedby="telefone-error-text"
+            aria-describedby='telefone-error-text'
           >
-            <InputLabel htmlFor="input-telefone">Telefone</InputLabel>
+            <InputLabel htmlFor='input-telefone'>Telefone</InputLabel>
             <Input 
-              id="input-telefone"
-              name="telefone"
-              type="text"
+              id='input-telefone'
+              name='telefone'
+              type='text'
               inputComponent={TextMaskPhone}
               value={this.state.telefone}
               onChange={this.handleChange('telefone')}
             />
             {
               handleFieldShowError(this.props, this.state.telefone, [TELEFONE_NAO_INFORMADO]) &&
-              <FormHelperText id="telefone-error-text">{error.message.message || 'Informe o telefone'}</FormHelperText>
+              <FormHelperText id='telefone-error-text'>{error.message.message || 'Informe o telefone'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.celular, [CELULAR_NAO_INFORMADO])}
-            aria-describedby="celular-error-text"
+            aria-describedby='celular-error-text'
           >
-            <InputLabel htmlFor="input-celular">Celular</InputLabel>
+            <InputLabel htmlFor='input-celular'>Celular</InputLabel>
             <Input 
-              id="input-celular"
-              name="celular"
-              type="text"
+              id='input-celular'
+              name='celular'
+              type='text'
               inputComponent={TextMaskCellPhone}
               value={this.state.celular}
               onChange={this.handleChange('celular')}
             />
             {
               handleFieldShowError(this.props, this.state.celular, [CELULAR_NAO_INFORMADO]) &&
-              <FormHelperText id="celular-error-text">Informe o celular</FormHelperText>
+              <FormHelperText id='celular-error-text'>Informe o celular</FormHelperText>
             }
           </FormControl>
           <RegisterStepButton

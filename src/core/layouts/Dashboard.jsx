@@ -117,7 +117,7 @@ class Dashboard extends React.Component {
     const { classes,auth, ...rest } = this.props;
     const mainPanel =
       classes.mainPanel +
-      " " +
+      ' ' +
       cx({
         [classes.mainPanelSidebarMini]: this.state.miniActive,
         [classes.mainPanelWithPerfectScrollbar]:

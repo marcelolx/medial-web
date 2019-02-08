@@ -21,7 +21,7 @@ function CardHeader({ ...props }) {
   } = props;
   const cardHeaderClasses = classNames({
     [classes.cardHeader]: true,
-    [classes[color + "CardHeader"]]: color,
+    [classes[color + 'CardHeader']]: color,
     [classes.cardHeaderPlain]: plain,
     [classes.cardHeaderImage]: image,
     [classes.cardHeaderContact]: contact,
@@ -42,13 +42,13 @@ CardHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   color: PropTypes.oneOf([
-    "warning",
-    "success",
-    "danger",
-    "info",
-    "primary",
-    "rose",
-    "secondary"
+    'warning',
+    'success',
+    'danger',
+    'info',
+    'primary',
+    'rose',
+    'secondary'
   ]),
   plain: PropTypes.bool,
   image: PropTypes.bool,

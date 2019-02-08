@@ -54,11 +54,11 @@ class Confirmacao extends Component {
   empresaNovaView(empresa, motivo) {
     return (
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="Nome da empresa"
-              id="nome-empresa"
+              labelText='Nome da empresa'
+              id='nome-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -70,8 +70,8 @@ class Confirmacao extends Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="E-mail"
-              id="email"
+              labelText='E-mail'
+              id='email'
               formControlProps={{
                 fullWidth: true
               }}
@@ -82,11 +82,11 @@ class Confirmacao extends Component {
             />
           </GridItem>
         </GridContainer>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="CNPJ"
-              id="cnpj-empresa"
+              labelText='CNPJ'
+              id='cnpj-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -99,8 +99,8 @@ class Confirmacao extends Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="Telefone da empresa"
-              id="telefone-empresa"
+              labelText='Telefone da empresa'
+              id='telefone-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -109,7 +109,7 @@ class Confirmacao extends Component {
                 value: empresa.telefone,
                 inputComponent: TextMaskPhone
               }}
-              errorHelperText="Informe o telefone para contato com a empresa"
+              errorHelperText='Informe o telefone para contato com a empresa'
             />
           </GridItem>
         </GridContainer>
@@ -121,11 +121,11 @@ class Confirmacao extends Component {
   empresaView(empresa, motivo) {
     return (
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="Nome"
-              id="nome-empresa"
+              labelText='Nome'
+              id='nome-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -137,8 +137,8 @@ class Confirmacao extends Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="Nome da fantasia"
-              id="nome-fantasia"
+              labelText='Nome da fantasia'
+              id='nome-fantasia'
               formControlProps={{
                 fullWidth: true
               }}
@@ -149,11 +149,11 @@ class Confirmacao extends Component {
             />
           </GridItem>
         </GridContainer>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={3} lg={3}>
             <CustomInput
-              labelText="CNPJ"
-              id="cnpj-empresa"
+              labelText='CNPJ'
+              id='cnpj-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -166,8 +166,8 @@ class Confirmacao extends Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={2} lg={2}>
             <CustomInput
-              labelText="Estado"
-              id="estado-empresa"
+              labelText='Estado'
+              id='estado-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -179,8 +179,8 @@ class Confirmacao extends Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={3} lg={3}>
             <CustomInput
-              labelText="Cidade"
-              id="cidade-empresa"
+              labelText='Cidade'
+              id='cidade-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -201,11 +201,11 @@ class Confirmacao extends Component {
 
     return (
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="Conflitos"
-              id="conflitos"
+              labelText='Conflitos'
+              id='conflitos'
               formControlProps={{
                 fullWidth: true
               }}
@@ -217,8 +217,8 @@ class Confirmacao extends Component {
           </GridItem>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText="Assuntos"
-              id="assuntos"
+              labelText='Assuntos'
+              id='assuntos'
               formControlProps={{
                 fullWidth: true
               }}
@@ -229,16 +229,16 @@ class Confirmacao extends Component {
             />
           </GridItem>
         </GridContainer>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={8} lg={8}>
             <TextField
-              id="mensagem"
-              label="Mensagem"
+              id='mensagem'
+              label='Mensagem'
               multiline
-              rows="15"
+              rows='15'
               className={classes.multilineTextField}
-              margin="normal"
-              variant="outlined"
+              margin='normal'
+              variant='outlined'
               value={motivo.mensagem}
               disabled
             />
@@ -273,7 +273,7 @@ class Confirmacao extends Component {
               this.state.alert ?
                 (
                   <SweetAlert
-                    style={{ display: "block", marginTop: "-100px" }}
+                    style={{ display: 'block', marginTop: '-100px' }}
                     title={mediacao.mensagem || 'Validando informações...'} //Quando feita mediação, exibir o protocolo talvez também?
                     onConfirm={() => this.hideAlertAndRedirectToMediations().bind(this)}
                     showConfirm={false}

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { compose } from "recompose";
-import { withStyles, Button } from "@material-ui/core";
+import React, { Component } from 'react';
+import { compose } from 'recompose';
+import { withStyles, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import * as stepsActions from '../../../../services/steps/stepsActions';
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 
 
 const styles = theme => ({
@@ -54,9 +54,9 @@ class RegisterStepButtons extends Component {
             Voltar
           </Button>: null}
           <Button 
-            type="submit" 
-            variant="contained" 
-            color="primary" 
+            type='submit' 
+            variant='contained' 
+            color='primary' 
             onClick={this.handleNextStep}            
             className={classes.margin}
           >

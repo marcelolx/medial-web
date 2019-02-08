@@ -22,7 +22,7 @@ import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import * as authActions from '../../../services/admin/authentication/actions';
+import * as authActions from '../../../services/authentication/loginActions';
 
 const styles = theme => ({
   appBar: {
@@ -66,24 +66,24 @@ class AppBar extends Component {
     const open = Boolean(anchorEl);
 
     return (
-      <AppBar position="absolute" className={[classes.appBar, 'appBar'].join(' ')}>
+      <AppBar position='absolute' className={[classes.appBar, 'appBar'].join(' ')}>
         <Toolbar>
-          <Typography variant="title" color="inherit" className={classes.flex} noWrap>
+          <Typography variant='title' color='inherit' className={classes.flex} noWrap>
             Medial
           </Typography>
           <div>
             <IconButton
               aria-owns={open ? 'menu-appbar' : null}
-              aria-haspopup="true"
+              aria-haspopup='true'
               onClick={this.handleMenu}
-              color="inherit"
-              src=""
+              color='inherit'
+              src=''
             >
-              {/*<Avatar alt="Remy Sharp" src={user.profile} />*/}
+              {/*<Avatar alt='Remy Sharp' src={user.profile} />*/}
               <MoreVertIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               onClose={this.handleMenuClose}
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -96,11 +96,11 @@ class AppBar extends Component {
               }}
               open={open}
             >
-              <MenuItem onClick={this.handleMenuClose} component={NavLink} to="/profile">
+              <MenuItem onClick={this.handleMenuClose} component={NavLink} to='/profile'>
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                <ListItemText primary="Perfil"/>
+                <ListItemText primary='Perfil'/>
               </MenuItem>
               <MenuItem onClick={() => {
                 this.handleMenuClose();
@@ -109,7 +109,7 @@ class AppBar extends Component {
                 <ListItemIcon>
                   <LogoutIcon />
                 </ListItemIcon>
-                <ListItemText primary="Sair" />
+                <ListItemText primary='Sair' />
               </MenuItem>
             </Menu>
           </div>
@@ -117,21 +117,21 @@ class AppBar extends Component {
         <Dialog
           open={this.state.dialogOpen}
           onClose={this.handleToggleDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
           disableEnforceFocus
         >
-          <DialogTitle id="alert-dialog-title">Tem certeza de que deseja sair?</DialogTitle>
+          <DialogTitle id='alert-dialog-title'>Tem certeza de que deseja sair?</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText id='alert-dialog-description'>
               Continue mais um tempo com a gente, somos tão legais :)
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleToggleDialog} color="primary">
+            <Button onClick={this.handleToggleDialog} color='primary'>
               Cancelar
             </Button>
-            <Button onClick={this.handleLogout} color="primary" autoFocus>
+            <Button onClick={this.handleLogout} color='primary' autoFocus>
               Sair mesmo assim
             </Button>
           </DialogActions>

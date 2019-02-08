@@ -7,12 +7,12 @@ import Card from '../../core/components/card/Card';
 import CardHeader from '../../core/components/card/CardHeader';
 import CardBody from '../../core/components/card/CardBody';
 import Table from '../../core/components/CustomTable';
-import Edit from "@material-ui/icons/Edit";
+import Edit from '@material-ui/icons/Edit';
 import Button from '../../core/components/CustomButton';
 import adminCardTableStyle from '../../assets/jss/scenes/dashboard/adminCardTableStyle';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import * as requeridoPendenteActions from '../../feature/admin/cadastropendente/services/requeridoPendenteReducer';
+import * as requeridoPendenteActions from '../../feature/admin/cadastropendente/services/requeridoPendenteActions';
 
 class AdminNPJ extends React.Component {
 
@@ -47,8 +47,8 @@ class AdminNPJ extends React.Component {
     return (
       <Button
           round
-          color="primary"
-          className={classes.actionButton + " " + classes.actionButtonRound}
+          color='primary'
+          className={classes.actionButton + ' ' + classes.actionButtonRound}
           key={cadastroPendente.idCadastroPendente}
           onClick={() => this.handleClickCadastroPendente(cadastroPendente.idCadastroPendente)}
         >
@@ -63,16 +63,16 @@ class AdminNPJ extends React.Component {
     return(
       <GridItem xs={12} sm={12} md={6} lg={6}>
         <Card minHeight>
-          <CardHeader color="primary">
+          <CardHeader color='primary'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
           </CardHeader>
           <CardBody>
             <Table 
               tableHead={[
-                "#",
-                "Nome",
-                "",
+                '#',
+                'Nome',
+                '',
               ]}
               tableData={this.dataToTableData()}
               customCellClasses={[

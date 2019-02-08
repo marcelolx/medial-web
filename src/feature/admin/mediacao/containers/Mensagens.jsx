@@ -37,20 +37,17 @@ const style = theme => ({
 
 class Mensagens extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [],
-      clientConnected: false,
-      topic: '',
-      offset: 0,
-    }
+  state = {
+    messages: [],
+    clientConnected: false,
+    topic: '',
+    offset: 0,
   }
 
   componentWillMount() {
     let limit = 20;
     let offset = this.state.offset;
-    this.props.actions.adquirirMensagem(this.props.idMediacao,offset, limit);
+    this.props.actions.adquirirMensagem(this.props.idMediacao, offset, limit);
     this.setState({ offset: offset + limit });
   }
 
@@ -130,7 +127,7 @@ class Mensagens extends React.Component {
       <React.Fragment>
         {this.props.mediacao.mediacao !== null ? this.onSockJSClient() : null}
         <Card className={classes.cardMensagens}>
-          <CardHeader color="success">
+          <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mensagens</h4>
           </CardHeader>
           <CardBody>

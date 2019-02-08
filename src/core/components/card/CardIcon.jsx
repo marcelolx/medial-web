@@ -8,7 +8,7 @@ function CardIcon({ ...props }) {
   const { classes, className, children, color, ...rest } = props;
   const cardIconClasses = classNames({
     [classes.cardIcon]: true,
-    [classes[color + "CardHeader"]]: color,
+    [classes[color + 'CardHeader']]: color,
     [className]: className !== undefined
   });
   return (
@@ -22,13 +22,13 @@ CardIcon.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   color: PropTypes.oneOf([
-    "warning",
-    "success",
-    "danger",
-    "info",
-    "primary",
-    "secondary",
-    "rose"
+    'warning',
+    'success',
+    'danger',
+    'info',
+    'primary',
+    'secondary',
+    'rose'
   ])
 };
 

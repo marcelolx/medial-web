@@ -3,7 +3,7 @@ import { GraphQLAPI } from '../../../http/API';
 
 const GET_COUNTRY = `
   {
-    getCountry(search: "") {
+    getCountry(search: '') {
       id,
       nome
     }

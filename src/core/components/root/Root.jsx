@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { withRouter, HashRouter, Route, Switch  } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import indexRoutes from "../../routes/index";
-import pageRoutes from "../../routes/pagesIndex";
-import * as authActions from '../../../core/services/authentication/loginActions';
+import indexRoutes from '../../routes/index';
+import pageRoutes from '../../routes/pagesIndex';
+import * as authActions from '../../services/authentication/loginActions';
 
 class Root extends Component {
 

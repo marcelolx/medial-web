@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 import Logo from '../../../core/components/root/logo/Logo';
 import RegisterStep from '../../../core/components/root/registerstep/RegisterStep';
 import { withStyles } from '@material-ui/core';
@@ -15,12 +15,12 @@ import * as stepsActions from '../../../core/services/steps/stepsActions';
 
 const styles = theme => ({ 
   root: {
-    paddingRight: "15px",
-    paddingLeft: "15px",
-    marginTop: "60px",
-    marginRight: "auto",
-    marginLeft: "auto",
-    zIndex: "4",
+    paddingRight: '15px',
+    paddingLeft: '15px',
+    marginTop: '60px',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    zIndex: '4',
   },
   instructions: {
     marginTop: theme.spacing.unit,

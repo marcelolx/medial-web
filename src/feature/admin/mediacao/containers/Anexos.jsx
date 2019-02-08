@@ -20,7 +20,7 @@ class Anexos extends React.Component {
     return(
       <React.Fragment>
         <Card className={classes.cardPropostas}>
-          <CardHeader color="success">
+          <CardHeader color='success'>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Anexos</p>
           </CardHeader>
           <CardBody>

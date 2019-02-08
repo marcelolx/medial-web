@@ -4,20 +4,20 @@ import { cardTitle } from '../styles';
 const empresasTableStyle = {
   ...customCheckbox,
   right: {
-    textAlign: "right"
+    textAlign: 'right'
   },
   center: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   positionAbsolute: {
-    position: "absolute",
-    right: "0",
-    top: "0"
+    position: 'absolute',
+    right: '0',
+    top: '0'
   },
   cardIconTitle: {
     ...cardTitle,
-    marginTop: "15px",
-    marginBottom: "0px"
+    marginTop: '15px',
+    marginBottom: '0px'
   }
 };
 

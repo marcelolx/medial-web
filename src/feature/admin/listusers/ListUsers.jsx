@@ -63,7 +63,7 @@ class ListUsersHead extends React.Component {
                 sortDirection={orderBy === row.id ? order : false}
               >
                 <Tooltip
-                  title="Ordem"
+                  title='Ordem'
                   placement={row.numeric ? 'bottom-start' : 'bottom-end'}
                   enterDelay={300}
                 >
@@ -122,7 +122,7 @@ let ListUsersToolbar = props => {
     <Toolbar>
       <div className={classes.title}>
 
-        <Typography variant="title" id="tableTitle">
+        <Typography variant='title' id='tableTitle'>
           Lista de usuários ativos
           </Typography>
 
@@ -130,8 +130,8 @@ let ListUsersToolbar = props => {
       <div className={classes.spacer} />
       <div className={classes.actions}>
 
-        <Tooltip title="Filtrar nome">
-          <IconButton aria-label="Filtrar nome">
+        <Tooltip title='Filtrar nome'>
+          <IconButton aria-label='Filtrar nome'>
             <FilterListIcon />
           </IconButton>
         </Tooltip>
@@ -223,7 +223,7 @@ class ListUsers extends React.Component {
       <Paper className={classes.root}>
         <ListUsersToolbar />
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table className={classes.table} aria-labelledby='tableTitle'>
             <ListUsersHead
               order={order}
               orderBy={orderBy}
@@ -238,7 +238,7 @@ class ListUsers extends React.Component {
                   return (
                     <TableRow
                       hover
-                      role="checkbox"
+                      role='checkbox'
                       aria-checked={isSelected}
                       tabIndex={-1}
                       onClick={event => this.handleClick(event, n.id)}
@@ -246,7 +246,7 @@ class ListUsers extends React.Component {
                       selected={isSelected}
                     >
 
-                      <TableCell component="th" scope="row" >
+                      <TableCell component='th' scope='row' >
                         {n.name}
                       </TableCell>
                       <TableCell >{n.birthDate}</TableCell>
@@ -265,9 +265,9 @@ class ListUsers extends React.Component {
           </Table>
         </div>
         <TablePagination
-          component="div"
+          component='div'
           count={data.length}
-          labelRowsPerPage="Linhas por página:"
+          labelRowsPerPage='Linhas por página:'
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{

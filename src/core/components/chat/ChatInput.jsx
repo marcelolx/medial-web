@@ -42,7 +42,7 @@ class ChatInput extends React.Component {
   onEnterPress = () => {
     if (!isBlank(this.state.message)) {
       if (this.props.onSendMessage(this.state.message)) {        
-        this.setState({ message: "" });
+        this.setState({ message: '' });
       }
     }
   }
@@ -52,7 +52,7 @@ class ChatInput extends React.Component {
   }
 
   catchReturn = (e) => {
-    if (!(e.ctrlKey || e.shiftKey) && e.key === "Enter") {
+    if (!(e.ctrlKey || e.shiftKey) && e.key === 'Enter') {
       this.onEnterPress();
       e.preventDefault();
     }
@@ -70,7 +70,7 @@ class ChatInput extends React.Component {
     return(
       <React.Fragment>
         <CustomInput 
-          labelText="Mensagem"
+          labelText='Mensagem'
           inputProps={{
             value: this.state.message,
             onChange: this.handleOnChange,
@@ -78,7 +78,7 @@ class ChatInput extends React.Component {
             disabled: this.state.disabled,
             placeholder: this.props.placeholder
           }}
-          id="input-mensagem"
+          id='input-mensagem'
           formControlProps={{
             fullWidth: true
           }}
@@ -86,14 +86,14 @@ class ChatInput extends React.Component {
       
         <Button
           justIcon
-          color="secondary"
+          color='secondary'
           className={classes.botaoAnexar}
         >
           <AttachFile />
         </Button>
         <Button   
           className={classes.botaoEnviar}
-          color="secondary"
+          color='secondary'
         >
           Enviar Anexo
         </Button>

@@ -82,12 +82,12 @@ class Empresa extends React.Component {
 
     return (
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
               error={(this.state.error && this.state.nome === '') || mediacao.errorCode === NOME_NAO_INFORMADO}
-              labelText="Nome da empresa"
-              id="nome-empresa"
+              labelText='Nome da empresa'
+              id='nome-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -101,8 +101,8 @@ class Empresa extends React.Component {
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
               error={(this.state.error && (this.state.email === '' || this.state.errorType === EMAIL_INVALIDO)) || mediacao.errorCode === EMAIL_INVALIDO}
-              labelText="E-mail da empresa"
-              id="email-empresa"
+              labelText='E-mail da empresa'
+              id='email-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -114,12 +114,12 @@ class Empresa extends React.Component {
             />
           </GridItem>
         </GridContainer>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
               error={(this.state.error && (this.state.cnpj === '' || this.state.errorType === CNPJ_INFORMADO_INVALIDO)) || mediacao.errorCode === CNPJ_INFORMADO_INVALIDO}
-              labelText="CNPJ"
-              id="cnpj-empresa"
+              labelText='CNPJ'
+              id='cnpj-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -134,8 +134,8 @@ class Empresa extends React.Component {
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
               error={(this.state.error && this.state.telefone === '') || mediacao.errorCode === TELEFONE_NAO_INFORMADO}
-              labelText="Telefone da empresa"
-              id="telefone-empresa"
+              labelText='Telefone da empresa'
+              id='telefone-empresa'
               formControlProps={{
                 fullWidth: true
               }}
@@ -154,12 +154,12 @@ class Empresa extends React.Component {
 
   handleViewInfosEmpresaSelecionada = (empresa) => {
     return (
-      <GridContainer justify="center">
+      <GridContainer justify='center'>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
             error={false}
-            labelText="Nome"
-            id="nome-empresa"
+            labelText='Nome'
+            id='nome-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -172,8 +172,8 @@ class Empresa extends React.Component {
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
             error={false}
-            labelText="Nome da fantasia"
-            id="nome-fantasia"
+            labelText='Nome da fantasia'
+            id='nome-fantasia'
             formControlProps={{
               fullWidth: true
             }}
@@ -186,8 +186,8 @@ class Empresa extends React.Component {
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
             error={false}
-            labelText="CNPJ"
-            id="cnpj-empresa"
+            labelText='CNPJ'
+            id='cnpj-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -200,8 +200,8 @@ class Empresa extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
-            labelText="País"
-            id="pais-empresa"
+            labelText='País'
+            id='pais-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -213,8 +213,8 @@ class Empresa extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
-            labelText="Estado"
-            id="estado-empresa"
+            labelText='Estado'
+            id='estado-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -226,8 +226,8 @@ class Empresa extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
-            labelText="Cidade"
-            id="cidade-empresa"
+            labelText='Cidade'
+            id='cidade-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -239,8 +239,8 @@ class Empresa extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
-            labelText="Bairro"
-            id="bairro-empresa"
+            labelText='Bairro'
+            id='bairro-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -252,8 +252,8 @@ class Empresa extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
-            labelText="Rua"
-            id="rua-empresa"
+            labelText='Rua'
+            id='rua-empresa'
             formControlProps={{
               fullWidth: true
             }}
@@ -265,8 +265,8 @@ class Empresa extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
-            labelText="Número"
-            id="numero-empresa"
+            labelText='Número'
+            id='numero-empresa'
             formControlProps={{
               fullWidth: true
             }}

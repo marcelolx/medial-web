@@ -11,7 +11,7 @@ import { REMOVER_NEGOCIADOR_COMPLETE,
    BUSCAR_PESSOAS_COMPLETE,
    CLEAR_PESSOAS,
    CARREGANDO
-   } from "./negociadorActionTypes";
+   } from './negociadorActionTypes';
 
 export function removerNegociador(empresa, negociador, janelaNovoNegociador, pesquisaRealizada) {
   

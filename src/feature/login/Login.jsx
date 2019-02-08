@@ -40,15 +40,15 @@ const styles = theme => ({
     flexBasis: '45%',
   },
   container: {
-    paddingRight: "15px", 
+    paddingRight: '15px', 
     maxWidth: '400px',
-    marginTop: "60px",
-    paddingLeft: "15px",
-    marginRight: "auto",
-    marginLeft: "auto",
-    zIndex: "4",
-    [theme.breakpoints.down("sm")]: {
-      paddingBottom: "100px"
+    marginTop: '60px',
+    paddingLeft: '15px',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    zIndex: '4',
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: '100px'
     }
   },
 });
@@ -64,7 +64,7 @@ class Login extends Component {
   componentDidMount() {
     this.redirectLogged();
 
-    if (this.props.location.search !== null && this.props.location.search !== "") {
+    if (this.props.location.search !== null && this.props.location.search !== '') {
       const data = queryString.parse(this.props.location.search);
       this.props.actions.validacaoEmail(data)
     }
@@ -150,38 +150,38 @@ class Login extends Component {
             <FormControl
               className={[classes.margin, classes.fill].join(' ')}
               error={(error.message === LOGIN_ERROR)}
-              aria-describedby="email-error-text"
+              aria-describedby='email-error-text'
             >
-              <InputLabel htmlFor="input-email">Email</InputLabel>
+              <InputLabel htmlFor='input-email'>Email</InputLabel>
               <Input
-                name="email"
-                id="input-email"
-                type="email"
+                name='email'
+                id='input-email'
+                type='email'
                 value={this.state.email}
                 onChange={this.handleChange('email')}
               />
               {
                 (error.message === LOGIN_ERROR) &&
-                <FormHelperText id="email-error-text">{error.adaptedMessage}</FormHelperText>
+                <FormHelperText id='email-error-text'>{error.adaptedMessage}</FormHelperText>
               }
             </FormControl>
 
             <FormControl
               className={[classes.margin, classes.fill].join(' ')}
               error={(error.message === LOGIN_ERROR)}
-              aria-describedby="password-error-text"
+              aria-describedby='password-error-text'
             >
-              <InputLabel htmlFor="adornment-password">Senha</InputLabel>
+              <InputLabel htmlFor='adornment-password'>Senha</InputLabel>
               <Input
-                id="adornment-password"
-                name="password"
+                id='adornment-password'
+                name='password'
                 type={this.state.showPassword ? 'text' : 'password'}
                 value={this.state.password}
                 onChange={this.handleChange('password')}
                 endAdornment={
-                  <InputAdornment position="end">
+                  <InputAdornment position='end'>
                     <IconButton
-                      aria-label="Toque para ver a senha"
+                      aria-label='Toque para ver a senha'
                       onClick={this.handleClickShowPassword}
                     >
                       {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -191,13 +191,13 @@ class Login extends Component {
               />
               {
                 (error.message === LOGIN_ERROR) &&
-                <FormHelperText id="email-error-text">{error.adaptedMessage}</FormHelperText>
+                <FormHelperText id='email-error-text'>{error.adaptedMessage}</FormHelperText>
               }
             </FormControl>
-            <Button component={Link} to="/register" variant="text" className={[classes.margin, classes.half].join(' ')}>
+            <Button component={Link} to='/register' variant='text' className={[classes.margin, classes.half].join(' ')}>
               Cadastre-se
             </Button>
-            <Button type="submit" variant="contained" color="primary" className={[classes.margin, classes.half].join(' ')}>
+            <Button type='submit' variant='contained' color='primary' className={[classes.margin, classes.half].join(' ')}>
               Entrar
             </Button>
           </form>

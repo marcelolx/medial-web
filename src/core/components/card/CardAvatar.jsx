@@ -1,8 +1,8 @@
-import React from "react";
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
-import cardAvatarStyle from "../../assets/jss/components/cardAvatarStyle";
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import cardAvatarStyle from '../../assets/jss/components/cardAvatarStyle';
 
 function CardAvatar({ ...props }) {
   const { classes, children, className, plain, profile, ...rest } = props;

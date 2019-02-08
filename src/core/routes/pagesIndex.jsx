@@ -1,7 +1,7 @@
-import Pages from "../layouts/Pages";
+import Pages from '../layouts/Pages';
 
 var pageRoutes = [
-  { path: "/", component: Pages }
+  { path: '/', component: Pages }
 ];
 
 export default pageRoutes;

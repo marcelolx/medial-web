@@ -1,4 +1,4 @@
-import { LOGIN_COMPLETE, LOGOUT_COMPLETE,UNAUTHORIZED,LOGIN_ERROR_UPDATE } from "./loginActionTypes";
+import { LOGIN_COMPLETE, LOGOUT_COMPLETE,UNAUTHORIZED,LOGIN_ERROR_UPDATE } from './loginActionTypes';
 import { LOGIN_ERROR } from '../errors/errorActionTypes';
 
 const initialState = {

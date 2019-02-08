@@ -35,42 +35,42 @@ class Situacao extends React.Component {
     return (
       <React.Fragment>
         <Card>
-          <CardHeader color="success">
+          <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Situação</h4>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{getAdaptedMessage(situacao.situacao)}</p>
           </CardHeader>
           <CardBody>
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label={"Requerente: " + this.handleGetValue('nomeRequerente')}
-              color="success"
-              variant="outlined"
-              width="fullWidth"
+              label={'Requerente: ' + this.handleGetValue('nomeRequerente')}
+              color='success'
+              variant='outlined'
+              width='fullWidth'
               className={classes.marginChip}
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label={"Requerido: " + this.handleGetValue('nomeRequerido')}
-              color="success"
-              variant="outlined"
-              width="fullWidth"
+              label={'Requerido: ' + this.handleGetValue('nomeRequerido')}
+              color='success'
+              variant='outlined'
+              width='fullWidth'
               className={classes.marginChip}
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label={"Mediador: " + this.handleGetValue('nomeMediador')}
+              label={'Mediador: ' + this.handleGetValue('nomeMediador')}
               clickable
-              color="success"
-              variant="outlined"
-              width="fullWidth"
+              color='success'
+              variant='outlined'
+              width='fullWidth'
               className={classes.marginChip}
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon}/>}
-              label={"Negociador: " + this.handleGetValue('nomeNegociador')}
-              color="success"
-              variant="outlined"
-              width="fullWidth"
+              label={'Negociador: ' + this.handleGetValue('nomeNegociador')}
+              color='success'
+              variant='outlined'
+              width='fullWidth'
               className={classes.marginChip}
             />
           </CardBody>

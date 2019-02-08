@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -9,7 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FormLabel from '@material-ui/core/FormControl';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -123,38 +123,38 @@ class Usuario extends Component {
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO], '', [SENHA_EXIGE_8_DIGITOS])}
-            aria-describedby="email-error-text"
+            aria-describedby='email-error-text'
           > 
-            <InputLabel htmlFor="input-email">E-Mail</InputLabel>
+            <InputLabel htmlFor='input-email'>E-Mail</InputLabel>
             <Input 
-              id="input-email"
-              name="email"
-              type="email"
-              placeholder="example@medial.com.br"
+              id='input-email'
+              name='email'
+              type='email'
+              placeholder='example@medial.com.br'
               value={this.state.email}
               onChange={this.handleChange('email')}
             />
             {
               handleFieldShowError(this.props, this.state.email, [EMAIL_INVALIDO, EMAIL_CADASTRADO], '', [SENHA_EXIGE_8_DIGITOS]) &&
-              <FormHelperText id="email-error-text">{error.adaptedMessage.message || 'Preencha o email'}</FormHelperText>
+              <FormHelperText id='email-error-text'>{error.adaptedMessage.message || 'Preencha o email'}</FormHelperText>
             }
           </FormControl>
           <FormControl
             className={[classes.margin, classes.fill].join(' ')}
             error={handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS])}
-            aria-describedby="password-error-text"
+            aria-describedby='password-error-text'
           >
-            <InputLabel htmlFor="adornment-password">Senha</InputLabel>
+            <InputLabel htmlFor='adornment-password'>Senha</InputLabel>
             <Input 
-              id="adornment-password"
-              name="password"
+              id='adornment-password'
+              name='password'
              type={this.state.showPassword ? 'text' : 'password'}
               value={this.state.senha}
               onChange={this.handleChange('senha')}
               endAdornment={
-                <InputAdornment position="end">
+                <InputAdornment position='end'>
                   <IconButton
-                    aria-label="Exibir senha"
+                    aria-label='Exibir senha'
                     onClick={this.handleClickShowPassword}
                   >
                     {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -164,7 +164,7 @@ class Usuario extends Component {
             />
             {
               (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS])) &&
-              <FormHelperText id="password-error-text">{error.adaptedMessage.message || 'Preencha a senha'}</FormHelperText>
+              <FormHelperText id='password-error-text'>{error.adaptedMessage.message || 'Preencha a senha'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -172,19 +172,19 @@ class Usuario extends Component {
             error={
               (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM]) ||
               (step.beforeNextStepError && (this.state.confirmacaoSenha !== this.state.senha)))}
-            aria-describedby="passwordConfirmation-error-text"
+            aria-describedby='passwordConfirmation-error-text'
           >
-            <InputLabel htmlFor="adornment-passwordConfirmation">Confirmar Senha</InputLabel>
+            <InputLabel htmlFor='adornment-passwordConfirmation'>Confirmar Senha</InputLabel>
             <Input 
-              id="adornment-passwordConfirmation"
-              name="passwordConfirmation"
+              id='adornment-passwordConfirmation'
+              name='passwordConfirmation'
               type={this.state.showConfirmationPassword ? 'text' : 'password'}
               value={this.state.confirmacaoSenha}
               onChange={this.handleChange('confirmacaoSenha')}
               endAdornment={
-                <InputAdornment position="end">
+                <InputAdornment position='end'>
                   <IconButton
-                    aria-label="Exibir senha"
+                    aria-label='Exibir senha'
                     onClick={this.handleClickShowPasswordConfirmation}
                   >
                     {this.state.showConfirmationPassword ? <VisibilityOff /> : <Visibility />}
@@ -195,7 +195,7 @@ class Usuario extends Component {
             {
               (handleFieldShowError(this.props, this.state.senha, [SENHA_NAO_INFORMADA, SENHA_EXIGE_8_DIGITOS, SENHAS_NAO_COINCIDEM]) ||
               (step.beforeNextStepError && (this.state.confirmacaoSenha !== this.state.senha))) &&
-              <FormHelperText id="passwordConfirmation-error-text">{error.adaptedMessage.message || 'Confirme a senha'}</FormHelperText>
+              <FormHelperText id='passwordConfirmation-error-text'>{error.adaptedMessage.message || 'Confirme a senha'}</FormHelperText>
             }
           </FormControl>
           <FormControl
@@ -207,19 +207,19 @@ class Usuario extends Component {
                 className={classes.radioGroup}>
               <FormControlLabel 
                 control={<Radio 
-                  value="F" 
-                  checked={personalidade=== "F"}
+                  value='F' 
+                  checked={personalidade=== 'F'}
                   onChange={this.handleChange('personalidade')}
                 />} 
-                label="Pessoa Física" 
+                label='Pessoa Física' 
               />
               <FormControlLabel 
                 control={<Radio
-                  value="J"
-                  checked={personalidade === "J"}
+                  value='J'
+                  checked={personalidade === 'J'}
                   onChange={this.handleChange('personalidade')}
                   />} 
-                label="Pessoa Jurídica" 
+                label='Pessoa Jurídica' 
               />
               </div>
             

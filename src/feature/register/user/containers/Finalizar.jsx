@@ -47,13 +47,13 @@ class Finalizar extends Component {
       <React.Fragment>
         {registerComplete.error ?
           <Typography 
-            variant="subheading"
+            variant='subheading'
             className={[classes.margin, classes.warning].join(' ')}
           >
             {registerComplete.message.message + '... Você será redirecionado para realizar os ajustes...'}
           </Typography> : 
           <Typography 
-            variant="subheading"
+            variant='subheading'
             className={classes.margin}
           >
             {registerComplete.message.message || 'Aguarde...'}

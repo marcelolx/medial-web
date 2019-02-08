@@ -24,12 +24,11 @@ import pagesRoutes from './../../routes/pages';
 import pagesHeaderStyle from '../../../assets/jss/components/pagesHeaderStyle';
 
 class PagesHeader extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false
-    };
+
+  state = {
+    open: false
   }
+
   handleDrawerToggle = () => {
     this.setState({ open: !this.state.open });
   };

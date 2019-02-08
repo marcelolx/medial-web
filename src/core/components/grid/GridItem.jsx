@@ -4,14 +4,14 @@ import Grid from '@material-ui/core/Grid';
 
 const style = {
   grid: {
-    padding: "0 8px",
+    padding: '0 8px',
   }
 }; 
 
 function GridItem({ ...props }) {
   const { classes, children, className, ...rest } = props;
   return (
-    <Grid item {...rest} className={classes.grid + " " + className}>
+    <Grid item {...rest} className={classes.grid + ' ' + className}>
       {children}
     </Grid>
   );

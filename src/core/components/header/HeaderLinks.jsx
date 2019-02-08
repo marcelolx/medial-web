@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
-import ExitToApp from "@material-ui/icons/ExitToApp";
-import Person from "@material-ui/icons/Person";
-import SweetAlert from "react-bootstrap-sweetalert";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import Person from '@material-ui/icons/Person';
+import SweetAlert from 'react-bootstrap-sweetalert';
 import { compose, bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import Hidden from "@material-ui/core/Hidden";
+import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
 import * as authActions from '../../services/authentication/loginActions';
 
@@ -46,18 +46,18 @@ class HeaderLinks extends React.Component {
       alert: (
         <SweetAlert
           warning
-          style={{ display: "block",color:`#222` }}
-          title="Deseja sair?"
+          style={{ display: 'block',color:`#222` }}
+          title='Deseja sair?'
           onConfirm={() => this.logout()}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
           cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
+            this.props.classes.button + ' ' + this.props.classes.danger
           }
-          confirmBtnText="Continuar"
-          cancelBtnText="Cancelar"
+          confirmBtnText='Continuar'
+          cancelBtnText='Cancelar'
           showCancel
         >
         </SweetAlert>
@@ -75,19 +75,19 @@ class HeaderLinks extends React.Component {
         <Link to={`profile`}>
          
          <Button
-          color="transparent"
-          aria-label="Perfil"
+          color='transparent'
+          aria-label='Perfil'
           justIcon
           className={classes.buttonLink}
         >
           <Person
             className={
               classes.headerLinksSvg +
-              " " +
+              ' ' +
               (classes.links)
             }
           />
-          <Hidden mdUp implementation="css">
+          <Hidden mdUp implementation='css'>
               <span className={classes.linkText}>
                 {this.props.auth.nome}
               </span>
@@ -96,8 +96,8 @@ class HeaderLinks extends React.Component {
         
         </Link>
         <Button
-          color="transparent"
-          aria-label="Sair"
+          color='transparent'
+          aria-label='Sair'
           justIcon
           className={classes.buttonLink}
           onClick={() => this.confirmacaoLogout()}
@@ -105,13 +105,13 @@ class HeaderLinks extends React.Component {
           <ExitToApp
             className={
               classes.headerLinksSvg +
-              " " +
+              ' ' +
               (classes.links)
             }
           />
-          <Hidden mdUp implementation="css">
+          <Hidden mdUp implementation='css'>
               <span className={classes.linkText}>
-                {"Desconectar-se"}
+                {'Desconectar-se'}
               </span>
             </Hidden>
         </Button>

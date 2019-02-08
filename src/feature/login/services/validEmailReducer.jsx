@@ -1,4 +1,4 @@
-import { VALIDAR_COMPLETE } from "./validEmailActionTypes";
+import { VALIDAR_COMPLETE } from './validEmailActionTypes';
 
 const initialState = {
   value: null

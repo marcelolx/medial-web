@@ -1,4 +1,4 @@
-import API from '../../../../services/API';
+import API from '../../../../../core/http/API';
 import { BUSCAR_MEDIACOES_START, BUSCAR_MEDIACOES_ERROR, BUSCAR_MEDIACOES_COMPLETE } from './mediacoesActionTypes';
 
 export function buscarMediacoes(idUsuario) {

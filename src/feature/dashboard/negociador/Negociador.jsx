@@ -16,7 +16,7 @@ import GridContainer from '../../../core/components/grid/GridContainer';
 import { SweetAlert } from 'react-bootstrap-sweetalert';
 import CustomInput from '../../../core/components/CustomInput';
 import Table from '../../../core/components/CustomTable';
-import CheckCircle from "@material-ui/icons/CheckCircle";
+import CheckCircle from '@material-ui/icons/CheckCircle';
 import Loader from '../../../core/components/Loader';
 
 const styles = ({
@@ -63,17 +63,17 @@ class Negociador extends React.Component {
       alert: (
         <SweetAlert
           warning
-          style={{ display: "block",color:`#222` }}
+          style={{ display: 'block',color:`#222` }}
           onConfirm={() => this.removerNegociador(negociador,empresa)}
           onCancel={this.hideAlert}
           confirmBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.success
+            this.props.classes.button + ' ' + this.props.classes.success
           }
           cancelBtnCssClass={
-            this.props.classes.button + " " + this.props.classes.danger
+            this.props.classes.button + ' ' + this.props.classes.danger
           }
-          confirmBtnText="Remover"
-          cancelBtnText="Cancelar"
+          confirmBtnText='Remover'
+          cancelBtnText='Cancelar'
           showCancel
         >
           <h4>{`Deseja remover ${nome} de seus negociadores?`}</h4>
@@ -110,7 +110,7 @@ class Negociador extends React.Component {
   }
 
   change = (evt) => {
-    this.setState({ "pesquisa": evt.target.value });
+    this.setState({ 'pesquisa': evt.target.value });
   }
 
   novoNegociador(){
@@ -118,23 +118,23 @@ class Negociador extends React.Component {
     return (
       <GridItem xs={12} sm={12} md={8} lg={8}  >
       <Card className = {classes.cardInteiro}>
-        <CardHeader color="primary">
+        <CardHeader color='primary'>
           <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Pesquisar negociador</h4>
         </CardHeader>
         <CardBody pricing className={classes.card}>
             <GridContainer>
                <GridItem xs={12} sm={12} md={6} lg={6} >
                     <CustomInput
-                      error={this.state.pesquisaState === "error"}
-                      labelText="Informe o nome ou CPF do negociador..."
-                      errorHelperText="Mínimo de 3 caracteres"
+                      error={this.state.pesquisaState === 'error'}
+                      labelText='Informe o nome ou CPF do negociador...'
+                      errorHelperText='Mínimo de 3 caracteres'
                       inputProps={{
                         value: this.state.pesquisa,
                         onChange: this.change,
                         onKeyPress:this.handleKeyPress
 
                       }}
-                      id="nome"
+                      id='nome'
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -142,19 +142,19 @@ class Negociador extends React.Component {
               </GridItem>
               
               <GridItem xs={12} sm={12} md={6} lg={6} >
-                  <Button round color="secondary" onClick={this.pesquisarNegociadores}>
+                  <Button round color='secondary' onClick={this.pesquisarNegociadores}>
                     Pesquisar
                   </Button>
-                  <Button simple color="danger" size="sm"  onClick={this.alterarExibirAdicionarNegociador(false)}>
+                  <Button simple color='danger' size='sm'  onClick={this.alterarExibirAdicionarNegociador(false)}>
                     Fechar
                   </Button>
               </GridItem >
               <Table 
                             tableHead={[
-                              "#",
-                              "Nome",
-                              "CPF/CNPJ",
-                              "Adicionar",
+                              '#',
+                              'Nome',
+                              'CPF/CNPJ',
+                              'Adicionar',
                             ]}
                             tableData={this.dataToTableData()}
                             customCellClasses={[
@@ -214,18 +214,18 @@ class Negociador extends React.Component {
       alertNovo: (
         <SweetAlert
           info
-          style={{ display: "block",color:`#222` }}
+          style={{ display: 'block',color:`#222` }}
           onConfirm={this.handleNovoNegociador(negociador)}
           onCancel={this.hideAlertNovo}
           confirmBtnCssClass={
-            classes.button + " " + classes.success
+            classes.button + ' ' + classes.success
           }
           cancelBtnCssClass={
-            classes.button + " " + classes.danger + " " + classes.simple
+            classes.button + ' ' + classes.danger + ' ' + classes.simple
           }
 
-          confirmBtnText="Adicionar"
-          cancelBtnText="Cancelar"
+          confirmBtnText='Adicionar'
+          cancelBtnText='Cancelar'
           showCancel
         >
         <h4>{`Deseja adicionar ${nome} aos seus negociadores?`}</h4>
@@ -241,8 +241,8 @@ class Negociador extends React.Component {
     return (
       <Button
           round
-          color="primary"
-          className={classes.actionButton + " " + classes.actionButtonRound}
+          color='primary'
+          className={classes.actionButton + ' ' + classes.actionButtonRound}
           key={negociador.id}
           onClick={() => this.confirmacaoAdicionar(negociador.id,negociador.nome)}
         >
@@ -277,7 +277,7 @@ class Negociador extends React.Component {
                           >
                           {negociador.negociador.toUpperCase()}
                           </h4>
-                          <Button round color="secondary" onClick={() =>this.confirmacaoRemocao(negociador.id,negociador.empresa,negociador.negociador.toUpperCase())}>
+                          <Button round color='secondary' onClick={() =>this.confirmacaoRemocao(negociador.id,negociador.empresa,negociador.negociador.toUpperCase())}>
                             Remover
                           </Button>
                         </CardBody>
@@ -289,7 +289,7 @@ class Negociador extends React.Component {
             <GridContainer>
            <GridItem xs={12} sm={12} md={4} lg={4}  >
                   <Card className = {classes.cardInteiro}>
-                    <CardHeader color="primary">
+                    <CardHeader color='primary'>
                       <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Novo negociador</h4>
                     </CardHeader>
                     <CardBody pricing className={classes.card}>
@@ -301,7 +301,7 @@ class Negociador extends React.Component {
                           >
                             Adicionar novo negociador para sua empresa?
                           </h4>
-                          <Button round color="info" onClick={this.alterarExibirAdicionarNegociador(true)}>
+                          <Button round color='info' onClick={this.alterarExibirAdicionarNegociador(true)}>
                             Adicionar
                           </Button>
                         </CardBody>

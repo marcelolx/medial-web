@@ -67,13 +67,13 @@ class NovaMediacao extends Component {
 
   render(){
     return(      
-      <GridContainer justify="center">
+      <GridContainer justify='center'>
         <GridItem xs={12} sm={12} md={8}>
           <Wizard 
             validate
             steps={steps}
-            title="Mediação - Nova Solicitação"
-            subtitle="Busque a empresa a partir do nome fantasia e relate o motivo para a mediação"
+            title='Mediação - Nova Solicitação'
+            subtitle='Busque a empresa a partir do nome fantasia e relate o motivo para a mediação'
             finishButtonClick={this.handleFinish}
           />
         </GridItem>

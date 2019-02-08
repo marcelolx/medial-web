@@ -33,11 +33,11 @@ class NestedList extends Component {
           <ListItemText inset primary={items.name} />
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+        <Collapse in={this.state.open} timeout='auto' unmountOnExit>
           {
             items.collapseItems.map((item, key) => {
               return(
-                <List key={key} component="div" disablePadding>
+                <List key={key} component='div' disablePadding>
                   <ListItem component={NavLink} exact to={item.path} button className={classes.nested}>
                     <ListItemIcon>
                       {item.icon}

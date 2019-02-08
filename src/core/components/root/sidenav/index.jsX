@@ -20,8 +20,8 @@ const SideNav = (props) => {
 
   return (
     <Drawer
-      variant="permanent"
-      className="sideNav"
+      variant='permanent'
+      className='sideNav'
       classes={{
         paper: classes.drawerPaper,
       }}

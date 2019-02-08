@@ -12,7 +12,7 @@ class Mediacao extends React.PureComponent {
   render() {
     return(
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={9} lg={9}>
             <Solicitacao />
             <Mensagens />

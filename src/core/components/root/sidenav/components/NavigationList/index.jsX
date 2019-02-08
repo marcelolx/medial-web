@@ -16,30 +16,30 @@ import itensMediacao from './NestedList/itensMediacao';
 const NavigationList = (props) => {  
   return (
     <List
-      className="nav-link"
-      component="nav"
-      subheader={<ListSubheader component="div">Menu</ListSubheader>}
+      className='nav-link'
+      component='nav'
+      subheader={<ListSubheader component='div'>Menu</ListSubheader>}
     >
-      <ListItem component={NavLink} exact to="/" button>
+      <ListItem component={NavLink} exact to='/' button>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
-        <ListItemText primary="Início" />
+        <ListItemText primary='Início' />
       </ListItem>
       <NestedList items={itensMediacao} />
 
 
       <IfAnyGranted expected={[1,2]} actual={props.auth.accessLevel}>
         <List
-          className="nav-link"
-          component="nav"
-          subheader={<ListSubheader component="div">Administrador</ListSubheader>}
+          className='nav-link'
+          component='nav'
+          subheader={<ListSubheader component='div'>Administrador</ListSubheader>}
         >
-          <ListItem component={NavLink} exact to="/users/all" button>
+          <ListItem component={NavLink} exact to='/users/all' button>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Lista Usuários" />
+            <ListItemText primary='Lista Usuários' />
           </ListItem>
         </List>
       </IfAnyGranted>      

@@ -45,7 +45,7 @@ const styles = theme => ({
 function NoOptionsMessage(props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.noOptionsMessage}
       {...props.innerProps}
     >
@@ -81,7 +81,7 @@ function Option(props) {
     <MenuItem
       buttonRef={props.innerRef}
       selected={props.isFocused}
-      component="div"
+      component='div'
       style={{
         fontWeight: props.isSelected ? 500 : 400,
       }}
@@ -95,7 +95,7 @@ function Option(props) {
 function Placeholder(props) {
   return (
     <Typography
-      color="textSecondary"
+      color='textSecondary'
       className={props.selectProps.classes.placeholder}
       {...props.innerProps}
     >

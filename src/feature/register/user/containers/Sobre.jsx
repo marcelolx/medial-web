@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { compose } from "recompose";
+import React, { Component } from 'react';
+import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel'
@@ -210,68 +210,68 @@ class Sobre extends Component {
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO])}
-          aria-describedby="name-error-text"            
+          aria-describedby='name-error-text'            
         >
-          <InputLabel htmlFor="input-nome">Nome Completo</InputLabel>
+          <InputLabel htmlFor='input-nome'>Nome Completo</InputLabel>
           <Input
-            id="input-nome"
-            name="nome"
-            type="text"
-            placeholder="Nome Completo"
+            id='input-nome'
+            name='nome'
+            type='text'
+            placeholder='Nome Completo'
             value={this.state.nome}
             onChange={this.handleChange('nome')}
           />
           {
             handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO]) &&
-            <FormHelperText id="name-error-text">Preencha seu nome completo</FormHelperText>
+            <FormHelperText id='name-error-text'>Preencha seu nome completo</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.cpf_cnpj, [CPF_INVALIDO, CPF_CNPJ_CADASTRADO])}
-          aria-describedby="cpf-error-text"
+          aria-describedby='cpf-error-text'
         >
-          <InputLabel htmlFor="input-cpf">CPF</InputLabel>
+          <InputLabel htmlFor='input-cpf'>CPF</InputLabel>
           <Input
-            id="input-cpf"
-            name="cpf"
-            type="text"
+            id='input-cpf'
+            name='cpf'
+            type='text'
             inputComponent={TextMaskCPF}
             value={this.state.cpf_cnpj}
             onChange={this.handleChange('cpf_cnpj')}
           />
           {
             handleFieldShowError(this.props, this.state.cpf_cnpj, [CPF_INVALIDO, CPF_CNPJ_CADASTRADO]) &&
-            <FormHelperText id="cpf-error-text">{error.adaptedMessage.message || 'Preencha o CPF'}</FormHelperText>
+            <FormHelperText id='cpf-error-text'>{error.adaptedMessage.message || 'Preencha o CPF'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO])}
-          aria-describedby="rg-error-text"
+          aria-describedby='rg-error-text'
         >
-          <InputLabel htmlFor="input-rg">RG</InputLabel>
+          <InputLabel htmlFor='input-rg'>RG</InputLabel>
           <Input 
-            id="input-rg"
-            name="rg"
-            type="text"
+            id='input-rg'
+            name='rg'
+            type='text'
             value={this.state.rg_ie}
             onChange={this.handleChange('rg_ie')}
           />
           {
             handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
-            <FormHelperText id="rg-error-text">{error.adaptedMessage.message || 'Preencha o RG'}</FormHelperText>
+            <FormHelperText id='rg-error-text'>{error.adaptedMessage.message || 'Preencha o RG'}</FormHelperText>
           }
         </FormControl>
         <FormControl 
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.dataNascimento, [DATA_IGUAL_DATA_ATUAL], '1900-01-01')}
-          aria-describedby="birthday-error-text"
+          aria-describedby='birthday-error-text'
         >            
           <TextField 
-            id="dataNascimento"
-            type="date"
-            label="Data de Nascimento"
+            id='dataNascimento'
+            type='date'
+            label='Data de Nascimento'
             value={this.state.dataNascimento}
             onChange={this.handleChange('dataNascimento')}
             InputLabelProps={{
@@ -280,25 +280,25 @@ class Sobre extends Component {
           />
           {
             handleFieldShowError(this.props, this.state.dataNascimento, [DATA_IGUAL_DATA_ATUAL], '1900-01-01') &&
-            <FormHelperText id="birthday-error-text">{error.adaptedMessage.message || 'Preencha a data de nascimento'}</FormHelperText>
+            <FormHelperText id='birthday-error-text'>{error.adaptedMessage.message || 'Preencha a data de nascimento'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.nomeMae, [NOME_MAE_NAO_INFORMADO])}
-          aria-describedby="mother-error-text"
+          aria-describedby='mother-error-text'
         >
-          <InputLabel htmlFor="input-nomemae">Nome da mãe</InputLabel>
+          <InputLabel htmlFor='input-nomemae'>Nome da mãe</InputLabel>
           <Input 
-            id="input-nomemae"
-            name="nomemae"
-            type="text"
+            id='input-nomemae'
+            name='nomemae'
+            type='text'
             value={this.state.nomeMae}
             onChange={this.handleChange('nomeMae')}
           />
           {
             handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
-            <FormHelperText id="mother-error-text">{error.adaptedMessage.message || 'Preencha o nome da mãe'}</FormHelperText>
+            <FormHelperText id='mother-error-text'>{error.adaptedMessage.message || 'Preencha o nome da mãe'}</FormHelperText>
           }
         </FormControl>
         <FormControl
@@ -306,33 +306,33 @@ class Sobre extends Component {
         >
           <FormLabel className={classes.sexoForm}>Sexo</FormLabel>
           <RadioGroup
-            aria-label="Sexo"
-            name="sexo1"
+            aria-label='Sexo'
+            name='sexo1'
             value={this.state.sexo}
             onChange={this.handleChange('sexo')}
             className={classes.radioGroup}
           >
             <FormControlLabel
-              value="2" 
+              value='2' 
               control={<Radio />} 
-              label="Feminino" 
+              label='Feminino' 
             />
             <FormControlLabel 
-              value="1"
+              value='1'
               control={<Radio />} 
-              label="Masculino" 
+              label='Masculino' 
             />
           </RadioGroup>
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')} 
           error={handleFieldShowError(this.props, this.state.estadoCivil, [ESTADO_CIVIL_NAO_INFORMADO])}
-          aria-describedby="estadocivil-error-text"
+          aria-describedby='estadocivil-error-text'
         >
           <TextField
-            id="estado-civil"
+            id='estado-civil'
             select
-            label="Estado Civil"
+            label='Estado Civil'
             value={this.state.estadoCivil}
             onChange={this.handleChange('estadoCivil')}
             SelectProps={{
@@ -340,8 +340,8 @@ class Sobre extends Component {
                 className: classes.menu,
               },
             }}
-            helperText="Selecione seu estado civil"
-            margin="normal"
+            helperText='Selecione seu estado civil'
+            margin='normal'
           >
             {estadosCivis.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -351,18 +351,18 @@ class Sobre extends Component {
           </TextField>
           {
             handleFieldShowError(this.props, this.state.estadoCivil, [ESTADO_CIVIL_NAO_INFORMADO]) &&
-            <FormHelperText id="estadocivil-error-text">{error.adaptedMessage.message || 'Selecione seu estado civil'}</FormHelperText>
+            <FormHelperText id='estadocivil-error-text'>{error.adaptedMessage.message || 'Selecione seu estado civil'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.escolaridade, [ESCOLARIDADE_NAO_INFORMADA])}
-          aria-describedby="escolaridade-error-text"
+          aria-describedby='escolaridade-error-text'
         >
           <TextField
-            id="escolaridade-civil"
+            id='escolaridade-civil'
             select
-            label="Escolaridade"            
+            label='Escolaridade'            
             value={this.state.escolaridade}
             onChange={this.handleChange('escolaridade')}
             SelectProps={{
@@ -370,8 +370,8 @@ class Sobre extends Component {
                 className: classes.menu,
               },
             }}
-            helperText="Selecione seu nível de escolaridade"
-            margin="normal"
+            helperText='Selecione seu nível de escolaridade'
+            margin='normal'
           >
             {escolaridades.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -381,7 +381,7 @@ class Sobre extends Component {
           </TextField>
           {
             handleFieldShowError(this.props, this.state.escolaridade, [ESCOLARIDADE_NAO_INFORMADA]) &&
-            <FormHelperText id="escolaridade-error-text">{error.adaptedMessage.message || 'Selecione sua escolaridade'}</FormHelperText>
+            <FormHelperText id='escolaridade-error-text'>{error.adaptedMessage.message || 'Selecione sua escolaridade'}</FormHelperText>
           }
         </FormControl>
       </React.Fragment>
@@ -419,86 +419,86 @@ class Sobre extends Component {
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO])}
-          aria-describedby="razao-social-error-text"
+          aria-describedby='razao-social-error-text'
         >
-          <InputLabel htmlFor="input-razao-social">Razão Social</InputLabel>
+          <InputLabel htmlFor='input-razao-social'>Razão Social</InputLabel>
           <Input 
-            id="input-razao-social"
-            name="razaosocial"
-            type="text"
-            placeholder="Medial LTDA"
+            id='input-razao-social'
+            name='razaosocial'
+            type='text'
+            placeholder='Medial LTDA'
             value={this.state.nome}
             onChange={this.handleChange('nome')}            
           />
           {
             handleFieldShowError(this.props, this.state.nome, [NOME_NAO_INFORMADO]) &&
-            <FormHelperText id="razao-socail-error-text">{error.adaptedMessage.message || 'Informe a razão social da empresa'}</FormHelperText>
+            <FormHelperText id='razao-socail-error-text'>{error.adaptedMessage.message || 'Informe a razão social da empresa'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.fantasia, [FANTASIA_NAO_INFORMADO])}
-          aria-describedby="fantasia-error-text"
+          aria-describedby='fantasia-error-text'
         >
-          <InputLabel htmlFor="input-fantasia">Nome Fantasia</InputLabel>
+          <InputLabel htmlFor='input-fantasia'>Nome Fantasia</InputLabel>
           <Input
-            id="input-fantasia"
-            name="fantasia"
-            type="text"
-            placeholder="Medial"
+            id='input-fantasia'
+            name='fantasia'
+            type='text'
+            placeholder='Medial'
             value={this.state.fantasia}
             onChange={this.handleChange('fantasia')}
           />
           {
             handleFieldShowError(this.props, this.state.fantasia, [FANTASIA_NAO_INFORMADO]) &&
-            <FormHelperText id="fantasia-error-text">{error.fantasia || 'Informe o nome fantasia da empresa'}</FormHelperText>
+            <FormHelperText id='fantasia-error-text'>{error.fantasia || 'Informe o nome fantasia da empresa'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error= {handleFieldShowError(this.props, this.state.cpf_cnpj, [CNPJ_INFORMADO_INVALIDO, CPF_CNPJ_CADASTRADO])}
-          aria-describedby="cnpj-error-text"
+          aria-describedby='cnpj-error-text'
         >
-          <InputLabel htmlFor="input-cnpj">CNPJ</InputLabel>
+          <InputLabel htmlFor='input-cnpj'>CNPJ</InputLabel>
           <Input 
-            id="input-cnpj"
-            name="cnpj"
-            type="text"
+            id='input-cnpj'
+            name='cnpj'
+            type='text'
             inputComponent={TextMaskCNPJ}
             value={this.state.cpf_cnpj}
             onChange={this.handleChange('cpf_cnpj')}            
           />
           {handleFieldShowError(this.props, this.state.cpf_cnpj, [CNPJ_INFORMADO_INVALIDO, CPF_CNPJ_CADASTRADO]) &&
-            <FormHelperText id="cnpj-error-text">{error.adaptedMessage.message.message || 'Informe o CNPJ'}</FormHelperText>
+            <FormHelperText id='cnpj-error-text'>{error.adaptedMessage.message.message || 'Informe o CNPJ'}</FormHelperText>
           }        
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')}
           error={handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO])}
-          aria-describedby="ie-error-text"
+          aria-describedby='ie-error-text'
         >
-          <InputLabel htmlFor="ie-input">Inscrição Estadual</InputLabel>
+          <InputLabel htmlFor='ie-input'>Inscrição Estadual</InputLabel>
           <Input 
-            id="ie-input"
-            name="ie"
-            type="text"
+            id='ie-input'
+            name='ie'
+            type='text'
             value={this.state.rg_ie}
             onChange={this.handleChange('rg_ie')}
           />
           {
             handleFieldShowError(this.props, this.state.rg_ie, [RG_IE_NAO_INFORMADO]) &&
-            <FormHelperText id="ie-error-text">{error.adaptedMessage.message || 'Informe a Inscrição Estadual'}</FormHelperText>
+            <FormHelperText id='ie-error-text'>{error.adaptedMessage.message || 'Informe a Inscrição Estadual'}</FormHelperText>
           }
         </FormControl>
         <FormControl
           className={[classes.margin, classes.fill].join(' ')} 
           error={handleFieldShowError(this.props, this.state.ramoEmpresarial, [RAMO_EMPRESARIAL_NAO_INFORMADO])}           
-          aria-describedby="ramoempresarial-error-text"
+          aria-describedby='ramoempresarial-error-text'
         >
           <TextField
-            id="ramo-empresarial"
+            id='ramo-empresarial'
             select
-            label="Ramo Empresarial"
+            label='Ramo Empresarial'
             value={this.state.ramoEmpresarial}
             onChange={this.handleChange('ramoEmpresarial')}
             SelectProps={{
@@ -506,8 +506,8 @@ class Sobre extends Component {
                 className: classes.menu,
               },
             }}
-            helperText="Selecione o ramo empresarial da empresa"
-            margin="normal"
+            helperText='Selecione o ramo empresarial da empresa'
+            margin='normal'
           >
             {ramosEmpresariais.map(option => (
               <MenuItem key={option.value} value={option.value}>
@@ -517,7 +517,7 @@ class Sobre extends Component {
           </TextField>
           {
             handleFieldShowError(this.props, this.state.ramoEmpresarial, [RAMO_EMPRESARIAL_NAO_INFORMADO]) &&
-            <FormHelperText id="ramoempresarial-error-text">{error.adaptedMessage.message || 'Selecione o ramo empresarial da empresa'}</FormHelperText>
+            <FormHelperText id='ramoempresarial-error-text'>{error.adaptedMessage.message || 'Selecione o ramo empresarial da empresa'}</FormHelperText>
           }
         </FormControl>
       </React.Fragment>

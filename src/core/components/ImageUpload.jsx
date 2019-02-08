@@ -45,15 +45,15 @@ class ImageUpload extends React.Component {
     const { avatar, adicionarButtonProps, alterarButtonProps, removerButtonProps } = this.props;
 
     return(
-      <div className="fileinput text-center">
-        <input type="file" onChange={this.handleChangeImage} ref="fileInput" />
-        <div className={"thumbnail" + (avatar ? " img-circle" : "")}>
-          <img src={this.state.previewImageUrl} alt="..."/>
+      <div className='fileinput text-center'>
+        <input type='file' onChange={this.handleChangeImage} ref='fileInput' />
+        <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
+          <img src={this.state.previewImageUrl} alt='...'/>
         </div>
         <div>
           {this.state.file === null ? (
             <Button {...adicionarButtonProps} onClick={() => this.handleClick()}>
-              {avatar ? "Adicionar Avatar" : "Selecionar Imagem"}
+              {avatar ? 'Adicionar Avatar' : 'Selecionar Imagem'}
             </Button>
           ) : (
             <span>
@@ -62,7 +62,7 @@ class ImageUpload extends React.Component {
               </Button>
              {avatar ? <br /> : null}
               <Button {...removerButtonProps} onClick={() => this.handleRemover()}>
-                <i className="fas fa-times"/> Remover
+                <i className='fas fa-times'/> Remover
               </Button>
             </span>
           )}

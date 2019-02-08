@@ -23,7 +23,7 @@ export function viewInState(allStates, viewName) {
 
 export function viewError() {
   return(
-    <GridContainer justify="center">
+    <GridContainer justify='center'>
       <GridItem xs={12} sm={12} md={3}>
         <h4>
           Ops... Tivemos um problema, volte para a página anterior, verifique as informações fornecidas
@@ -35,7 +35,7 @@ export function viewError() {
 }
 
 export function validateEmail(email) {
-  let validMailRegx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let validMailRegx = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return validMailRegx.test(email);
 }
 

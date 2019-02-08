@@ -17,39 +17,37 @@ import * as requeridoPendenteActions from './services/requeridoPendenteActions';
 import { bindActionCreators } from 'redux';
 import Snackbar from '../../../core/components/snackbar/Snackbar';
 import queryString from 'query-string';
- 
+import CadastroPendenteConstants from './constants/cadastroPendenteConstants';
+
 const styles = ({
   semMargen: {
     margin: 0,
   },
   statusCadastro: {
-    marginTop: "3%",
-    marginBottom: "3px",
-    textAlign: "center"
+    marginTop: '3%',
+    marginBottom: '3px',
+    textAlign: 'center'
   },
   botaoEnviar: {
     position: 'inherit',
     float: 'right',
   },
-  paddingGrid:{
-    padding: "0 5px",
+  paddingGrid: {
+    padding: '0 5px',
   },
-  paddingBody:{
-    padding: "0 10px",
+  paddingBody: {
+    padding: '0 10px',
   },
 });
 
-class CadastroPendente extends React.Component {  
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      mensagemHistorico: '',
-      mensagemHistoricoEmpty: false,
-      successNotification: false,
-      erroCamposSemInfo: false,
-      messageErroCamposSemInfo: ''
-    }
+class CadastroPendente extends React.Component {
+
+  state = {
+    mensagemHistorico: '',
+    mensagemHistoricoEmpty: false,
+    successNotification: false,
+    erroCamposSemInfo: false,
+    messageErroCamposSemInfo: ''
   }
 
   componentDidMount() {
@@ -58,14 +56,14 @@ class CadastroPendente extends React.Component {
 
   getHistoricos() {
     const { cadastroPendente } = this.props.requeridosPendentes;
-    
+
     return cadastroPendente.historico ? (
       cadastroPendente.historico.map((historico, key) => {
-        return(
+        return (
           <Card key={key}>
             <CardBody>
-              Mediador: {historico.nomeMediador}<br/>
-              Status: {getAdaptedMessage(historico.situacao)}<br/>
+              Mediador: {historico.nomeMediador}<br />
+              Status: {getAdaptedMessage(historico.situacao)}<br />
               Mensagem: {historico.mensagem}
             </CardBody>
           </Card>
@@ -93,7 +91,7 @@ class CadastroPendente extends React.Component {
         situacao: cadastroPendente.situacao,
         mensagem: this.state.mensagemHistorico
       };
-      
+
       this.props.actions.salvarHistorico(mensagemData);
       this.setState({ mensagemHistorico: '' });
     } else {
@@ -115,9 +113,9 @@ class CadastroPendente extends React.Component {
 
     const blankInputs = Object.keys(data).filter(key => data[key] === '');
 
-    (blankInputs.length === 0) 
-      ? this.props.actions.confirmarSolicitacaoCadastro(data) 
-      : this.exibirErroCampoSemInfo("Erro interno, não foi possível confirmar a solicitação");
+    (blankInputs.length === 0)
+      ? this.props.actions.confirmarSolicitacaoCadastro(data)
+      : this.exibirErroCampoSemInfo(CadastroPendenteConstants.ERRO_INTERNO_NAO_POSSIVEL_CONFIRMAR_SOLICITACAO);
   }
 
   exibirErroCampoSemInfo(mensagem) {
@@ -127,7 +125,7 @@ class CadastroPendente extends React.Component {
     });
 
     setTimeout(
-      function() {
+      function () {
         this.setState({
           erroCamposSemInfo: false,
           messageErroCamposSemInfo: ''
@@ -142,7 +140,7 @@ class CadastroPendente extends React.Component {
   fecharSnackBarHistoricoSalvo() {
     if (this.props.requeridosPendentes.sucessoSalvarHistorico) {
       setTimeout(
-        function() {
+        function () {
           this.handleCloseSnackBarSuccessHistorico()
         }.bind(this), 650);
     }
@@ -151,7 +149,7 @@ class CadastroPendente extends React.Component {
   fecharSnackBarSolicitacaoCadastroConfirmada() {
     if (this.props.requeridosPendentes.cadastroConfirmado) {
       setTimeout(
-        function() {
+        function () {
           this.props.actions.confirmarSolicitacaoCadastroFinish();
         }.bind(this), 650);
     }
@@ -166,12 +164,12 @@ class CadastroPendente extends React.Component {
 
     return cadastroPendente === null ? null : (
       <React.Fragment >
-        <GridContainer justify="center" >
+        <GridContainer justify='center' >
           <GridItem xs={12} sm={12} md={10} lg={6} className={classes.paddingGrid}>
             <Card>
-              <CardHeader color="primary">
+              <CardHeader color='primary'>
                 <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastro Empresa Pendente</h4>
-                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{"Empresa: " + cadastroPendente.nomeRequerido}</p>
+                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{'Empresa: ' + cadastroPendente.nomeRequerido}</p>
               </CardHeader>
               <CardBody className={classes.paddingBody}>
                 <Card>
@@ -179,12 +177,12 @@ class CadastroPendente extends React.Component {
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={4} >
                         <CustomInput
-                          labelText="Protocolo"
+                          labelText='Protocolo'
                           inputProps={{
                             value: cadastroPendente.protocolo,
                             disabled: true,
                           }}
-                          id="protocolo"
+                          id='protocolo'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -192,12 +190,12 @@ class CadastroPendente extends React.Component {
                       </GridItem>
                       <GridItem xs={12} sm={12} md={5} >
                         <CustomInput
-                          labelText="Nome do Solicitante"
+                          labelText='Nome do Solicitante'
                           inputProps={{
                             value: cadastroPendente.nomeRequerente,
                             disabled: true,
                           }}
-                          id="nome-solicitante"
+                          id='nome-solicitante'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -205,12 +203,12 @@ class CadastroPendente extends React.Component {
                       </GridItem>
                       <GridItem xs={12} sm={12} md={3} >
                         <CustomInput
-                          labelText="Data da solicitação"
+                          labelText='Data da solicitação'
                           inputProps={{
                             value: moment(cadastroPendente.dataSolicitacao).format('DD-MM-YYYY'),
                             disabled: true,
                           }}
-                          id="data-solicitacao"
+                          id='data-solicitacao'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -218,27 +216,27 @@ class CadastroPendente extends React.Component {
                       </GridItem>
                     </GridContainer>
                   </CardBody>
-                </Card> 
+                </Card>
                 <Card>
                   <CardBody >
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={6}>
                         <CustomInput
-                          labelText="Nome do Requerido"
+                          labelText='Nome do Requerido'
                           inputProps={{
                             value: cadastroPendente.nomeRequerido,
                             disabled: true,
                           }}
-                          id="nome-requerido"
+                          id='nome-requerido'
                           formControlProps={{
                             fullWidth: true
                           }}
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={6}>
-                        <CustomInput                      
-                          labelText="CNPJ"
-                          id="cnpj-empresa"
+                        <CustomInput
+                          labelText='CNPJ'
+                          id='cnpj-empresa'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -250,9 +248,9 @@ class CadastroPendente extends React.Component {
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={6}>
-                        <CustomInput                      
-                          labelText="E-mail"
-                          id="email-empresa"
+                        <CustomInput
+                          labelText='E-mail'
+                          id='email-empresa'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -263,9 +261,9 @@ class CadastroPendente extends React.Component {
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={6}>
-                        <CustomInput                      
-                          labelText="Telefone"
-                          id="telefone-empresa"
+                        <CustomInput
+                          labelText='Telefone'
+                          id='telefone-empresa'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -288,9 +286,9 @@ class CadastroPendente extends React.Component {
                   <CardBody>
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={12} lg={12}>
-                        <CustomInput                      
-                          labelText="Mensagem de histórico"
-                          id="msg-historico-cadastro"
+                        <CustomInput
+                          labelText='Mensagem de histórico'
+                          id='msg-historico-cadastro'
                           formControlProps={{
                             fullWidth: true
                           }}
@@ -302,19 +300,19 @@ class CadastroPendente extends React.Component {
                         />
                       </GridItem>
                       <GridItem xs={12} sm={12} md={12} lg={12}>
-                        <Button 
-                          color="secondary" 
+                        <Button
+                          color='secondary'
                           className={classes.botaoEnviar}
                           onClick={(e) => this.handleEnviaMensagemHistorico(e)}
                         >
-                          Enviar                          
+                          Enviar
                         </Button>
                       </GridItem>
                     </GridContainer>
                   </CardBody>
                 </Card>
-                <Button 
-                  color="secondary"
+                <Button
+                  color='secondary'
                   fullWidth
                   onClick={() => this.handleConfirmarSolicitacaoCadastro()}
                   disabled={this.props.requeridosPendentes.cadastroPendente.situacao === SOLICITADO_CADASTRO_EMPRESA}
@@ -322,11 +320,11 @@ class CadastroPendente extends React.Component {
                   Confirmar a solicitação de cadastro
                 </Button>
                 <Card>
-                  <CardHeader color="primary">
+                  <CardHeader color='primary'>
                     <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Histórico</p>
                   </CardHeader>
                   <CardBody className={classes.paddingBody}>
-                    { this.getHistoricos() }
+                    {this.getHistoricos()}
                   </CardBody>
                 </Card>
               </CardBody>
@@ -334,30 +332,30 @@ class CadastroPendente extends React.Component {
           </GridItem>
         </GridContainer>
         <Snackbar
-          place="tc"
-          color="success"
-          message="Sucesso! Mensagem de histórico enviada."
+          place='tc'
+          color='success'
+          message='Sucesso! Mensagem de histórico enviada.'
           open={this.props.requeridosPendentes.sucessoSalvarHistorico}
           closeNotification={() => this.handleCloseSnackBarSuccessHistorico()}
           close
         />
         <Snackbar
-          place="tc"
-          color="warning"
-          message="Enviando mensagem de histórico..."
+          place='tc'
+          color='warning'
+          message='Enviando mensagem de histórico...'
           open={this.props.requeridosPendentes.salvandoHistorico}
           close
         />
         <Snackbar
-          place="tc"
-          color="success"
-          message="Sucesso! Confirmada solicitação de cadastro!"
+          place='tc'
+          color='success'
+          message='Sucesso! Confirmada solicitação de cadastro!'
           open={this.props.requeridosPendentes.cadastroConfirmado}
           close
         />
-        <Snackbar 
-          place="tc"
-          color="warning"
+        <Snackbar
+          place='tc'
+          color='warning'
           message={this.state.messageErroCamposSemInfo}
           open={this.state.erroCamposSemInfo}
           close

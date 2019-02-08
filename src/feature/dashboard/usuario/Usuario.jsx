@@ -6,10 +6,10 @@ import Table from '../../../core/components/CustomTable';
 import adminCardTableStyle from '../../../assets/jss/scenes/dashboard/adminCardTableStyle.jsx';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Edit from "@material-ui/icons/Edit";
+import Edit from '@material-ui/icons/Edit';
 import Button from '../../../core/components/CustomButton';
 import { bindActionCreators } from 'redux';
-import * as  mediacoesActions from '../../admin/mediacao/services/mediacaoActions';
+import * as  mediacoesActions from '../../admin/mediacao/services/mediacoes/mediacoesActions';
 import { connect } from 'react-redux';
 import getAdaptedMessage from '../../admin/mediacao/utils/mediacaoMessagesHelper';
 import { withRouter } from 'react-router-dom';
@@ -50,8 +50,8 @@ class Usuario extends React.Component {
     return (
       <Button
           round
-          color="primary"
-          className={classes.actionButton + " " + classes.actionButtonRound}
+          color='primary'
+          className={classes.actionButton + ' ' + classes.actionButtonRound}
           key={mediacao.idMediacao}
           onClick={() => this.handleClickMediacao(mediacao.idMediacao)}
         >
@@ -66,17 +66,17 @@ class Usuario extends React.Component {
     return(
       <React.Fragment>
         <Card className = {classes.cardInteiro}>
-          <CardHeader color="primary">
+          <CardHeader color='primary'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediações</h4>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediações atribuídas</p>
           </CardHeader>
           <CardBody>
             <Table 
               tableHead={[
-                "#",
-                "Protocolo",
-                "Requerente",
-                "Situação"
+                '#',
+                'Protocolo',
+                'Requerente',
+                'Situação'
               ]}
               tableData={this.dataToTableData()}
               customCellClasses={[

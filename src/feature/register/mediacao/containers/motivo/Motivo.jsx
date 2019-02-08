@@ -98,30 +98,30 @@ class Motivo extends React.Component {
 
     return (
       <React.Fragment>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={5}>
             <SearchSelect
               opcoes={assuntos.conflitos}
-              name="conflitos"
+              name='conflitos'
               onChange={(name, value) => this.handleSelectChange(name, value)}
               value={this.state.conflitos}
-              placeholder="Conflitos"
+              placeholder='Conflitos'
               formControlProps={{
                 fullWidth: true
               }}
               error={((this.state.errorCode === SELECIONAR_CONFLITO_E_ASSUNTO) && (this.state.conflitos.length === 0))}
-              errorHelperText="Selecione o tipo de conflito"
+              errorHelperText='Selecione o tipo de conflito'
             />
           </GridItem>
         </GridContainer>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={5}>
             <SearchSelect
               opcoes={assuntos.assuntos}
-              name="assuntos"
+              name='assuntos'
               onChange={(name, value) => this.handleSelectChange(name, value)}
               value={this.state.assuntos}
-              placeholder="Assuntos"
+              placeholder='Assuntos'
               formControlProps={{
                 fullWidth: true,
               }}
@@ -130,27 +130,27 @@ class Motivo extends React.Component {
             />
           </GridItem>
         </GridContainer>
-        <GridContainer justify="center">
+        <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={5}>
             <FormControl
               className={classes.multilineTextField}
               error={(this.state.errorCode === MINIMO_CARACTERES_500)}
-              aria-describedby="mensagem-error-text"
+              aria-describedby='mensagem-error-text'
             >
               <TextField
-                id="mensagem"
-                label="Mensagem"
+                id='mensagem'
+                label='Mensagem'
                 multiline
-                rows="15"
+                rows='15'
                 className={classes.multilineTextField}
-                margin="normal"
-                variant="outlined"
+                margin='normal'
+                variant='outlined'
                 value={this.state.mensagem}
                 onChange={this.handleChange('mensagem')}
               />
               {
                 ((this.state.errorCode === MINIMO_CARACTERES_500) || (mediacao.errorCode === MENSAGEM_MENOS_500_CARACTERES)) &&
-                <FormHelperText id="mensagem-error-text">{mediacao.mensagem || 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
+                <FormHelperText id='mensagem-error-text'>{mediacao.mensagem || 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
               }
             </FormControl>
           </GridItem>

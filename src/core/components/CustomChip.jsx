@@ -71,19 +71,19 @@ function CustomChip({ ...props }) {
 CustomChip.propTypes = {
   classes: PropTypes.object.isRequired,
   color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "warning",
-    "danger",
-    "success",
-    "info",
-    "rose",
-    "gray"
+    'primary',
+    'secondary',
+    'warning',
+    'danger',
+    'success',
+    'info',
+    'rose',
+    'gray'
   ]),
   className: PropTypes.string,
   width: PropTypes.PropTypes.oneOf([
-    "fullWidth",
-    "halfWidth"
+    'fullWidth',
+    'halfWidth'
   ])
 };
 

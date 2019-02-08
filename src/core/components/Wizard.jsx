@@ -23,19 +23,19 @@ class Wizard extends Component {
     super(props);
     var width;
     if (this.props.steps.length === 1) {
-      width = "100%";
+      width = '100%';
     } else {
       if (window.innerWidth < 600) {
         if (this.props.steps.length !== 3) {
-          width = "50%";
+          width = '50%';
         } else {
-          width = 100 / 3 + "%";
+          width = 100 / 3 + '%';
         }
       } else {
         if (this.props.steps.length === 2) {
-          width = "50%";
+          width = '50%';
         } else {
-          width = 100 / 3 + "%";
+          width = 100 / 3 + '%';
         }
       }
     }
@@ -48,7 +48,7 @@ class Wizard extends Component {
       finishButton: this.props.steps.length === 1,
       width: width,
       movingTabStyle: {
-        transition: "transform 0s"
+        transition: 'transform 0s'
       },
       allStates: {}
     };
@@ -63,11 +63,11 @@ class Wizard extends Component {
 
   componentDidMount() {
     this.refreshAnimation(0);
-    window.addEventListener("resize", this.updateWidth);
+    window.addEventListener('resize', this.updateWidth);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWidth);
+    window.removeEventListener('resize', this.updateWidth);
   }
 
   updateWidth() {
@@ -220,7 +220,7 @@ class Wizard extends Component {
       li_width = 50;
     }
 
-    this.setState({ width: li_width + "%" });
+    this.setState({ width: li_width + '%' });
 
     var step_width = move_distance;
     move_distance = move_distance * index_temp;
@@ -243,8 +243,8 @@ class Wizard extends Component {
     var movingTabStyle = {
       width: step_width,
       transform:
-        "translate3d(" + move_distance + "px, " + vertical_level + "px, 0)",
-      transition: "all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)"
+        'translate3d(' + move_distance + 'px, ' + vertical_level + 'px, 0)',
+      transition: 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
     };
     this.setState({ movingTabStyle: movingTabStyle });
   }
@@ -252,7 +252,7 @@ class Wizard extends Component {
   render() {
     const { classes, title, subtitle, color, steps } = this.props;
     return (
-      <div className={classes.wizardContainer} ref="wizard">
+      <div className={classes.wizardContainer} ref='wizard'>
         <Card className={classes.card}>
           <div className={classes.wizardHeader}>
             <h3 className={classes.title}>{title}</h3>
@@ -278,7 +278,7 @@ class Wizard extends Component {
               })}
             </ul>
             <div
-              className={classes.movingTab + " " + classes[color]}
+              className={classes.movingTab + ' ' + classes[color]}
               style={this.state.movingTabStyle}
             >
               {steps[this.state.currentStep].stepName}
@@ -314,7 +314,7 @@ class Wizard extends Component {
             <div className={classes.right}>
               {this.state.nextButton ? (
                 <Button
-                  color="secondary"
+                  color='secondary'
                   className={this.props.nextButtonClasses}
                   onClick={() => this.nextButtonClick()}
                 >
@@ -323,7 +323,7 @@ class Wizard extends Component {
               ) : null}
               {this.state.finishButton ? (
                 <Button
-                  color="secondary"
+                  color='secondary'
                   className={this.finishButtonClasses}
                   onClick={() => this.finishButtonClick()}
                 >
@@ -340,15 +340,15 @@ class Wizard extends Component {
 }
 
 Wizard.defaultProps = {
-  color: "secondary",
-  title: "Title",
-  subtitle: "Default subtitle",
-  previousButtonText: "Anterior",
-  previousButtonClasses: "",
-  nextButtonClasses: "",
-  nextButtonText: "Próximo",
-  finishButtonClasses: "",
-  finishButtonText: "Finalizar",
+  color: 'secondary',
+  title: 'Title',
+  subtitle: 'Default subtitle',
+  previousButtonText: 'Anterior',
+  previousButtonClasses: '',
+  nextButtonClasses: '',
+  nextButtonText: 'Próximo',
+  finishButtonClasses: '',
+  finishButtonText: 'Finalizar',
   tabNavigation: false,
 };
 
@@ -362,13 +362,13 @@ Wizard.propTypes = {
     })
   ).isRequired,
   color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "warning",
-    "danger",
-    "success",
-    "info",
-    "rose"
+    'primary',
+    'secondary',
+    'warning',
+    'danger',
+    'success',
+    'info',
+    'rose'
   ]),
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,

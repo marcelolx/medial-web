@@ -4,7 +4,7 @@ import getAdaptedMessage from '../../utils/registerUserMessagesHelper';
 const initialState = {
   complete: false,
   error: false,
-  message: {"step":0,"message": ''},
+  message: {'step':0,'message': ''},
 }
 
 export default function(state = initialState, action) {

@@ -101,7 +101,7 @@ blockquote p {
 }
 
 body, h1, h2, h3, h4, h5, h6 {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-weight: 300;
     line-height: 1.5em;
 }
@@ -127,11 +127,11 @@ legend {
 a:focus, a:active,
 button:active, button:focus, button:hover,
 button::-moz-focus-inner,
-input[type="reset"]::-moz-focus-inner,
-input[type="button"]::-moz-focus-inner,
-input[type="submit"]::-moz-focus-inner,
+input[type='reset']::-moz-focus-inner,
+input[type='button']::-moz-focus-inner,
+input[type='submit']::-moz-focus-inner,
 select::-moz-focus-inner,
-input[type="file"] > input[type="button"]::-moz-focus-inner {
+input[type='file'] > input[type='button']::-moz-focus-inner {
     outline: 0 !important;
 }
 
@@ -198,7 +198,7 @@ footer ul li a:hover {
         top: 0;
         left: auto;
         right: 260px;
-        content: "";
+        content: '';
         z-index: 9999;
         overflow-x: hidden;
     }
@@ -221,7 +221,7 @@ footer ul li a:hover {
 	margin-right: 4px;
 }
 
-.fileinput input[type="file"] {
+.fileinput input[type='file'] {
 	display: none;
 }
 
