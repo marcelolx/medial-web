@@ -1,21 +1,19 @@
 import React from 'react';
-import withRouter from 'react-router-dom/withRouter';
-import Card from '../../../../core/components/card/Card';
-import CardHeader from '../../../../core/components/card/CardHeader';
-import CardBody from '../../../../core/components/card/CardBody';
+import Card from '../../../../components/Card/Card';
+import CardHeader from '../../../../components/Card/CardHeader';
+import CardBody from '../../../../components/Card/CardBody';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CardFooter from '../../../../core/components/card/CardFooter';
-import { getWebSocketAddres } from '../../../../core/http/API';
+import CardFooter from '../../../../components/Card/CardFooter';
+import { getWebSocketAddres } from '../../../../services/API';
 import SockJsClient from 'react-stomp';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
-import ChatInput from '../../../../core/components/chat/ChatInput';
-import ChatBox from '../../../../core/components/chat/ChatBox';
-import { CHAT, ENTROU, SAIU } from '../utils/mediacaoMessagesHelper';
-import queryString from 'query-string';
+import ChatInput from '../../../../components/Chat/ChatInput';
+import ChatBox from '../../../../components/Chat/ChatBox';
+import { CHAT, ENTROU, SAIU } from '../../../../services/admin/mediacao/messages';
 
-import * as mediacaoActions from '../services/mediacaoActions';
+import * as mediacaoActions from './../../../../services/admin/mediacao/actions';
 
 const style = theme => ({
   cardMensagens: {
@@ -37,40 +35,31 @@ const style = theme => ({
   }
 });
 
-class Mensagens extends React.PureComponent {
+class Mensagens extends React.Component {
 
-  state = {
-    messages: [],
-    clientConnected: false,
-    topic: '',
-    offset: 0,
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      clientConnected: false,
+      topic: '',
+      offset: 0,
+    }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let limit = 20;
     let offset = this.state.offset;
-    this.props.actions.adquirirMensagem(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id, offset, limit);
+    this.props.actions.adquirirMensagem(this.props.idMediacao,offset, limit);
     this.setState({ offset: offset + limit });
   }
 
   componentWillUpdate() {
     if (this.props.mediacao.isLoadedMensagem) {
       this.props.actions.limparDadosMensagens();
-
-      if (this.props.mediacao.mensagens.length > 0) {
-        let data = this.props.mediacao.mensagens;
-
-        if (this.state.messages > 0) {
-          data.push(this.state.messages);
-        }
-
-        this.setState({
-          messages: data
-        });
-      }
     }
   }
-
+ 
   onMessageReceived(payload) {
     if ((payload.messageType !== ENTROU) && (payload.messageType !== SAIU)) {
       this.setState(prevState => ({
@@ -141,7 +130,7 @@ class Mensagens extends React.PureComponent {
       <React.Fragment>
         {this.props.mediacao.mediacao !== null ? this.onSockJSClient() : null}
         <Card className={classes.cardMensagens}>
-          <CardHeader color='success'>
+          <CardHeader color="success">
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mensagens</h4>
           </CardHeader>
           <CardBody>
@@ -175,7 +164,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default withRouter(compose(
+export default compose(
   withStyles(style),
   connect(mapStateToProps, mapDispatchToProps)
-)(Mensagens));
+)(Mensagens);

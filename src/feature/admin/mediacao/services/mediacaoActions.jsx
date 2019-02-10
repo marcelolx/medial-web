@@ -27,7 +27,7 @@ export function buscarMediacao(idMediacao) {
 export function adquirirMensagem(idMediacao, offset, limit) {
   return function (dispatch) {
     dispatch(buscarMensagemStart());
-    return API.get(`/mensagens/${idMediacao}?offset=${offset}&limit=${limit}`)
+    return API.get(`/mensagem/mediacao/${idMediacao}?offset=${offset}&limit=${limit}`)
       .then(response => {
         dispatch(buscarMensagemComplete(response));
       })

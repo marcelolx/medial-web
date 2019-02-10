@@ -13,7 +13,7 @@ import PersonOutline from '@material-ui/icons/PersonOutline';
 import Button from '../../../core/components/CustomButton';
 import * as negociadorActions from './services/negociadorActions';
 import GridContainer from '../../../core/components/grid/GridContainer';
-import { SweetAlert } from 'react-bootstrap-sweetalert';
+import SweetAlert from 'react-bootstrap-sweetalert';
 import CustomInput from '../../../core/components/CustomInput';
 import Table from '../../../core/components/CustomTable';
 import CheckCircle from '@material-ui/icons/CheckCircle';
