@@ -172,7 +172,7 @@ class CustomTable extends React.Component {
           }
 
         </Table>
-        {(tableData || []).length === 0 ? <h4 className={classes.naoHaDados}>Não hà dados</h4> : null}
+        {(tableData || []).length === 0 ? <h5 className={classes.naoHaDados}>Não há dados</h5> : null}
       </div>
     );
   }

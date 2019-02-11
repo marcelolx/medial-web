@@ -30,7 +30,7 @@ export function getStateCities(state){
   
   const GET_CITY = `
     {
-      getCities(state: ` + state + `, search: '') {
+      getCities(state: ${state}, search: "") {
         id,
         nome
       }
