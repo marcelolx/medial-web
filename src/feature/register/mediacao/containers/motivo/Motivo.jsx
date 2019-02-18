@@ -131,7 +131,7 @@ class Motivo extends React.Component {
           </GridItem>
         </GridContainer>
         <GridContainer justify='center'>
-          <GridItem xs={12} sm={12} md={5}>
+          <GridItem xs={12} sm={12} md={10}>
             <FormControl
               className={classes.multilineTextField}
               error={(this.state.errorCode === MINIMO_CARACTERES_500)}

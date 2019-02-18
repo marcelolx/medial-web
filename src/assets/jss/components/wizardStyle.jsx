@@ -76,7 +76,7 @@ const wizardStyle = {
   },
   content: {
     marginTop: '20px',
-    minHeight: '340px',
+    minHeight: '230px',
     padding: '20px 15px'
   },
   stepContent: {

@@ -25,9 +25,6 @@ const style = {
   inputAdornment: {
     position: 'relative'
   },
-  searchButton: {
-    marginTop: '20%',
-  },
   errorTextHelper: {
     textAlign: 'center',
     color: '#e21515'
@@ -46,7 +43,7 @@ class BuscarEmpresa extends React.Component {
 
   state = {
     fantasia: '',
-    solicitarCadastroEmpresa: false,
+    solicitarCadastro: false,
     searchWithoutFillFields: false,
     checked: [],
     messageNext: '',
@@ -62,13 +59,13 @@ class BuscarEmpresa extends React.Component {
     if ((!oneEmpSelected) &&
       (this.props.mediacaoEmpresas.empresas.length === 0) &&
       (this.state.checked.length === 0) &&
-      !this.state.solicitarCadastroEmpresa) {
-      this.setState({ messageNext: 'Não é possível avançar sem selecionar uma empresa ou solicitar o cadastro' });
+      !this.state.solicitarCadastro) {
+      this.setState({ messageNext: 'Não é possível avançar sem selecionar alguém ou solicitar o cadastro' });
     } else if (this.state.messageNext) {
       this.setState({ messageNext: '' });
     }
 
-    return oneEmpSelected || this.state.solicitarCadastroEmpresa;
+    return oneEmpSelected || this.state.solicitarCadastro;
   }
 
   handleCheck = prop => event => {
@@ -82,7 +79,7 @@ class BuscarEmpresa extends React.Component {
 
     if (currentIndex === -1) {
       this.setState({
-        solicitarCadastroEmpresa: false,
+        solicitarCadastro: false,
       });
 
       newChecked.push(value);
@@ -153,8 +150,8 @@ class BuscarEmpresa extends React.Component {
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
               error={this.state.searchWithoutFillFields}
-              errorHelperText='Informe o Nome Fantasia da empresa'
-              labelText='Nome fantasia'
+              errorHelperText='Informe o nome da pessoa ou empresa'
+              labelText='Nome para pesquisa'
               id='nome-fantasia'
               formControlProps={{
                 fullWidth: true
@@ -183,9 +180,9 @@ class BuscarEmpresa extends React.Component {
                   <Assignment />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>
-                  Empresas <small>
+                  Pessoas/Empresas <small>
                     {' '}
-                    - Selecione a empresa a qual deseja iniciar a mediação.
+                    - Selecione a pessoa ou empresa a qual deseja iniciar a mediação.
                   </small>
                 </h4>
               </CardHeader>
@@ -197,7 +194,7 @@ class BuscarEmpresa extends React.Component {
                     '',
                     'Nome',
                     'Fantasia',
-                    'CNPJ',
+                    'CPF/CNPJ',
                     'Estado',
                     'Cidade',
                   ]}
@@ -254,7 +251,7 @@ class BuscarEmpresa extends React.Component {
                 xs={12} sm={12} md={4}
                 className={classes.checkCadastroEmpresa}
               >
-                <h5>Não encontrou a empresa que você deseja? Solicite o cadastro da mesma.</h5>
+                <h5>Não encontrou o que você deseja? Solicite o cadastro da mesma.</h5>
               </GridItem>
               <GridItem
                 xs={12} sm={12} md={4}
@@ -264,17 +261,17 @@ class BuscarEmpresa extends React.Component {
                   control={
                     <Checkbox
                       tabIndex={-1}
-                      onClick={this.handleCheck('solicitarCadastroEmpresa')}
+                      onClick={this.handleCheck('solicitarCadastro')}
                       checkedIcon={<Check className={classes.checkedIcon} />}
                       icon={<Check className={classes.uncheckedIcon} />}
                       disabled={(this.state.checked.length > 0)}
-                      checked={(this.state.solicitarCadastroEmpresa && (this.state.checked.length === 0))}
+                      checked={(this.state.solicitarCadastro && (this.state.checked.length === 0))}
                       classes={{
                         checked: classes.checked,
                       }}
                     />
                   }
-                  label='Solicitar cadastro da empresa'
+                  label='Solicitar cadastro'
                 />
               </GridItem>
             </Card>
