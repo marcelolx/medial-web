@@ -33,20 +33,20 @@ class ChatMessage extends React.Component {
     const linkifyOptions = {
       'nl2br': true
     };
-    return(
-      <div className={ topWrapper }>
-        <div className={ contentWrapper }>
-          <Linkify className='talk-message-content-span' options={ linkifyOptions } >
-            { this.props.message }
+    return (
+      <div className={topWrapper} >
+        <div className={contentWrapper}>
+          <Linkify className='talk-message-content-span' options={linkifyOptions} >
+            {this.props.message}
           </Linkify>
         </div>
         <div className='talk-message-metadata'>
-          <span className={ authorMetadata} >
-            { this.props.author }
+          <span className={authorMetadata} >
+            {this.props.author}
             <span className='talk-message-metadata-author-separator'> • </span>
           </span>
           <span className='talk-message-metadata-timestamp'>
-            { RelativeDate(this.props.timestamp) }
+            {RelativeDate(this.props.timestamp)}
           </span>
         </div>
       </div>

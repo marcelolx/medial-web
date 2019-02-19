@@ -39,18 +39,31 @@ const style = theme => ({
 
 class Mensagens extends React.PureComponent {
 
-  state = {
-    messages: [],
-    clientConnected: false,
-    topic: '',
-    offset: 0,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages: [],
+      clientConnected: false,
+      topic: '',
+      offset: 0,
+      limit: 20,
+      canLoadMoreData: false,
+    }
+
+  }
+  loadMoreData() {
+
+    let offset = this.state.offset;
+    
+    this.props.actions.adquirirMensagem(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id, offset, this.state.limit);
+    this.setState({ offset: offset + this.state.limit });
+    
   }
 
   componentDidMount() {
-    let limit = 20;
-    let offset = this.state.offset;
-    this.props.actions.adquirirMensagem(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id, offset, limit);
-    this.setState({ offset: offset + limit });
+
+    this.loadMoreData();
   }
 
   componentWillUpdate() {
@@ -58,14 +71,16 @@ class Mensagens extends React.PureComponent {
       this.props.actions.limparDadosMensagens();
 
       if (this.props.mediacao.mensagens.length > 0) {
+
         let data = this.props.mediacao.mensagens;
 
-        if (this.state.messages > 0) {
-          data.push(this.state.messages);
+        if (this.state.messages.length > 0) {
+          data = [...data, ...this.state.messages]
         }
 
         this.setState({
-          messages: data
+          messages: data,
+          canLoadMoreData: true,
         });
       }
     }
@@ -149,6 +164,8 @@ class Mensagens extends React.PureComponent {
               currentUserId={this.props.auth.id.toString()}
               currentUser={this.props.auth.nome}
               messages={this.state.messages}
+              loadMoreData={() => this.loadMoreData()}
+              canLoadMoreData
             />
           </CardBody>
           <CardFooter>
