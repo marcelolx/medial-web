@@ -7,7 +7,7 @@ import CardHeader from '../../../core/components/card/CardHeader';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CardBody from '../../../core/components/card/CardBody';
 import CustomInput from '../../../core/components/CustomInput';
-import { TextMaskCNPJ, TextMaskCellPhone } from '../../../core/components/Masks';
+import { TextMaskCNPJ, TextMaskCellPhone, TextMaskCPF } from '../../../core/components/Masks';
 import Button from '../../../core/components/CustomButton';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -165,11 +165,11 @@ class CadastroPendente extends React.Component {
     return cadastroPendente === null ? null : (
       <React.Fragment >
         <GridContainer justify='center' >
-          <GridItem xs={12} sm={12} md={10} lg={6} className={classes.paddingGrid}>
+          <GridItem xs={12} sm={12} lg={10} className={classes.paddingGrid}>
             <Card>
               <CardHeader color='primary'>
-                <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastro Empresa Pendente</h4>
-                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{'Empresa: ' + cadastroPendente.nomeRequerido}</p>
+                <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastro Pendente</h4>
+                <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{'Requerido: ' + cadastroPendente.nomeRequerido}</p>
               </CardHeader>
               <CardBody className={classes.paddingBody}>
                 <Card>
@@ -235,7 +235,7 @@ class CadastroPendente extends React.Component {
                       </GridItem>
                       <GridItem xs={12} sm={12} md={6}>
                         <CustomInput
-                          labelText='CNPJ'
+                          labelText='CPF/CNPJ'
                           id='cnpj-empresa'
                           formControlProps={{
                             fullWidth: true
@@ -243,7 +243,7 @@ class CadastroPendente extends React.Component {
                           inputProps={{
                             disabled: true,
                             value: cadastroPendente.cnpjRequerido,
-                            inputComponent: TextMaskCNPJ
+                            inputComponent: cadastroPendente.cnpjRequerido.toString().length <= 11 ? TextMaskCPF : TextMaskCNPJ
                           }}
                         />
                       </GridItem>

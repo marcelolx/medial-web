@@ -16,8 +16,8 @@ import * as novaMediacaoActions from './services/novaMediacaoActions';
 import bindActionCreators from 'redux/src/bindActionCreators';
 
 const steps = [
-  { stepName: 'Pesquisar empresa', stepComponent: BuscarEmpresa, stepId: BUSCAR_EMPRESA },
-  { stepName: 'Empresa', stepComponent: Empresa, stepId: EMPRESA },
+  { stepName: 'Pesquisar', stepComponent: BuscarEmpresa, stepId: BUSCAR_EMPRESA },
+  { stepName: 'Requerido', stepComponent: Empresa, stepId: EMPRESA },
   { stepName: 'Relatar motivo', stepComponent: Motivo, stepId: MOTIVO },
   { stepName: 'Confirmação', stepComponent: Confirmacao, stepId: CONFIRMACAO }
 ];
@@ -73,7 +73,7 @@ class NovaMediacao extends Component {
             validate
             steps={steps}
             title='Mediação - Nova Solicitação'
-            subtitle='Busque a pessoa ou a empresa a partir do nome e relate o motivo para a mediação'
+            subtitle='Busque a pessoa ou a empresa a partir do nome e relate o motivo para iniciar a mediação'
             finishButtonClick={this.handleFinish}
           />
         </GridItem>

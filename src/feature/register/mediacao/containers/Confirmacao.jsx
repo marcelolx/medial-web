@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA, MOTIVO, EMPRESA } from '../constants/mediacaoStepConstants';
-import { findStepStateIndex, viewInState, viewError } from '../utils/mediacaoHelper';
+import { findStepStateIndex, viewInState, viewError, validateCNPJ } from '../utils/mediacaoHelper';
 import GridContainer from '../../../../core/components/grid/GridContainer';
 import GridItem from '../../../../core/components/grid/GridItem';
 import CustomInput from '../../../../core/components/CustomInput';
-import { TextMaskCNPJ, TextMaskPhone } from '../../../../core/components/Masks';
+import { TextMaskCNPJ, TextMaskPhone, TextMaskCPF } from '../../../../core/components/Masks';
 import TextField from '@material-ui/core/TextField';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import * as mediacaoActions from '../services/novaMediacaoActions';
@@ -144,7 +144,7 @@ class Confirmacao extends Component {
               }}
               inputProps={{
                 disabled: true,
-                value: empresa.fantasia
+                value: validateCNPJ(empresa.cnpj) ? empresa.fantasia : empresa.nome
               }}
             />
           </GridItem>
@@ -159,7 +159,7 @@ class Confirmacao extends Component {
               }}
               inputProps={{
                 disabled: true,
-                inputComponent: TextMaskCNPJ,
+                inputComponent: validateCNPJ(empresa.cnpj) ? TextMaskCNPJ : TextMaskCPF,
                 value: empresa.cnpj,
               }}
             />

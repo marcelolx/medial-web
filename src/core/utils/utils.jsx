@@ -11,6 +11,6 @@ export function verifyEmail(value) {
 }
 
 
-export function  replaceNaoNumeros(number){
+export function replaceNaoNumeros(number) {
   return number.replace(/[^0-9]/g, '')
 }
