@@ -42,9 +42,11 @@ class ChatBox extends React.Component {
 
       if (diferenca > 10) {
 
-        scroll.scrollTo(1000, {
+        scroll.scrollTo(1200, {
           containerId: this.chatBoxId,
-          smooth: true,
+          duration: 0,
+          delay: 0,
+          smooth: "easeInOutQuint",
         })
       }
 
