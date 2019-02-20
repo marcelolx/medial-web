@@ -13,6 +13,8 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import * as mediacaoActions from '../services/novaMediacaoActions';
 import { withRouter } from 'react-router-dom';
 import ReactQuill from 'react-quill';
+import CustomListFiles from '../../../../core/components/CustomListFiles';
+
 
 const style = {
   multilineTextField: {
@@ -51,13 +53,18 @@ class Confirmacao extends Component {
     });
   }
 
+  _handleDeleteFile() {
+    console.log("TEESSTTEEE");
+
+  }
+
   empresaNovaView(empresa, motivo) {
     return (
       <React.Fragment>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText='Nome da empresa'
+              labelText='Nome'
               id='nome-empresa'
               formControlProps={{
                 fullWidth: true
@@ -230,8 +237,19 @@ class Confirmacao extends Component {
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={8} lg={8}>
+
+            <h4>Anexos</h4>
+
+            <CustomListFiles files={motivo.arquivo}/>
+          </GridItem>
+        </GridContainer>
+        <GridContainer justify='center'>
+          <GridItem xs={12} sm={12} md={8} lg={8}>
+
+            <h4>Mensagem</h4>
+
             <ReactQuill value={motivo.mensagem}
-              style={{height: 145}}
+              style={{ height: 145 }}
               readOnly
             />
           </GridItem>

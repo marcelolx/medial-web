@@ -13,6 +13,8 @@ import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO, MAXIMO_CARACTERES
 import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../admin/mediacao/utils/mediacaoMessagesHelper';
 import ReactQuill from 'react-quill';
 import '../../../../../assets/css/quill.snow.css';
+import FileUpload from '../../../../../core/components/FileUpload';
+import CustomListFiles from '../../../../../core/components/CustomListFiles';
 
 const style = {
   multilineTextField: {
@@ -27,6 +29,7 @@ class Motivo extends React.Component {
     assuntos: [],
     mensagem: '',
     errorCode: '',
+    arquivo: []
   }
 
   sendState() {
@@ -99,6 +102,10 @@ class Motivo extends React.Component {
     this.setState({ [prop]: event.target.value });
   }
 
+  _handleChangeFile(files) {
+    this.setState({ arquivo: files })
+  }
+
   render() {
     const { classes, assuntos, mediacao } = this.props;
 
@@ -137,8 +144,8 @@ class Motivo extends React.Component {
           </GridItem>
         </GridContainer>
         <GridContainer justify='center'>
-          <GridItem xs={12} sm={12} md={10}>
-            <span>Relate o motivo</span>
+          <GridItem xs={12} sm={12} md={10} >
+            <span>Relate o motivo:</span>
             <FormControl
               className={classes.multilineTextField}
               error={(this.state.errorCode === MINIMO_CARACTERES_500 || (this.state.errorCode === MAXIMO_CARACTERES_3000))}
@@ -152,6 +159,24 @@ class Motivo extends React.Component {
                 <FormHelperText id='mensagem-error-text'>{mediacao.mensagem || (this.state.errorCode === MAXIMO_CARACTERES_3000) ? 'Informe uma mensagem com no máximo 3000 caracteres com formatação.' : 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
               }
             </FormControl>
+          </GridItem>
+
+        </GridContainer>
+        <GridContainer justify='center'>
+          <GridItem xs={12} sm={12} md={10} >
+            <CustomListFiles files={this.state.arquivo} canDelete onChange={(files) => this._handleChangeFile(files)} />
+
+            <FileUpload
+              onChange={(valor) => this._handleChangeFile(valor)}
+              files={this.state.arquivo}
+              adicionarButtonProps={{
+                color: 'secondary',
+                round: true
+              }}
+              removerButtonProps={{
+                color: 'primary',
+                round: true
+              }} />
           </GridItem>
         </GridContainer>
       </React.Fragment>
