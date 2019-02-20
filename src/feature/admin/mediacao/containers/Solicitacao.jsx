@@ -7,12 +7,12 @@ import CardHeader from '../../../../core/components/card/CardHeader';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CardBody from '../../../../core/components/card/CardBody';
-import TextField from '@material-ui/core/TextField';
 import CustomInput from '../../../../core/components/CustomInput';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import * as mediacaoActions from '../services/mediacaoActions';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import ReactQuill from 'react-quill';
 
 const style = ({
   semMargen: {
@@ -41,7 +41,7 @@ class Solicitacao extends React.PureComponent {
 
     //When mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO' redirect to dashboard
 
-    return(
+    return (
       <React.Fragment>
         <Card>
           <CardHeader color='success'>
@@ -49,7 +49,7 @@ class Solicitacao extends React.PureComponent {
           </CardHeader>
           <CardBody>
             <GridContainer justify='center'>
-              <GridItem 
+              <GridItem
                 xs={12} sm={12} md={2} lg={2}
                 className={classes.gridItemMargin}
               >
@@ -89,15 +89,8 @@ class Solicitacao extends React.PureComponent {
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={9} lg={9}>
-                <TextField
-                  label='Motivo'
-                  multiline
-                  disabled
-                  rows='10'
-                  className={classes.multilineTextField}
-                  margin='normal'
-                  variant='outlined'
-                  value={this.getMediacaoValueOrDefault('motivo')}
+                <ReactQuill style={{height: 145}} value={this.getMediacaoValueOrDefault('motivo')}
+                  readOnly
                 />
               </GridItem>
             </GridContainer>

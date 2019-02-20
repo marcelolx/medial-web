@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import { BUSCAR_EMPRESA } from '../constants/mediacaoStepConstants';
 import { TextMaskCNPJ, TextMaskPhone, TextMaskCPF } from '../../../../core/components/Masks';
 import { findStepStateIndex, viewInState, viewError, validateEmail, validateCNPJ, validateCPF } from '../utils/mediacaoHelper';
-import { CNPJ_INFORMADO_INVALIDO, EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO } from '../../../../core/utils/messages/errorMessages';
+import { EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO, DOCUMENTO_INFORMADO_INVALIDO } from '../../../../core/utils/messages/errorMessages';
 import getAdaptedMessage from '../../../../feature/admin/mediacao/utils/mediacaoMessagesHelper';
 import { Radio, FormControlLabel, FormLabel, FormControl } from '@material-ui/core';
 
@@ -59,15 +59,12 @@ class Empresa extends React.Component {
       if ((Object.keys(data).filter(key => data[key] === '').length > 0) ||
         (!validMail || !validCNPJ)) {
 
-        const errorType = !validMail
-          ? EMAIL_INVALIDO
-          : !validCNPJ
-            ? CNPJ_INFORMADO_INVALIDO
-            : '';
-
         this.setState({
           error: true,
-          errorType: errorType,
+          errorType: !validMail
+            ? EMAIL_INVALIDO : '',
+          errorTypeDoc: !validCNPJ
+            ? DOCUMENTO_INFORMADO_INVALIDO : ''
         });
 
         return false;
@@ -155,7 +152,7 @@ class Empresa extends React.Component {
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
-              error={(this.state.error && (this.state.cnpj === '' || this.state.errorType === CNPJ_INFORMADO_INVALIDO)) || mediacao.errorCode === CNPJ_INFORMADO_INVALIDO}
+              error={(this.state.error && (this.state.cnpj === '' || this.state.errorTypeDoc === DOCUMENTO_INFORMADO_INVALIDO))}
               labelText='CPF/CNPJ'
               id='cnpj-empresa'
               formControlProps={{
@@ -166,7 +163,7 @@ class Empresa extends React.Component {
                 onChange: this.handleChange('cnpj'),
                 inputComponent: this.state.personalidade === 'F' ? TextMaskCPF : TextMaskCNPJ
               }}
-              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorType) || 'Informe o cpf/cnpj'}
+              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorTypeDoc) || 'Informe o cpf/cnpj'}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={3}>
