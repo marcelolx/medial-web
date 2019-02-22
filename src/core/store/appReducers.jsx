@@ -19,6 +19,7 @@ import mediacoesReducer from '../../feature/admin/mediacao/services/mediacoes/me
 import mediacaoReducer from '../../feature/admin/mediacao/services/mediacaoReducer';
 import mediacaoSituacaoReducer from '../../feature/admin/mediacao/services/situacao/situacaoMediacaoReducer';
 import negociadorReducer from '../../feature/dashboard/negociador/services/negociadorReducer';
+import anexoReducer from '../../feature/admin/mediacao/services/anexo/anexoReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -40,5 +41,6 @@ export default combineReducers({
   mediacoes: mediacoesReducer,
   mediacao: mediacaoReducer,
   mediacaoSituacao: mediacaoSituacaoReducer,
-  negociadores: negociadorReducer
+  negociadores: negociadorReducer,
+  anexos: anexoReducer
 });
