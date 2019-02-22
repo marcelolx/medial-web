@@ -240,7 +240,7 @@ class Confirmacao extends Component {
 
             <h4>Anexos</h4>
 
-            <CustomListFiles files={motivo.arquivo}/>
+            <CustomListFiles files={motivo.arquivo} />
           </GridItem>
         </GridContainer>
         <GridContainer justify='center'>
@@ -270,7 +270,7 @@ class Confirmacao extends Component {
       const novaEmpresa = allStates[findStepStateIndex(EMPRESA, allStates)].EMPRESA;
 
       if (motivo !== undefined) {
-        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8)) {
+        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (!motivo.arquivo || motivo.arquivo.length === mediacao.filesUploadSuccess)) {
           setTimeout(
             function () {
               this.hideAlertAndRedirectToMediations()
@@ -288,7 +288,7 @@ class Confirmacao extends Component {
                     onConfirm={() => this.hideAlertAndRedirectToMediations().bind(this)}
                     showConfirm={false}
                   >
-                    {((mediacao.id > 0) && (mediacao.protocolo.length > 8))
+                    {((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (!motivo.arquivo || motivo.arquivo.length === mediacao.filesUploadSuccess))
                       ? 'Você será redirecionado para a página inicial...'
                       : 'Aguarde a solicitação finalizar...'}
                   </SweetAlert>
