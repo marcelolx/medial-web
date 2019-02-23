@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '../CustomButton';
 import AttachFile from '@material-ui/icons/AttachFile';
+import Send from '@material-ui/icons/Send';
 import CustomInput from '../CustomInput';
+import { Input } from '@material-ui/core';
 
 const isBlank = require('is-blank');
 
@@ -17,9 +19,15 @@ const style = ({
     marginLeft: '15px',
     marginTop: '5px'
   },
+  textAnexo: {
+    width: 100,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis'
+  }
 });
 
-class ChatInput extends React.Component { 
+class ChatInput extends React.Component {
 
   static propTypes = {
     onSendMessage: PropTypes.func.isRequired,
@@ -37,11 +45,12 @@ class ChatInput extends React.Component {
       message: '',
       disabled: props.disabled
     }
+
   }
 
   onEnterPress = () => {
     if (!isBlank(this.state.message)) {
-      if (this.props.onSendMessage(this.state.message)) {        
+      if (this.props.onSendMessage(this.state.message)) {
         this.setState({ message: '' });
       }
     }
@@ -64,12 +73,42 @@ class ChatInput extends React.Component {
     }
   }
 
+  _handleClick() {
+    this.refs.fileInput.click();
+  }
+
+
+  _handleChangeFile(event) {
+
+    event.preventDefault();
+
+    if (!event.target.files[0]) {
+      return;
+    }
+
+    let file = event.target.files[0];
+
+    this.setState({ file })
+
+  }
+
+  _handleUploadFile() {
+    if (!this.state.file) {
+      return;
+    }
+    this.props.onUploadFile(this.state.file);
+
+  }
+
   render() {
     const { classes } = this.props;
 
-    return(
+    return (
       <React.Fragment>
-        <CustomInput 
+        <div className='fileinput text-center'>
+          <input type='file' onChange={(evt) => this._handleChangeFile(evt)} ref='fileInput' />
+        </div>
+        <CustomInput
           labelText='Mensagem'
           inputProps={{
             value: this.state.message,
@@ -83,17 +122,28 @@ class ChatInput extends React.Component {
             fullWidth: true
           }}
         />
-      
         <Button
           justIcon
           color='secondary'
+          onClick={this.onEnterPress}
           className={classes.botaoAnexar}
+        >
+          <Send />
+        </Button>
+
+        <Button
+          type="file"
+          justIcon
+          onClick={() => this._handleClick()}
+          color='secondary'
         >
           <AttachFile />
         </Button>
-        <Button   
+        {this.state.file ? <span className={classes.textAnexo}>{this.state.file.name}</span> : null}
+        <Button
           className={classes.botaoEnviar}
           color='secondary'
+          onClick={() => this._handleUploadFile()}
         >
           Enviar Anexo
         </Button>

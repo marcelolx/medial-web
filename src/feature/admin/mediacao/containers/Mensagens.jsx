@@ -16,6 +16,7 @@ import { CHAT, ENTROU, SAIU } from '../utils/mediacaoMessagesHelper';
 import queryString from 'query-string';
 
 import * as mediacaoActions from '../services/mediacaoActions';
+import * as anexoActions from '../services/anexo/anexoActions';
 
 const style = theme => ({
   cardMensagens: {
@@ -55,10 +56,10 @@ class Mensagens extends React.PureComponent {
   loadMoreData() {
 
     let offset = this.state.offset;
-    
+
     this.props.actions.adquirirMensagem(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id, offset, this.state.limit);
     this.setState({ offset: offset + this.state.limit });
-    
+
   }
 
   componentDidMount() {
@@ -149,6 +150,10 @@ class Mensagens extends React.PureComponent {
     );
   }
 
+  _handleUploadFile(file) {
+    this.props.actions.uploadFileMediacao(file, queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -171,6 +176,7 @@ class Mensagens extends React.PureComponent {
           <CardFooter>
             <ChatInput
               onSendMessage={this.onSendMessage}
+              onUploadFile={(file) => this._handleUploadFile(file)}
               disabled={!this.state.clientConnected}
             />
           </CardFooter>
@@ -188,6 +194,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...mediacaoActions,
+    ...anexoActions,
   }, dispatch)
 });
 

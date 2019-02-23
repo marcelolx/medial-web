@@ -13,8 +13,8 @@ const style = theme => ({
   semMargen: {
     margin: 0,
   },
-  marginChip:{
-    margin: '5px'
+  marginChip: {
+    margin: '5px',
   },
   icon: {
     color: theme.palette.type === 'light' ? theme.palette.grey[700] : theme.palette.grey[300],
@@ -41,7 +41,7 @@ class Situacao extends React.Component {
           </CardHeader>
           <CardBody>
             <CustomChip
-              icon={<FaceIcon className={classes.icon}/>}
+              icon={<FaceIcon className={classes.icon} />}
               label={'Requerente: ' + this.handleGetValue('nomeRequerente')}
               color='success'
               variant='outlined'
@@ -49,7 +49,7 @@ class Situacao extends React.Component {
               className={classes.marginChip}
             />
             <CustomChip
-              icon={<FaceIcon className={classes.icon}/>}
+              icon={<FaceIcon className={classes.icon} />}
               label={'Requerido: ' + this.handleGetValue('nomeRequerido')}
               color='success'
               variant='outlined'
@@ -57,7 +57,7 @@ class Situacao extends React.Component {
               className={classes.marginChip}
             />
             <CustomChip
-              icon={<FaceIcon className={classes.icon}/>}
+              icon={<FaceIcon className={classes.icon} />}
               label={'Mediador: ' + this.handleGetValue('nomeMediador')}
               clickable
               color='success'
@@ -66,7 +66,7 @@ class Situacao extends React.Component {
               className={classes.marginChip}
             />
             <CustomChip
-              icon={<FaceIcon className={classes.icon}/>}
+              icon={<FaceIcon className={classes.icon} />}
               label={'Negociador: ' + this.handleGetValue('nomeNegociador')}
               color='success'
               variant='outlined'

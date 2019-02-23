@@ -11,6 +11,7 @@ import { compose } from 'recompose';
 import withRouter from 'react-router-dom/withRouter';
 import { ListItem, ListItemIcon } from '@material-ui/core';
 import AttachFile from '@material-ui/icons/AttachFile';
+import Link from '@material-ui/core/Link';
 
 const style = ({
   semMargen: {
@@ -24,12 +25,13 @@ const style = ({
   },
   listItem: {
     padding: 0,
+    paddingTop: 5,
   },
   link: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
-  },
+  }
 });
 
 class Anexos extends React.Component {
@@ -44,14 +46,14 @@ class Anexos extends React.Component {
     const listFiles = (<>
       {this.props.anexos.anexos.length > 0 ? (
         this.props.anexos.anexos.map((dado) =>
-          <ListItem style={style.listItem} key={dado.id}>
+          <ListItem className={classes.listItem} key={dado.id}>
             <ListItemIcon>
               <AttachFile />
             </ListItemIcon>
-            <a style={style.link} href={dado.link} rel="noopener noreferrer" target="_blank">
+            <Link className={classes.link} href={dado.link} rel="noopener noreferrer" target="_blank">
 
               {dado.nome}
-            </a></ListItem>
+            </Link></ListItem>
         )
 
       ) : "Zero"}
@@ -64,7 +66,7 @@ class Anexos extends React.Component {
           <CardHeader color='success'>
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Anexos</p>
           </CardHeader>
-          <CardBody style={style.cardBody}>
+          <CardBody className={classes.cardBody}>
             {listFiles}
           </CardBody>
         </Card>

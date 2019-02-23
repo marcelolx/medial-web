@@ -16,7 +16,7 @@ class FileUpload extends React.Component {
     let files = event.target.files;
 
     let teste = [...new Set([...files, ...this.props.files || []])];
-
+    
     teste = teste.filter((thing, index, self) =>
       index === self.findIndex((t) => (
         t.name === thing.name
