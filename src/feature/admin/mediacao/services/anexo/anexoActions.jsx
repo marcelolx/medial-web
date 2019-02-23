@@ -1,4 +1,4 @@
-import { BUSCAR_ANEXO_COMPLETE, BUSCAR_ANEXO_START, BUSCAR_ANEXO_ERROR,UPLOAD_FILE_SUCCESS,UPLOAD_FILE_FAIL } from './anexoActionTypes';
+import { BUSCAR_ANEXO_COMPLETE, BUSCAR_ANEXO_START, BUSCAR_ANEXO_ERROR, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAIL, UPLOAD_FILE_CLEAR,UPLOAD_FILE_START } from './anexoActionTypes';
 import API from '../../../../../core/http/API';
 
 
@@ -18,6 +18,7 @@ export function adquirirAnexos(idMediacao) {
 
 export function uploadFileMediacao(file, idMediacao) {
   return function (dispatch) {
+    dispatch({ type: UPLOAD_FILE_START })
     let formData = new FormData();
     formData.append('file', file);
     formData.append('id', idMediacao);
@@ -25,10 +26,19 @@ export function uploadFileMediacao(file, idMediacao) {
     API.post('/mediacao/uploadFile', formData)
       .then(response => {
         dispatch(uploadFileSucess(response))
+        dispatch(adquirirAnexos(idMediacao))
       })
       .catch(err => {
         dispatch(uploadFileFail())
       });
+  }
+}
+
+export function fileUploadClear (file, idMediacao) {
+  return function (dispatch) {
+
+    dispatch({ type: UPLOAD_FILE_CLEAR })
+
   }
 }
 

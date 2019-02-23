@@ -56,7 +56,7 @@ class Anexos extends React.Component {
             </Link></ListItem>
         )
 
-      ) : "Zero"}
+      ) : ""}
 
     </>);
 

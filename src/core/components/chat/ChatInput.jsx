@@ -81,27 +81,23 @@ class ChatInput extends React.Component {
   _handleChangeFile(event) {
 
     event.preventDefault();
-
-    if (!event.target.files[0]) {
-      return;
-    }
-
+    
     let file = event.target.files[0];
 
-    this.setState({ file })
+    if (file) {
+      this.props.onChangeFile(file)
+    }
+
 
   }
 
   _handleUploadFile() {
-    if (!this.state.file) {
-      return;
-    }
-    this.props.onUploadFile(this.state.file);
+      this.props.onUploadFile(this.state.file);
 
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes,file } = this.props;
 
     return (
       <React.Fragment>
@@ -139,7 +135,7 @@ class ChatInput extends React.Component {
         >
           <AttachFile />
         </Button>
-        {this.state.file ? <span className={classes.textAnexo}>{this.state.file.name}</span> : null}
+        {file ? <span className={classes.textAnexo}>{file.name}</span> : null}
         <Button
           className={classes.botaoEnviar}
           color='secondary'
