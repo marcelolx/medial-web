@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Linkify from 'linkifyjs/react';
 import ClassNames from 'classnames';
-import RelativeDate from 'relative-date';
+import RelativeDate from './relative-date';
 import '../../../assets/scss/chatMessage.scss';
 
 
