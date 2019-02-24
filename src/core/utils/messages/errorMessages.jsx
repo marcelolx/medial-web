@@ -2,11 +2,14 @@ export const CNPJ_INFORMADO_INVALIDO = 'CNPJ_INFORMADO_INVALIDO';
 export const EMAIL_INVALIDO = 'EMAIL_INVALIDO';
 export const NOME_NAO_INFORMADO = 'NOME_NAO_INFORMADO';
 export const TELEFONE_NAO_INFORMADO = 'TELEFONE_NAO_INFORMADO';
+export const DOCUMENTO_INFORMADO_INVALIDO = 'DOCUMENTO_INFORMADO_INVALIDO';
 
 export default function getDefaultAdaptedMessage(message) {
   switch(message){
     case CNPJ_INFORMADO_INVALIDO: 
       return 'CNPJ informado inválido';
+    case DOCUMENTO_INFORMADO_INVALIDO:
+      return 'Documento informado inválido';
     case EMAIL_INVALIDO:
       return 'E-mail informado é inválido';
     case NOME_NAO_INFORMADO: 

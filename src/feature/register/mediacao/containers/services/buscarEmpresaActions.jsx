@@ -1,11 +1,11 @@
 import { API } from '../../../../../core/http/API';
 import { COMPANY_MATCH_SEARCH_COMPLETE, COMPANY_MATCH_SEARCH_ERROR, COMPANY_MATCH_SEARCH_START } from './buscarEmpresaActionTypes';
 
-export function getEmpresas(fantasia) {
+export function getEmpresas(pesquisa) {
   return function(dispatch) {
     dispatch(startCompanySearch());
 
-    return API.get(`/empresa/getEmpresas?fantasia=${fantasia}`)
+    return API.get(`/empresa/getPessoasEmpresas?pesquisa=${pesquisa}`)
       .then(response => dispatch(getEmpresasComplete(response.data)))
       .catch(err => dispatch(getEmpresasError(err)))
   }

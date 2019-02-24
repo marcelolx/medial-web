@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA, MOTIVO, EMPRESA } from '../constants/mediacaoStepConstants';
-import { findStepStateIndex, viewInState, viewError } from '../utils/mediacaoHelper';
+import { findStepStateIndex, viewInState, viewError, validateCNPJ } from '../utils/mediacaoHelper';
 import GridContainer from '../../../../core/components/grid/GridContainer';
 import GridItem from '../../../../core/components/grid/GridItem';
 import CustomInput from '../../../../core/components/CustomInput';
-import { TextMaskCNPJ, TextMaskPhone } from '../../../../core/components/Masks';
-import TextField from '@material-ui/core/TextField';
+import { TextMaskCNPJ, TextMaskPhone, TextMaskCPF } from '../../../../core/components/Masks';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import * as mediacaoActions from '../services/novaMediacaoActions';
 import { withRouter } from 'react-router-dom';
+import ReactQuill from 'react-quill';
 
 const style = {
   multilineTextField: {
@@ -144,7 +144,7 @@ class Confirmacao extends Component {
               }}
               inputProps={{
                 disabled: true,
-                value: empresa.fantasia
+                value: validateCNPJ(empresa.cnpj) ? empresa.fantasia : empresa.nome
               }}
             />
           </GridItem>
@@ -159,7 +159,7 @@ class Confirmacao extends Component {
               }}
               inputProps={{
                 disabled: true,
-                inputComponent: TextMaskCNPJ,
+                inputComponent: validateCNPJ(empresa.cnpj) ? TextMaskCNPJ : TextMaskCPF,
                 value: empresa.cnpj,
               }}
             />
@@ -197,7 +197,6 @@ class Confirmacao extends Component {
   }
 
   motivoView(motivo) {
-    const { classes } = this.props;
 
     return (
       <React.Fragment>
@@ -231,16 +230,9 @@ class Confirmacao extends Component {
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={8} lg={8}>
-            <TextField
-              id='mensagem'
-              label='Mensagem'
-              multiline
-              rows='15'
-              className={classes.multilineTextField}
-              margin='normal'
-              variant='outlined'
-              value={motivo.mensagem}
-              disabled
+            <ReactQuill value={motivo.mensagem}
+              style={{height: 145}}
+              readOnly
             />
           </GridItem>
         </GridContainer>

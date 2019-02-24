@@ -7,11 +7,12 @@ import * as assuntosActions from './services/assuntosActions';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import SearchSelect from '../../../../../core/components/SearchSelect';
-import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO } from '../../constants/mediacaoStepConstants';
+import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO, MAXIMO_CARACTERES_3000 } from '../../constants/mediacaoStepConstants';
 import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../admin/mediacao/utils/mediacaoMessagesHelper';
+import ReactQuill from 'react-quill';
+import '../../../../../assets/css/quill.snow.css';
 
 const style = {
   multilineTextField: {
@@ -20,7 +21,7 @@ const style = {
 };
 
 class Motivo extends React.Component {
-  
+
   state = {
     conflitos: [],
     assuntos: [],
@@ -47,6 +48,11 @@ class Motivo extends React.Component {
     if (this.state.mensagem.length < 500) {
       this.setState({
         errorCode: MINIMO_CARACTERES_500
+      });
+      isValid = false;
+    } else if (this.state.mensagem.length > 3000) {
+      this.setState({
+        errorCode: MAXIMO_CARACTERES_3000
       });
       isValid = false;
     } else {
@@ -131,26 +137,19 @@ class Motivo extends React.Component {
           </GridItem>
         </GridContainer>
         <GridContainer justify='center'>
-          <GridItem xs={12} sm={12} md={5}>
+          <GridItem xs={12} sm={12} md={10}>
+            <span>Relate o motivo</span>
             <FormControl
               className={classes.multilineTextField}
-              error={(this.state.errorCode === MINIMO_CARACTERES_500)}
+              error={(this.state.errorCode === MINIMO_CARACTERES_500 || (this.state.errorCode === MAXIMO_CARACTERES_3000))}
               aria-describedby='mensagem-error-text'
             >
-              <TextField
-                id='mensagem'
-                label='Mensagem'
-                multiline
-                rows='15'
-                className={classes.multilineTextField}
-                margin='normal'
-                variant='outlined'
-                value={this.state.mensagem}
-                onChange={this.handleChange('mensagem')}
-              />
+              <ReactQuill value={this.state.mensagem}
+                placeholder="Relate o motivo da sua solicitação"
+                onChange={(valor) => this.setState({ mensagem: valor })} />
               {
-                ((this.state.errorCode === MINIMO_CARACTERES_500) || (mediacao.errorCode === MENSAGEM_MENOS_500_CARACTERES)) &&
-                <FormHelperText id='mensagem-error-text'>{mediacao.mensagem || 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
+                ((this.state.errorCode === MINIMO_CARACTERES_500) || (mediacao.errorCode === MENSAGEM_MENOS_500_CARACTERES) || (this.state.errorCode === MAXIMO_CARACTERES_3000)) &&
+                <FormHelperText id='mensagem-error-text'>{mediacao.mensagem || (this.state.errorCode === MAXIMO_CARACTERES_3000) ? 'Informe uma mensagem com no máximo 3000 caracteres com formatação.' : 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
               }
             </FormControl>
           </GridItem>

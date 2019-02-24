@@ -22,7 +22,7 @@ export default function(state = initialState, action) {
         empresas: action.payload,
         encontrou: (action.payload.length > 0),
         buscando: false,
-        message: (action.payload.length === 0) ? 'Nenhuma empresa encontrada com este nome' : ''
+        message: (action.payload.length === 0) ? 'Ninguém localizado encontrada com este nome' : ''
       })
     case COMPANY_MATCH_SEARCH_ERROR:
       return Object.assign({}, state, {

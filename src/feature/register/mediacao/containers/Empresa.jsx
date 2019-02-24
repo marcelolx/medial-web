@@ -6,14 +6,22 @@ import CustomInput from '../../../../core/components/CustomInput';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { BUSCAR_EMPRESA } from '../constants/mediacaoStepConstants';
-import { TextMaskCNPJ, TextMaskPhone } from '../../../../core/components/Masks';
-import { findStepStateIndex, viewInState, viewError, validateEmail, validateCNPJ } from '../utils/mediacaoHelper';
-import { CNPJ_INFORMADO_INVALIDO, EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO } from '../../../../core/utils/messages/errorMessages';
+import { TextMaskCNPJ, TextMaskPhone, TextMaskCPF } from '../../../../core/components/Masks';
+import { findStepStateIndex, viewInState, viewError, validateEmail, validateCNPJ, validateCPF } from '../utils/mediacaoHelper';
+import { EMAIL_INVALIDO, NOME_NAO_INFORMADO, TELEFONE_NAO_INFORMADO, DOCUMENTO_INFORMADO_INVALIDO } from '../../../../core/utils/messages/errorMessages';
 import getAdaptedMessage from '../../../../feature/admin/mediacao/utils/mediacaoMessagesHelper';
+import { Radio, FormControlLabel, FormLabel, FormControl } from '@material-ui/core';
 
 const style = {
   disabled: {
     color: 'black',
+  },
+  personalidadeInput: {
+    marginRight: 25,
+    color: 'rgba(0, 0, 0, 0.87)',
+  },
+  radioInput: {
+    marginTop: -3,
   }
 }
 
@@ -24,6 +32,7 @@ class Empresa extends React.Component {
     cnpj: '',
     email: '',
     telefone: '',
+    personalidade: 'F',
     error: false,
     errorType: ''
   }
@@ -36,7 +45,7 @@ class Empresa extends React.Component {
     const { allStates } = this.props;
     const viewIndex = findStepStateIndex(BUSCAR_EMPRESA, allStates);
 
-    if (allStates[viewIndex].BUSCAR_EMPRESA.solicitarCadastroEmpresa) {
+    if (allStates[viewIndex].BUSCAR_EMPRESA.solicitarCadastro) {
       const data = {
         nome: this.state.nome,
         cnpj: this.state.cnpj,
@@ -45,20 +54,17 @@ class Empresa extends React.Component {
       }
 
       const validMail = validateEmail(data.email);
-      const validCNPJ = validateCNPJ(data.cnpj);
+      const validCNPJ = this.state.personalidade === 'F' ? validateCPF(data.cnpj) : validateCNPJ(data.cnpj);
 
       if ((Object.keys(data).filter(key => data[key] === '').length > 0) ||
         (!validMail || !validCNPJ)) {
 
-        const errorType = !validMail
-          ? EMAIL_INVALIDO
-          : !validCNPJ
-            ? CNPJ_INFORMADO_INVALIDO
-            : '';
-
         this.setState({
           error: true,
-          errorType: errorType,
+          errorType: !validMail
+            ? EMAIL_INVALIDO : '',
+          errorTypeDoc: !validCNPJ
+            ? DOCUMENTO_INFORMADO_INVALIDO : ''
         });
 
         return false;
@@ -77,16 +83,44 @@ class Empresa extends React.Component {
     this.setState({ [prop]: event.target.value });
   }
 
-  handleViewSolicitarCadastroEmpresa = () => {
+  handleViewSolicitarCadastro = () => {
     const { mediacao } = this.props;
 
     return (
       <React.Fragment>
+
+        <GridContainer justify='center'>
+          <FormControl>
+            <div className={{}}>
+              <FormLabel style={style.personalidadeInput}>Personalidade</FormLabel>
+              <FormControlLabel
+                style={style.radioInput}
+                control={<Radio
+                  value='F'
+                  checked={this.state.personalidade === 'F'}
+                  onChange={this.handleChange('personalidade')}
+                />}
+                label='Pessoa Física'
+              />
+              <FormControlLabel
+                style={style.radioInput}
+                control={<Radio
+                  value='J'
+                  checked={this.state.personalidade === 'J'}
+                  onChange={this.handleChange('personalidade')}
+                />}
+                label='Pessoa Jurídica'
+              />
+            </div>
+
+          </FormControl>
+        </GridContainer>
+
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
               error={(this.state.error && this.state.nome === '') || mediacao.errorCode === NOME_NAO_INFORMADO}
-              labelText='Nome da empresa'
+              labelText='Nome do requerido'
               id='nome-empresa'
               formControlProps={{
                 fullWidth: true
@@ -95,13 +129,13 @@ class Empresa extends React.Component {
                 value: this.state.nome,
                 onChange: this.handleChange('nome')
               }}
-              errorHelperText={mediacao.mensagem || 'Informe o nome da empresa'}
+              errorHelperText={mediacao.mensagem || 'Informe o nome'}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
               error={(this.state.error && (this.state.email === '' || this.state.errorType === EMAIL_INVALIDO)) || mediacao.errorCode === EMAIL_INVALIDO}
-              labelText='E-mail da empresa'
+              labelText='E-mail'
               id='email-empresa'
               formControlProps={{
                 fullWidth: true
@@ -110,15 +144,16 @@ class Empresa extends React.Component {
                 value: this.state.email,
                 onChange: this.handleChange('email')
               }}
-              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorType) || 'Informe o email da empresa'}
+              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorType) || 'Informe o email'}
             />
           </GridItem>
         </GridContainer>
+
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
-              error={(this.state.error && (this.state.cnpj === '' || this.state.errorType === CNPJ_INFORMADO_INVALIDO)) || mediacao.errorCode === CNPJ_INFORMADO_INVALIDO}
-              labelText='CNPJ'
+              error={(this.state.error && (this.state.cnpj === '' || this.state.errorTypeDoc === DOCUMENTO_INFORMADO_INVALIDO))}
+              labelText='CPF/CNPJ'
               id='cnpj-empresa'
               formControlProps={{
                 fullWidth: true
@@ -126,15 +161,15 @@ class Empresa extends React.Component {
               inputProps={{
                 value: this.state.cnpj,
                 onChange: this.handleChange('cnpj'),
-                inputComponent: TextMaskCNPJ
+                inputComponent: this.state.personalidade === 'F' ? TextMaskCPF : TextMaskCNPJ
               }}
-              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorType) || 'Informe o cnpj da empresa'}
+              errorHelperText={mediacao.mensagem || getAdaptedMessage(this.state.errorTypeDoc) || 'Informe o cpf/cnpj'}
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
               error={(this.state.error && this.state.telefone === '') || mediacao.errorCode === TELEFONE_NAO_INFORMADO}
-              labelText='Telefone da empresa'
+              labelText='Telefone'
               id='telefone-empresa'
               formControlProps={{
                 fullWidth: true
@@ -144,7 +179,7 @@ class Empresa extends React.Component {
                 onChange: this.handleChange('telefone'),
                 inputComponent: TextMaskPhone
               }}
-              errorHelperText={mediacao.mensagem || 'Informe o telefone para contato com a empresa'}
+              errorHelperText={mediacao.mensagem || 'Informe o telefone para contato com a pessoa ou empresa'}
             />
           </GridItem>
         </GridContainer>
@@ -179,7 +214,7 @@ class Empresa extends React.Component {
             }}
             inputProps={{
               disabled: true,
-              value: empresa.fantasia
+              value: validateCNPJ(empresa.cnpj) ? empresa.fantasia : empresa.nome
             }}
           />
         </GridItem>
@@ -193,7 +228,7 @@ class Empresa extends React.Component {
             }}
             inputProps={{
               disabled: true,
-              inputComponent: TextMaskCNPJ,
+              inputComponent: validateCNPJ(empresa.cnpj) ? TextMaskCNPJ : TextMaskCPF,
               value: empresa.cnpj,
             }}
           />
@@ -290,8 +325,8 @@ class Empresa extends React.Component {
         const viewIndex = findStepStateIndex(BUSCAR_EMPRESA, allStates);
         const empresa = mediacaoEmpresas.empresas[allStates[viewIndex].BUSCAR_EMPRESA.checked];
 
-        if ((allStates[viewIndex].BUSCAR_EMPRESA.checked.length === 0) && (allStates[viewIndex].BUSCAR_EMPRESA.solicitarCadastroEmpresa)) {
-          return this.handleViewSolicitarCadastroEmpresa();
+        if ((allStates[viewIndex].BUSCAR_EMPRESA.checked.length === 0) && (allStates[viewIndex].BUSCAR_EMPRESA.solicitarCadastro)) {
+          return this.handleViewSolicitarCadastro();
         } else if (allStates[viewIndex].BUSCAR_EMPRESA.checked.length === 1) {
           return this.handleViewInfosEmpresaSelecionada(empresa);
         }
