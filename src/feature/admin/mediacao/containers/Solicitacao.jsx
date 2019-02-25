@@ -1,4 +1,5 @@
 import React from 'react';
+import SweetAlert from 'react-bootstrap-sweetalert';
 import withRouter from 'react-router-dom/withRouter';
 import GridContainer from '../../../../core/components/grid/GridContainer';
 import GridItem from '../../../../core/components/grid/GridItem';
@@ -13,8 +14,11 @@ import * as mediacaoActions from '../services/mediacaoActions';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import ReactQuill from 'react-quill';
+import buttonStyle from '../../../../assets/jss/components/buttonStyle';
+
 
 const style = ({
+  ...buttonStyle,
   semMargen: {
     margin: 0,
   },
@@ -36,13 +40,31 @@ class Solicitacao extends React.PureComponent {
     return (this.props.mediacao.mediacao !== null) ? this.props.mediacao.mediacao[prop] : '';
   }
 
+  _handleDashboard(){
+    this.props.history.push(`/`);
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, mediacao } = this.props;
 
     //When mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO' redirect to dashboard
 
+    const al = <SweetAlert
+      error
+      style={{ display: 'block', color: `#222` }}
+      onConfirm={() => this._handleDashboard()}
+      confirmBtnCssClass={
+        classes.button + ' ' + classes.warning
+      }
+      confirmBtnText='MENU INICIAL'
+      showCancel={false}
+    >
+      <h4>{`Você não tem permissão para acessar essa mediação`}</h4>
+    </SweetAlert>;
+
     return (
       <React.Fragment>
+        {mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO'? al :null}
         <Card>
           <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediação</h4>
@@ -89,7 +111,7 @@ class Solicitacao extends React.PureComponent {
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={9} lg={9}>
-                <ReactQuill style={{height: 145}} value={this.getMediacaoValueOrDefault('motivo')}
+                <ReactQuill style={{ height: 145 }} value={this.getMediacaoValueOrDefault('motivo')}
                   readOnly
                 />
               </GridItem>

@@ -41,19 +41,16 @@ const style = theme => ({
 
 class Mensagens extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      messages: [],
-      clientConnected: false,
-      topic: '',
-      offset: 0,
-      limit: 20,
-      canLoadMoreData: false,
-    }
-
+  state = {
+    messages: [],
+    clientConnected: false,
+    topic: '',
+    offset: 0,
+    limit: 20,
+    canLoadMoreData: false,
   }
+
   loadMoreData() {
 
     let offset = this.state.offset;
@@ -166,11 +163,11 @@ class Mensagens extends React.PureComponent {
   }
 
   render() {
-    const { classes,anexos } = this.props;
+    const { classes, anexos } = this.props;
 
     return (
       <React.Fragment>
-         <Loader open={anexos.isUploading} />
+        <Loader open={anexos.isUploading} />
         {this.props.mediacao.mediacao !== null ? this.onSockJSClient() : null}
         <Card className={classes.cardMensagens}>
           <CardHeader color='success'>

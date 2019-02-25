@@ -5,7 +5,6 @@ import Button from '../CustomButton';
 import AttachFile from '@material-ui/icons/AttachFile';
 import Send from '@material-ui/icons/Send';
 import CustomInput from '../CustomInput';
-import { Input } from '@material-ui/core';
 
 const isBlank = require('is-blank');
 
