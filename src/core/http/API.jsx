@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const dev = true;
 const ip = 'http://api.downet.com.br';
-const ipDev = 'http://localhost:8080';
+const ipDev = 'http://192.168.0.12:8080';
 
 export const API = axios.create({
   baseURL: (dev ? ipDev: ip) + '/api/',

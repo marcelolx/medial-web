@@ -342,7 +342,6 @@ class Wizard extends Component {
 Wizard.defaultProps = {
   color: 'secondary',
   title: 'Title',
-  subtitle: 'Default subtitle',
   previousButtonText: 'Anterior',
   previousButtonClasses: '',
   nextButtonClasses: '',

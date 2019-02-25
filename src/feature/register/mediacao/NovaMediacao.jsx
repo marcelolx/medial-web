@@ -73,7 +73,6 @@ class NovaMediacao extends Component {
             validate
             steps={steps}
             title='Mediação - Nova Solicitação'
-            subtitle='Busque a pessoa ou a empresa a partir do nome e relate o motivo para iniciar a mediação'
             finishButtonClick={this.handleFinish}
           />
         </GridItem>

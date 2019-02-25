@@ -147,6 +147,7 @@ class BuscarEmpresa extends React.Component {
     return (
       <React.Fragment>
         <GridContainer justify='center'>
+        <h5>Busque a pessoa ou a empresa a partir do nome e relate o motivo para iniciar a mediação</h5>
           <GridItem xs={12} sm={12} md={4}>
             <CustomInput
               error={this.state.searchWithoutFillFields}
