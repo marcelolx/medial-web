@@ -17,9 +17,8 @@ import CustomListFiles from '../../../../../core/components/CustomListFiles';
 import Editor from '../../../../../core/components/Editor';
 
 const style = {
-  multilineTextField: {
-    width: '100%'
-  }
+  multilineTextField: { width: '100%' },
+  gridAnexo: { marginTop: 35 }
 };
 
 class Motivo extends React.Component {
@@ -162,7 +161,7 @@ class Motivo extends React.Component {
           </GridItem>
 
         </GridContainer>
-        <GridContainer justify='center'>
+        <GridContainer justify='center' className={classes.gridAnexo}>
           <GridItem xs={12} sm={12} md={10} >
             <CustomListFiles files={this.state.arquivo} canDelete onChange={(files) => this._handleChangeFile(files)} />
 
