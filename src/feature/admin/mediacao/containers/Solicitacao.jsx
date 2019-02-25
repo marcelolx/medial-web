@@ -13,7 +13,7 @@ import bindActionCreators from 'redux/src/bindActionCreators';
 import * as mediacaoActions from '../services/mediacaoActions';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import ReactQuill from 'react-quill';
+import Editor from '../../../../core/components/Editor'
 import buttonStyle from '../../../../assets/jss/components/buttonStyle';
 
 
@@ -40,7 +40,7 @@ class Solicitacao extends React.PureComponent {
     return (this.props.mediacao.mediacao !== null) ? this.props.mediacao.mediacao[prop] : '';
   }
 
-  _handleDashboard(){
+  _handleDashboard() {
     this.props.history.push(`/`);
   }
 
@@ -49,13 +49,14 @@ class Solicitacao extends React.PureComponent {
 
     //When mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO' redirect to dashboard
 
-    const al = <SweetAlert
+    const semAcesso = <SweetAlert
       error
       style={{ display: 'block', color: `#222` }}
       onConfirm={() => this._handleDashboard()}
       confirmBtnCssClass={
-        classes.button + ' ' + classes.warning
+        [classes.button, classes.warning].join(' ')
       }
+      title='SEM PERMISSÃO'
       confirmBtnText='MENU INICIAL'
       showCancel={false}
     >
@@ -64,7 +65,7 @@ class Solicitacao extends React.PureComponent {
 
     return (
       <React.Fragment>
-        {mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO'? al :null}
+        {mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO' ? semAcesso : null}
         <Card>
           <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediação</h4>
@@ -111,8 +112,9 @@ class Solicitacao extends React.PureComponent {
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={9} lg={9}>
-                <ReactQuill style={{ height: 145 }} value={this.getMediacaoValueOrDefault('motivo')}
+                <Editor  value={this.getMediacaoValueOrDefault('motivo')}
                   readOnly
+                  noHeader={true}
                 />
               </GridItem>
             </GridContainer>

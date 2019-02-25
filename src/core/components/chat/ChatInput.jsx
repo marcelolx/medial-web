@@ -80,7 +80,7 @@ class ChatInput extends React.Component {
   _handleChangeFile(event) {
 
     event.preventDefault();
-    
+
     let file = event.target.files[0];
 
     if (file) {
@@ -91,56 +91,55 @@ class ChatInput extends React.Component {
   }
 
   _handleUploadFile() {
-      this.props.onUploadFile(this.state.file);
+    this.props.onUploadFile(this.state.file);
 
   }
 
   render() {
-    const { classes,file } = this.props;
+    const { classes, file } = this.props;
 
     return (
       <React.Fragment>
         <div className='fileinput text-center'>
           <input type='file' onChange={(evt) => this._handleChangeFile(evt)} ref='fileInput' />
         </div>
-        <CustomInput
-          labelText='Mensagem'
-          inputProps={{
-            value: this.state.message,
-            onChange: this.handleOnChange,
-            onKeyPress: this.catchReturn,
-            disabled: this.state.disabled,
-            placeholder: this.props.placeholder
-          }}
-          id='input-mensagem'
-          formControlProps={{
-            fullWidth: true
-          }}
-        />
-        <Button
-          justIcon
-          color='secondary'
-          onClick={this.onEnterPress}
-          className={classes.botaoAnexar}
-        >
-          <Send />
-        </Button>
-
-        <Button
-          type="file"
-          justIcon
-          onClick={() => this._handleClick()}
-          color='secondary'
-        >
-          <AttachFile />
-        </Button>
-        {file ? <span className={classes.textAnexo}>{file.name}</span> : null}
-        <Button
-          className={classes.botaoEnviar}
-          color='secondary'
-          onClick={() => this._handleUploadFile()}
-        >
-          Enviar Anexo
+            <CustomInput
+              labelText='Mensagem'
+              inputProps={{
+                value: this.state.message,
+                onChange: this.handleOnChange,
+                onKeyPress: this.catchReturn,
+                disabled: this.state.disabled,
+                placeholder: this.props.placeholder
+              }}
+              id='input-mensagem'
+              formControlProps={{
+                fullWidth: true
+              }}
+            />
+            <Button
+              justIcon
+              color='secondary'
+              onClick={this.onEnterPress}
+              className={classes.botaoAnexar}
+            >
+              <Send />
+            </Button>
+            <Button
+              type="file"
+              justIcon
+              onClick={() => this._handleClick()}
+              color='secondary'
+            >
+              <AttachFile />
+            </Button>
+            {file ? <span className={classes.textAnexo}>{file.name}</span> : null}
+            <Button
+              className={classes.botaoEnviar}
+              color='secondary'
+              onClick={() => this._handleUploadFile()}
+            >
+              Enviar Anexo
         </Button>
       </React.Fragment>
     );

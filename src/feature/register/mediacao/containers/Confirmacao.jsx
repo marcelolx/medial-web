@@ -12,8 +12,8 @@ import { TextMaskCNPJ, TextMaskPhone, TextMaskCPF } from '../../../../core/compo
 import SweetAlert from 'react-bootstrap-sweetalert';
 import * as mediacaoActions from '../services/novaMediacaoActions';
 import { withRouter } from 'react-router-dom';
-import ReactQuill from 'react-quill';
 import CustomListFiles from '../../../../core/components/CustomListFiles';
+import Editor from '../../../../core/components/Editor';
 
 
 const style = {
@@ -248,9 +248,10 @@ class Confirmacao extends Component {
 
             <h4>Mensagem</h4>
 
-            <ReactQuill value={motivo.mensagem}
+            <Editor value={motivo.mensagem}
               style={{ height: 145 }}
               readOnly
+              noHeader
             />
           </GridItem>
         </GridContainer>

@@ -11,10 +11,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO, MAXIMO_CARACTERES_3000 } from '../../constants/mediacaoStepConstants';
 import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../admin/mediacao/utils/mediacaoMessagesHelper';
-import ReactQuill from 'react-quill';
 import '../../../../../assets/css/quill.snow.css';
 import FileUpload from '../../../../../core/components/FileUpload';
 import CustomListFiles from '../../../../../core/components/CustomListFiles';
+import Editor from '../../../../../core/components/Editor';
 
 const style = {
   multilineTextField: {
@@ -151,7 +151,7 @@ class Motivo extends React.Component {
               error={(this.state.errorCode === MINIMO_CARACTERES_500 || (this.state.errorCode === MAXIMO_CARACTERES_3000))}
               aria-describedby='mensagem-error-text'
             >
-              <ReactQuill value={this.state.mensagem}
+              <Editor value={this.state.mensagem}
                 placeholder="Relate o motivo da sua solicitação"
                 onChange={(valor) => this.setState({ mensagem: valor })} />
               {
