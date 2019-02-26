@@ -14,7 +14,7 @@ const style = theme => ({
     margin: 0,
   },
   marginChip: {
-    margin: '5px',
+    margin: '5px 0',
   },
   icon: {
     color: theme.palette.type === 'light' ? theme.palette.grey[700] : theme.palette.grey[300],
