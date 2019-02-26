@@ -1,22 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
 
-export default class Editor extends React.Component {
+export default function Editor(props) {
 
-  render() {
-    return (
-      <div>
-        <ReactQuill
-          {...this.props}
-          style={{height: 210}}
-          modules={this.props.noHeader ? { toolbar: [] } : Editor.modules}
-          formats={Editor.formats}
 
-        />
-      </div>
-    )
-  }
+  return (
+    <div>
+      <ReactQuill
+        {...props}
+        style={{ height: 210 }}
+        modules={props.noHeader ? { toolbar: [] } : Editor.modules}
+        formats={Editor.formats}
+
+      />
+    </div>
+  )
+
 }
 
 /* 
@@ -48,16 +47,3 @@ Editor.formats = [
   'list', 'bullet', 'indent',
   'link', 'image', 'video'
 ]
-
-Editor.defaultProps = {
-  noHeader: false
-};
-/* 
- * PropType validation
- */
-Editor.propTypes = {
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  theme: PropTypes.string,
-  noHeader: PropTypes.bool
-}

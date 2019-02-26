@@ -53,11 +53,6 @@ class Confirmacao extends Component {
     });
   }
 
-  _handleDeleteFile() {
-    console.log("TEESSTTEEE");
-
-  }
-
   empresaNovaView(empresa, motivo) {
     return (
       <React.Fragment>
