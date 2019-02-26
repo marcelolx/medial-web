@@ -14,3 +14,14 @@ export function verifyEmail(value) {
 export function replaceNaoNumeros(number) {
   return number.replace(/[^0-9]/g, '')
 }
+
+export function validateFile(filename) {
+  let regex = new RegExp("(.*?).(docx|doc|png|jpg|jpeg|zip|rar|gif|pdf|xml|bmp|ppt|xls)$");
+
+  return regex.test(filename.toLowerCase());
+}
+
+export function validateFileSize(size) {
+
+  return size <= 10485760;
+}
