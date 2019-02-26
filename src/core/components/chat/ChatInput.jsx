@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '../CustomButton';
 import AttachFile from '@material-ui/icons/AttachFile';
 import Send from '@material-ui/icons/Send';
+import { validateFile, validateFileSize } from '../../utils/utils';
 import CustomInput from '../CustomInput';
 
 const isBlank = require('is-blank');
@@ -83,7 +84,7 @@ class ChatInput extends React.Component {
 
     let file = event.target.files[0];
 
-    if (file) {
+    if (file && validateFile(file.name) && validateFileSize(file.size)) {
       this.props.onChangeFile(file)
     }
 
@@ -101,45 +102,45 @@ class ChatInput extends React.Component {
     return (
       <React.Fragment>
         <div className='fileinput text-center'>
-          <input type='file' onChange={(evt) => this._handleChangeFile(evt)} ref='fileInput' />
+          <input type='file' accept=".docx, .doc, .png, .jpg, .jpeg, .gif, .zip, .rar, .pdf, .xml, .bmp, .ppt, .xls" onChange={(evt) => this._handleChangeFile(evt)} ref='fileInput' />
         </div>
-            <CustomInput
-              labelText='Mensagem'
-              inputProps={{
-                value: this.state.message,
-                onChange: this.handleOnChange,
-                onKeyPress: this.catchReturn,
-                disabled: this.state.disabled,
-                placeholder: this.props.placeholder
-              }}
-              id='input-mensagem'
-              formControlProps={{
-                fullWidth: true
-              }}
-            />
-            <Button
-              justIcon
-              color='secondary'
-              onClick={this.onEnterPress}
-              className={classes.botaoAnexar}
-            >
-              <Send />
-            </Button>
-            <Button
-              type="file"
-              justIcon
-              onClick={() => this._handleClick()}
-              color='secondary'
-            >
-              <AttachFile />
-            </Button>
-            {file ? <span className={classes.textAnexo}>{file.name}</span> : null}
-            <Button
-              className={classes.botaoEnviar}
-              color='secondary'
-              onClick={() => this._handleUploadFile()}
-            >
-              Enviar Anexo
+        <CustomInput
+          labelText='Mensagem'
+          inputProps={{
+            value: this.state.message,
+            onChange: this.handleOnChange,
+            onKeyPress: this.catchReturn,
+            disabled: this.state.disabled,
+            placeholder: this.props.placeholder
+          }}
+          id='input-mensagem'
+          formControlProps={{
+            fullWidth: true
+          }}
+        />
+        <Button
+          justIcon
+          color='secondary'
+          onClick={this.onEnterPress}
+          className={classes.botaoAnexar}
+        >
+          <Send />
+        </Button>
+        <Button
+          type="file"
+          justIcon
+          onClick={() => this._handleClick()}
+          color='secondary'
+        >
+          <AttachFile />
+        </Button>
+        {file ? <span className={classes.textAnexo}>{file.name}</span> : null}
+        <Button
+          className={classes.botaoEnviar}
+          color='secondary'
+          onClick={() => this._handleUploadFile()}
+        >
+          Enviar Anexo
         </Button>
       </React.Fragment>
     );

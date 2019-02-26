@@ -73,6 +73,7 @@ class NovaMediacao extends Component {
             validate
             steps={steps}
             title='Mediação - Nova Solicitação'
+            subtitle=''
             finishButtonClick={this.handleFinish}
           />
         </GridItem>

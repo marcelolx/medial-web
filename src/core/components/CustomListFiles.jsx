@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem, ListItemIcon, IconButton } from '@material-ui/core';
+import { ListItem, ListItemIcon, IconButton, withStyles } from '@material-ui/core';
 import AttachFile from '@material-ui/icons/AttachFile';
 import Close from '@material-ui/icons/Close'
 
+import { dangerColor } from './../../assets/jss/styles';
+
 
 const style = {
+  dangerColor: {
+    color: dangerColor
+  },
   listItem: {
     padding: 0,
   }
+
 }
 
 class CustomListFiles extends React.Component {
@@ -30,16 +36,16 @@ class CustomListFiles extends React.Component {
   }
 
   render() {
-    const { files, canDelete } = this.props;
+    const { files, canDelete, canEmpty, errorList, classes } = this.props;
     const listItems = [];
     if (files && files.length > 0) {
 
       for (let index = 0; index < files.length; index++) {
         const element = files[index];
 
-        listItems.push(<ListItem style={style.listItem} key={element.name.toString()} value={element.name.toString()} >
+        listItems.push(<ListItem className={[classes.listItem, errorList ? classes.dangerColor : null].join(' ')} key={element.name.toString()} value={element.name.toString()} >
           <ListItemIcon>
-            <AttachFile />
+            <AttachFile color={errorList ? "error" : "inherit"} />
           </ListItemIcon>
           {element.name.toString()}
 
@@ -56,7 +62,9 @@ class CustomListFiles extends React.Component {
 
       }
     } else {
-      listItems.push(<ListItem key="1" value="Nunhum arquivo selecionado" >Nenhum arquivo selecionado</ListItem>)
+      if (!canEmpty) {
+        listItems.push(<ListItem key="1" value="Nunhum arquivo selecionado" >Nenhum arquivo selecionado</ListItem>)
+      }
     }
 
     return (
@@ -70,7 +78,7 @@ class CustomListFiles extends React.Component {
 CustomListFiles.propTypes = {
   onChange: PropTypes.func,
   files: PropTypes.array.isRequired,
-  canDelete: PropTypes.bool,
+  errorList: PropTypes.bool
 }
 
-export default CustomListFiles;
+export default withStyles(style)(CustomListFiles);

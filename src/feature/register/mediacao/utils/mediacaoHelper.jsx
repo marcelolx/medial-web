@@ -2,6 +2,7 @@ import React from 'react';
 import GridContainer from '../../../../core/components/grid/GridContainer';
 import GridItem from '../../../../core/components/grid/GridItem';
 
+
 export function findStepStateIndex(stepId, allStates) {
   return Object.keys(allStates).filter(
     function(key) {
@@ -104,3 +105,4 @@ export function validateCNPJ(cnpj) {
   }
   return true;
 }
+

@@ -8,7 +8,6 @@ export function TextMaskCPF(props) {
   return(
     <MaskedInput
       {...other}
-      ref={inputRef}
       mask={[/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
       placeholderChar={'\u2000'}      
       showMask={false}
@@ -26,7 +25,6 @@ export function TextMaskCNPJ(props) {
   return(
     <MaskedInput 
       {...other}
-      ref={inputRef}
       mask={[/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]}
       placeholderChar={'\u2000'}
       showMask={false}
@@ -44,7 +42,6 @@ export function TextMaskCellPhone(props) {
   return(
     <MaskedInput
       {...other}
-      ref={inputRef}
       mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
       placeholderChar={'\u2000'}
       showMask={false}
@@ -62,7 +59,6 @@ export function TextMaskPhone(props) {
   return(
     <MaskedInput
       {...other}
-      ref={inputRef}
       mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
       placeholderChar={'\u2000'}
       showMask={false}

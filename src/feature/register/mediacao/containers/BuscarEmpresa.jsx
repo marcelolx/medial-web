@@ -27,7 +27,8 @@ const style = {
   },
   errorTextHelper: {
     textAlign: 'center',
-    color: '#e21515'
+    color: '#e21515',
+    margin: 0,
   },
   searchTextHelper: {
     textAlign: 'center',

@@ -164,9 +164,16 @@ class Motivo extends React.Component {
         <GridContainer justify='center' className={classes.gridAnexo}>
           <GridItem xs={12} sm={12} md={10} >
             <CustomListFiles files={this.state.arquivo} canDelete onChange={(files) => this._handleChangeFile(files)} />
+            <CustomListFiles
+              files={this.state.filesError}
+              onChange={(files) => this.setState({ filesError: files })}
+              canDelete
+              canEmpty
+              errorList />
 
             <FileUpload
               onChange={(valor) => this._handleChangeFile(valor)}
+              onChangeError={(valor) => this.setState({ filesError: valor })}
               files={this.state.arquivo}
               adicionarButtonProps={{
                 color: 'secondary',
