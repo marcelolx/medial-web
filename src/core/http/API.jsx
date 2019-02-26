@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const dev = true;
 const ip = 'http://api.downet.com.br';
-const ipDev = 'http://192.168.0.12:8080';
+const ipDev = 'http://localhost:8080';
 
 export const API = axios.create({
   baseURL: (dev ? ipDev: ip) + '/api/',
@@ -31,7 +31,7 @@ export const GraphQLAPI = axios.create({
 });
 
 export function getWebSocketAddres() {
-  return (dev ? ipDev : ip) + '/websocket';
+  return (dev ? ipDev : ip) + '/api/websocket';
 }
 
 export function getHeaders() {
