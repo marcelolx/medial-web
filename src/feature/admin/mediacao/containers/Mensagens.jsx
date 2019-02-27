@@ -36,6 +36,9 @@ const style = theme => ({
   },
   mensagemEnviada: {
     align: 'right'
+  },
+  cardBody:{
+    paddingBottom: 0
   }
 });
 
@@ -173,7 +176,7 @@ class Mensagens extends React.PureComponent {
           <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mensagens</h4>
           </CardHeader>
-          <CardBody>
+          <CardBody className={classes.cardBody}>
             <ChatBox
               currentUserId={this.props.auth.id.toString()}
               currentUser={this.props.auth.nome}
