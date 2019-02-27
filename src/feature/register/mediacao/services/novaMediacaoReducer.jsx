@@ -14,7 +14,6 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-  debugger
   switch (action.type) {
     case SAVE_MEDIATION_START:
       return Object.assign({}, state, {
