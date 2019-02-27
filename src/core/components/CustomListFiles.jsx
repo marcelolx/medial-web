@@ -17,7 +17,7 @@ const style = {
 }
 
 
-function _handleDeleteFile(el, files,props) {
+function _handleDeleteFile(el, files, props) {
   let filesNovo = [];
 
   for (let index = 0; index < files.length; index++) {
@@ -41,27 +41,28 @@ function CustomListFiles(props) {
     for (let index = 0; index < files.length; index++) {
       const element = files[index];
 
-      listItems.push(<ListItem className={[classes.listItem, errorList ? classes.dangerColor : null].join(' ')} key={element.name.toString()} value={element.name.toString()} >
-        <ListItemIcon>
-          <AttachFile color={errorList ? "error" : "inherit"} />
-        </ListItemIcon>
-        {element.name.toString()}
-
-        {canDelete ?
+      listItems.push(
+        <ListItem className={[classes.listItem, errorList ? classes.dangerColor : null].join(' ')} key={element.name.toString()}>
           <ListItemIcon>
-            <IconButton aria-label='Filtrar nome'
-              onClick={() => _handleDeleteFile(element, files,props)}>
-              <Close />
-            </IconButton>
+            <AttachFile color={errorList ? "error" : "inherit"} />
           </ListItemIcon>
-          : null}
+          {element.name.toString()}
+          {canDelete ?
+            <ListItemIcon>
+              <IconButton aria-label='Filtrar nome'
+                onClick={() => _handleDeleteFile(element, files, props)}>
+                <Close />
+              </IconButton>
+            </ListItemIcon>
+            : null}
 
-      </ListItem>)
+        </ListItem>
+      )
 
     }
   } else {
     if (!canEmpty) {
-      listItems.push(<ListItem key="1" value="Nunhum arquivo selecionado" >Nenhum arquivo selecionado</ListItem>)
+      listItems.push(<p key="1">Nenhum arquivo selecionado</p>)
     }
   }
 

@@ -35,12 +35,12 @@ function saveFiles(dataFiles, response) {
         formData.append('file', element);
         formData.append('id', response.data.id);
 
-        API.post('/mediacao/uploadFile', formData)
+        API.post('/mediacao/uploadFile', formData, { timeout: 120000 })
           .then(response => {
             dispatch(uploadFileSucess(response))
           })
           .catch(err => {
-            dispatch(uploadFileFail())
+            dispatch(uploadFileFail(err))
           });
 
       }
@@ -53,8 +53,8 @@ function uploadFileSucess(response) {
   return { type: UPLOAD_FILE_SUCCESS, payload: response.data, }
 }
 
-function uploadFileFail() {
-  return { type: UPLOAD_FILE_FAIL }
+function uploadFileFail(error) {
+  return { payload: error, type: UPLOAD_FILE_FAIL }
 }
 
 function startSaveMediation() {

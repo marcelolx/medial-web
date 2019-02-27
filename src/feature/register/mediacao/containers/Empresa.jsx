@@ -202,7 +202,7 @@ class Empresa extends React.Component {
             }}
             inputProps={{
               disabled: true,
-              value: empresa.nome,
+              value: empresa.nome||``,
             }}
           />
         </GridItem>

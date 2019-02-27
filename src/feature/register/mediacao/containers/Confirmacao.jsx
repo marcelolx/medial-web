@@ -17,6 +17,9 @@ import Editor from '../../../../core/components/Editor';
 
 
 const style = {
+  container: {
+    marginTop: 15,
+  },
   multilineTextField: {
     width: '100%'
   }
@@ -123,7 +126,7 @@ class Confirmacao extends Component {
   empresaView(empresa, motivo) {
     return (
       <React.Fragment>
-        <GridContainer justify='center'>
+        <GridContainer justify='center' style={style.container}>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
               labelText='Nome'
@@ -202,7 +205,7 @@ class Confirmacao extends Component {
 
     return (
       <React.Fragment>
-        <GridContainer justify='center'>
+        <GridContainer justify='center' style={style.container}>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
               labelText='Conflitos'
@@ -232,19 +235,14 @@ class Confirmacao extends Component {
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={8} lg={8}>
-
             <h4>Anexos</h4>
-
             <CustomListFiles files={motivo.arquivo} />
           </GridItem>
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={8} lg={8}>
-
             <h4>Mensagem</h4>
-
             <Editor value={motivo.mensagem}
-              style={{ height: 145 }}
               readOnly
               noHeader
             />
@@ -266,7 +264,10 @@ class Confirmacao extends Component {
       const novaEmpresa = allStates[findStepStateIndex(EMPRESA, allStates)].EMPRESA;
 
       if (motivo !== undefined) {
-        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (!motivo.arquivo || motivo.arquivo.length === mediacao.filesUploadSuccess)) {
+        let arquivo = motivo.arquivo ?  motivo.arquivo : [];
+        let descricaoArquivo = arquivo.length > 0 ? `Fazendo o upload dos arquivos - ${mediacao.filesUploadSuccess} de ${arquivo.length}` : ``
+
+        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (arquivo.length === mediacao.filesUploadSuccess)) {
           setTimeout(
             function () {
               this.hideAlertAndRedirectToMediations()
@@ -280,13 +281,13 @@ class Confirmacao extends Component {
                 (
                   <SweetAlert
                     style={{ display: 'block', marginTop: '-100px' }}
-                    title={mediacao.mensagem || 'Validando informações...'} //Quando feita mediação, exibir o protocolo talvez também?
+                    title={mediacao.mensagem || `Validando informações...`} //Quando feita mediação, exibir o protocolo talvez também?
                     onConfirm={() => this.hideAlertAndRedirectToMediations().bind(this)}
                     showConfirm={false}
                   >
-                    {((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (!motivo.arquivo || motivo.arquivo.length === mediacao.filesUploadSuccess))
+                    {((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (arquivo.length === mediacao.filesUploadSuccess))
                       ? 'Você será redirecionado para a página inicial...'
-                      : 'Aguarde a solicitação finalizar...'}
+                      : `Aguarde a solicitação finalizar... ${descricaoArquivo}`}
                   </SweetAlert>
                 ) : null
             }

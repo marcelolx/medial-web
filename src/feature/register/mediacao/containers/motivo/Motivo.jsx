@@ -144,7 +144,7 @@ class Motivo extends React.Component {
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={10} >
-            <span>Relate o motivo:</span>
+            <h5>Relate o motivo:</h5>
             <FormControl
               className={classes.multilineTextField}
               error={(this.state.errorCode === MINIMO_CARACTERES_500 || (this.state.errorCode === MAXIMO_CARACTERES_3000))}
@@ -176,12 +176,7 @@ class Motivo extends React.Component {
               onChangeError={(valor) => this.setState({ filesError: valor })}
               files={this.state.arquivo}
               adicionarButtonProps={{
-                color: 'secondary',
-                round: true
-              }}
-              removerButtonProps={{
-                color: 'primary',
-                round: true
+                color: 'secondary'
               }} />
           </GridItem>
         </GridContainer>

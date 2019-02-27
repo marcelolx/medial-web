@@ -8,11 +8,13 @@ const initialState = {
   protocolo: '',
   errorCode: '',
   mensagem: '',
+  filesUploadError: 0,
   filesUploadSuccess: 0,
   errorFile: false,
 }
 
 export default function (state = initialState, action) {
+  debugger
   switch (action.type) {
     case SAVE_MEDIATION_START:
       return Object.assign({}, state, {
@@ -40,6 +42,7 @@ export default function (state = initialState, action) {
         protocolo: '',
         errorCode: '',
         mensagem: '',
+        filesUploadError: 0,
         filesUploadSuccess: 0,
         errorFile: false,
       })
@@ -49,10 +52,7 @@ export default function (state = initialState, action) {
       })
     case UPLOAD_FILE_FAIL:
       return Object.assign({}, state, {
-        id: 0,
-        protocolo: '',
-        errorCode: action.payload.message,
-        mensagem: getAdaptedMessage(action.payload.message),
+        filesUploadError: state.filesUploadError + 1,
         errorFile: true,
       })
     default:

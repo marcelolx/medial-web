@@ -6,7 +6,8 @@ import { validateFile ,validateFileSize } from '../utils/utils';
 
 const styles = ({
   paragrafo: {
-    margin: 0
+    margin: 0,
+    textTransform: 'none',
   }
 })
 
@@ -57,8 +58,8 @@ class FileUpload extends React.Component {
           </Button>
         </div>
         <div>
-          <p className={classes.paragrafo}> Formatos: docx, doc, png, jpg, zip, rar, jpeg, gif, pdf, xml, bmp, ppt, xls</p>
-          <p className={classes.paragrafo}> Tamanho máximo: 10Mb</p>
+          <h6 className={classes.paragrafo}> Formatos: docx, doc, png, jpg, zip, rar, jpeg, gif, pdf, xml, bmp, ppt, xls</h6>
+          <h6 className={classes.paragrafo}> Tamanho máximo: 10Mb</h6>
         </div>
 
 
