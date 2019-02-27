@@ -37,7 +37,7 @@ const style = theme => ({
   mensagemEnviada: {
     align: 'right'
   },
-  cardBody:{
+  cardBody: {
     paddingBottom: 0
   }
 });
@@ -192,6 +192,7 @@ class Mensagens extends React.PureComponent {
               file={this.state.file}
               onChangeFile={(file) => this.setState({ file: file })}
               disabled={!this.state.clientConnected}
+              anexo
             />
           </CardFooter>
         </Card>

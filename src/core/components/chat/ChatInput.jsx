@@ -6,10 +6,13 @@ import AttachFile from '@material-ui/icons/AttachFile';
 import Send from '@material-ui/icons/Send';
 import { validateFile, validateFileSize } from '../../utils/utils';
 import CustomInput from '../CustomInput';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import buttonStyle from '../../../assets/jss/components/buttonStyle';
 
 const isBlank = require('is-blank');
 
 const style = ({
+  ...buttonStyle,
   botaoEnviar: {
     width: '105px',
     marginLeft: '5px',
@@ -86,9 +89,31 @@ class ChatInput extends React.Component {
 
     if (file && validateFile(file.name) && validateFileSize(file.size)) {
       this.props.onChangeFile(file)
+    } else {
+      this.setState({ fileError: true });
     }
 
 
+  }
+
+
+  alertAnexoError() {
+
+    const { classes } = this.props;
+
+    return (<SweetAlert
+      error
+      style={{ display: 'block', color: `#222` }}
+      onConfirm={() => this.setState({ fileError: false })}
+      confirmBtnCssClass={
+        [classes.button, classes.success].join(' ')
+      }
+      title='Anexo inválido'
+      confirmBtnText='Continuar'
+      showCancel={false}
+    >
+      <h4>{`Formato inválido ou o tamanho do arquivo é maior que 10MB`}</h4>
+    </SweetAlert>);
   }
 
   _handleUploadFile() {
@@ -97,10 +122,11 @@ class ChatInput extends React.Component {
   }
 
   render() {
-    const { classes, file } = this.props;
+    const { classes, anexo, file } = this.props;
 
     return (
       <React.Fragment>
+        {this.state.fileError ? this.alertAnexoError() : null}
         <div className='fileinput text-center'>
           <input type='file' accept=".docx, .doc, .png, .jpg, .jpeg, .gif, .zip, .rar, .pdf, .xml, .bmp, .ppt, .xls" onChange={(evt) => this._handleChangeFile(evt)} ref='fileInput' />
         </div>
@@ -126,22 +152,26 @@ class ChatInput extends React.Component {
         >
           <Send />
         </Button>
-        <Button
+        {anexo ? <Button
           type="file"
           justIcon
           onClick={() => this._handleClick()}
           color='secondary'
         >
           <AttachFile />
-        </Button>
+        </Button> : null}
+
         {file ? <span className={classes.textAnexo}>{file.name}</span> : null}
-        <Button
+
+        {anexo ? <Button
           className={classes.botaoEnviar}
           color='secondary'
           onClick={() => this._handleUploadFile()}
         >
           Enviar Anexo
-        </Button>
+         </Button>
+          : null}
+
       </React.Fragment>
     );
   }
