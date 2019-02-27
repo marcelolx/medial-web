@@ -31,7 +31,7 @@ export const GraphQLAPI = axios.create({
 });
 
 export function getWebSocketAddres() {
-  return (dev ? ipDev : ip) + '/websocket';
+  return (dev ? ipDev : ip) + '/api/websocket';
 }
 
 export function getHeaders() {

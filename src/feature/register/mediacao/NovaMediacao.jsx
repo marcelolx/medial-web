@@ -62,22 +62,22 @@ class NovaMediacao extends Component {
       }
     }
 
-    this.props.actions.cadastrar(data);
+    this.props.actions.cadastrar(data, motivo.arquivo);
   }
 
-  render(){
-    return(      
+  render() {
+    return (
       <GridContainer justify='center'>
         <GridItem xs={12} xl={8}>
-          <Wizard 
+          <Wizard
             validate
             steps={steps}
             title='Mediação - Nova Solicitação'
-            subtitle='Busque a pessoa ou a empresa a partir do nome e relate o motivo para iniciar a mediação'
+            subtitle=''
             finishButtonClick={this.handleFinish}
           />
         </GridItem>
-      </GridContainer> 
+      </GridContainer>
     );
   }
 }

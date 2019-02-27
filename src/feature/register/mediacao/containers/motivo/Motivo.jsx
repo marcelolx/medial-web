@@ -11,13 +11,14 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { MINIMO_CARACTERES_500, SELECIONAR_CONFLITO_E_ASSUNTO, MAXIMO_CARACTERES_3000 } from '../../constants/mediacaoStepConstants';
 import { ASSUNTO_INVALIDO, MENSAGEM_MENOS_500_CARACTERES } from '../../../../admin/mediacao/utils/mediacaoMessagesHelper';
-import ReactQuill from 'react-quill';
 import '../../../../../assets/css/quill.snow.css';
+import FileUpload from '../../../../../core/components/FileUpload';
+import CustomListFiles from '../../../../../core/components/CustomListFiles';
+import Editor from '../../../../../core/components/Editor';
 
 const style = {
-  multilineTextField: {
-    width: '100%'
-  }
+  multilineTextField: { width: '100%' },
+  gridAnexo: { marginTop: 35 }
 };
 
 class Motivo extends React.Component {
@@ -27,6 +28,7 @@ class Motivo extends React.Component {
     assuntos: [],
     mensagem: '',
     errorCode: '',
+    arquivo: []
   }
 
   sendState() {
@@ -99,6 +101,10 @@ class Motivo extends React.Component {
     this.setState({ [prop]: event.target.value });
   }
 
+  _handleChangeFile(files) {
+    this.setState({ arquivo: files })
+  }
+
   render() {
     const { classes, assuntos, mediacao } = this.props;
 
@@ -137,14 +143,14 @@ class Motivo extends React.Component {
           </GridItem>
         </GridContainer>
         <GridContainer justify='center'>
-          <GridItem xs={12} sm={12} md={10}>
-            <span>Relate o motivo</span>
+          <GridItem xs={12} sm={12} md={10} >
+            <span>Relate o motivo:</span>
             <FormControl
               className={classes.multilineTextField}
               error={(this.state.errorCode === MINIMO_CARACTERES_500 || (this.state.errorCode === MAXIMO_CARACTERES_3000))}
               aria-describedby='mensagem-error-text'
             >
-              <ReactQuill value={this.state.mensagem}
+              <Editor value={this.state.mensagem}
                 placeholder="Relate o motivo da sua solicitação"
                 onChange={(valor) => this.setState({ mensagem: valor })} />
               {
@@ -152,6 +158,31 @@ class Motivo extends React.Component {
                 <FormHelperText id='mensagem-error-text'>{mediacao.mensagem || (this.state.errorCode === MAXIMO_CARACTERES_3000) ? 'Informe uma mensagem com no máximo 3000 caracteres com formatação.' : 'Informe uma mensagem com no mínimo 500 caracteres.'}</FormHelperText>
               }
             </FormControl>
+          </GridItem>
+
+        </GridContainer>
+        <GridContainer justify='center' className={classes.gridAnexo}>
+          <GridItem xs={12} sm={12} md={10} >
+            <CustomListFiles files={this.state.arquivo} canDelete onChange={(files) => this._handleChangeFile(files)} />
+            <CustomListFiles
+              files={this.state.filesError}
+              onChange={(files) => this.setState({ filesError: files })}
+              canDelete
+              canEmpty
+              errorList />
+
+            <FileUpload
+              onChange={(valor) => this._handleChangeFile(valor)}
+              onChangeError={(valor) => this.setState({ filesError: valor })}
+              files={this.state.arquivo}
+              adicionarButtonProps={{
+                color: 'secondary',
+                round: true
+              }}
+              removerButtonProps={{
+                color: 'primary',
+                round: true
+              }} />
           </GridItem>
         </GridContainer>
       </React.Fragment>

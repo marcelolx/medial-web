@@ -14,8 +14,10 @@ import ChatInput from '../../../../core/components/chat/ChatInput';
 import ChatBox from '../../../../core/components/chat/ChatBox';
 import { CHAT, ENTROU, SAIU } from '../utils/mediacaoMessagesHelper';
 import queryString from 'query-string';
+import Loader from '../../../../core/components/Loader';
 
 import * as mediacaoActions from '../services/mediacaoActions';
+import * as anexoActions from '../services/anexo/anexoActions';
 
 const style = theme => ({
   cardMensagens: {
@@ -39,26 +41,23 @@ const style = theme => ({
 
 class Mensagens extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      messages: [],
-      clientConnected: false,
-      topic: '',
-      offset: 0,
-      limit: 20,
-      canLoadMoreData: false,
-    }
-
+  state = {
+    messages: [],
+    clientConnected: false,
+    topic: '',
+    offset: 0,
+    limit: 20,
+    canLoadMoreData: false,
   }
+
   loadMoreData() {
 
     let offset = this.state.offset;
-    
+
     this.props.actions.adquirirMensagem(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id, offset, this.state.limit);
     this.setState({ offset: offset + this.state.limit });
-    
+
   }
 
   componentDidMount() {
@@ -136,6 +135,13 @@ class Mensagens extends React.PureComponent {
     //connectingElement.style.color = 'red';
   }
 
+  componentDidUpdate() {
+    if (this.props.anexos.isLoaded && this.props.anexos.isUploaded) {
+      this.setState({ file: null })
+      this.props.actions.fileUploadClear();
+    }
+  }
+
   onSockJSClient() {
     return (
       <SockJsClient
@@ -149,11 +155,19 @@ class Mensagens extends React.PureComponent {
     );
   }
 
+  _handleUploadFile() {
+    if (this.state.file) {
+      this.props.actions.uploadFileMediacao(this.state.file, queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+
+    }
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, anexos } = this.props;
 
     return (
       <React.Fragment>
+        <Loader open={anexos.isUploading} />
         {this.props.mediacao.mediacao !== null ? this.onSockJSClient() : null}
         <Card className={classes.cardMensagens}>
           <CardHeader color='success'>
@@ -171,6 +185,9 @@ class Mensagens extends React.PureComponent {
           <CardFooter>
             <ChatInput
               onSendMessage={this.onSendMessage}
+              onUploadFile={() => this._handleUploadFile()}
+              file={this.state.file}
+              onChangeFile={(file) => this.setState({ file: file })}
               disabled={!this.state.clientConnected}
             />
           </CardFooter>
@@ -182,12 +199,14 @@ class Mensagens extends React.PureComponent {
 
 const mapStateToProps = state => ({
   mediacao: state.mediacao,
-  auth: state.auth
+  auth: state.auth,
+  anexos: state.anexos
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     ...mediacaoActions,
+    ...anexoActions,
   }, dispatch)
 });
 

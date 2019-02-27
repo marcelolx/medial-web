@@ -13,6 +13,9 @@ import getAdaptedMessage from '../../../../feature/admin/mediacao/utils/mediacao
 import { Radio, FormControlLabel, FormLabel, FormControl } from '@material-ui/core';
 
 const style = {
+  container: {
+    marginTop: 20,
+  },
   disabled: {
     color: 'black',
   },
@@ -84,17 +87,15 @@ class Empresa extends React.Component {
   }
 
   handleViewSolicitarCadastro = () => {
-    const { mediacao } = this.props;
-
+    const { mediacao, classes } = this.props;
     return (
       <React.Fragment>
-
-        <GridContainer justify='center'>
+        <GridContainer justify='center' className={classes.container}>
           <FormControl>
             <div className={{}}>
-              <FormLabel style={style.personalidadeInput}>Personalidade</FormLabel>
+              <FormLabel className={classes.personalidadeInput}>Personalidade</FormLabel>
               <FormControlLabel
-                style={style.radioInput}
+                className={classes.radioInput}
                 control={<Radio
                   value='F'
                   checked={this.state.personalidade === 'F'}
@@ -103,7 +104,7 @@ class Empresa extends React.Component {
                 label='Pessoa Física'
               />
               <FormControlLabel
-                style={style.radioInput}
+                className={classes.radioInput}
                 control={<Radio
                   value='J'
                   checked={this.state.personalidade === 'J'}
@@ -188,8 +189,9 @@ class Empresa extends React.Component {
   }
 
   handleViewInfosEmpresaSelecionada = (empresa) => {
+    const { classes } = this.props;
     return (
-      <GridContainer justify='center'>
+      <GridContainer justify='center' className={classes.container} >
         <GridItem xs={12} sm={12} md={4}>
           <CustomInput
             error={false}

@@ -12,7 +12,9 @@ import { TextMaskCNPJ, TextMaskPhone, TextMaskCPF } from '../../../../core/compo
 import SweetAlert from 'react-bootstrap-sweetalert';
 import * as mediacaoActions from '../services/novaMediacaoActions';
 import { withRouter } from 'react-router-dom';
-import ReactQuill from 'react-quill';
+import CustomListFiles from '../../../../core/components/CustomListFiles';
+import Editor from '../../../../core/components/Editor';
+
 
 const style = {
   multilineTextField: {
@@ -57,7 +59,7 @@ class Confirmacao extends Component {
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={4} lg={4}>
             <CustomInput
-              labelText='Nome da empresa'
+              labelText='Nome'
               id='nome-empresa'
               formControlProps={{
                 fullWidth: true
@@ -230,9 +232,21 @@ class Confirmacao extends Component {
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={8} lg={8}>
-            <ReactQuill value={motivo.mensagem}
-              style={{height: 145}}
+
+            <h4>Anexos</h4>
+
+            <CustomListFiles files={motivo.arquivo} />
+          </GridItem>
+        </GridContainer>
+        <GridContainer justify='center'>
+          <GridItem xs={12} sm={12} md={8} lg={8}>
+
+            <h4>Mensagem</h4>
+
+            <Editor value={motivo.mensagem}
+              style={{ height: 145 }}
               readOnly
+              noHeader
             />
           </GridItem>
         </GridContainer>
@@ -252,7 +266,7 @@ class Confirmacao extends Component {
       const novaEmpresa = allStates[findStepStateIndex(EMPRESA, allStates)].EMPRESA;
 
       if (motivo !== undefined) {
-        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8)) {
+        if ((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (!motivo.arquivo || motivo.arquivo.length === mediacao.filesUploadSuccess)) {
           setTimeout(
             function () {
               this.hideAlertAndRedirectToMediations()
@@ -270,7 +284,7 @@ class Confirmacao extends Component {
                     onConfirm={() => this.hideAlertAndRedirectToMediations().bind(this)}
                     showConfirm={false}
                   >
-                    {((mediacao.id > 0) && (mediacao.protocolo.length > 8))
+                    {((mediacao.id > 0) && (mediacao.protocolo.length > 8) && (!motivo.arquivo || motivo.arquivo.length === mediacao.filesUploadSuccess))
                       ? 'Você será redirecionado para a página inicial...'
                       : 'Aguarde a solicitação finalizar...'}
                   </SweetAlert>

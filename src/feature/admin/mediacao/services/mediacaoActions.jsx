@@ -64,7 +64,6 @@ function buscarMensagemError(error) {
   }
 }
 
-
 function buscarMediacaoStart() {
   return { type: BUSCAR_MEDIACAO_START };
 }
