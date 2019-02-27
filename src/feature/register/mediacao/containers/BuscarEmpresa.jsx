@@ -148,31 +148,33 @@ class BuscarEmpresa extends React.Component {
     return (
       <React.Fragment>
         <GridContainer justify='center'>
-        <h5>Busque a pessoa ou a empresa a partir do nome e relate o motivo para iniciar a mediação</h5>
-          <GridItem xs={12} sm={12} md={4}>
-            <CustomInput
-              error={this.state.searchWithoutFillFields}
-              errorHelperText='Informe o nome da pessoa ou empresa'
-              labelText='Nome para pesquisa'
-              id='nome-fantasia'
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                value: this.state.fantasia,
-                onChange: this.handleChange('fantasia')
-              }}
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={2}>
-            <Button
-              className={classes.searchButton}
-              onClick={this.handleBuscarClick}
-              color='primary'
-            >
-              Buscar
+          <h5>Busque a pessoa ou a empresa a partir do nome e relate o motivo para iniciar a mediação</h5>
+          <GridContainer justify='center'>
+            <GridItem xs={12} sm={12} md={4}>
+              <CustomInput
+                error={this.state.searchWithoutFillFields}
+                errorHelperText='Informe o nome da pessoa ou empresa'
+                labelText='Nome para pesquisa'
+                id='nome-fantasia'
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  value: this.state.fantasia,
+                  onChange: this.handleChange('fantasia')
+                }}
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={2}>
+              <Button
+                className={classes.searchButton}
+                onClick={this.handleBuscarClick}
+                color='primary'
+              >
+                Buscar
             </Button>
-          </GridItem>
+            </GridItem>
+          </GridContainer>
         </GridContainer>
         <GridContainer justify='center'>
           <GridItem xs={12}>
