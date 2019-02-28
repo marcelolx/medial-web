@@ -5,6 +5,7 @@ import CardBody from '../../../../core/components/card/CardBody';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '../../../../core/components/CustomButton';
 import CardFooter from '../../../../core/components/card/CardFooter';
+import ProporAcordo from './ProporAcordo';
 
 const style = ({
   semMargen: {
@@ -15,7 +16,13 @@ const style = ({
   }
 });
 
+
 class Acordos extends React.Component {
+
+  state = {
+    modalOpen: false
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -26,12 +33,13 @@ class Acordos extends React.Component {
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Propostas de acordo</p>
           </CardHeader>
           <CardBody>
-              
+
           </CardBody>
           <CardFooter>
-            <Button fullWidth>Propor Acordo</Button>
+            <Button fullWidth onClick={() => this.setState({ modalOpen: true })}>Propor Acordo</Button>
           </CardFooter>
         </Card>
+        {this.state.modalOpen ? <ProporAcordo closeModal={() => this.setState({ modalOpen: false })} /> : null}
       </React.Fragment>
     );
   }
