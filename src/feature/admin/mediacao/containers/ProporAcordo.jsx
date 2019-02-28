@@ -8,7 +8,7 @@ import withRouter from 'react-router-dom/withRouter';
 import { connect } from 'react-redux';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import { compose } from 'recompose';
-import * as proporAcordoActions from '../services/proporAcordo/proporAcordoActions';
+import * as acordoActions from '../services/acordo/acordoActions';
 import queryString from 'query-string';
 import Loader from '../../../../core/components/Loader';
 import { FormHelperText } from '@material-ui/core';
@@ -81,10 +81,11 @@ class ProporAcordo extends React.Component {
     if (this.state.erroTamanhoAcordo && valor.length > 200) {
       this.setState({ erroTamanhoAcordo: false });
     }
+
   }
 
   render() {
-    const { classes, proporAcordo, mensagem } = this.props;
+    const { classes, acordo, mensagem } = this.props;
 
     return (
 
@@ -97,20 +98,20 @@ class ProporAcordo extends React.Component {
         classNames={classes}
       >
 
-        <Loader open={proporAcordo.isLoading} />
+        <Loader open={acordo.isLoading} />
         <div>
           <h3 className={classes.marginZero}>Propor Acordo</h3>
           <h5 className={[classes.marginZero]}>Descreva a sua proposta.</h5>
           <Editor value={mensagem ? mensagem : this.state.mensagem}
             placeholder="Descreva a sua proposta."
-            readOnly={proporAcordo.isLoaded || mensagem}
+            readOnly={acordo.isLoaded || mensagem}
             onChange={(valor) => this._handleChangeText(valor)} />
           {this.state.erroTamanhoAcordo &&
             <FormHelperText className={classes.fail} id='mensagem-error-text'>{'Informe uma mensagem com no mínimo 200 caracteres.'}</FormHelperText>}
           <div className={classes.footer}>
-            {proporAcordo.isLoaded ? <h5 className={[classes.success, classes.statusAcordo].join(' ')}>Proposta enviada com sucesso</h5> : null}
-            {proporAcordo.isFail ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao solicitar Proposta</h5> : null}
-            <Button color='info' disabled={proporAcordo.isLoaded || proporAcordo.isLoading} className={classes.buttomConfirm} onClick={this._proporAcordo}>Propor Acordo</Button>
+            {acordo.isLoaded ? <h5 className={[classes.success, classes.statusAcordo].join(' ')}>Proposta enviada com sucesso</h5> : null}
+            {acordo.isFail ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao solicitar Proposta</h5> : null}
+            <Button color='info' disabled={acordo.isLoaded || acordo.isLoading} className={classes.buttomConfirm} onClick={this._proporAcordo}>Propor Acordo</Button>
           </div>
         </div>
       </Modal>
@@ -120,12 +121,12 @@ class ProporAcordo extends React.Component {
 
 
 const mapStateToProps = state => ({
-  proporAcordo: state.proporAcordo
+  acordo: state.acordo
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    ...proporAcordoActions
+    ...acordoActions
   }, dispatch)
 });
 

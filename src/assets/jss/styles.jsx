@@ -42,6 +42,26 @@ const infoColor = '#EC6745';
 const roseColor = '#e91e63';
 const grayColor = '#999999';
 
+const textDangerColor = {
+  color: dangerColor,
+};
+
+const textInfoColor = {
+  color: infoColor,
+};
+
+const textSecondaryColor = {
+  color: secondaryColor,
+};
+
+const textSuccessColor = {
+  color: successColor,
+};
+
+const textWarningColor = {
+  color: warningColor,
+};
+
 const drawerMiniWidth = 80;
 
 const primaryBoxShadow = {
@@ -214,5 +234,10 @@ export {
   cardTitle,
   cardSubtitle,
   cardLink,
-  drawerMiniWidth
+  drawerMiniWidth,
+  textSuccessColor,
+  textDangerColor,
+  textInfoColor,
+  textSecondaryColor,
+  textWarningColor
 };

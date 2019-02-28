@@ -21,7 +21,7 @@ const style = ({
     height: '230px'
   },
   cardBody: {
-    overflowY: 'scroll',
+    overflowY: 'overlay',
   },
   listItem: {
     padding: 0,
@@ -53,7 +53,8 @@ class Anexos extends React.Component {
             <Link className={classes.link} href={dado.link} rel="noopener noreferrer" target="_blank">
 
               {dado.nome}
-            </Link></ListItem>
+            </Link>
+          </ListItem>
         )
 
       ) : ""}
