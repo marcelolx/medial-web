@@ -1,4 +1,13 @@
-import { SALVAR_ACORDO_COMPLETE, SALVAR_ACORDO_START, SALVAR_ACORDO_ERROR,BUSCAR_ACORDO_COMPLETE, BUSCAR_ACORDO_START, BUSCAR_ACORDO_ERROR } from './acordoActionTypes';
+import {
+  SALVAR_ACORDO_COMPLETE,
+  SALVAR_ACORDO_START,
+  SALVAR_ACORDO_ERROR,
+  BUSCAR_ACORDO_COMPLETE,
+  LOADING_START,
+  BUSCAR_ACORDO_ERROR,
+  APROVAR_ACORDO_COMPLETE,
+  APROVAR_ACORDO_ERROR
+} from './acordoActionTypes';
 import API from '../../../../../core/http/API';
 
 
@@ -16,11 +25,9 @@ export function proporAcordo(data) {
   }
 }
 
-
 function proporAcordoStart() {
   return { type: SALVAR_ACORDO_START };
 }
-
 
 function proporAcordoComplete(response) {
   return {
@@ -36,10 +43,9 @@ function proporAcordoError(error) {
   }
 }
 
-
 export function buscarAcordo(codigoAcordo) {
   return function (dispatch) {
-    dispatch(buscarAcordoStart());
+    dispatch(loadingStart());
     return API.get(`/mediacao/acordo/${codigoAcordo}`)
       .then(response => {
         dispatch(buscarAcordoComplete(response));
@@ -50,8 +56,8 @@ export function buscarAcordo(codigoAcordo) {
   }
 }
 
-function buscarAcordoStart() {
-  return { type: BUSCAR_ACORDO_START };
+function loadingStart() {
+  return { type: LOADING_START };
 }
 
 
@@ -65,6 +71,33 @@ function buscarAcordoComplete(response) {
 function buscarAcordoError(error) {
   return {
     type: BUSCAR_ACORDO_ERROR,
+    payload: error.response.data
+  }
+}
+
+export function aprovarAcordo(codigoAcordo) {
+  return function (dispatch) {
+    dispatch(loadingStart());
+    return API.get(`/mediacao/aprovarAcordo/${codigoAcordo}`)
+      .then(response => {
+        dispatch(aprovarComplete(response));
+      })
+      .catch(error => {
+        dispatch(aprovarError(error))
+      });
+  }
+}
+
+function aprovarComplete(response) {
+  return {
+    type: APROVAR_ACORDO_COMPLETE,
+    payload: response.data
+  }
+}
+
+function aprovarError(error) {
+  return {
+    type: APROVAR_ACORDO_ERROR,
     payload: error.response.data
   }
 }

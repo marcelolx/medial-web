@@ -9,9 +9,13 @@ import bindActionCreators from 'redux/src/bindActionCreators';
 import { compose } from 'recompose';
 import * as acordoActions from '../services/acordo/acordoActions';
 import Loader from '../../../../core/components/Loader';
+import { FormControlLabel, Switch, Button } from '@material-ui/core';
+
+import customCheckboxRadioSwitch from '../../../../assets/jss/components/customCheckboxRadioSwitch'
 
 
 const styles = theme => ({
+  ...customCheckboxRadioSwitch,
   root: {
     width: '100%',
     marginTop: theme.spacing.unit,
@@ -40,7 +44,10 @@ const styles = theme => ({
     marginTop: 10,
   },
   footer: {
-    width: '100%'
+    width: '100%',
+    height: '50px',
+    float: 'left',
+    alignItems: 'left'
   }
 });
 
@@ -49,7 +56,8 @@ class PropostaAcordo extends React.Component {
     super();
 
     this.state = {
-      mensagem: ''
+      mensagem: '',
+      aprovarAcordo: false,
 
     };
     this.closeModal = this.closeModal.bind(this);
@@ -63,9 +71,41 @@ class PropostaAcordo extends React.Component {
     }
   }
 
+  _aprovarAcordo() {
+    this.props.actions.aprovarAcordo(this.props.codigoAcordo);
+  }
+
 
   closeModal() {
     this.props.closeModal();
+  }
+
+  panelAprovarProposta() {
+    const { classes } = this.props;
+
+    return (<div className={classes.footer}>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={this.state.aprovarAcordo}
+            onChange={() => this.setState({ aprovarAcordo: !this.state.aprovarAcordo })}
+            value="aprovarAcordo"
+            classes={{
+              switchBase: classes.switchBase,
+              checked: classes.switchChecked,
+              icon: classes.switchIcon,
+              iconChecked: classes.switchIconChecked,
+              bar: classes.switchBar
+            }}
+          />
+        }
+        classes={{
+          label: classes.label
+        }}
+        label={(this.state.aprovarAcordo ? "Aceitar" : "Recusar") + " proposta de acordo."}
+      />
+      <Button color='info' className={classes.buttomConfirm} onClick={this._aprovarAcordo}>Propor Acordo</Button>
+    </div>)
   }
 
   render() {
@@ -86,12 +126,12 @@ class PropostaAcordo extends React.Component {
         <div>
           <h3 className={classes.marginZero}>{`Proposta de Acordo - #${this.props.codigoAcordo}`}</h3>
           <Editor value={acordo.proposta}
-            placeholder="Descreva a sua proposta."
             readOnly />
         </div>
         <div className={classes.footer}>
           {acordo.isFail ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao carregar proposta</h5> : null}
         </div>
+        {acordo.isFail ? this.panelAprovarProposta() : null}
       </Modal>
     );
   }

@@ -3,8 +3,10 @@ import {
   SALVAR_ACORDO_ERROR,
   SALVAR_ACORDO_COMPLETE,
   BUSCAR_ACORDO_COMPLETE,
-  BUSCAR_ACORDO_START,
-  BUSCAR_ACORDO_ERROR
+  LOADING_START,
+  BUSCAR_ACORDO_ERROR,
+  APROVAR_ACORDO_COMPLETE,
+  APROVAR_ACORDO_ERROR
 } from './acordoActionTypes';
 import { Object } from 'core-js';
 
@@ -41,7 +43,7 @@ export default function (state = initialState, action) {
         isFail: true,
         failMessage: action.payload.message
       })
-    case BUSCAR_ACORDO_START:
+    case LOADING_START:
       return Object.assign({}, state, {
         ...state,
         isLoading: true,
