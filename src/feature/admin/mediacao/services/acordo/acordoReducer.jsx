@@ -14,8 +14,10 @@ const initialState = {
   isLoading: false,
   isLoaded: false,
   isFail: false,
+  isFailAprovar: false,
   failMessage: '',
   proposta: '',
+  dataProposta:{}
 };
 
 export default function (state = initialState, action) {
@@ -50,7 +52,8 @@ export default function (state = initialState, action) {
         isLoaded: false,
         isFail: false,
         failMessage: '',
-        proposta: ''
+        dataProposta: {},
+        isFailAprovar:false
       })
     case BUSCAR_ACORDO_COMPLETE:
       return Object.assign({}, state, {
@@ -59,7 +62,7 @@ export default function (state = initialState, action) {
         isLoaded: true,
         isFail: false,
         failMessage: '',
-        proposta: action.payload.descricao
+        dataProposta: action.payload
       })
     case BUSCAR_ACORDO_ERROR:
       return Object.assign({}, state, {
@@ -67,7 +70,22 @@ export default function (state = initialState, action) {
         isLoading: false,
         isFail: true,
         failMessage: action.payload.message,
-        proposta: ''
+        dataProposta: {}
+      })
+    case APROVAR_ACORDO_COMPLETE:
+      return Object.assign({}, state, {
+        ...state,
+        isLoading: false,
+        isLoaded: true,
+        isFailAprovar: false,
+        failMessage: ''
+      })
+    case APROVAR_ACORDO_ERROR:
+      return Object.assign({}, state, {
+        ...state,
+        isLoading: false,
+        isFailAprovar: true,
+        failMessage: action.payload.message
       })
     default:
       return state;

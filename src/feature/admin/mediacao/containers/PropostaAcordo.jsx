@@ -9,7 +9,8 @@ import bindActionCreators from 'redux/src/bindActionCreators';
 import { compose } from 'recompose';
 import * as acordoActions from '../services/acordo/acordoActions';
 import Loader from '../../../../core/components/Loader';
-import { FormControlLabel, Switch, Button } from '@material-ui/core';
+import { FormControlLabel, Switch } from '@material-ui/core';
+import Button from '../../../../core/components/CustomButton';
 
 import customCheckboxRadioSwitch from '../../../../assets/jss/components/customCheckboxRadioSwitch'
 
@@ -61,6 +62,7 @@ class PropostaAcordo extends React.Component {
 
     };
     this.closeModal = this.closeModal.bind(this);
+    this._aprovarAcordo = this._aprovarAcordo.bind(this);
   }
 
   componentDidMount() {
@@ -102,9 +104,9 @@ class PropostaAcordo extends React.Component {
         classes={{
           label: classes.label
         }}
-        label={(this.state.aprovarAcordo ? "Aceitar" : "Recusar") + " proposta de acordo."}
+        label="Deseja aceitar a proposta de acordo?"
       />
-      <Button color='info' className={classes.buttomConfirm} onClick={this._aprovarAcordo}>Propor Acordo</Button>
+      <Button color='info' className={classes.buttomConfirm} onClick={this._aprovarAcordo}>{(this.state.aprovarAcordo ? "Aceitar" : "Recusar") + " Acordo"}</Button>
     </div>)
   }
 
@@ -125,13 +127,22 @@ class PropostaAcordo extends React.Component {
         <Loader open={acordo.isLoading} />
         <div>
           <h3 className={classes.marginZero}>{`Proposta de Acordo - #${this.props.codigoAcordo}`}</h3>
-          <Editor value={acordo.proposta}
+          <Editor value={acordo.dataProposta.proposta || ``}
             readOnly />
         </div>
         <div className={classes.footer}>
           {acordo.isFail ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao carregar proposta</h5> : null}
+          {acordo.isFailAprovar ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao salvar sua solicitação</h5> : null}
         </div>
-        {acordo.isFail ? this.panelAprovarProposta() : null}
+
+        <div className={classes.footer}>
+          {'Requerido: ' + acordo.dataProposta.nomeRequerido}
+        </div>
+        <div className={classes.footer}>
+          {'Requerente: ' +acordo.dataProposta.nomeRequerente}
+        </div>
+
+        {!acordo.isFail ? this.panelAprovarProposta() : null}
       </Modal>
     );
   }
