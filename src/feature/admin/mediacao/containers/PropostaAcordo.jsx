@@ -9,13 +9,22 @@ import bindActionCreators from 'redux/src/bindActionCreators';
 import { compose } from 'recompose';
 import * as acordoActions from '../services/acordo/acordoActions';
 import Loader from '../../../../core/components/Loader';
-import { FormControlLabel, Switch } from '@material-ui/core';
+import { FormControlLabel, Switch, ListItemIcon } from '@material-ui/core';
 import Button from '../../../../core/components/CustomButton';
+import { textSecondaryColor, textSuccessColor, textDangerColor, textWarningColor } from '../../../../assets/jss/styles';
+import CancelOutlined from '@material-ui/icons/CancelOutlined';
+import Done from '@material-ui/icons/Done';
+import InfoOutlined from '@material-ui/icons/InfoOutlined';
 
 import customCheckboxRadioSwitch from '../../../../assets/jss/components/customCheckboxRadioSwitch'
 
 
 const styles = theme => ({
+
+  textSecondaryColor,
+  textDangerColor,
+  textSuccessColor,
+  textWarningColor,
   ...customCheckboxRadioSwitch,
   root: {
     width: '100%',
@@ -71,6 +80,26 @@ class PropostaAcordo extends React.Component {
     if (codigoAcordo && codigoAcordo > 0) {
       this.props.actions.buscarAcordo(codigoAcordo);
     }
+  }
+
+  getIcon(status) {
+    const { classes } = this.props;
+
+    switch (status) {
+      case 'S':
+        return (<ListItemIcon className={classes.textSuccessColor} >
+          <Done />
+        </ListItemIcon>);
+      case 'N':
+        return (<ListItemIcon className={classes.textDangerColor}>
+          <CancelOutlined />
+        </ListItemIcon>);
+      default:
+        return (<ListItemIcon className={classes.textSecondaryColor}>
+          <InfoOutlined />
+        </ListItemIcon>);
+    }
+
   }
 
   _aprovarAcordo() {
@@ -136,10 +165,12 @@ class PropostaAcordo extends React.Component {
         </div>
 
         <div className={classes.footer}>
+          {this.getIcon(acordo.dataProposta.requeridoAprova)}
           {'Requerido: ' + acordo.dataProposta.nomeRequerido}
         </div>
         <div className={classes.footer}>
-          {'Requerente: ' +acordo.dataProposta.nomeRequerente}
+          {this.getIcon(acordo.dataProposta.requerenteAprova)}
+          {'Requerente: ' + acordo.dataProposta.nomeRequerente}
         </div>
 
         {!acordo.isFail ? this.panelAprovarProposta() : null}
