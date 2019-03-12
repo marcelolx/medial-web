@@ -6,6 +6,9 @@ import {
   LOADING_START,
   BUSCAR_ACORDO_ERROR,
   APROVAR_ACORDO_COMPLETE,
+  CLEAR_REDUCER,
+  BUSCAR_ACORDOS_MEDIACAO_ERROR,
+  BUSCAR_ACORDOS_MEDIACAO_COMPLETE,
   APROVAR_ACORDO_ERROR
 } from './acordoActionTypes';
 import { Object } from 'core-js';
@@ -17,7 +20,8 @@ const initialState = {
   isFailAprovar: false,
   failMessage: '',
   proposta: '',
-  dataProposta:{}
+  dataProposta:{},
+  acordos: []
 };
 
 export default function (state = initialState, action) {
@@ -55,6 +59,16 @@ export default function (state = initialState, action) {
         dataProposta: {},
         isFailAprovar:false
       })
+    case CLEAR_REDUCER:
+      return Object.assign({}, state, {
+        ...state,
+        isLoading: false,
+        isLoaded: false,
+        isFail: false,
+        failMessage: '',
+        dataProposta: {},
+        isFailAprovar:false
+      })
     case BUSCAR_ACORDO_COMPLETE:
       return Object.assign({}, state, {
         ...state,
@@ -86,6 +100,23 @@ export default function (state = initialState, action) {
         isLoading: false,
         isFailAprovar: true,
         failMessage: action.payload.message
+      })
+      case BUSCAR_ACORDOS_MEDIACAO_COMPLETE:
+      return Object.assign({}, state, {
+        ...state,
+        isLoading: false,
+        isLoaded: true,
+        isFailAprovar: false,
+        failMessage: '',
+        acordos: action.payload
+      })
+    case BUSCAR_ACORDOS_MEDIACAO_ERROR:
+      return Object.assign({}, state, {
+        ...state,
+        isLoading: false,
+        isFailAprovar: true,
+        failMessage: action.payload.message,
+        acordos: []
       })
     default:
       return state;

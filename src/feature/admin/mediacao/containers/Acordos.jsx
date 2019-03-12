@@ -1,8 +1,11 @@
 import React from 'react';
+import bindActionCreators from 'redux/src/bindActionCreators';
 import Card from '../../../../core/components/card/Card';
+import withRouter from 'react-router-dom/withRouter';
+import { connect } from 'react-redux';
 import CardHeader from '../../../../core/components/card/CardHeader';
 import CardBody from '../../../../core/components/card/CardBody';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '../../../../core/components/CustomButton';
 import CardFooter from '../../../../core/components/card/CardFooter';
 import ProporAcordo from './ProporAcordo';
@@ -10,11 +13,14 @@ import CancelOutlined from '@material-ui/icons/CancelOutlined';
 import Done from '@material-ui/icons/Done';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { ListItemIcon, ListItem } from '@material-ui/core';
+import { compose } from 'recompose';
+import * as acordoActions from '../services/acordo/acordoActions';
+import queryString from 'query-string';
 
 import { textSecondaryColor, textSuccessColor, textDangerColor, textWarningColor } from '../../../../assets/jss/styles';
 import PropostaAcordo from './PropostaAcordo';
 
-const style = ({
+const styles = ({
   textSecondaryColor,
   textDangerColor,
   textSuccessColor,
@@ -40,12 +46,14 @@ class Acordos extends React.Component {
 
   state = {
     modalOpen: false,
-    modalOpenProposta: false,
-    dados: [{ id: 1, status: 'R', dataMediacao: '28/02/2018 00:00:00' }, { id: 2, status: 'I', dataMediacao: '28/02/2018 00:00:00' }, { id: 3, status: 'R', dataMediacao: '28/02/2018 00:00:00' }, { id: 4, status: 'A', dataMediacao: '28/02/2018 00:00:00' }, { id: 5, status: 'A', dataMediacao: '28/02/2018 00:00:00' }]
+    modalOpenProposta: false
   }
 
   abrirProposta(id) {
     this.setState({ modalOpenProposta: true, codigoAcordo: id })
+  }
+  componentDidMount() {
+    this.props.actions.adquirirAcordosMediacao(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
   }
 
   getIcon(status) {
@@ -77,7 +85,7 @@ class Acordos extends React.Component {
 
     return (
       <CardBody className={classes.cardBody}>
-        {this.state.dados.map(el => {
+        {this.props.acordo.acordos.map(el => {
           return <ListItem className={classes.listItem} key={el.id.toString()} onClick={() => this.abrirProposta(el.id)}>
             {this.getIcon(el.status)}
             {'Acordo: ' + el.id + ' - Data: ' + el.dataMediacao}
@@ -109,4 +117,18 @@ class Acordos extends React.Component {
   }
 }
 
-export default withStyles(style)(Acordos);
+
+const mapStateToProps = state => ({
+  acordo: state.acordo
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({
+    ...acordoActions
+  }, dispatch)
+});
+
+export default withRouter(compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Acordos));

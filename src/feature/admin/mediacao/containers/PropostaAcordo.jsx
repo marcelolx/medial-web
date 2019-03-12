@@ -58,6 +58,10 @@ const styles = theme => ({
     height: '50px',
     float: 'left',
     alignItems: 'left'
+  },
+  iconAlign: {
+    top: 5,
+    position: 'relative'
   }
 });
 
@@ -87,15 +91,15 @@ class PropostaAcordo extends React.Component {
 
     switch (status) {
       case 'S':
-        return (<ListItemIcon className={classes.textSuccessColor} >
+        return (<ListItemIcon className={[classes.textSuccessColor, classes.iconAlign].join(' ')} >
           <Done />
         </ListItemIcon>);
       case 'N':
-        return (<ListItemIcon className={classes.textDangerColor}>
+        return (<ListItemIcon className={[classes.textDangerColor, classes.iconAlign].join(' ')}>
           <CancelOutlined />
         </ListItemIcon>);
       default:
-        return (<ListItemIcon className={classes.textSecondaryColor}>
+        return (<ListItemIcon className={[classes.textSecondaryColor, classes.iconAlign].join(' ')}>
           <InfoOutlined />
         </ListItemIcon>);
     }
@@ -112,31 +116,41 @@ class PropostaAcordo extends React.Component {
   }
 
   panelAprovarProposta() {
-    const { classes } = this.props;
+    const { classes,acordo } = this.props;
 
-    return (<div className={classes.footer}>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={this.state.aprovarAcordo}
-            onChange={() => this.setState({ aprovarAcordo: !this.state.aprovarAcordo })}
-            value="aprovarAcordo"
+    return (
+      <div>   <div className={classes.footer}>
+        {this.getIcon(acordo.dataProposta.requeridoAprova)}
+        {'Requerido: ' + acordo.dataProposta.nomeRequerido}
+      </div>
+        <div className={classes.footer}>
+          {this.getIcon(acordo.dataProposta.requerenteAprova)}
+          {'Requerente: ' + acordo.dataProposta.nomeRequerente}
+        </div>
+        <div className={classes.footer}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.aprovarAcordo}
+                onChange={() => this.setState({ aprovarAcordo: !this.state.aprovarAcordo })}
+                value="aprovarAcordo"
+                classes={{
+                  switchBase: classes.switchBase,
+                  checked: classes.switchChecked,
+                  icon: classes.switchIcon,
+                  iconChecked: classes.switchIconChecked,
+                  bar: classes.switchBar
+                }}
+              />
+            }
             classes={{
-              switchBase: classes.switchBase,
-              checked: classes.switchChecked,
-              icon: classes.switchIcon,
-              iconChecked: classes.switchIconChecked,
-              bar: classes.switchBar
+              label: classes.label
             }}
+            label="Deseja aceitar a proposta de acordo?"
           />
-        }
-        classes={{
-          label: classes.label
-        }}
-        label="Deseja aceitar a proposta de acordo?"
-      />
-      <Button color='info' className={classes.buttomConfirm} onClick={this._aprovarAcordo}>{(this.state.aprovarAcordo ? "Aceitar" : "Recusar") + " Acordo"}</Button>
-    </div>)
+          <Button color='info' className={classes.buttomConfirm} onClick={this._aprovarAcordo}>{(this.state.aprovarAcordo ? "Aceitar" : "Recusar") + " Acordo"}</Button>
+        </div>
+      </div>)
   }
 
   render() {
@@ -164,14 +178,7 @@ class PropostaAcordo extends React.Component {
           {acordo.isFailAprovar ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao salvar sua solicitação</h5> : null}
         </div>
 
-        <div className={classes.footer}>
-          {this.getIcon(acordo.dataProposta.requeridoAprova)}
-          {'Requerido: ' + acordo.dataProposta.nomeRequerido}
-        </div>
-        <div className={classes.footer}>
-          {this.getIcon(acordo.dataProposta.requerenteAprova)}
-          {'Requerente: ' + acordo.dataProposta.nomeRequerente}
-        </div>
+
 
         {!acordo.isFail ? this.panelAprovarProposta() : null}
       </Modal>

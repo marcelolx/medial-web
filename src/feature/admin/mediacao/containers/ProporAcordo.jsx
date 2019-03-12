@@ -59,6 +59,10 @@ class ProporAcordo extends React.Component {
     this._proporAcordo = this._proporAcordo.bind(this);
   }
 
+  componentDidMount(){
+    this.props.actions.clear();
+  }
+
   closeModal() {
     this.props.closeModal();
   }
