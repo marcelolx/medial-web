@@ -56,7 +56,6 @@ export default function (state = initialState, action) {
         isLoaded: false,
         isFail: false,
         failMessage: '',
-        dataProposta: {},
         isFailAprovar:false
       })
     case CLEAR_REDUCER:

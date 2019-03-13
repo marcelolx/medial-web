@@ -18,9 +18,10 @@ import API from '../../../../../core/http/API';
 export function proporAcordo(data) {
   return function (dispatch) {
     dispatch(proporAcordoStart());
-    return API.post(`/mediacao/proporAcordo`, data)
+    return API.post(`/acordo/proporAcordo`, data)
       .then(response => {
         dispatch(proporAcordoComplete(response));
+        dispatch(adquirirAcordosMediacao(data.codigoMediacao))
       })
       .catch(error => {
         dispatch(proporAcordoError(error))
@@ -49,7 +50,7 @@ function proporAcordoError(error) {
 export function buscarAcordo(codigoAcordo) {
   return function (dispatch) {
     dispatch(loadingStart());
-    return API.get(`/mediacao/acordo/${codigoAcordo}`)
+    return API.get(`/acordo/${codigoAcordo}`)
       .then(response => {
         dispatch(buscarAcordoComplete(response));
       })
@@ -68,7 +69,7 @@ export function clear() {
 export function adquirirAcordosMediacao(id) {
   return function (dispatch) {
     dispatch(loadingStart());
-    return API.get(`/mediacao/${id}/acordos`)
+    return API.get(`acordo/mediacao/${id}/acordos`)
       .then(response => {
         dispatch(buscarAcordosMediacaoComplete(response));
       })
@@ -112,12 +113,14 @@ function buscarAcordoError(error) {
   }
 }
 
-export function aprovarAcordo(codigoAcordo) {
+export function aprovarAcordo(data,codigoMediacao) {
   return function (dispatch) {
     dispatch(loadingStart());
-    return API.get(`/mediacao/aprovarAcordo/${codigoAcordo}`)
+    return API.post(`/acordo/statusProposta`,data)
       .then(response => {
         dispatch(aprovarComplete(response));
+        dispatch(buscarAcordo(data.codigoAcordo));
+        dispatch(adquirirAcordosMediacao(codigoMediacao));
       })
       .catch(error => {
         dispatch(aprovarError(error))

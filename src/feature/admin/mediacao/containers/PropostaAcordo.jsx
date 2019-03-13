@@ -15,6 +15,7 @@ import { textSecondaryColor, textSuccessColor, textDangerColor, textWarningColor
 import CancelOutlined from '@material-ui/icons/CancelOutlined';
 import Done from '@material-ui/icons/Done';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
+import queryString from 'query-string';
 
 import customCheckboxRadioSwitch from '../../../../assets/jss/components/customCheckboxRadioSwitch'
 
@@ -107,7 +108,7 @@ class PropostaAcordo extends React.Component {
   }
 
   _aprovarAcordo() {
-    this.props.actions.aprovarAcordo(this.props.codigoAcordo);
+    this.props.actions.aprovarAcordo({ 'codigoAcordo': this.props.codigoAcordo, 'status': this.state.aprovarAcordo }, queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
   }
 
 
@@ -116,17 +117,10 @@ class PropostaAcordo extends React.Component {
   }
 
   panelAprovarProposta() {
-    const { classes,acordo } = this.props;
+    const { classes, acordo } = this.props;
 
     return (
-      <div>   <div className={classes.footer}>
-        {this.getIcon(acordo.dataProposta.requeridoAprova)}
-        {'Requerido: ' + acordo.dataProposta.nomeRequerido}
-      </div>
-        <div className={classes.footer}>
-          {this.getIcon(acordo.dataProposta.requerenteAprova)}
-          {'Requerente: ' + acordo.dataProposta.nomeRequerente}
-        </div>
+      <div>
         <div className={classes.footer}>
           <FormControlLabel
             control={
@@ -177,10 +171,17 @@ class PropostaAcordo extends React.Component {
           {acordo.isFail ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao carregar proposta</h5> : null}
           {acordo.isFailAprovar ? <h5 className={[classes.fail, classes.statusAcordo].join(' ')}>Erro ao salvar sua solicitação</h5> : null}
         </div>
+        <div className={classes.footer}>
+          {this.getIcon(acordo.dataProposta.requeridoAprova)}
+          {'Requerido: ' + acordo.dataProposta.nomeRequerido}
+        </div>
+        <div className={classes.footer}>
+          {this.getIcon(acordo.dataProposta.requerenteAprova)}
+          {'Requerente: ' + acordo.dataProposta.nomeRequerente}
+        </div>
 
 
-
-        {!acordo.isFail ? this.panelAprovarProposta() : null}
+        {!acordo.isFail&&acordo.dataProposta.permiteEditar ? this.panelAprovarProposta() : null}
       </Modal>
     );
   }
