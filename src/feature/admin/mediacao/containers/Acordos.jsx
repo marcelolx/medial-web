@@ -110,13 +110,13 @@ class Acordos extends React.Component {
 
       })
       .catch(error => {
-          
+
       });
   }
 
   render() {
     const { classes } = this.props;
-    let disable = this.props.mediacao.mediacao?this.props.mediacao.mediacao.finalizado: true;
+    let disable = this.props.mediacao.mediacao ? this.props.mediacao.mediacao.finalizado : true;
     let exibeFinalizar = true;
     this.props.acordo.acordos.forEach(element => {
       if (!element.status) {
@@ -132,8 +132,23 @@ class Acordos extends React.Component {
           </CardHeader>
           {this._listaAcordos()}
           <CardFooter>
-            <Button fullWidth size="sm" disabled={disable}  onClick={() => this.setState({ modalOpen: true })}>Propor Acordo</Button>
-            {this.props.acordo.acordos.length > 0 && exibeFinalizar ? <Button fullWidth size="sm" disabled={disable} onClick={() => this.finalizarMediacao()}>Finalizar Mediação</Button> : null}
+            <Button
+              fullWidth
+              size="sm"
+              color='secondary'
+              disabled={disable}
+              onClick={() => this.setState({ modalOpen: true })}>
+              Propor Acordo
+            </Button>
+            {this.props.acordo.acordos.length > 0 && exibeFinalizar ?
+              <Button
+                fullWidth
+                size="sm"
+                color={disable ? null : 'danger'}
+                disabled={disable}
+                onClick={() => this.finalizarMediacao()}>
+                Finalizar Mediação
+               </Button> : null}
           </CardFooter>
         </Card>
         {this.state.modalOpen ? <ProporAcordo closeModal={() => this.setState({ modalOpen: false, codigoAcordo: 0 })} /> : null}
