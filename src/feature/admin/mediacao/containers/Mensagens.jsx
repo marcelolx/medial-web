@@ -167,6 +167,7 @@ class Mensagens extends React.PureComponent {
 
   render() {
     const { classes, anexos } = this.props;
+    let disable = this.props.mediacao.mediacao ? this.props.mediacao.mediacao.finalizado : true;
 
     return (
       <React.Fragment>
@@ -191,7 +192,7 @@ class Mensagens extends React.PureComponent {
               onUploadFile={() => this._handleUploadFile()}
               file={this.state.file}
               onChangeFile={(file) => this.setState({ file: file })}
-              disabled={!this.state.clientConnected}
+              disabled={!this.state.clientConnected || disable}
               anexo
             />
           </CardFooter>

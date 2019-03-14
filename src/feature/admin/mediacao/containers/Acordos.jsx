@@ -15,10 +15,13 @@ import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import { ListItemIcon, ListItem } from '@material-ui/core';
 import { compose } from 'recompose';
 import * as acordoActions from '../services/acordo/acordoActions';
+import * as mediacaoActions from '../services/mediacaoActions'
 import queryString from 'query-string';
+import moment from 'moment';
 
 import { textSecondaryColor, textSuccessColor, textDangerColor, textWarningColor } from '../../../../assets/jss/styles';
 import PropostaAcordo from './PropostaAcordo';
+import API from '../../../../core/http/API';
 
 const styles = ({
   textSecondaryColor,
@@ -88,16 +91,38 @@ class Acordos extends React.Component {
         {this.props.acordo.acordos.map(el => {
           return <ListItem className={classes.listItem} key={el.id.toString()} onClick={() => this.abrirProposta(el.id)}>
             {this.getIcon(el.status)}
-            {'Acordo: ' + el.id + ' - Data: ' + el.dataMediacao}
+            <span style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}> {'Acordo: ' + el.id + ' - Data: ' + moment(el.dataMediacao).format('DD/MM/YYYY HH:MM:SS')}</span>
           </ListItem>
         })}
       </CardBody>
 
     )
   }
+
+  finalizarMediacao() {
+    let codigoMediacao = queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+
+    API.post(`/mediacao/${codigoMediacao}/finalizarMediacao`)
+      .then(response => {
+        if (response.data.valor) {
+          this.props.actions.buscarMediacao(codigoMediacao);
+        }
+
+      })
+      .catch(error => {
+          
+      });
+  }
+
   render() {
     const { classes } = this.props;
-
+    let disable = this.props.mediacao.mediacao?this.props.mediacao.mediacao.finalizado: true;
+    let exibeFinalizar = true;
+    this.props.acordo.acordos.forEach(element => {
+      if (!element.status) {
+        exibeFinalizar = false;
+      }
+    });
 
     return (
       <React.Fragment>
@@ -107,7 +132,8 @@ class Acordos extends React.Component {
           </CardHeader>
           {this._listaAcordos()}
           <CardFooter>
-            <Button fullWidth onClick={() => this.setState({ modalOpen: true })}>Propor Acordo</Button>
+            <Button fullWidth size="sm" disabled={disable}  onClick={() => this.setState({ modalOpen: true })}>Propor Acordo</Button>
+            {this.props.acordo.acordos.length > 0 && exibeFinalizar ? <Button fullWidth size="sm" disabled={disable} onClick={() => this.finalizarMediacao()}>Finalizar Mediação</Button> : null}
           </CardFooter>
         </Card>
         {this.state.modalOpen ? <ProporAcordo closeModal={() => this.setState({ modalOpen: false, codigoAcordo: 0 })} /> : null}
@@ -119,12 +145,14 @@ class Acordos extends React.Component {
 
 
 const mapStateToProps = state => ({
-  acordo: state.acordo
+  acordo: state.acordo,
+  mediacao: state.mediacao
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    ...acordoActions
+    ...acordoActions,
+    ...mediacaoActions,
   }, dispatch)
 });
 

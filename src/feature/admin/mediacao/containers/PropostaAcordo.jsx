@@ -117,7 +117,7 @@ class PropostaAcordo extends React.Component {
   }
 
   panelAprovarProposta() {
-    const { classes, acordo } = this.props;
+    const { classes } = this.props;
 
     return (
       <div>

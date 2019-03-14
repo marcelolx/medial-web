@@ -146,6 +146,7 @@ class ChatInput extends React.Component {
         />
         <Button
           justIcon
+          disabled={this.state.disabled}
           color='secondary'
           onClick={this.onEnterPress}
           className={classes.botaoAnexar}
@@ -154,6 +155,7 @@ class ChatInput extends React.Component {
         </Button>
         {anexo ? <Button
           type="file"
+          disabled={this.state.disabled}
           justIcon
           onClick={() => this._handleClick()}
           color='secondary'
@@ -165,6 +167,7 @@ class ChatInput extends React.Component {
 
         {anexo ? <Button
           className={classes.botaoEnviar}
+          disabled={this.state.disabled}
           color='secondary'
           onClick={() => this._handleUploadFile()}
         >
