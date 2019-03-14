@@ -1,8 +1,6 @@
 import React from 'react';
 import RTCMultiConnection from 'rtcmulticonnection';
 import VideoMediaElement from './VideoMediaElement';
-import openSocket from "socket.io-client";
-const socket = openSocket("https://rtcmulticonnection.herokuapp.com:443/");
 
 class VideoConferencia extends React.PureComponent {
 
@@ -14,6 +12,7 @@ class VideoConferencia extends React.PureComponent {
     }
     
     this.rtcConnection = new RTCMultiConnection();
+    this.callbackOpenOrJoin = this.callbackOpenOrJoin.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +22,7 @@ class VideoConferencia extends React.PureComponent {
 
   configurarConexaoRTC() {    
     //this.rtcConnection.socketURL = 'https://192.168.0.126:9001/';
-    this.rtcConnection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+    this.rtcConnection.socketURL = 'http://192.168.0.126:9002/';
     this.rtcConnection.socketMessageEvent = 'video-conference-demo';
     
     this.rtcConnection.session = {
@@ -98,13 +97,15 @@ class VideoConferencia extends React.PureComponent {
   }
 
   handleOnJoinRoom() {
-    this.rtcConnection.openOrJoin(this.state.roomId, function(isRoomExist, roomid, error) {
-      if (error) {
-        alert(error);
-      } else if (this.rtcConnection.isInitiator === true) {
-        //
-      }
-    });
+    this.rtcConnection.openOrJoin(this.state.roomId, this.callbackOpenOrJoin());
+  }
+
+  callbackOpenOrJoin(isRoomExist, roomid, error) {
+    if (error) {
+      alert(error);
+    } else if (this.rtcConnection.isInitiator === true) {
+      //
+    }
   }
 
   handleRoomIdChange(event) {
