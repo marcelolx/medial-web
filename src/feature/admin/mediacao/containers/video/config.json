@@ -1,0 +1,16 @@
+{
+  "socketURL": "https://rtcmulticonnection.herokuapp.com:443/",
+  "dirPath": "",  
+  "socketMessageEvent": "RTCMultiConnection-Message",
+  "socketCustomEvent": "RTCMultiConnection-Custom-Message",
+  "port": "9002",
+  "enableLogs": "true",
+  "autoRebootServerOnFailure": "false",
+  "isUseHTTPs": "true",
+  "sslKey": "./fake-keys/privatekey.pem",
+  "sslCert": "./fake-keys/certificate.pem",
+  "sslCabundle": "",
+  "enableAdmin": "false",
+  "adminUserName": "username",
+  "adminPassword": "password"
+}
