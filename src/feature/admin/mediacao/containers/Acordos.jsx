@@ -150,8 +150,8 @@ class Acordos extends React.Component {
                </Button> : null}
           </CardFooter>
         </Card>
-        {this.state.modalOpen ? <ProporAcordo closeModal={() => this.setState({ modalOpen: false, codigoAcordo: 0 })} /> : null}
-        {this.state.modalOpenProposta ? <PropostaAcordo codigoAcordo={this.state.codigoAcordo} closeModal={() => this.setState({ modalOpenProposta: false, codigoAcordo: 0 })} /> : null}
+        {this.state.modalOpen ? <ProporAcordo codigoMediacao={this.props.codigoMediacao} closeModal={() => this.setState({ modalOpen: false, codigoAcordo: 0 })} /> : null}
+        {this.state.modalOpenProposta ? <PropostaAcordo codigoAcordo={this.state.codigoAcordo} codigoMediacao={this.props.codigoMediacao} closeModal={() => this.setState({ modalOpenProposta: false, codigoAcordo: 0 })} /> : null}
       </React.Fragment>
     );
   }
