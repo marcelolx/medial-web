@@ -6,21 +6,29 @@ import Acordos from './containers/Acordos';
 import Anexos from './containers/Anexos';
 import Mensagens from './containers/Mensagens';
 import Solicitacao from './containers/Solicitacao';
+import queryString from 'query-string';
+
 
 class Mediacao extends React.PureComponent {
 
+  state = {
+    codigoMediacao: queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id
+  }
+
   render() {
-    return(
+    const { codigoMediacao } = this.state;
+    
+    return (
       <React.Fragment>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={9} lg={9}>
-            <Solicitacao />
-            <Mensagens />
+            <Solicitacao codigoMediacao={codigoMediacao} />
+            <Mensagens codigoMediacao={codigoMediacao} />
           </GridItem>
           <GridItem xs={12} sm={12} md={3} lg={3}>
-            <Situacao />
-            <Acordos />
-            <Anexos />
+            <Situacao codigoMediacao={codigoMediacao} />
+            <Acordos codigoMediacao={codigoMediacao} />
+            <Anexos codigoMediacao={codigoMediacao} />
           </GridItem>
         </GridContainer>
       </React.Fragment>

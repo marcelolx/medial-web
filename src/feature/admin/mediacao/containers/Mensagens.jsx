@@ -13,7 +13,6 @@ import { compose } from 'recompose';
 import ChatInput from '../../../../core/components/chat/ChatInput';
 import ChatBox from '../../../../core/components/chat/ChatBox';
 import { CHAT, ENTROU, SAIU } from '../utils/mediacaoMessagesHelper';
-import queryString from 'query-string';
 import Loader from '../../../../core/components/Loader';
 
 import * as mediacaoActions from '../services/mediacaoActions';
@@ -58,7 +57,7 @@ class Mensagens extends React.PureComponent {
 
     let offset = this.state.offset;
 
-    this.props.actions.adquirirMensagem(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id, offset, this.state.limit);
+    this.props.actions.adquirirMensagem(this.props.codigoMediacao, offset, this.state.limit);
     this.setState({ offset: offset + this.state.limit });
 
   }
@@ -160,7 +159,7 @@ class Mensagens extends React.PureComponent {
 
   _handleUploadFile() {
     if (this.state.file) {
-      this.props.actions.uploadFileMediacao(this.state.file, queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+      this.props.actions.uploadFileMediacao(this.state.file, this.props.codigoMediacao);
 
     }
   }

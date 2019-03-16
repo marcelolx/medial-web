@@ -12,7 +12,6 @@ import CustomInput from '../../../../core/components/CustomInput';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import * as mediacaoActions from '../services/mediacaoActions';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 import Editor from '../../../../core/components/Editor'
 import buttonStyle from '../../../../assets/jss/components/buttonStyle';
 
@@ -33,7 +32,7 @@ const style = ({
 class Solicitacao extends React.PureComponent {
 
   componentDidMount() {
-    this.props.actions.buscarMediacao(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+    this.props.actions.buscarMediacao(this.props.codigoMediacao);
   }
 
   getMediacaoValueOrDefault(prop) {

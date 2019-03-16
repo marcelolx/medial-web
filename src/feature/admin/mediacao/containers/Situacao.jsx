@@ -8,6 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import getAdaptedMessage from '../utils/mediacaoMessagesHelper';
+import SelecionarMediador from './SelecionarMediador';
 
 const style = theme => ({
   semMargen: {
@@ -25,6 +26,10 @@ const style = theme => ({
 
 class Situacao extends React.Component {
 
+  state = {
+    selectMediadorVisible: false,
+  }
+
   handleGetValue(name) {
     return this.props.situacao[name] ? this.props.situacao[name] : 'Pendente';
   }
@@ -34,10 +39,13 @@ class Situacao extends React.Component {
 
     return (
       <React.Fragment>
+        {this.state.selectMediadorVisible ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
+          closeModal = {()=> this.setState({selectMediadorVisible: false})}
+        /> : null}
+
         <Card>
           <CardHeader color='success'>
-            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Situação</h4>
-            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{getAdaptedMessage(situacao.situacao)}</p>
+            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Situação: {getAdaptedMessage(situacao.situacao)}</h4>
           </CardHeader>
           <CardBody>
             <CustomChip
@@ -60,6 +68,7 @@ class Situacao extends React.Component {
               icon={<FaceIcon className={classes.icon} />}
               label={'Mediador: ' + this.handleGetValue('nomeMediador')}
               clickable
+              onClick={()=> this.setState({selectMediadorVisible: !this.state.selectMediadorVisible})}
               color='success'
               variant='outlined'
               width='fullWidth'

@@ -3,7 +3,6 @@ import Card from '../../../../core/components/card/Card';
 import CardHeader from '../../../../core/components/card/CardHeader';
 import CardBody from '../../../../core/components/card/CardBody';
 import withStyles from '@material-ui/core/styles/withStyles';
-import queryString from 'query-string';
 import * as anexoActions from '../services/anexo/anexoActions';
 import { connect } from 'react-redux';
 import bindActionCreators from 'redux/src/bindActionCreators';
@@ -37,7 +36,7 @@ const style = ({
 class Anexos extends React.Component {
 
   componentDidMount() {
-    this.props.actions.adquirirAnexos(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+    this.props.actions.adquirirAnexos(this.props.codigoMediacao);
   }
 
   render() {

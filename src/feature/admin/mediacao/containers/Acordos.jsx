@@ -16,7 +16,6 @@ import { ListItemIcon, ListItem } from '@material-ui/core';
 import { compose } from 'recompose';
 import * as acordoActions from '../services/acordo/acordoActions';
 import * as mediacaoActions from '../services/mediacaoActions'
-import queryString from 'query-string';
 import moment from 'moment';
 
 import { textSecondaryColor, textSuccessColor, textDangerColor, textWarningColor } from '../../../../assets/jss/styles';
@@ -56,7 +55,7 @@ class Acordos extends React.Component {
     this.setState({ modalOpenProposta: true, codigoAcordo: id })
   }
   componentDidMount() {
-    this.props.actions.adquirirAcordosMediacao(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+    this.props.actions.adquirirAcordosMediacao(this.props.codigoMediacao);
   }
 
   getIcon(status) {
@@ -100,7 +99,7 @@ class Acordos extends React.Component {
   }
 
   finalizarMediacao() {
-    let codigoMediacao = queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+    const { codigoMediacao } = this.props;
 
     API.post(`/mediacao/${codigoMediacao}/finalizarMediacao`)
       .then(response => {
