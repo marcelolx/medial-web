@@ -9,6 +9,8 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import getAdaptedMessage from '../utils/mediacaoMessagesHelper';
 import SelecionarMediador from './SelecionarMediador';
+import * as mediacaoActions from './../services/mediacaoActions'
+import bindActionCreators from 'redux/src/bindActionCreators';
 
 const style = theme => ({
   semMargen: {
@@ -34,13 +36,20 @@ class Situacao extends React.Component {
     return this.props.situacao[name] ? this.props.situacao[name] : 'Pendente';
   }
 
+  _fecharSelecaoMediador(recarregarMediacao){
+    this.setState({selectMediadorVisible: false});
+    if (recarregarMediacao) {
+      this.props.actions.buscarMediacao(this.props.codigoMediacao);
+    }
+  }
+
   render() {
     const { classes, situacao } = this.props;
 
     return (
       <React.Fragment>
         {this.state.selectMediadorVisible ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
-          closeModal = {()=> this.setState({selectMediadorVisible: false})}
+          closeModal = {(recarregarMediacao)=> this._fecharSelecaoMediador(recarregarMediacao)}
         /> : null}
 
         <Card>
@@ -93,13 +102,13 @@ const mapStateToProps = state => ({
   situacao: state.mediacaoSituacao
 });
 
-/*const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-
+    ...mediacaoActions
   }, dispatch)
-})*/
+});
 
 export default compose(
   withStyles(style),
-  connect(mapStateToProps)
+  connect(mapStateToProps,mapDispatchToProps)
 )(Situacao);

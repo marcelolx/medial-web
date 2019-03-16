@@ -83,7 +83,8 @@ class SelecionarMediador extends React.Component {
 
     this.state = {
       mensagem: '',
-      mediadores: []
+      mediadores: [],
+      isLoading: true,
 
     };
     this.closeModal = this.closeModal.bind(this);
@@ -93,16 +94,17 @@ class SelecionarMediador extends React.Component {
     this._adquirirDadosMediadores();
   }
 
-  _adquirirDadosMediadores(){
+  _adquirirDadosMediadores() {
 
     API.get(`/mediacao/${this.props.codigoMediacao}/mediadoresDisponiveis`)
       .then(response => {
         if (response.data) {
-          this.setState({ mediadores: response.data })
+          this.setState({ mediadores: response.data, isLoading: false })
         }
 
       })
       .catch(error => {
+        this.setState({ mediadores: [], isLoading: false })
 
       });
   }
@@ -127,6 +129,24 @@ class SelecionarMediador extends React.Component {
     return negociadoresRetorno;
   }
 
+  _confirmacaoAdicionar(id) {
+    let data = { id };
+    this.setState({ isLoading: true });
+
+    API.post(`/mediacao/${this.props.codigoMediacao}/atribuirMediador`, data)
+      .then(response => {
+        this.setState({ isLoading: false })
+        if (response.data.valor) {
+          this.props.closeModal(true);
+        }
+
+      })
+      .catch(error => {
+        this.setState({ isLoading: false, fail: true })
+
+      });
+  }
+
 
   botao = mediador => {
     const { classes } = this.props;
@@ -137,7 +157,7 @@ class SelecionarMediador extends React.Component {
         color='primary'
         className={classes.actionButton + ' ' + classes.actionButtonRound}
         key={mediador.id}
-        onClick={() => this.confirmacaoAdicionar(mediador.id)}
+        onClick={() => this._confirmacaoAdicionar(mediador.value)}
       >
         <CheckCircle className={classes.iconList} />
       </Button>
@@ -162,29 +182,28 @@ class SelecionarMediador extends React.Component {
       >
 
         <Loader open={this.state.isLoading} />
-        <div>
-          <Table
-            tableHead={[
-              '#',
-              'Nome',
-              'Selecionar',
-            ]}
-            tableData={this.dataToTableData()}
-            customCellClasses={[
-              classes.center,
-              classes.nome,
-              classes.selecionar
-            ]}
-            customClassesForCells={[0, 1, 2]}
-            customHeadCellClasses={[
-              classes.center,
-              classes.nome,
-              classes.selecionar
-            ]}
-            customHeadClassesForCells={[0, 1, 2]}
-            footer
-          />
-        </div>
+        <Table
+          tableHead={[
+            'Id',
+            'Nome',
+            'Selecionar',
+          ]}
+          tableData={this.dataToTableData()}
+          customCellClasses={[
+            classes.center,
+            classes.nome,
+            classes.selecionar
+          ]}
+          customClassesForCells={[0, 1, 2]}
+          customHeadCellClasses={[
+            classes.center,
+            classes.nome,
+            classes.selecionar
+          ]}
+          customHeadClassesForCells={[0, 1, 2]}
+          footer
+        />
+        {this.state.fail ? <p className={classes.fail}>Não foi possível processar sua solicitação</p> : null}
       </Modal>
     );
   }

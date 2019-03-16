@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import { compose } from 'recompose';
 import * as acordoActions from '../services/acordo/acordoActions';
-import queryString from 'query-string';
 import Loader from '../../../../core/components/Loader';
 import { FormHelperText } from '@material-ui/core';
 
@@ -59,7 +58,7 @@ class ProporAcordo extends React.Component {
     this._proporAcordo = this._proporAcordo.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.actions.clear();
   }
 
@@ -69,7 +68,7 @@ class ProporAcordo extends React.Component {
 
   _proporAcordo() {
     let mensagem = this.state.mensagem;
-    let codigoMediacao = queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+    let { codigoMediacao } = this.props;
 
     if (mensagem.length < 200) {
       this.setState({ erroTamanhoAcordo: true });
