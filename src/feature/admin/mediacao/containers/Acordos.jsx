@@ -48,7 +48,7 @@ class Acordos extends React.Component {
 
   state = {
     modalOpen: false,
-    modalOpenProposta: false
+    modalOpenProposta: false,
   }
 
   abrirProposta(id) {
@@ -98,30 +98,33 @@ class Acordos extends React.Component {
     )
   }
 
+
   finalizarMediacao() {
     const { codigoMediacao } = this.props;
 
     API.post(`/mediacao/${codigoMediacao}/finalizarMediacao`)
       .then(response => {
         if (response.data.valor) {
+          this.props.actions.showNotificacao('success', 'Mediação finalizada com sucesso. Verifique os anexos para visualizar os documentos')
           this.props.actions.buscarMediacao(codigoMediacao);
         }
 
       })
       .catch(error => {
-
+        this.props.actions.showNotificacao('warning', 'Não foi possível processar sua solicitação. Tente novamente mais tarde.')
       });
   }
 
   render() {
-    const { classes } = this.props;
-    let disable = this.props.mediacao.mediacao ? this.props.mediacao.mediacao.finalizado : true;
+    const { classes, auth } = this.props;
+    let mediacaoFinalizada = this.props.mediacao.mediacao ? this.props.mediacao.mediacao.finalizado : true;
     let exibeFinalizar = true;
     this.props.acordo.acordos.forEach(element => {
       if (!element.status) {
         exibeFinalizar = false;
       }
     });
+    let possuiPermissaoAdmin = auth.accessLevel === 1 || auth.accessLevel === 2;
 
     return (
       <React.Fragment>
@@ -135,16 +138,16 @@ class Acordos extends React.Component {
               fullWidth
               size="sm"
               color='secondary'
-              disabled={disable}
+              disabled={mediacaoFinalizada}
               onClick={() => this.setState({ modalOpen: true })}>
-              Propor Acordo
+              {mediacaoFinalizada ? "Mediação Finalizada" : "Propor Acordo"}
             </Button>
-            {this.props.acordo.acordos.length > 0 && exibeFinalizar ?
+            {this.props.acordo.acordos.length > 0 && exibeFinalizar && possuiPermissaoAdmin ?
               <Button
                 fullWidth
                 size="sm"
-                color={disable ? null : 'danger'}
-                disabled={disable}
+                color={mediacaoFinalizada ? null : 'danger'}
+                disabled={mediacaoFinalizada}
                 onClick={() => this.finalizarMediacao()}>
                 Finalizar Mediação
                </Button> : null}
@@ -160,7 +163,8 @@ class Acordos extends React.Component {
 
 const mapStateToProps = state => ({
   acordo: state.acordo,
-  mediacao: state.mediacao
+  mediacao: state.mediacao,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({

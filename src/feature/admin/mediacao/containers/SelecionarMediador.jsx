@@ -74,7 +74,7 @@ const styles = theme => ({
     height: '17px',
     top: '-1px',
     position: 'relative'
-  },
+  }
 });
 
 class SelecionarMediador extends React.Component {

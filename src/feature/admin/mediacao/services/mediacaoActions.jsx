@@ -5,7 +5,9 @@ import {
   BUSCAR_MENSAGEM_START,
   BUSCAR_MENSAGEM_COMPLETE,
   BUSCAR_MENSAGEM_ERROR,
-  LIMPAR_DADOS_MENSAGEM
+  LIMPAR_DADOS_MENSAGEM,
+  SHOW_NOTIFICACAO,
+  CLOSE_NOTIFICACAO
 } from './mediacaoActionTypes';
 import API from '../../../../core/http/API';
 import { buscarSituacaoMediacao } from './situacao/situacaoMediacaoActions';
@@ -80,5 +82,24 @@ function buscarMediacaoError(error) {
   return {
     type: BUSCAR_MEDIACAO_ERROR,
     payload: error.response.data
+  }
+}
+
+
+
+export function showNotificacao(type, message) {
+  return function (dispatch) {
+    dispatch({
+      type: SHOW_NOTIFICACAO,
+      payload: { type, message }
+    });
+  }
+}
+
+export function closeNotificacao() {
+  return function (dispatch) {
+    dispatch({
+      type: CLOSE_NOTIFICACAO
+    });
   }
 }

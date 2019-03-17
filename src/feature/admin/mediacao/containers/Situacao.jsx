@@ -36,20 +36,22 @@ class Situacao extends React.Component {
     return this.props.situacao[name] ? this.props.situacao[name] : 'Pendente';
   }
 
-  _fecharSelecaoMediador(recarregarMediacao){
-    this.setState({selectMediadorVisible: false});
+  _fecharSelecaoMediador(recarregarMediacao) {
+    this.setState({ selectMediadorVisible: false });
     if (recarregarMediacao) {
       this.props.actions.buscarMediacao(this.props.codigoMediacao);
     }
   }
 
   render() {
-    const { classes, situacao } = this.props;
+    const { classes, situacao, auth, mediacao } = this.props;
+    let mediacaoFinalizada = mediacao.mediacao ? mediacao.mediacao.finalizado : true;
 
+    let possuiPermissaoAdmin = auth.accessLevel === 1 || auth.accessLevel === 2;
     return (
       <React.Fragment>
-        {this.state.selectMediadorVisible ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
-          closeModal = {(recarregarMediacao)=> this._fecharSelecaoMediador(recarregarMediacao)}
+        {this.state.selectMediadorVisible && (possuiPermissaoAdmin) && !mediacaoFinalizada ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
+          closeModal={(recarregarMediacao) => this._fecharSelecaoMediador(recarregarMediacao)}
         /> : null}
 
         <Card>
@@ -75,9 +77,9 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon} />}
-              label={'Mediador: ' + this.handleGetValue('nomeMediador')}
-              clickable
-              onClick={()=> this.setState({selectMediadorVisible: !this.state.selectMediadorVisible})}
+              label={'<span style="overflow: hidden">Mediador: ' + this.handleGetValue('nomeMediador') + '</span>'} 
+              clickable={possuiPermissaoAdmin && !mediacaoFinalizada}
+              onClick={() => this.setState({ selectMediadorVisible: !this.state.selectMediadorVisible })}
               color='success'
               variant='outlined'
               width='fullWidth'
@@ -99,7 +101,9 @@ class Situacao extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  situacao: state.mediacaoSituacao
+  situacao: state.mediacaoSituacao,
+  mediacao: state.mediacao,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -110,5 +114,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   withStyles(style),
-  connect(mapStateToProps,mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Situacao);
