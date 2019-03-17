@@ -77,7 +77,7 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon} />}
-              label={'<span style="overflow: hidden">Mediador: ' + this.handleGetValue('nomeMediador') + '</span>'} 
+              label={'Mediador: ' + this.handleGetValue('nomeMediador')} 
               clickable={possuiPermissaoAdmin && !mediacaoFinalizada}
               onClick={() => this.setState({ selectMediadorVisible: !this.state.selectMediadorVisible })}
               color='success'
