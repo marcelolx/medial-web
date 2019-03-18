@@ -15,8 +15,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import * as listActions from './services/usersActions';
 
@@ -36,11 +34,11 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name', numeric: false, label: 'Nome' },
+  { id: 'name',label: 'Nome' },
   { id: 'birthDate', disablePadding: false, label: 'Data de Nascimento' },
   { id: 'email', disablePadding: false, label: 'E-mail' },
-  { id: 'total', numeric: true, disablePadding: false, label: 'Total de mediações' },
-  { id: 'active', numeric: true, disablePadding: false, label: 'Mediações ativas' },
+  { id: 'total', disablePadding: false, label: 'Total de mediações' },
+  { id: 'active',  disablePadding: false, label: 'Mediações ativas' },
 ];
 
 class ListUsersHead extends React.Component {
@@ -127,16 +125,7 @@ let ListUsersToolbar = props => {
           </Typography>
 
       </div>
-      <div className={classes.spacer} />
-      <div className={classes.actions}>
 
-        <Tooltip title='Filtrar nome'>
-          <IconButton aria-label='Filtrar nome'>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-
-      </div>
     </Toolbar>
   );
 };
@@ -251,8 +240,8 @@ class ListUsers extends React.Component {
                       </TableCell>
                       <TableCell >{n.birthDate}</TableCell>
                       <TableCell >{n.email}</TableCell>
-                      <TableCell numeric>{n.total}</TableCell>
-                      <TableCell numeric>{n.active}</TableCell>
+                      <TableCell >{n.total}</TableCell>
+                      <TableCell >{n.active}</TableCell>
                     </TableRow>
                   );
                 })}

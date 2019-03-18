@@ -41,31 +41,33 @@ class ImageUpload extends React.Component {
     this.refs.fileInput.click();
   }
 
-  render() {
-    const { avatar, adicionarButtonProps, alterarButtonProps, removerButtonProps } = this.props;
 
-    return(
+
+  render() {
+    const { imagem, avatar, adicionarButtonProps, alterarButtonProps, removerButtonProps } = this.props;
+    debugger
+    return (
       <div className='fileinput text-center'>
         <input type='file' onChange={this.handleChangeImage} ref='fileInput' />
-        <div className={'thumbnail' + (avatar ? ' img-circle' : '')}>
-          <img src={this.state.previewImageUrl} alt='...'/>
+        <div className={'thumbnail' + (avatar ? ' img-circle' : ' img-circle')}>
+          <img src={this.state.file ? this.state.previewImageUrl : (imagem || this.state.previewImageUrl)} alt='...' />
         </div>
         <div>
           {this.state.file === null ? (
             <Button {...adicionarButtonProps} onClick={() => this.handleClick()}>
-              {avatar ? 'Adicionar Avatar' : 'Selecionar Imagem'}
+              {imagem ? 'Trocar imagem' : avatar ? 'Adicionar Avatar' : 'Selecionar Imagem'}
             </Button>
           ) : (
-            <span>
-              <Button {...alterarButtonProps} onClick={() => this.handleClick()}>
-                Enviar
+              <span>
+                <Button {...alterarButtonProps} onClick={() => this.props.upload(this.state.file)}>
+                  Enviar
               </Button>
-             {avatar ? <br /> : null}
-              <Button {...removerButtonProps} onClick={() => this.handleRemover()}>
-                <i className='fas fa-times'/> Remover
+                {avatar ? <br /> : null}
+                <Button {...removerButtonProps} onClick={() => this.handleRemover()}>
+                  <i className='fas fa-times' /> Remover
               </Button>
-            </span>
-          )}
+              </span>
+            )}
         </div>
       </div>
     );
