@@ -10,13 +10,13 @@ const path = require("path");
 const server = require("http");
 
 //quando for pro server, descomentar abaixo.
-//app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '../build')));
 
 let PORT = 9002;
 let isUseHTTPs = false;
 
 const jsonPath = {
-  config: "config.json",
+  config: "./server/config.json",
   logs: "logs.json"
 };
 
@@ -24,7 +24,6 @@ const BASH_COLORS_HELPER = RTCMultiConnectionServer.BASH_COLORS_HELPER;
 const getValuesFromConfigJson =
   RTCMultiConnectionServer.getValuesFromConfigJson;
 const getBashParameters = RTCMultiConnectionServer.getBashParameters;
-const resolveURL = RTCMultiConnectionServer.resolveURL;
 
 var config = getValuesFromConfigJson(jsonPath);
 config = getBashParameters(config, BASH_COLORS_HELPER);
@@ -88,7 +87,7 @@ if (isUseHTTPs) {
     };
   }
 
-  httpApp = httpServer.createServer(options, app);
+  httpServer = httpServer.createServer(options, app);
 } else {
   httpServer = server.createServer(app);
 }

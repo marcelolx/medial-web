@@ -46,7 +46,7 @@
   },
   "scripts": {
     "dev": "run-p server start",
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&react-scripts start",
     "server": "node-env-run server --exec nodemon",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
