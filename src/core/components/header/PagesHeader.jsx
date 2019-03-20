@@ -95,7 +95,9 @@ class PagesHeader extends React.Component {
             >
               <Menu />
             </Button>
-            <h4 style={{margin: 0,padding:'0 10px', color: 'white'}}>Medial</h4>
+            <Button href='#' color='transparent'>
+              <h4 style={{margin: 0,padding:'0 10px', color: 'white'}}>Medial</h4>
+            </Button>
           </Hidden>
           <Hidden mdUp>
             <Hidden mdUp>

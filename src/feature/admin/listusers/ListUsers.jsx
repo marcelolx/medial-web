@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,19 +34,19 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name',label: 'Nome' },
+  { id: 'name', label: 'Nome' },
   { id: 'birthDate', disablePadding: false, label: 'Data de Nascimento' },
   { id: 'email', disablePadding: false, label: 'E-mail' },
   { id: 'total', disablePadding: false, label: 'Total de mediações' },
-  { id: 'active',  disablePadding: false, label: 'Mediações ativas' },
+  { id: 'active', disablePadding: false, label: 'Mediações ativas' },
 ];
 
 class ListUsersHead extends React.Component {
-  
+
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
- 
+
   render() {
     const { order, orderBy } = this.props;
     return (
@@ -161,9 +161,9 @@ class ListUsers extends React.Component {
   componentDidMount() {
     this.props.actions.getStateUsers(this.state);
   }
-  
-  componentDidUpdate= () => {
-    if (this.state.data.length === 0 && this.props.data.users.length>0) {
+
+  componentDidUpdate = () => {
+    if (this.state.data.length === 0 && this.props.data.users.length > 0) {
       this.setState({
         data: this.props.data.users,
       })
