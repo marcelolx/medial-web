@@ -80,7 +80,7 @@ class PagesHeader extends React.Component {
           <Hidden smDown>
             <div className={classes.flex}>
               <Button href='#' className={classes.title} color='transparent'>
-                Medial
+                MEDIAL
               </Button>
             </div>
           </Hidden>
@@ -88,13 +88,14 @@ class PagesHeader extends React.Component {
           <Hidden mdUp>
             <Button
               className={classes.sidebarButton}
-              color='transparent'
               justIcon
+              color="transparent"
               aria-label='open drawer'
               onClick={this.handleDrawerToggle}
             >
               <Menu />
             </Button>
+            <h4 style={{margin: 0,padding:'0 10px', color: 'white'}}>Medial</h4>
           </Hidden>
           <Hidden mdUp>
             <Hidden mdUp>
@@ -128,6 +129,3 @@ PagesHeader.propTypes = {
 export default withStyles(pagesHeaderStyle)(PagesHeader);
 
 
-
-// WEBPACK FOOTER //
-// ./src/components/Header/PagesHeader.jsx

@@ -11,9 +11,6 @@ import {
 
 const appStyle = theme => ({
   wrapper: {
-    position: 'relative',
-    top: '0',
-    height: '100vh',
     '&:after': {
       display: 'table',
       clear: 'both',

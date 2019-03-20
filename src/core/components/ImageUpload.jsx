@@ -45,7 +45,7 @@ class ImageUpload extends React.Component {
 
   render() {
     const { imagem, avatar, adicionarButtonProps, alterarButtonProps, removerButtonProps } = this.props;
-    debugger
+
     return (
       <div className='fileinput text-center'>
         <input type='file' onChange={this.handleChangeImage} ref='fileInput' />
