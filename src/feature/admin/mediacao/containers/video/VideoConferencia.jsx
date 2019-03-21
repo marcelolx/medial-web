@@ -1,6 +1,7 @@
 import React from 'react';
 import RTCMultiConnection from 'rtcmulticonnection';
 import VideoMediaElement from './VideoMediaElement';
+import DetectRTC from 'detectrtc';
 
 class VideoConferencia extends React.PureComponent {
 
@@ -13,6 +14,9 @@ class VideoConferencia extends React.PureComponent {
     
     this.rtcConnection = new RTCMultiConnection();
     this.callbackOpenOrJoin = this.callbackOpenOrJoin.bind(this);
+    this.onStreamRTC = this.onStreamRTC.bind(this);
+    this.onStreamendedRTC = this.onStreamendedRTC.bind(this);
+    this.onMediaError = this.onMediaError.bind(this);
   }
 
   componentDidMount() {
@@ -22,7 +26,7 @@ class VideoConferencia extends React.PureComponent {
 
   configurarConexaoRTC() {    
     //this.rtcConnection.socketURL = 'https://192.168.0.126:9001/';
-    this.rtcConnection.socketURL = 'http://192.168.0.126:9002/';
+    this.rtcConnection.socketURL = 'http://192.168.0.126:9003/';
     this.rtcConnection.socketMessageEvent = 'video-conference-demo';
     
     this.rtcConnection.session = {
@@ -36,64 +40,50 @@ class VideoConferencia extends React.PureComponent {
     };
 
     this.rtcConnection.videosContainer = document.getElementById('videos-container');
-    this.rtcConnection.onStream = () => this.onStreamRTC();
+    this.rtcConnection.onStream = (event) => this.onStreamRTC(event);
+    this.rtcConnection.onstreamended = (event) => this.onStreamendedRTC(event);
   }
 
   onStreamRTC(event) {
     let existing = document.getElementById(event.streamid);
-    if (existing && existing.parentNode) {
+    
+    if(existing && existing.parentNode) {
       existing.parentNode.removeChild(existing);
     }
 
-    event.mediaElement.removeAttribute('src');
-    event.mediaElement.removeAttribute('srcObject');
-    event.mediaElement.muted = true;
-    event.mediaElement.volume = 0;
+    this.rtcConnection.videosContainer.appendChild(event.mediaElement);
 
-    let video = document.createElement('video');
 
-    try {
-      video.setAttributeNode(document.createAttribute('autoplay'));
-      video.setAttributeNode(document.createAttribute('playsinline'));
-    } catch (e) {
-      video.setAttribute('autoplay', true);
-      video.setAttribute('playsinline', true);
+    if (event.type === 'local') {
+      this.rtcConnection.socket.on('disconnect', function() {
+        if (!this.rtcConnection.getAllParticipants().length) {
+          window.location.reload();
+        }
+      });
     }
-
-    if(event.type === 'local') {
-      video.volume = 0;
-      try {
-          video.setAttributeNode(document.createAttribute('muted'));
-      } catch (e) {
-          video.setAttribute('muted', true);
-      }
-    }
-    video.srcObject = event.stream;
-
-    let width = parseInt(this.rtcConnection.videosContainer.clientWidth / 3) - 20;
-
-    let videoConfig = {
-      title: event.userid,
-      buttons: ['mute-audio', 'mute-video', 'full-screen', 'volume-slider', 'stop', 'record-audio', 'record-video'],
-      width: width,
-      showOnMouseEnter: false,
-    }
-
-    let videoMediaElement = <VideoMediaElement mediaElement={video} config={videoConfig}/>;
-
-    this.rtcConnection.videosContainer.appendChild(videoMediaElement);
-
-    setTimeout(() => {
-      videoMediaElement.media.play();
-    }, 5000);
-
-    videoMediaElement.id = event.streamid;
-
-    this.salvarIdSalaCache();
   }
 
-  salvarIdSalaCache() {
-    localStorage.setItem(this.rtcConnection.socketMessageEvent, this.rtcConnection.sessionid);
+  onStreamendedRTC(event) {
+    let mediaElement = document.getElementById(event.streamid);
+    if (mediaElement) {
+      mediaElement.parentNode.removeChild(mediaElement);
+    }
+  };
+
+  onMediaError(error) {
+    if (error.message === 'Concurrent mic process limit.') {
+      if (DetectRTC.audioInputDevices.length <= 1) {
+          alert('Please select external microphone. Check github issue number 483.');
+          return;
+      }
+
+      let secondaryMic = DetectRTC.audioInputDevices[1].deviceId;
+      this.rtcConnection.mediaConstraints.audio = {
+          deviceId: secondaryMic
+      };
+
+      this.rtcConnection.join(this.rtcConnection.sessionid);
+    }
   }
 
   handleOnJoinRoom() {
