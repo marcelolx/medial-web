@@ -102,7 +102,7 @@ var dashRoutes = [
     component: Negociador
   },
   {
-    path: '/mediacao/video-conferencia',
+    path: '/mediacao/videoconferencia',
     name: 'Video conferência',
     icon: People,
     nivel: [1,4,99],

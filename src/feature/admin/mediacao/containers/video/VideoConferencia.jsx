@@ -1,61 +1,77 @@
-import React from 'react';
-import RTCMultiConnection from 'rtcmulticonnection';
-import VideoMediaElement from './VideoMediaElement';
-import DetectRTC from 'detectrtc';
+import React from "react";
+import RTCMultiConnection from "rtcmulticonnection";
+import VideoMediaElement from "./VideoMediaElement";
+import DetectRTC from "detectrtc";
+import queryString from "query-string";
+import SweetAlert from "react-bootstrap-sweetalert";
+import buttonStyle from "../../../../../assets/jss/components/buttonStyle";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Mensagens from '../Mensagens';
+import Button from '../../../../../core/components/CustomButton';
 
 class VideoConferencia extends React.PureComponent {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      roomId: ''
-    }
-    
+      roomId: "",
+      invalidRoomId: false,
+    };
+
     this.rtcConnection = new RTCMultiConnection();
     this.callbackOpenOrJoin = this.callbackOpenOrJoin.bind(this);
     this.onStreamRTC = this.onStreamRTC.bind(this);
     this.onStreamendedRTC = this.onStreamendedRTC.bind(this);
-    this.onMediaError = this.onMediaError.bind(this);
+    this.onMediaError = this.onMediaErrorRTC.bind(this);
+    this.onLeave = this.onLeaveRTC.bind(this);
   }
 
   componentDidMount() {
-    
     this.configurarConexaoRTC();
+    this.handleOnJoinRoom();
   }
 
-  configurarConexaoRTC() {    
-    //this.rtcConnection.socketURL = 'https://192.168.0.126:9001/';
-    this.rtcConnection.socketURL = 'http://192.168.0.126:9003/';
-    this.rtcConnection.socketMessageEvent = 'video-conference-demo';
-    
+  configurarConexaoRTC() {
+    this.rtcConnection.socketURL = "http://localhost:9003/";
+    this.rtcConnection.socketMessageEvent = "video-conferencia-mediacao";
+
     this.rtcConnection.session = {
-        audio: true,
-        video: true
+      audio: true,
+      video: true
     };
 
     this.rtcConnection.sdpConstraints.mandatory = {
-        OfferToReceiveAudio: true,
-        OfferToReceiveVideo: true
+      OfferToReceiveAudio: true,
+      OfferToReceiveVideo: true
     };
 
-    this.rtcConnection.videosContainer = document.getElementById('videos-container');
-    this.rtcConnection.onStream = (event) => this.onStreamRTC(event);
-    this.rtcConnection.onstreamended = (event) => this.onStreamendedRTC(event);
+    this.rtcConnection.videosContainer = document.getElementById(
+      "videos-container"
+    );
+    this.rtcConnection.onstream = (event) => this.onStreamRTC(event);
+    this.rtcConnection.onstreamended = (event) =>  this.onStreamendedRTC(event);
+    this.rtcConnection.onmediaerror = (event, constraints) => this.onMediaErrorRTC(event, constraints);
+    this.rtcConnection.onleave = (userid) => this.onLeaveRTC(userid);
+  }
+
+  onLeaveRTC(userid) {
+    console.log(userid);
+    //.onleave = function(userid) {};
   }
 
   onStreamRTC(event) {
     let existing = document.getElementById(event.streamid);
-    
-    if(existing && existing.parentNode) {
+
+    if (existing && existing.parentNode) {
       existing.parentNode.removeChild(existing);
     }
 
+    event.mediaElement.style = 'width: 300px; margin: 1px'
+
     this.rtcConnection.videosContainer.appendChild(event.mediaElement);
 
-
-    if (event.type === 'local') {
-      this.rtcConnection.socket.on('disconnect', function() {
+    if (event.type === "local") {
+      this.rtcConnection.socket.on("disconnect", function() {
         if (!this.rtcConnection.getAllParticipants().length) {
           window.location.reload();
         }
@@ -68,18 +84,20 @@ class VideoConferencia extends React.PureComponent {
     if (mediaElement) {
       mediaElement.parentNode.removeChild(mediaElement);
     }
-  };
+  }
 
-  onMediaError(error) {
-    if (error.message === 'Concurrent mic process limit.') {
+  onMediaErrorRTC(error, constraints) {
+    if (error.message === "Concurrent mic process limit.") {
       if (DetectRTC.audioInputDevices.length <= 1) {
-          alert('Please select external microphone. Check github issue number 483.');
-          return;
+        alert(
+          "Please select external microphone. Check github issue number 483."
+        );
+        return;
       }
 
       let secondaryMic = DetectRTC.audioInputDevices[1].deviceId;
       this.rtcConnection.mediaConstraints.audio = {
-          deviceId: secondaryMic
+        deviceId: secondaryMic
       };
 
       this.rtcConnection.join(this.rtcConnection.sessionid);
@@ -87,47 +105,64 @@ class VideoConferencia extends React.PureComponent {
   }
 
   handleOnJoinRoom() {
-    this.rtcConnection.openOrJoin(this.state.roomId, this.callbackOpenOrJoin());
+
+    let roomId = queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+
+    if (roomId === undefined) {
+      this.setState({ invalidRoomId: true });
+    } else {
+      this.setState({ roomId: roomId, invalidRoomId: false });
+      this.rtcConnection.openOrJoin(this.state.roomId, this.callbackOpenOrJoin());
+    }
   }
 
   callbackOpenOrJoin(isRoomExist, roomid, error) {
     if (error) {
       alert(error);
-    } else if (this.rtcConnection.isInitiator === true) {
-      //
     }
   }
 
-  handleRoomIdChange(event) {
-    this.setState({ roomId: event.target.value });
+  _handleDashboard() {
+    this.props.history.push(`/`);
+  }
+
+  _handleClickMediacao() {
+    debugger
+    this.rtcConnection.leave();
+  }
+
+  sweatMediacaoInvalida() {
+    const { classes } = this.props;
+
+    return (
+      <SweetAlert
+        error
+        style={{ display: "block", color: `#222` }}
+        onConfirm={() => this._handleDashboard()}
+        confirmBtnCssClass={[classes.button, classes.warning].join(" ")}
+        title="MEDIAÇÃO INVÁLIDA"
+        confirmBtnText="MENU INICIAL"
+        showCancel={false}
+      >
+        <h4>{`Ops! Não foi possível iniciar a vídeo conferência para essa mediação.`}</h4>
+      </SweetAlert>
+    );
   }
 
   render() {
-    console.log(this.state);
 
-    return(
-      <section>
-        <div>
-          <input 
-            type="text" 
-            id="id-sala" 
-            autoCorrect="off" 
-            autoCapitalize="off" 
-            size="20" 
-            value={this.state.roomId}
-            onChange={(event) => this.handleRoomIdChange(event)}
-          />
-          <button id="criar-ou-entrar-sala" onClick={() => this.handleOnJoinRoom()}>Entrar</button>
-        </div>
-        
-        <div id="videos-container">
-
-        
-        </div>
-
-      </section>
+    return (
+      <React.Fragment>
+        {this.state.invalidRoomId ? this.sweatMediacaoInvalida() : null}
+        <section>
+          <div id="videos-container" />
+        </section>
+        <Button onClick={() => this._handleClickMediacao()} >
+          Mediação
+        </Button>
+      </React.Fragment>
     );
   }
 }
 
-export default VideoConferencia;
+export default withStyles(buttonStyle)(VideoConferencia);
