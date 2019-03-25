@@ -1,12 +1,10 @@
 import React from "react";
 import RTCMultiConnection from "rtcmulticonnection";
-import VideoMediaElement from "./VideoMediaElement";
 import DetectRTC from "detectrtc";
 import queryString from "query-string";
 import SweetAlert from "react-bootstrap-sweetalert";
 import buttonStyle from "../../../../../assets/jss/components/buttonStyle";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Mensagens from '../Mensagens';
 import Button from '../../../../../core/components/CustomButton';
 
 class VideoConferencia extends React.PureComponent {
@@ -31,6 +29,13 @@ class VideoConferencia extends React.PureComponent {
     this.handleOnJoinRoom();
   }
 
+  componentWillUnmount() {
+    this.rtcConnection.onstream = null;
+    this.rtcConnection.onstreamended = null;
+    this.rtcConnection.onmediaerror = null;
+    this.rtcConnection.onleave = null;
+  }
+
   configurarConexaoRTC() {
     this.rtcConnection.socketURL = "http://localhost:9003/";
     this.rtcConnection.socketMessageEvent = "video-conferencia-mediacao";
@@ -45,9 +50,7 @@ class VideoConferencia extends React.PureComponent {
       OfferToReceiveVideo: true
     };
 
-    this.rtcConnection.videosContainer = document.getElementById(
-      "videos-container"
-    );
+    this.rtcConnection.videosContainer = document.getElementById("videos-container");
     this.rtcConnection.onstream = (event) => this.onStreamRTC(event);
     this.rtcConnection.onstreamended = (event) =>  this.onStreamendedRTC(event);
     this.rtcConnection.onmediaerror = (event, constraints) => this.onMediaErrorRTC(event, constraints);
@@ -55,11 +58,12 @@ class VideoConferencia extends React.PureComponent {
   }
 
   onLeaveRTC(userid) {
-    console.log(userid);
-    //.onleave = function(userid) {};
+    
+    console.log('onLeaveRTC | userid: ' + userid);
   }
 
   onStreamRTC(event) {
+    
     let existing = document.getElementById(event.streamid);
 
     if (existing && existing.parentNode) {
@@ -72,7 +76,7 @@ class VideoConferencia extends React.PureComponent {
 
     if (event.type === "local") {
       this.rtcConnection.socket.on("disconnect", function() {
-        if (!this.rtcConnection.getAllParticipants().length) {
+        if (this.rtcConnection && !this.rtcConnection.getAllParticipants().length) {
           window.location.reload();
         }
       });
@@ -127,8 +131,14 @@ class VideoConferencia extends React.PureComponent {
   }
 
   _handleClickMediacao() {
-    debugger
-    this.rtcConnection.leave();
+    
+    this.rtcConnection.getAllParticipants().forEach(pid => this.rtcConnection.disconnectWith(pid));
+
+    this.rtcConnection.attachStreams.forEach(localStream => localStream.stop());
+
+    this.rtcConnection.closeSocket();
+
+    this.props.history.goBack();
   }
 
   sweatMediacaoInvalida() {
@@ -154,12 +164,12 @@ class VideoConferencia extends React.PureComponent {
     return (
       <React.Fragment>
         {this.state.invalidRoomId ? this.sweatMediacaoInvalida() : null}
+        <Button onClick={() => this._handleClickMediacao()} >
+          Voltar
+        </Button>
         <section>
           <div id="videos-container" />
         </section>
-        <Button onClick={() => this._handleClickMediacao()} >
-          Mediação
-        </Button>
       </React.Fragment>
     );
   }
