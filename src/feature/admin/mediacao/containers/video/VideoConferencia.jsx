@@ -6,6 +6,31 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import buttonStyle from "../../../../../assets/jss/components/buttonStyle";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from '../../../../../core/components/CustomButton';
+import Card from '../../../../../core/components/card/Card';
+import CardHeader from '../../../../../core/components/card/CardHeader'
+import CardBody from '../../../../../core/components/card/CardBody';
+
+const style = ({
+  ...buttonStyle,
+  semMargen: {
+    margin: 0,
+    flex: 1
+  },
+  multilineTextField: {
+    width: '100%'
+  },
+  inputCenterText: {
+    textAlign: 'center'
+  },
+  videoConferenciaButton: {
+    width: '130px',
+    height:  '40px',
+    margin: 0
+  },
+  flexCard: {
+    display: 'flex'
+  }
+});
 
 class VideoConferencia extends React.PureComponent {
   constructor(props) {
@@ -159,20 +184,39 @@ class VideoConferencia extends React.PureComponent {
     );
   }
 
+  _handleClickSolicitacao() {
+    //Alterar redux para exibir motivo
+  }
+
   render() {
+    const { classes } = this.props;
 
     return (
       <React.Fragment>
         {this.state.invalidRoomId ? this.sweatMediacaoInvalida() : null}
+        <Card>
+          <CardHeader
+            color='success'
+            className={classes.flexCard}
+          >
+            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Vídeo Conferência</h4>
+            <Button
+              className={classes.videoConferenciaButton}
+              onClick={() => this._handleClickSolicitacao()}
+            >
+              Solicitação
+            </Button>
+          </CardHeader>
+          <CardBody>
+            <div id="videos-container" />
+          </CardBody>
+        </Card>
         <Button onClick={() => this._handleClickMediacao()} >
           Voltar
         </Button>
-        <section>
-          <div id="videos-container" />
-        </section>
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(buttonStyle)(VideoConferencia);
+export default withStyles(style)(VideoConferencia);
