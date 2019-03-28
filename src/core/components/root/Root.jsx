@@ -49,7 +49,7 @@ componentDidMount(){
   }
 }
 
-Root.proptypes = {
+Root.propTypes = {
   auth: PropTypes.object.isRequired,
 }
 
