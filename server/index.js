@@ -3,14 +3,19 @@ const RTCMultiConnectionServer = require("rtcmulticonnection-server");
 
 const port = process.env.PORT || 9003;
 
-const express = require("express");
 const fs = require('fs');
-const app = express();
 const path = require("path");
 const server = require("http");
+const cors = require("cors");
+const express = require("express");
+
+let app = express();
+app.use(cors());
+app.options('*', cors());
+
 
 //quando for pro server, descomentar abaixo.
-//app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, '../build')));
 
 let PORT = 9003;
 let isUseHTTPs = false;
@@ -40,7 +45,7 @@ if (isUseHTTPs === false) {
 
 var httpServer;
 
-/*if (isUseHTTPs) {
+if (isUseHTTPs) {
   httpServer = require("https");
 
   var options = {
@@ -88,9 +93,9 @@ var httpServer;
   }
 
   httpServer = httpServer.createServer(options, app);
-} else {*/
+} else {
   httpServer = server.createServer(app);
-//}
+}
 
 httpServer.listen(port, process.env.IP || "0.0.0.0", function() {
   console.log("Server is running on port " + port);
