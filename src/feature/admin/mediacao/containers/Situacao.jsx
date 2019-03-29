@@ -8,6 +8,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import getAdaptedMessage from '../utils/mediacaoMessagesHelper';
+import SelecionarMediador from './SelecionarMediador';
+import * as mediacaoActions from './../services/mediacaoActions'
+import bindActionCreators from 'redux/src/bindActionCreators';
 
 const style = theme => ({
   semMargen: {
@@ -25,19 +28,35 @@ const style = theme => ({
 
 class Situacao extends React.Component {
 
+  state = {
+    selectMediadorVisible: false,
+  }
+
   handleGetValue(name) {
     return this.props.situacao[name] ? this.props.situacao[name] : 'Pendente';
   }
 
-  render() {
-    const { classes, situacao } = this.props;
+  _fecharSelecaoMediador(recarregarMediacao) {
+    this.setState({ selectMediadorVisible: false });
+    if (recarregarMediacao) {
+      this.props.actions.buscarMediacao(this.props.codigoMediacao);
+    }
+  }
 
+  render() {
+    const { classes, situacao, auth, mediacao } = this.props;
+    let mediacaoFinalizada = mediacao.mediacao ? mediacao.mediacao.finalizado : true;
+
+    let possuiPermissaoAdmin = auth.accessLevel === 1 || auth.accessLevel === 2;
     return (
       <React.Fragment>
+        {this.state.selectMediadorVisible && (possuiPermissaoAdmin) && !mediacaoFinalizada ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
+          closeModal={(recarregarMediacao) => this._fecharSelecaoMediador(recarregarMediacao)}
+        /> : null}
+
         <Card>
           <CardHeader color='success'>
-            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Situação</h4>
-            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>{getAdaptedMessage(situacao.situacao)}</p>
+            <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Situação: {getAdaptedMessage(situacao.situacao)}</h4>
           </CardHeader>
           <CardBody>
             <CustomChip
@@ -58,8 +77,9 @@ class Situacao extends React.Component {
             />
             <CustomChip
               icon={<FaceIcon className={classes.icon} />}
-              label={'Mediador: ' + this.handleGetValue('nomeMediador')}
-              clickable
+              label={'Mediador: ' + this.handleGetValue('nomeMediador')} 
+              clickable={possuiPermissaoAdmin && !mediacaoFinalizada}
+              onClick={() => this.setState({ selectMediadorVisible: !this.state.selectMediadorVisible })}
               color='success'
               variant='outlined'
               width='fullWidth'
@@ -81,16 +101,18 @@ class Situacao extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  situacao: state.mediacaoSituacao
+  situacao: state.mediacaoSituacao,
+  mediacao: state.mediacao,
+  auth: state.auth
 });
 
-/*const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-
+    ...mediacaoActions
   }, dispatch)
-})*/
+});
 
 export default compose(
   withStyles(style),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Situacao);

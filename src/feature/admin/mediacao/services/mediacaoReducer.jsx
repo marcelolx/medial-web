@@ -5,7 +5,9 @@ import {
   BUSCAR_MENSAGEM_COMPLETE,
   BUSCAR_MENSAGEM_ERROR,
   BUSCAR_MENSAGEM_START,
-  LIMPAR_DADOS_MENSAGEM
+  LIMPAR_DADOS_MENSAGEM,
+  SHOW_NOTIFICACAO,
+  CLOSE_NOTIFICACAO
 } from './mediacaoActionTypes';
 
 const initialState = {
@@ -19,6 +21,9 @@ const initialState = {
   failMessageMensagem: '',
   mediacao: null,
   mensagens: null,
+  showSnackbar: false,
+  snakBarType: '',
+  snakBarMessage: '',
 }
 
 export default function (state = initialState, action) {
@@ -76,6 +81,22 @@ export default function (state = initialState, action) {
         isLoadedMensagem: false,
         mensagens: []
       })
+
+    case SHOW_NOTIFICACAO:
+      return Object.assign({}, state, {
+        ...state,
+        showSnackbar: true,
+        snakBarMessage: action.payload.message,
+        snakBarType: action.payload.type
+      })
+    case CLOSE_NOTIFICACAO:
+      return Object.assign({}, state, {
+        ...state,
+        showSnackbar: false,
+        snakBarMessage: '',
+        snakBarType: ''
+      })
+
 
     default:
       return state;

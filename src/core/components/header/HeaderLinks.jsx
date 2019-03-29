@@ -14,7 +14,7 @@ import Button from '../CustomButton';
 
 import headerLinksStyle from '../../../assets/jss/components/headerLinksStyle';
 
-class HeaderLinks extends React.Component {
+class HeaderLinks extends React.PureComponent {
   state = {
     open: false,
     show: false
@@ -26,19 +26,15 @@ class HeaderLinks extends React.Component {
     this.setState({ open: false });
   };
 
-  logout =() => {
+  logout = () => {
     this.hideAlert();
     this.props.actions.logout();
   }
 
-  hideAlert =() => {
+  hideAlert = () => {
     this.setState({
       alert: null
     });
-  }
-
-  abrirPerfil = () =>{
-    this.props.actions.push('/login');
   }
 
   confirmacaoLogout = () => {
@@ -46,7 +42,7 @@ class HeaderLinks extends React.Component {
       alert: (
         <SweetAlert
           warning
-          style={{ display: 'block',color:`#222` }}
+          style={{ display: 'block', color: `#222` }}
           title='Deseja sair?'
           onConfirm={() => this.logout()}
           onCancel={() => this.hideAlert()}
@@ -69,31 +65,31 @@ class HeaderLinks extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        
+
         {this.state.alert}
-        
-        <Link to={`profile`}>
-         
-         <Button
-          color='transparent'
-          aria-label='Perfil'
-          justIcon
-          className={classes.buttonLink}
-        >
-          <Person
-            className={
-              classes.headerLinksSvg +
-              ' ' +
-              (classes.links)
-            }
-          />
-          <Hidden mdUp implementation='css'>
+
+        <Link to={`/profile`}>
+
+          <Button
+            color='transparent'
+            aria-label='Perfil'
+            justIcon
+            className={classes.buttonLink}
+          >
+            <Person
+              className={
+                classes.headerLinksSvg +
+                ' ' +
+                (classes.links)
+              }
+            />
+            <Hidden mdUp implementation='css'>
               <span className={classes.linkText}>
                 {this.props.auth.nome}
               </span>
             </Hidden>
-        </Button>
-        
+          </Button>
+
         </Link>
         <Button
           color='transparent'
@@ -110,10 +106,10 @@ class HeaderLinks extends React.Component {
             }
           />
           <Hidden mdUp implementation='css'>
-              <span className={classes.linkText}>
-                {'Desconectar-se'}
-              </span>
-            </Hidden>
+            <span className={classes.linkText}>
+              {'Desconectar-se'}
+            </span>
+          </Hidden>
         </Button>
       </div>
     );
@@ -126,7 +122,8 @@ HeaderLinks.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  history: state.history
 });
 
 

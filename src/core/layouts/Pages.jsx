@@ -10,6 +10,7 @@ import PagesHeader from '../../core/components/header/PagesHeader';
 import pagesRoutes from '../../core/routes/pages';
 
 import pagesStyle from '../../assets/jss/layouts/pagesStyle';
+import Homepage from '../../feature/homepage/Homepage';
 
 class Pages extends React.Component {
   componentDidMount() {
@@ -19,33 +20,34 @@ class Pages extends React.Component {
     const { classes, ...rest } = this.props;
 
     return (
-      
+
       <div> <PagesHeader {...rest} />
-       
+
         <div className={classes.wrapper} ref='wrapper'>
-          <div  className={classes.fullPage}>
-             <Switch>
-              {pagesRoutes.map((prop, key) => {
-                if (prop.collapse) {
-                  return null;
-                }
-                if (prop.redirect) {
+          <div className={classes.fullPage}>
+            <Switch>
+              <Route path="/" component={Homepage} exact>     </Route>
+                {pagesRoutes.map((prop, key) => {
+                  if (prop.collapse) {
+                    return null;
+                  }
+                  if (prop.redirect) {
+                    return (
+
+                      <Redirect from={prop.path} to={prop.pathTo} key={key} />
+                    );
+                  }
                   return (
-                    
-                    <Redirect from={prop.path} to={prop.pathTo} key={key} />
+                    <Route
+                      path={prop.path}
+                      component={prop.component}
+                      key={key}
+                    />
                   );
-                }
-                return (
-                  <Route
-                    path={prop.path}
-                    component={prop.component}
-                    key={key}
-                  />
-                );
-              })}
+                })}
             </Switch>
           </div></div>
-        </div>
+      </div>
     );
   }
 }

@@ -2,13 +2,10 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 
 export default function Editor(props) {
-
-
   return (
     <div>
       <ReactQuill
         {...props}
-        style={{ height: 210 }}
         modules={props.noHeader ? { toolbar: [] } : Editor.modules}
         formats={Editor.formats}
 

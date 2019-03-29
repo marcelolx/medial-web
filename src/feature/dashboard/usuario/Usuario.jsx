@@ -17,9 +17,7 @@ import { withRouter } from 'react-router-dom';
 class Usuario extends React.Component {
 
   componentDidMount() {
-    if (this.props.mediacoes.lista.length === 0) {
       this.props.actions.buscarMediacoes(this.props.auth.id);
-    }
   }
 
   dataToTableData = () => {

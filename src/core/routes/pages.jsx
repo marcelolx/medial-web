@@ -7,7 +7,8 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import Launch from '@material-ui/icons/Launch';
 
 const pagesRoutes = [
-  {
+
+   {
     path: '/login',
     name: 'Login',
     short: 'Login',
@@ -22,7 +23,7 @@ const pagesRoutes = [
     mini: 'CA',
     icon: PersonAdd,
     component: User
-  },//{ redirect: true, path: '/pages', pathTo: '/login', name: 'Dashboard' }
+  },// { redirect: true, path: '/dashboard', pathTo: '/login', name: 'Login', component: Login }
 ];
 
 export default pagesRoutes;

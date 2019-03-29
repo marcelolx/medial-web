@@ -1,4 +1,4 @@
-import { PROFILE_COMPLETE,ALTERACAO_SUCESSO,CARREGANDO,ALTERACAO_ERRO,CLOSE_NOTIFICATION } from './profileActionTypes';
+import { PROFILE_COMPLETE,ALTERACAO_SUCESSO,CARREGANDO,ALTERACAO_ERRO,CLOSE_NOTIFICATION,OPEN_NOTIFICATION,CARREGANDO_FINISH } from './profileActionTypes';
 
 const initialState = {
   id: null,
@@ -55,10 +55,21 @@ export default function(state = initialState, action) {
             sucessoAlteracao:true,      
             carregando: true,
         })
+        case CARREGANDO_FINISH: 
+        return Object.assign({}, state,{
+            ...state,     
+            sucessoAlteracao: action.payload,
+            carregando: false,
+        })
         case CLOSE_NOTIFICATION: 
         return Object.assign({}, state,{
             ...state,    
             exibirAlteracao:false
+        })
+        case OPEN_NOTIFICATION: 
+        return Object.assign({}, state,{
+            ...state,    
+            exibirAlteracao:true
         })
     default:
       return state

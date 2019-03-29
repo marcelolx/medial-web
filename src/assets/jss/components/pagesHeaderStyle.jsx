@@ -5,6 +5,7 @@
 import {
   container,
   defaultFont,
+  grayColorVetor,
   primaryColor,
   defaultBoxShadow,
   infoColor,
@@ -18,16 +19,10 @@ import {
 
 const pagesHeaderStyle = theme => ({
   appBar: {
-    backgroundColor: 'transparent',
     boxShadow: 'none',
-    borderBottom: '0',
-    position: 'absolute',
     width: '100%',
-    paddingTop: '10px',
     zIndex: '1029',
     color: '#000',
-    border: '0',
-    borderRadius: '3px',
     padding: '10px 0',
     transition: 'all 150ms ease 0s',
     minHeight: '50px',
@@ -35,7 +30,7 @@ const pagesHeaderStyle = theme => ({
   },
   container: {
     ...container,
-    minHeight: '50px'
+    maxHeight: '50px'
   },
   flex: {
     flex: 1
@@ -43,13 +38,13 @@ const pagesHeaderStyle = theme => ({
   title: {
     ...defaultFont,
     lineHeight: '30px',
-    fontSize: '18px',
+    fontSize: '30px',
     borderRadius: '3px',
     textTransform: 'none',
-    color: '#333',
+    color: grayColorVetor[12],
     '&:hover,&:focus': {
       background: 'transparent',
-      color: '#666'
+      color: grayColorVetor[9]
     }
   },
   appResponsive: {
@@ -105,7 +100,7 @@ const pagesHeaderStyle = theme => ({
     }
   },
   navLink: {
-    color: '#333',
+    color:grayColorVetor[5],
     margin: '0 5px',
     paddingTop: '15px',
     paddingBottom: '15px',
@@ -118,21 +113,18 @@ const pagesHeaderStyle = theme => ({
     display: 'block',
     padding: '10px 15px',
     textDecoration: 'none',
+    [theme.breakpoints.down('sm')]: {
+      color: grayColorVetor[7],
+    },
     '&:hover,&:focus': {
-      color: '#888',
+      color: grayColorVetor[9],
       background: 'rgba(200, 200, 200, 0.2)'
     }
   },
   listItemIcon: {
-    marginTop: '-3px',
-    top: '0px',
-    position: 'relative',
     marginRight: '3px',
-    width: '20px',
-    height: '20px',
     verticalAlign: 'middle',
     color: 'inherit',
-    display: 'inline-block'
   },
   listItemText: {
     flex: 'none',
@@ -183,16 +175,12 @@ const pagesHeaderStyle = theme => ({
     }
   },
   sidebarButton: {
+    color: grayColorVetor[12],
     '&,&:hover,&:focus': {
-      color: '#333'
+      color: grayColorVetor[12]
     },
     top: '-2px'
   }
 });
 
 export default pagesHeaderStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-dashboard-pro-react/components/pagesHeaderStyle.jsx
