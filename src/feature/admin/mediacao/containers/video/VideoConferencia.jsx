@@ -62,7 +62,7 @@ class VideoConferencia extends React.PureComponent {
   }
 
   configurarConexaoRTC() {
-    this.rtcConnection.socketURL = "https://medial.downet.com.br:443/";
+    this.rtcConnection.socketURL = "https://medial.downet.com.br/";
     this.rtcConnection.socketMessageEvent = "video-conferencia-mediacao";
 
     this.rtcConnection.session = {

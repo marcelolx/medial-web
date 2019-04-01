@@ -54,7 +54,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://api.downet.com.br:8080",
+  "proxy": "https://api.downet.com.br",
   "devDependencies": {
     "express": "^4.16.4",
     "node-env-run": "^3.0.2",
