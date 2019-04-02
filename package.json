@@ -50,7 +50,7 @@
     "dev": "run-p server start",
     "start": "react-scripts start",
     "server": "node-env-run server --exec nodemon",
-    "build": "react-scripts build",
+    "build": "react-scripts build --env prod",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
