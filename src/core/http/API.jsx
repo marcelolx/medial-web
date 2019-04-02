@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API = axios.create({
-  baseURL: process.env.REACT_APP_API_HOST + '/api/',
+  baseURL: process.env.REACT_APP_API_HOST + 'api/',
   timeout: 15000,
 });
 
@@ -23,11 +23,11 @@ API.interceptors.request.use((config) => {
 });
 
 export const GraphQLAPI = axios.create({
-  baseURL:  process.env.REACT_APP_API_HOST + '/api/graphql',
+  baseURL:  process.env.REACT_APP_API_HOST + 'api/graphql',
 });
 
 export function getWebSocketAddres() {
-  return process.env.REACT_APP_API_HOST + '/api/websocket';
+  return process.env.REACT_APP_API_HOST + 'api/websocket';
 }
 
 export function getHeaders() {
