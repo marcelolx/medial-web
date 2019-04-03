@@ -52,9 +52,6 @@ function logoutComplete() {
 export function validarLogin(){
   return function(dispatch) {
     return API.post('/usuario/validarLogin')
-      .then(response => {
-        console.log(response);
-      })
       .catch(err => {
         dispatch(logoutComplete());
       })
