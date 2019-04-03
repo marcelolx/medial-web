@@ -9,6 +9,7 @@ import Button from '../../../../../core/components/CustomButton';
 import Card from '../../../../../core/components/card/Card';
 import CardHeader from '../../../../../core/components/card/CardHeader'
 import CardBody from '../../../../../core/components/card/CardBody';
+import withRouter from 'react-router-dom/withRouter';
 
 const style = ({
   ...buttonStyle,
@@ -77,7 +78,7 @@ class VideoConferencia extends React.PureComponent {
 
     this.rtcConnection.videosContainer = document.getElementById("videos-container");
     this.rtcConnection.onstream = (event) => this.onStreamRTC(event);
-    this.rtcConnection.onstreamended = (event) =>  this.onStreamendedRTC(event);
+    this.rtcConnection.onstreamended =  (event) =>  this.onStreamendedRTC(event);
     this.rtcConnection.onmediaerror = (event, constraints) => this.onMediaErrorRTC(event, constraints);
     this.rtcConnection.onleave = (userid) => this.onLeaveRTC(userid);
   }
@@ -155,17 +156,6 @@ class VideoConferencia extends React.PureComponent {
     this.props.history.push(`/`);
   }
 
-  _handleClickMediacao() {
-    
-    this.rtcConnection.getAllParticipants().forEach(pid => this.rtcConnection.disconnectWith(pid));
-
-    this.rtcConnection.attachStreams.forEach(localStream => localStream.stop());
-
-    this.rtcConnection.closeSocket();
-
-    this.props.history.goBack();
-  }
-
   sweatMediacaoInvalida() {
     const { classes } = this.props;
 
@@ -185,7 +175,16 @@ class VideoConferencia extends React.PureComponent {
   }
 
   _handleClickSolicitacao() {
-    //Alterar redux para exibir motivo
+
+    this.rtcConnection.getAllParticipants().forEach(pid => this.rtcConnection.disconnectWith(pid));
+
+    this.rtcConnection.attachStreams.forEach(localStream => localStream.stop());
+
+    this.rtcConnection.closeSocket();
+
+    setTimeout(() => {
+      this.props.onShowMediacao();
+    }, 100);
   }
 
   render() {
@@ -211,12 +210,9 @@ class VideoConferencia extends React.PureComponent {
             <div id="videos-container" />
           </CardBody>
         </Card>
-        <Button onClick={() => this._handleClickMediacao()} >
-          Voltar
-        </Button>
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(style)(VideoConferencia);
+export default withRouter(withStyles(style)(VideoConferencia));

@@ -23,6 +23,9 @@ const style = theme => ({
   cardMensagens: {
     height: '478px'
   },
+  cardMensagensConferencia: {
+    height: '370px',
+  },
   semMargen: {
     margin: 0,
   },
@@ -43,7 +46,6 @@ const style = theme => ({
 });
 
 class Mensagens extends React.PureComponent {
-
 
   state = {
     messages: [],
@@ -166,13 +168,13 @@ class Mensagens extends React.PureComponent {
   }
 
   render() {
-    const { classes, anexos } = this.props;
-
+    const { classes, anexos, isVideoConferencia } = this.props;
+    
     return (
       <React.Fragment>
         <Loader open={anexos.isUploading} />
         {this.props.mediacao.mediacao !== null ? this.onSockJSClient() : null}
-        <Card className={classes.cardMensagens}>
+        <Card className={isVideoConferencia ? classes.cardMensagensConferencia : classes.cardMensagens}>
           <CardHeader color='success'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mensagens</h4>
           </CardHeader>
@@ -182,6 +184,7 @@ class Mensagens extends React.PureComponent {
               currentUser={this.props.auth.nome}
               messages={this.state.messages}
               loadMoreData={() => this.loadMoreData()}
+              chatBoxBodyStyle={isVideoConferencia ? 'body-video-conf' : 'body'}
               canLoadMoreData
             />
           </CardBody>

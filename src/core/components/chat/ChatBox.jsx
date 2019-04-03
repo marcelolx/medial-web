@@ -9,7 +9,8 @@ const htmlId = require('react-html-id');
 class ChatBox extends React.Component {
 
   static defaultProps = {
-    connected: true
+    connected: true,
+    chatBoxBodyStyle: 'body'
   }
 
   static propTypes = {
@@ -23,7 +24,8 @@ class ChatBox extends React.Component {
       messageType: PropTypes.string.isRequired
     })),
 
-    style: PropTypes.object
+    style: PropTypes.object,
+    chatBoxBodyStyle: PropTypes.oneOf(['body', 'body-video-conf'])
   }
 
   constructor(props) {
@@ -31,7 +33,6 @@ class ChatBox extends React.Component {
     htmlId.enableUniqueIds(this);
     this.chatBoxId = this.nextUniqueId();
     this.messages = [];
-
   }
 
   componentWillUpdate() {
@@ -71,7 +72,7 @@ class ChatBox extends React.Component {
   render() {
     return (
       <div className='talk-box-wrapper custom' style={this.props.style}>
-        <div className={`talk-box-body`} ref="messageList" name={this.chatBoxId} id={this.chatBoxId} onScroll={(evt) => this.handleScroll(evt, this.props.canLoadMoreData)}>
+        <div className={`talk-box-${this.props.chatBoxBodyStyle}`} ref="messageList" name={this.chatBoxId} id={this.chatBoxId} onScroll={(evt) => this.handleScroll(evt, this.props.canLoadMoreData)}>
           {this.props.messages.map((item, i) => <ChatMessage
             key={i}
             timestamp={parseInt(item.timestamp)}
