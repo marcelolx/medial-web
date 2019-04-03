@@ -11,8 +11,6 @@ import Profile from '../../feature/profile/Profile';
 import Configurations from '../../feature/admin/configuration/Configurations';
 import CadastroPendente from '../../feature/admin/cadastropendente/CadastroPendente';
 import Negociador from '../../feature/dashboard/negociador/Negociador';
-import VideoConferencia from '../../feature/admin/mediacao/containers/video/VideoConferencia';
-
 
 var dashRoutes = [
   {
@@ -100,14 +98,6 @@ var dashRoutes = [
     nivel:[1,2],
     naoExibe: true,
     component: Negociador
-  },
-  {
-    path: '/mediacao/videoconferencia',
-    name: 'Video conferência',
-    icon: People,
-    nivel: [1,4,99],
-    naoExibe: true,
-    component: VideoConferencia
   },
   { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },
   { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },

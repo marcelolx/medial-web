@@ -29,7 +29,8 @@ const style = ({
     margin: 0
   },
   flexCard: {
-    display: 'flex'
+    display: 'flex',
+    padding: '10px !important',
   }
 });
 
@@ -96,7 +97,7 @@ class VideoConferencia extends React.PureComponent {
       existing.parentNode.removeChild(existing);
     }
 
-    event.mediaElement.style = 'width: 300px; margin: 1px'
+    event.mediaElement.style = 'width: 300px; height: 225; margin: 1px'
 
     this.rtcConnection.videosContainer.appendChild(event.mediaElement);
 
@@ -182,7 +183,9 @@ class VideoConferencia extends React.PureComponent {
 
     this.rtcConnection.closeSocket();
 
-    setTimeout(() => {
+    //Gambi :'(, se não tiver um timeout, ele destroi o componente antes de passar pelos eventos
+    //onLeave, onStreamended.
+    setTimeout(() => { 
       this.props.onShowMediacao();
     }, 100);
   }
@@ -206,7 +209,7 @@ class VideoConferencia extends React.PureComponent {
               Solicitação
             </Button>
           </CardHeader>
-          <CardBody>
+          <CardBody smallCardBody>
             <div id="videos-container" />
           </CardBody>
         </Card>

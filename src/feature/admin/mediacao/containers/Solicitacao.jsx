@@ -57,8 +57,6 @@ class Solicitacao extends React.PureComponent {
   _handleClickVideoConferencia() {
     
     this.props.onShowVideoConferencia();
-    //this.props.history.push(`/mediacao/videoconferencia?id=${this.props.mediacao.mediacao.id}`);
-    
   }
 
   render() {
