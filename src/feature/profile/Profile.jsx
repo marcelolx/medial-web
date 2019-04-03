@@ -21,6 +21,7 @@ import Snackbar from '../../core/components/snackbar/Snackbar';
 import Button from '../../core/components/CustomButton';
 import ImageUpload from '../../core/components/ImageUpload';
 import { TextMaskCellPhone } from '../../core/components/Masks';
+import API from '../../core/http/API';
 
 const styles = theme => ({
   root: {
@@ -407,6 +408,26 @@ class Profile extends Component {
     />
   }
 
+  _uploadFile(file) {
+
+    this.props.actions.carregando();
+    let formData = new FormData();
+    formData.append('file', file);
+
+    API.post('/profile/uploadAvatar', formData)
+      .then(response => {
+        this.props.actions.carregandoFinish(true);
+        this.props.actions.openNotification();
+
+      })
+      .catch(err => {
+        this.props.actions.carregandoFinish(false);
+        this.props.actions.openNotification();
+      });
+
+
+  }
+
   render() {
     const { classes, cidades, estados, profileInfo } = this.props;
 
@@ -609,9 +630,9 @@ class Profile extends Component {
               <CardBody profile>
                 <GridContainer justify='center'>
                   <GridItem xs={12} sm={12} md={12}>
-                    <legend>Em constructor</legend>
                     <ImageUpload
-                      avatar
+                      upload={(file) => this._uploadFile(file)}
+                      imagem={this.state.avatar}
                       adicionarButtonProps={{
                         color: 'secondary',
                         round: true

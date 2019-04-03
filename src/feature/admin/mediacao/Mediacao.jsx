@@ -7,10 +7,13 @@ import Anexos from './containers/Anexos';
 import Mensagens from './containers/Mensagens';
 import Solicitacao from './containers/Solicitacao';
 import VideoConferencia from './containers/video/VideoConferencia';
+import queryString from 'query-string';
+
 
 class Mediacao extends React.PureComponent {
 
   state = {
+    codigoMediacao: queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id,
     exibirVideoConferencia: false
   }
 
@@ -19,29 +22,37 @@ class Mediacao extends React.PureComponent {
   }
 
   getGridColumnsBigScreen() {
-    return !this.state.exibirVideoConferencia ? 9 : 12;
+    return !this.state.exibirVideoConferencia ? 9 : 12;    
   }
 
   render() {
-    return(
+    const { codigoMediacao } = this.state;
+    
+    return (
       <React.Fragment>
         <GridContainer justify='center'>
           <GridItem xs={12} sm={12} md={this.getGridColumnsBigScreen()} lg={this.getGridColumnsBigScreen()}>
-            
             {
               !this.state.exibirVideoConferencia
-              ? <Solicitacao onShowVideoConferencia={() => this.handleAlterarVideoConferenciaView()} /> 
-              : <VideoConferencia onShowMediacao={() => this.handleAlterarVideoConferenciaView()} />
+              ? <Solicitacao 
+                  codigoMediacao={codigoMediacao}
+                  onShowVideoConferencia={() => this.handleAlterarVideoConferenciaView()} 
+                /> 
+              : <VideoConferencia
+                  codigoMediacao={codigoMediacao}
+                  onShowMediacao={() => this.handleAlterarVideoConferenciaView()} 
+                />
             }
-            <Mensagens 
+            <Mensagens
+              codigoMediacao={codigoMediacao}
               isVideoConferencia={this.state.exibirVideoConferencia}
             />
           </GridItem>
           {!this.state.exibirVideoConferencia ? (
             <GridItem xs={12} sm={12} md={3} lg={3}>
-              <Situacao />
-              <Acordos />
-              <Anexos />
+              <Situacao codigoMediacao={codigoMediacao} />
+            <Acordos codigoMediacao={codigoMediacao} />
+            <Anexos codigoMediacao={codigoMediacao} />
             </GridItem>
           ) : null }
         </GridContainer>

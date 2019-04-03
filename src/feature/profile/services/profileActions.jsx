@@ -1,26 +1,20 @@
 import { API } from '../../../core/http/API';
-import { PROFILE_COMPLETE,ALTERACAO_SUCESSO,ALTERACAO_ERRO,CARREGANDO,CLOSE_NOTIFICATION } from './profileActionTypes';
+import { PROFILE_COMPLETE, ALTERACAO_SUCESSO, ALTERACAO_ERRO, CARREGANDO, CLOSE_NOTIFICATION, OPEN_NOTIFICATION, CARREGANDO_FINISH } from './profileActionTypes';
 import { UNAUTHORIZED } from '../../../core/services/errors/errorActionTypes'
 
-export function loadProfile(token) {
+export function loadProfile() {
 
-  const config = {
-    headers:{
-      Authorization: token,
-    }
-  }
-
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(carregando())
-    return API.get('/profile/adquirir',config)
+    return API.get('/profile/adquirir')
       .then(response => {
         dispatch(loadProfileComplete(response.data))
       })
       .catch(err => {
         if (err.response !== undefined) {
-        
-          switch(err.response.status){
-            case 403:{
+
+          switch (err.response.status) {
+            case 403: {
               console.log('Não autorizado')
               dispatch(unauthorizedError())
               break;
@@ -38,38 +32,38 @@ export function loadProfile(token) {
 export function salvarDadosBasicos(data) {
 
 
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(carregando())
-    return API.post('/profile/atualizarDadosBasicos',data)
+    return API.post('/profile/atualizarDadosBasicos', data)
       .then(response => {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
         dispatch(erroAlteracao(err))
-        
+
       })
   }
 }
 
 export function atualizarDadosLogin(data) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(carregando())
-    return API.post('/profile/atualizarDadosLogin',data)
+    return API.post('/profile/atualizarDadosLogin', data)
       .then(response => {
         dispatch(sucessoAlteracao(response.data))
       })
       .catch(err => {
         dispatch(erroAlteracao(err))
-      
+
       })
   }
 }
 
 
 export function atualizarDadosEndereco(data) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(carregando())
-    return API.post('/profile/atualizarDadosEndereco',data)
+    return API.post('/profile/atualizarDadosEndereco', data)
       .then(response => {
         dispatch(sucessoAlteracao(response.data))
       })
@@ -79,10 +73,26 @@ export function atualizarDadosEndereco(data) {
   }
 }
 
-export function  closeNotification() {
+export function closeNotification() {
   return {
     type: CLOSE_NOTIFICATION,
   }
+}
+export function openNotification() {
+
+    return { 
+      type: OPEN_NOTIFICATION
+    }
+  
+}
+
+export function carregandoFinish(valor) {
+
+    return { 
+      type: CARREGANDO_FINISH,
+      payload: valor
+    }
+  
 }
 
 function unauthorizedError() {
@@ -112,7 +122,7 @@ function erroAlteracao(response) {
 }
 
 
-function carregando() {
+export function carregando() {
   return {
     type: CARREGANDO
   }

@@ -44,11 +44,17 @@ const styles = ({
   },
   halfWidth: {
     width: '50%'
+  },
+  label: {
+    '& span': {
+      overflow: 'hidden',
+    }
   }
+
 });
 
-function CustomChip({ ...props }) {  
-  
+function CustomChip({ ...props }) {
+
   const {
     classes,
     color,
@@ -60,11 +66,14 @@ function CustomChip({ ...props }) {
   const chipClasses = classNames({
     [classes[color]]: color,
     [className]: className,
-    [classes[width]]: width
+    [classes[width]]: width,
+    [classes['label']]: {
+      overflow: 'hidden'
+    },
   });
 
   return (
-    <Chip { ...rest } className={chipClasses} />
+    <Chip {...rest} className={chipClasses} />
   );
 }
 

@@ -1,14 +1,12 @@
 const pagesStyle = theme => ({
   wrapper: {
     height: 'auto',
-    minHeight: '100vh',
     position: 'relative',
     top: '0'
   },
   fullPage: {
     position: 'relative',
     minHeight: '100vh',
-    display: 'flex!important',
     margin: '0',
     border: '0',
     color: '#000',

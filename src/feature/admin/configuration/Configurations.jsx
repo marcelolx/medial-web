@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import GridContainer from '../../../core/components/grid/GridContainer';
 import GridItem from '../../../core/components/grid/GridItem';
@@ -28,7 +28,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit,
-  }, 
+  },
   textRight: {
     textAlign: 'right',
   },
@@ -55,35 +55,35 @@ const styles = theme => ({
     top: '-1px',
     position: 'relative'
   },
-  marginZero:{
+  marginZero: {
     margin: '0',
   },
-  paddingGrid:{
+  paddingGrid: {
     padding: '0 5px',
   },
-  titleCard:{
+  titleCard: {
     width: '100px',
     float: 'left',
-    marginTop:'10px',
-    fontWeight:300,
-    color:'#3C4858'
+    marginTop: '10px',
+    fontWeight: 300,
+    color: '#3C4858'
   },
-  modal:{
+  modal: {
     padding: '35px 25px 15px 25px'
   },
   overlay: {
     zIndex: 99999,
   },
-  closeButton:{
+  closeButton: {
     cursor: 'pointer'
   }
 });
 class Configurations extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.state={
+    this.state = {
       conflitoState: '',
       conflitoAssuntoState: '',
       assuntoState: '',
@@ -95,7 +95,7 @@ class Configurations extends React.Component {
       atualizar: true,
       modalAssunto: false,
       modalConflito: false,
-      codigo:null,
+      codigo: null,
       mensagemErro: '',
     }
     this.openModal = this.openModal.bind(this);
@@ -107,55 +107,55 @@ class Configurations extends React.Component {
     if (modal === 'modalAssunto') {
       this.props.actions.getConflitos();
     }
-      
-    this.setState({[modal]: true});
+
+    this.setState({ [modal]: true });
   }
   closeModal(modal) {
-    this.setState({[modal]: false});
+    this.setState({ [modal]: false });
   }
 
-  atualizarConflito = linha =>{
+  atualizarConflito = linha => {
     this.setState({
       conflito: linha.conflito,
-      codigo:linha.id,
+      codigo: linha.id,
       conflitoState: 'success',
     })
 
     this.openModal('modalConflito');
   }
 
-  onBlurModal = () =>{
+  onBlurModal = () => {
     this.setState({
       codigo: null,
       conflitoState: 'error',
       conflitoAssuntoState: 'error',
       assuntoState: 'error',
-      conflitoAssunto:null,
+      conflitoAssunto: null,
       conflito: ``,
-      assunto:``,
+      assunto: ``,
       mensagemErro: null,
 
     })
   }
   atualizarAssunto = linha => {
     this.setState({
-      conflitoAssunto: {'value':linha.codigoConflito,'label':linha.conflito},
-      assunto: linha.assunto ,
+      conflitoAssunto: { 'value': linha.codigoConflito, 'label': linha.conflito },
+      assunto: linha.assunto,
       conflitoAssuntoState: 'success',
       assuntoState: 'success',
-      codigo:linha.id,
+      codigo: linha.id,
     })
-   this.openModal('modalAssunto');
+    this.openModal('modalAssunto');
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.actions.getConfiguracao();
   }
 
-  salvarConflito =() =>{
+  salvarConflito = () => {
     this.errorRemove();
 
-    if (this.state.conflitoState === 'error'){
+    if (this.state.conflitoState === 'error') {
       this.error();
       return;
     }
@@ -165,22 +165,22 @@ class Configurations extends React.Component {
       conflito: this.state.conflito,
     }
     this.props.actions.salvarConflito(data);
-    
+
     this.sucessoRecarregar('modalConflito');
   }
-  
-  sucessoRecarregar= tipoModal =>{
+
+  sucessoRecarregar = tipoModal => {
     this.closeModal(tipoModal);
     this.setState({
       atualizar: true,
     })
 
-  
+
   }
 
-  salvarAssunto = () =>{
+  salvarAssunto = () => {
     this.errorRemove();
-    if (this.state.conflitoAssuntoState === 'error' || this.state.assuntoState === 'error'){
+    if (this.state.conflitoAssuntoState === 'error' || this.state.assuntoState === 'error') {
       this.error();
       return;
     }
@@ -191,38 +191,38 @@ class Configurations extends React.Component {
       codigoConflito: this.state.conflitoAssunto.value,
     }
     this.props.actions.salvarAssunto(data);
-  
+
     this.sucessoRecarregar('modalAssunto');
   }
 
-  errorRemove =() => {
-    this.setState({'mensagemErro': null})
+  errorRemove = () => {
+    this.setState({ 'mensagemErro': null })
   }
 
-  error=()=>{
-    this.setState({'mensagemErro': 'Favor, revisar os campos para continuar'})
+  error = () => {
+    this.setState({ 'mensagemErro': 'Favor, revisar os campos para continuar' })
   }
 
-  stateSuccess(stateName){
+  stateSuccess(stateName) {
     this.setState({ [stateName + 'State']: 'success' });
   }
 
-  stateError(stateName){
+  stateError(stateName) {
     this.setState({ [stateName + 'State']: 'error' });
   }
 
   change(event, stateName, type, min, max) {
-    
+
     switch (type) {
       case 'texto':
-          if (verifyLength(event.target.value, 3)) {
-            this.stateSuccess(stateName);
-          } else {
-            this.stateError(stateName);
-          }
+        if (verifyLength(event.target.value, 3)) {
+          this.stateSuccess(stateName);
+        } else {
+          this.stateError(stateName);
+        }
         break;
-       case 'range':
-          
+      case 'range':
+
         if (verifyLength(event.target.value, min) && !verifyLength(event.target.value, max)) {
           this.stateSuccess(stateName);
         } else {
@@ -238,200 +238,200 @@ class Configurations extends React.Component {
     this.setState({
       [name]: selecionado
     });
-    if (selecionado.length !== 0) {       
+    if (selecionado.length !== 0) {
       this.stateSuccess(name);
     } else {
       this.stateError(name);
     }
   }
 
-  componentWillUpdate  = () => {
+  componentWillUpdate = () => {
     if (this.state.atualizar) {
-        this.atribuirBotoes()
+      this.atribuirBotoes()
     }
-  
+
   }
 
   atribuirBotoes = () => {
-    const {classes} = this.props;
+    const { classes } = this.props;
     this.setState({
-      conflitos: this.props.configuracao.conflitos!== undefined 
+      conflitos: this.props.configuracao.conflitos !== undefined
         ? this.props.configuracao.conflitos.map((prop, key) => {
           return {
             id: prop.id,
-            conflito:  prop.conflito,
-            actions: (     
+            conflito: prop.conflito,
+            actions: (
               <div>
                 {
-                  <Button color='success' className={classes.actionButton} key={key}  onClick={() => this.atualizarConflito(prop)}>
-                    <Edit/>
+                  <Button color='success' className={classes.actionButton} key={key} onClick={() => this.atualizarConflito(prop)}>
+                    <Edit />
                   </Button>
                 }
               </div>
             )
           }
         })
-      :[],
-      assuntos: this.props.configuracao.assuntos!== undefined 
+        : [],
+      assuntos: this.props.configuracao.assuntos !== undefined
         ? this.props.configuracao.assuntos.map((prop, key) => {
           return {
             id: prop.id,
-            assunto:  prop.assunto,
+            assunto: prop.assunto,
             conflito: prop.conflito,
-            actions: (     
-               <div>
-                  {
-                    <Button color='success' className={classes.actionButton} key={key}  onClick={() => this.atualizarAssunto(prop)}>
-                      <Edit/>
-                    </Button>
-                  }
-               </div>
+            actions: (
+              <div>
+                {
+                  <Button color='success' className={classes.actionButton} key={key} onClick={() => this.atualizarAssunto(prop)}>
+                    <Edit />
+                  </Button>
+                }
+              </div>
             )
           }
         })
-      :[],
-      atualizar:false,
-      })
-  } 
+        : [],
+      atualizar: false,
+    })
+  }
 
   render() {
-    const {classes}  = this.props;
-    const {conflitosAssuntos} = this.props.configuracao;
-  
+    const { classes } = this.props;
+    const { conflitosAssuntos } = this.props.configuracao;
+
     return (
       <>
-       <GridContainer>
+        <GridContainer>
           <GridItem xs={12} sm={12} md={6} className={classes.paddingGrid}>
             <Card>
-             <CardHeader  color='primary' icon>
-                  <CardIcon  color='primary'>
-                    <Person/>
-                  </CardIcon>
-                   <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Conflitos</h4>
-                   <Button color='primary' className={classes.right}  onClick={() => this.openModal('modalConflito')}>Novo Conflito</Button>
-               </CardHeader>
+              <CardHeader color='primary' icon>
+                <CardIcon color='primary'>
+                  <Person />
+                </CardIcon>
+                <h4 className={[classes.marginZero, classes.titleCard].join(` `)}> Conflitos</h4>
+                <Button color='primary' className={classes.right} onClick={() => this.openModal('modalConflito')}>Novo Conflito</Button>
+              </CardHeader>
               <CardBody>
-                        <Table
-                        tableHead={[
-                          '#',
-                          'Conflitos',
-                          'Acões'
-                        ]}
-                        tableData={ this.state.conflitos !== undefined ? this.state.conflitos.map(
-                          n=> 
-                          [
-                           n.id,
-                           n.conflito,
-                           n.actions
-                          ]
-                        ):[]}
-                        customCellClasses={[
-                          classes.center,
-                          classes.textRight,
-                        ]}
-                        customClassesForCells={[0, 2]}
-                        customHeadCellClasses={[
-                          classes.center,
-                          classes.textRight,
-                        ]}
-                        customHeadClassesForCells={[0, 2]}
-                      />
-                        <Modal open={this.state.modalConflito}  classNames={classes} onExited={()=>this.onBlurModal()} onClose={()=>this.closeModal('modalConflito')} center>
-                          
-                        <CustomInput
-                            success={this.state.conflitoState === 'success'}
-                            error={this.state.conflitoState === 'error'}
-                            labelText='Conflito *'
-                            id='conflito'
-                            formControlProps={{
-                              fullWidth: true
-                            }} 
-                            inputProps={{
-                              value: this.state.conflito,
-                              onChange: event =>
-                              this.change(event, 'conflito', 'range',3,25)
-                            }}
-                          />
-                        <p>{this.state.mensagemErro && this.state.conflitoState === 'error'? this.state.mensagemErro: null }</p>
-                        <Button className={classes.right} color='secondary' onClick={this.salvarConflito}>Salvar Conflito</Button>
-               </Modal>
+                <Table
+                  tableHead={[
+                    '#',
+                    'Conflitos',
+                    'Acões'
+                  ]}
+                  tableData={this.state.conflitos !== undefined ? this.state.conflitos.map(
+                    n =>
+                      [
+                        n.id,
+                        n.conflito,
+                        n.actions
+                      ]
+                  ) : []}
+                  customCellClasses={[
+                    classes.center,
+                    classes.textRight,
+                  ]}
+                  customClassesForCells={[0, 2]}
+                  customHeadCellClasses={[
+                    classes.center,
+                    classes.textRight,
+                  ]}
+                  customHeadClassesForCells={[0, 2]}
+                />
+                <Modal open={this.state.modalConflito} classNames={classes} onExited={() => this.onBlurModal()} onClose={() => this.closeModal('modalConflito')} center>
+
+                  <CustomInput
+                    success={this.state.conflitoState === 'success'}
+                    error={this.state.conflitoState === 'error'}
+                    labelText='Conflito *'
+                    id='conflito'
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      value: this.state.conflito,
+                      onChange: event =>
+                        this.change(event, 'conflito', 'range', 3, 25)
+                    }}
+                  />
+                  <p>{this.state.mensagemErro && this.state.conflitoState === 'error' ? this.state.mensagemErro : null}</p>
+                  <Button className={classes.right} color='secondary' onClick={this.salvarConflito}>Salvar Conflito</Button>
+                </Modal>
               </CardBody>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={6} className={classes.paddingGrid}>
             <Card>
-              <CardHeader  color='primary' icon>
-                  <CardIcon  color='primary'>
-                    <Person/>
-                  </CardIcon>
-                   <h4 className={[classes.marginZero,classes.titleCard].join(` `)}> Assuntos</h4>
-                   <Button color='primary' className={classes.right} onClick={() => this.openModal('modalAssunto')}>Novo Assunto</Button>
-               </CardHeader>
+              <CardHeader color='primary' icon>
+                <CardIcon color='primary'>
+                  <Person />
+                </CardIcon>
+                <h4 className={[classes.marginZero, classes.titleCard].join(` `)}> Assuntos</h4>
+                <Button color='primary' className={classes.right} onClick={() => this.openModal('modalAssunto')}>Novo Assunto</Button>
+              </CardHeader>
               <CardBody>
-                        <Table
-                        tableHead={[
-                          '#',
-                          'Assunto',
-                          'Conflito',
-                          'Acões'
-                        ]}
-                        tableData={this.state.assuntos !== undefined ? this.state.assuntos.map(
-                          n=> [
-                           n.id,
-                           n.assunto,
-                           n.conflito,
-                           n.actions
-                          ]
-                        ):[]}
-                        customCellClasses={[
-                          classes.center,
-                          classes.textRight,
-                        ]}
-                        customClassesForCells={[0, 3]}
-                        customHeadCellClasses={[
-                          classes.center,
-                          classes.textRight,
-                        ]}
-                        customHeadClassesForCells={[0, 3]}
-                      />
-              </CardBody> 
-            
-                 <Modal open={this.state.modalAssunto}  classNames={classes} onExited={this.onBlurModal} onClose={()=>this.closeModal('modalAssunto')} center>
-                            <SearchSelect
-                              opcoes={conflitosAssuntos || []}
-                              name='conflitoAssunto'
-                              onChange={(name, value) => this.handleSelectChange(name, value)}
-                              value={this.state.conflitoAssunto}
-                              placeholder='Conflitos'
-                              formControlProps={{
-                                fullWidth: true,
-                              }}
-                              error={this.state.conflitoAssuntoState === 'error'}
-                              errorHelperText='Selecione o conflito'
-                            />
-                          <CustomInput
-                            success={this.state.assuntoState === 'success'}
-                            error={this.state.assuntoState === 'error'}
-                            labelText='Assunto *'
-                            id='assunto'
-                            formControlProps={{
-                              fullWidth: true
-                            }} 
-                            inputProps={{
-                              value: this.state.assunto,
-                              onChange: event =>
-                              this.change(event, 'assunto', 'range',3,25)
-                            }}
-                            errorHelperText='Informe o nome do assunto'
-                          />
-                        <p>{this.state.mensagemErro && this.state.assuntoState === 'error'? this.state.mensagemErro: null }</p>
-                        <Button color='secondary' className={classes.right}  onClick={this.salvarAssunto}>Salvar Assunto</Button>
-               </Modal>
+                <Table
+                  tableHead={[
+                    '#',
+                    'Assunto',
+                    'Conflito',
+                    'Acões'
+                  ]}
+                  tableData={this.state.assuntos !== undefined ? this.state.assuntos.map(
+                    n => [
+                      n.id,
+                      n.assunto,
+                      n.conflito,
+                      n.actions
+                    ]
+                  ) : []}
+                  customCellClasses={[
+                    classes.center,
+                    classes.textRight,
+                  ]}
+                  customClassesForCells={[0, 3]}
+                  customHeadCellClasses={[
+                    classes.center,
+                    classes.textRight,
+                  ]}
+                  customHeadClassesForCells={[0, 3]}
+                />
+              </CardBody>
+
+              <Modal open={this.state.modalAssunto} classNames={classes} onExited={this.onBlurModal} onClose={() => this.closeModal('modalAssunto')} center>
+                <SearchSelect
+                  opcoes={conflitosAssuntos || []}
+                  name='conflitoAssunto'
+                  onChange={(name, value) => this.handleSelectChange(name, value)}
+                  value={this.state.conflitoAssunto}
+                  placeholder='Conflitos'
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  error={this.state.conflitoAssuntoState === 'error'}
+                  errorHelperText='Selecione o conflito'
+                />
+                <CustomInput
+                  success={this.state.assuntoState === 'success'}
+                  error={this.state.assuntoState === 'error'}
+                  labelText='Assunto *'
+                  id='assunto'
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                  inputProps={{
+                    value: this.state.assunto,
+                    onChange: event =>
+                      this.change(event, 'assunto', 'range', 3, 25)
+                  }}
+                  errorHelperText='Informe o nome do assunto'
+                />
+                <p>{this.state.mensagemErro && this.state.assuntoState === 'error' ? this.state.mensagemErro : null}</p>
+                <Button color='secondary' className={classes.right} onClick={this.salvarAssunto}>Salvar Assunto</Button>
+              </Modal>
             </Card>
           </GridItem>
         </GridContainer>
-        
-     </>
+
+      </>
     );
   }
 }

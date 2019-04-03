@@ -12,10 +12,10 @@ import CustomInput from '../../../../core/components/CustomInput';
 import bindActionCreators from 'redux/src/bindActionCreators';
 import * as mediacaoActions from '../services/mediacaoActions';
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 import Editor from '../../../../core/components/Editor'
 import buttonStyle from '../../../../assets/jss/components/buttonStyle';
 import Button from '../../../../core/components/CustomButton';
+import Snackbar from '../../../../core/components/snackbar/Snackbar';
 
 
 const style = ({
@@ -43,7 +43,7 @@ const style = ({
 class Solicitacao extends React.PureComponent {
 
   componentDidMount() {
-    this.props.actions.buscarMediacao(queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id);
+    this.props.actions.buscarMediacao(this.props.codigoMediacao);
   }
 
   getMediacaoValueOrDefault(prop) {
@@ -57,6 +57,27 @@ class Solicitacao extends React.PureComponent {
   _handleClickVideoConferencia() {
     
     this.props.onShowVideoConferencia();
+  }
+
+  alteracaoStatus() {
+    this.notificationCloseAuto();
+    return <Snackbar
+      place='tr'
+      color={this.props.mediacao.snakBarType}
+      message={this.props.mediacao.snakBarMessage}
+      open
+      closeNotification={() => this.props.actions.closeNotificacao()}
+      close
+    />
+  }
+
+  notificationCloseAuto() {
+    setTimeout(
+      function () {
+        this.props.actions.closeNotificacao()
+      }.bind(this),
+      6000
+    );
   }
 
   render() {
@@ -78,9 +99,11 @@ class Solicitacao extends React.PureComponent {
       <h4>{`Você não tem permissão para acessar essa mediação`}</h4>
     </SweetAlert>;
 
+
     return (
       <React.Fragment>
         {mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO' ? semAcesso : null}
+        {mediacao.showSnackbar? this.alteracaoStatus() :null}
         <Card>
           <CardHeader 
             color='success'
@@ -136,7 +159,7 @@ class Solicitacao extends React.PureComponent {
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={9} lg={9}>
-                <Editor  value={this.getMediacaoValueOrDefault('motivo')}
+                <Editor value={this.getMediacaoValueOrDefault('motivo')}
                   readOnly
                   noHeader={true}
                 />

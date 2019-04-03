@@ -1,5 +1,32 @@
 const drawerWidth = 260;
 
+
+const hexToRgb = input => {
+  input = input + "";
+  input = input.replace("#", "");
+  let hexRegex = /[0-9A-Fa-f]/g;
+  if (!hexRegex.test(input) || (input.length !== 3 && input.length !== 6)) {
+    throw new Error("input is not a valid hex color.");
+  }
+  if (input.length === 3) {
+    let first = input[0];
+    let second = input[1];
+    let last = input[2];
+    input = first + first + second + second + last + last;
+  }
+  input = input.toUpperCase(input);
+  let first = input[0] + input[1];
+  let second = input[2] + input[3];
+  let last = input[4] + input[5];
+  return (
+    parseInt(first, 16) +
+    ", " +
+    parseInt(second, 16) +
+    ", " +
+    parseInt(last, 16)
+  );
+};
+
 const transition = {
   transition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)'
 };
@@ -29,7 +56,7 @@ const card = {
 
 const defaultFont = {
   fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-  fontWeight: '300',
+  fontWeight: '400',
   lineHeight: '1.5em'
 };
 
@@ -41,6 +68,59 @@ const successColor = '#4caf50';
 const infoColor = '#EC6745';
 const roseColor = '#e91e63';
 const grayColor = '#999999';
+const grayColorVetor = [
+  "#999",
+  "#777",
+  "#3C4858",
+  "#AAAAAA",
+  "#D2D2D2",
+  "#DDD",
+  "#555555",
+  "#333",
+  "#eee",
+  "#ccc",
+  "#e4e4e4",
+  "#E5E5E5",
+  "#f9f9f9",
+  "#f5f5f5",
+  "#495057",
+  "#e7e7e7",
+  "#212121",
+  "#c8c8c8",
+  "#505050"
+];
+const blackColor = "#000";
+const whiteColor = "#FFF";
+const twitterColor = "#55acee";
+const facebookColor = "#3b5998";
+const googleColor = "#dd4b39";
+const linkedinColor = "#0976b4";
+const pinterestColor = "#cc2127";
+const youtubeColor = "#e52d27";
+const tumblrColor = "#35465c";
+const behanceColor = "#1769ff";
+const dribbbleColor = "#ea4c89";
+const redditColor = "#ff4500";
+
+const textDangerColor = {
+  color: dangerColor,
+};
+
+const textInfoColor = {
+  color: infoColor,
+};
+
+const textSecondaryColor = {
+  color: secondaryColor,
+};
+
+const textSuccessColor = {
+  color: successColor,
+};
+
+const textWarningColor = {
+  color: warningColor,
+};
 
 const drawerMiniWidth = 80;
 
@@ -214,5 +294,24 @@ export {
   cardTitle,
   cardSubtitle,
   cardLink,
-  drawerMiniWidth
+  drawerMiniWidth,
+  textSuccessColor,
+  textDangerColor,
+  textInfoColor,
+  textSecondaryColor,
+  textWarningColor,
+  hexToRgb,
+  blackColor,
+  whiteColor,
+  twitterColor,
+  facebookColor,
+  googleColor,
+  linkedinColor,
+  pinterestColor,
+  youtubeColor,
+  tumblrColor,
+  behanceColor,
+  dribbbleColor,
+  redditColor,
+  grayColorVetor
 };

@@ -11,9 +11,6 @@ import {
 
 const appStyle = theme => ({
   wrapper: {
-    position: 'relative',
-    top: '0',
-    height: '100vh',
     '&:after': {
       display: 'table',
       clear: 'both',
@@ -55,8 +52,3 @@ const appStyle = theme => ({
 });
 
 export default appStyle;
-
-
-
-// WEBPACK FOOTER //
-// ./src/assets/jss/material-dashboard-pro-react/layouts/dashboardStyle.jsx
