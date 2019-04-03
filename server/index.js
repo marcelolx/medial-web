@@ -1,8 +1,5 @@
 const ioServer = require("socket.io");
 const RTCMultiConnectionServer = require("rtcmulticonnection-server");
-
-const port = process.env.PORT || 9003;
-
 const fs = require('fs');
 const path = require("path");
 const server = require("http");
@@ -13,12 +10,18 @@ let app = express();
 app.use(cors());
 app.options('*', cors());
 
+let port = 443;
+let isUseHTTPs = true;
+
+if ( app.get('env') === 'development' ) {
+  port = 9003;
+  isUseHTTPs = false;
+}
 
 //quando for pro server, descomentar abaixo.
 app.use(express.static(path.join(__dirname, '../build')));
 
-let PORT = 9003;
-let isUseHTTPs = false;
+
 
 const jsonPath = {
   config: "./server/config.json",
@@ -33,15 +36,6 @@ const getBashParameters = RTCMultiConnectionServer.getBashParameters;
 var config = getValuesFromConfigJson(jsonPath);
 config = getBashParameters(config, BASH_COLORS_HELPER);
 
-// if user didn't modifed "PORT" object
-// then read value from "config.json"
-if (PORT === 9001) {
-  PORT = config.port;
-}
-
-if (isUseHTTPs === false) {
-  isUseHTTPs = config.isUseHTTPs;
-}
 
 var httpServer;
 
