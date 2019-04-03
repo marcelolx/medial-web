@@ -1,7 +1,6 @@
 import React from "react";
 import RTCMultiConnection from "rtcmulticonnection";
 import DetectRTC from "detectrtc";
-import queryString from "query-string";
 import SweetAlert from "react-bootstrap-sweetalert";
 import buttonStyle from "../../../../../assets/jss/components/buttonStyle";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -57,10 +56,12 @@ class VideoConferencia extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    this.rtcConnection.onstream = null;
-    this.rtcConnection.onstreamended = null;
-    this.rtcConnection.onmediaerror = null;
-    this.rtcConnection.onleave = null;
+    
+    this.rtcConnection.getAllParticipants().forEach(pid => this.rtcConnection.disconnectWith(pid));
+
+    this.rtcConnection.attachStreams.forEach(localStream => localStream.stop());
+
+    this.rtcConnection.closeSocket();
   }
 
   configurarConexaoRTC() {
@@ -137,7 +138,7 @@ class VideoConferencia extends React.PureComponent {
 
   handleOnJoinRoom() {
 
-    let roomId = queryString.parse(this.props.location.search, { ignoreQueryPrefix: true }).id;
+    let roomId = this.props.codigoMediacao;
 
     if (roomId === undefined) {
       this.setState({ invalidRoomId: true });
@@ -177,17 +178,7 @@ class VideoConferencia extends React.PureComponent {
 
   _handleClickSolicitacao() {
 
-    this.rtcConnection.getAllParticipants().forEach(pid => this.rtcConnection.disconnectWith(pid));
-
-    this.rtcConnection.attachStreams.forEach(localStream => localStream.stop());
-
-    this.rtcConnection.closeSocket();
-
-    //Gambi :'(, se não tiver um timeout, ele destroi o componente antes de passar pelos eventos
-    //onLeave, onStreamended.
-    setTimeout(() => { 
-      this.props.onShowMediacao();
-    }, 100);
+    this.props.onShowMediacao();
   }
 
   render() {
