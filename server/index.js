@@ -21,8 +21,6 @@ if ( app.get('env') === 'development' ) {
 //quando for pro server, descomentar abaixo.
 app.use(express.static(path.join(__dirname, '../build')));
 
-
-
 const jsonPath = {
   config: "./server/config.json",
   logs: "logs.json"
