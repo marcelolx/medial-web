@@ -40,15 +40,16 @@ const styles = theme => ({
     flexBasis: '45%',
   },
   container: {
-    paddingRight: '15px', 
+    padding: '30px', 
     maxWidth: '400px',
     marginTop: '60px',
-    paddingLeft: '15px',
+    background: '#f4f4f4',
     marginRight: 'auto',
     marginLeft: 'auto',
     zIndex: '4',
     [theme.breakpoints.down('sm')]: {
-      paddingBottom: '100px'
+      background: 'none',
+      paddingBottom: '100px',
     }
   },
 });
