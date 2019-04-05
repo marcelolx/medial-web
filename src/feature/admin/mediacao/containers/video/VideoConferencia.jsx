@@ -33,6 +33,27 @@ const style = ({
   }
 });
 
+let isMobile = {
+  Android: function() {
+      return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+};
+
 class VideoConferencia extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -98,7 +119,7 @@ class VideoConferencia extends React.PureComponent {
       existing.parentNode.removeChild(existing);
     }
 
-    event.mediaElement.style = 'width: 300px; height: 225; margin: 1px'
+    event.mediaElement.style = `width: ${document.documentElement.clientWidth < 415  ? (document.documentElement.clientWidth - 107).toString() : '300px'}; height: 225; margin: 1px`
 
     this.rtcConnection.videosContainer.appendChild(event.mediaElement);
 
