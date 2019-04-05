@@ -2423,6 +2423,10 @@ clone@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
 
+cnbuilder@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/cnbuilder/-/cnbuilder-1.0.9.tgz#6290c767ea1be2dd51dd39add6ea21f201234ad1"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -8222,10 +8226,16 @@ react-dom@^16.5.2:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
+react-draggable@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-3.2.1.tgz#45d09a9a227988dc85674b23ab3c75b6e820dae5"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
 react-easy-swipe@^0.0.16:
   version "0.0.16"
   resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.16.tgz#5a3d949a8f975d05be92a818254315d1318a81ea"
-  integrity sha1-Wj2Umo+XXQW+kqgYJUMV0TGKgeo=
   dependencies:
     prop-types "^15.5.8"
 
@@ -8324,7 +8334,6 @@ react-redux@^5.0.7:
 react-responsive-carousel@^3.1.47:
   version "3.1.47"
   resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.1.47.tgz#0d1442284e2c45854d81bc2f0c24d0f838d274b6"
-  integrity sha512-mA8ZEUGk5UIFskZTa4Tc3dhs7pln+nHxpoOnUhkprr9xK7BSGBfJcHT+EQIrmVNXGKln8t5kzKv3EaXdIaN/Cg==
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.5.8"
@@ -8423,6 +8432,13 @@ react-scroll@^1.7.10:
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
+
+react-scrollbars-custom@^4.0.0-alpha.10:
+  version "4.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/react-scrollbars-custom/-/react-scrollbars-custom-4.0.0-alpha.10.tgz#45820a4899245984889a18205d56369d329c37a9"
+  dependencies:
+    cnbuilder "^1.0.9"
+    react-draggable "^3.2.1"
 
 react-select@^2.1.0:
   version "2.1.0"
@@ -9957,7 +9973,6 @@ typedarray@^0.0.6:
 typeface-roboto@^0.0.54:
   version "0.0.54"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.54.tgz#8f02c9a18d1cfa7f49381a6ff0d21ff061f38ad2"
-  integrity sha512-sOFA1FXgP0gOgBYlS6irwq6hHYA370KE3dPlgYEJHL3PJd5X8gQE0RmL79ONif6fL5JZuGDj+rtOrFeOqz5IZQ==
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
