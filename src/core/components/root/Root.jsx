@@ -22,7 +22,7 @@ componentDidMount(){
     const {auth} = this.props; 
     if(auth.isAuthenticated){
       return (
-        <div>
+        <div style={ { height: '100%', width: '100%' } }>
           <HashRouter>
             <Switch>
               {indexRoutes.map((prop, key) => {

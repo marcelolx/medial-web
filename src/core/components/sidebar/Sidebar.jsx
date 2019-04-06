@@ -27,8 +27,8 @@ class SidebarWrapper extends React.Component {
   componentDidMount() {
     if (navigator.platform.indexOf('Win') > -1) {
       ps = new PerfectScrollbar(this.refs.sidebarWrapper, {
-        suppressScrollX: true,
-        suppressScrollY: false
+        suppressScrollX: false,
+        suppressScrollY: true
       });
     }
   }
