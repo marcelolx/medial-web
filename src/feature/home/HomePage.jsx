@@ -4,24 +4,25 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import IfAnyGranted from '../../core/components/permissions/IfAnyGranted';
 import AdminNPJ from '../dashboard/AdminNPJ';
-import Usuario from '../dashboard/usuario/Usuario';
+import MediacoesUsuario from '../dashboard/usuario/MediacoesUsuario';
 import GridContainer from '../../core/components/grid/GridContainer';
 import GridItem from '../../core/components/grid/GridItem';
 import EmpresaNegociador from '../dashboard/negociador/EmpresaNegociador';
 
 class HomePage extends Component {
+
   render() {
     return (
-      <React.Fragment>
+      <React.Fragment>         
         <GridContainer>
           <IfAnyGranted expected={[1,2]} actual={this.props.auth.accessLevel}>
-                <AdminNPJ />       
+            <AdminNPJ />       
           </IfAnyGranted>   
           <IfAnyGranted expected={[1,4]} actual={this.props.auth.accessLevel}>
-              <EmpresaNegociador />  
+            <EmpresaNegociador />  
           </IfAnyGranted>   
           <GridItem xs={12} sm={8} md={6} lg={6}>
-            <Usuario />
+            <MediacoesUsuario />
           </GridItem>
         </GridContainer>
       </React.Fragment>

@@ -125,7 +125,7 @@ class Dashboard extends React.Component {
       });
     return (
         
-      <div className={classes.wrapper}>
+      <div style={{ height: '100%' }} className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
           logoText={'Medial'}

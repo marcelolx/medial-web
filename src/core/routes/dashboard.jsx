@@ -12,7 +12,6 @@ import Configurations from '../../feature/admin/configuration/Configurations';
 import CadastroPendente from '../../feature/admin/cadastropendente/CadastroPendente';
 import Negociador from '../../feature/dashboard/negociador/Negociador';
 
-
 var dashRoutes = [
   {
     path: '/dashboard',

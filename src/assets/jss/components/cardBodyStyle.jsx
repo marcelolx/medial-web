@@ -5,6 +5,12 @@ const cardBodyStyle = {
     WebkitBoxFlex: '1',
     position: 'relative'
   },
+  cardBodySmall: {
+    padding: '5px 20px 5px 20px',
+    flex: '1 1 auto',
+    WebkitBoxFlex: '1',
+    position: 'relative'
+  },
   cardBodyBackground: {
     position: 'relative',
     zIndex: '2',

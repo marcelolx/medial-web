@@ -1,0 +1,15 @@
+{
+  "socketURL": "/",
+  "dirPath": "",
+  "homePage": "",
+  "socketMessageEvent": "RTCMultiConnection-Message",
+  "socketCustomEvent": "RTCMultiConnection-Custom-Message",  
+  "enableLogs": "false",
+  "autoRebootServerOnFailure": "true",
+  "sslKey": "./server/real-keys/privatekey.pem",
+  "sslCert": "./server/real-keys/certificate.pem",
+  "sslCabundle": "",
+  "enableAdmin": "false",
+  "adminUserName": "username",
+  "adminPassword": "password"
+}

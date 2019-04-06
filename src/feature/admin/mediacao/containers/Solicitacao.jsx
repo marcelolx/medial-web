@@ -14,6 +14,7 @@ import * as mediacaoActions from '../services/mediacaoActions';
 import { connect } from 'react-redux';
 import Editor from '../../../../core/components/Editor'
 import buttonStyle from '../../../../assets/jss/components/buttonStyle';
+import Button from '../../../../core/components/CustomButton';
 import Snackbar from '../../../../core/components/snackbar/Snackbar';
 
 
@@ -21,12 +22,21 @@ const style = ({
   ...buttonStyle,
   semMargen: {
     margin: 0,
+    flex: 1
   },
   multilineTextField: {
     width: '100%'
   },
   inputCenterText: {
     textAlign: 'center'
+  },
+  videoConferenciaButton: {
+    width: '130px',
+    height:  '40px',
+    margin: 0
+  },
+  flexCard: {
+    display: 'flex'
   }
 });
 
@@ -44,6 +54,10 @@ class Solicitacao extends React.PureComponent {
     this.props.history.push(`/`);
   }
 
+  _handleClickVideoConferencia() {
+    
+    this.props.onShowVideoConferencia();
+  }
 
   alteracaoStatus() {
     this.notificationCloseAuto();
@@ -56,8 +70,6 @@ class Solicitacao extends React.PureComponent {
       close
     />
   }
-
-
 
   notificationCloseAuto() {
     setTimeout(
@@ -93,8 +105,17 @@ class Solicitacao extends React.PureComponent {
         {mediacao.failMessage === 'SEM_PERMISSAO_ACESSO_MEDIACAO' ? semAcesso : null}
         {mediacao.showSnackbar? this.alteracaoStatus() :null}
         <Card>
-          <CardHeader color='success'>
+          <CardHeader 
+            color='success'
+            className={classes.flexCard}
+          >
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Mediação</h4>
+            <Button
+              className={classes.videoConferenciaButton}
+              onClick={() => this._handleClickVideoConferencia()}
+            >
+              Vídeo Conferência
+            </Button>
           </CardHeader>
           <CardBody>
             <GridContainer justify='center'>

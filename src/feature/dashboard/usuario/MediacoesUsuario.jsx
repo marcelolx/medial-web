@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import getAdaptedMessage from '../../admin/mediacao/utils/mediacaoMessagesHelper';
 import { withRouter } from 'react-router-dom';
 
-class Usuario extends React.Component {
+class MediacoesUsuario extends React.Component {
 
   componentDidMount() {
       this.props.actions.buscarMediacoes(this.props.auth.id);
@@ -110,4 +110,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(compose(
   withStyles(adminCardTableStyle),
   connect(mapStateToProps, mapDispatchToProps)
-)(Usuario));
+)(MediacoesUsuario));
