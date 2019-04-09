@@ -133,7 +133,7 @@ class Acordos extends React.Component {
             <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Propostas de acordo</p>
           </CardHeader>
           {this._listaAcordos()}
-          <CardFooter>
+          <CardFooter style={{ flexDirection: 'column' }}>
             <Button
               fullWidth
               size="sm"
