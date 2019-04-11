@@ -12,6 +12,7 @@ import { compose } from 'recompose';
 import IfAnyGranted from '../../../../Permissions/IfAnyGranted';
 import NestedList from './NestedList';
 import itensMediacao from './NestedList/itensMediacao';
+import { TipoUsuarioEnum } from '../../../../../../feature/admin/mediacao/utils/tipoUsuarioEnum';
 
 const NavigationList = (props) => {  
   return (
@@ -29,7 +30,7 @@ const NavigationList = (props) => {
       <NestedList items={itensMediacao} />
 
 
-      <IfAnyGranted expected={[1,2]} actual={props.auth.accessLevel}>
+      <IfAnyGranted expected={[TipoUsuarioEnum.ADMINISTRADOR,TipoUsuarioEnum.ADMINISTRADOR_NPJ]} actual={props.auth.accessLevel}>
         <List
           className='nav-link'
           component='nav'

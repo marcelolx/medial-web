@@ -21,6 +21,7 @@ import moment from 'moment';
 import { textSecondaryColor, textSuccessColor, textDangerColor, textWarningColor } from '../../../../assets/jss/styles';
 import PropostaAcordo from './PropostaAcordo';
 import API from '../../../../core/http/API';
+import { TipoUsuarioEnum } from '../utils/tipoUsuarioEnum';
 
 const styles = ({
   textSecondaryColor,
@@ -124,7 +125,7 @@ class Acordos extends React.Component {
         exibeFinalizar = false;
       }
     });
-    let possuiPermissaoAdmin = auth.accessLevel === 1 || auth.accessLevel === 2;
+    let possuiPermissaoAdmin = auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR || auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR_NPJ;
 
     return (
       <React.Fragment>

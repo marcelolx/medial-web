@@ -11,6 +11,7 @@ import getAdaptedMessage from '../utils/mediacaoMessagesHelper';
 import SelecionarMediador from './SelecionarMediador';
 import * as mediacaoActions from './../services/mediacaoActions'
 import bindActionCreators from 'redux/src/bindActionCreators';
+import { TipoUsuarioEnum } from '../utils/tipoUsuarioEnum';
 
 const style = theme => ({
   semMargen: {
@@ -47,7 +48,7 @@ class Situacao extends React.Component {
     const { classes, situacao, auth, mediacao } = this.props;
     let mediacaoFinalizada = mediacao.mediacao ? mediacao.mediacao.finalizado : true;
 
-    let possuiPermissaoAdmin = auth.accessLevel === 1 || auth.accessLevel === 2;
+    let possuiPermissaoAdmin = auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR || auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR_NPJ;
     return (
       <React.Fragment>
         {this.state.selectMediadorVisible && (possuiPermissaoAdmin) && !mediacaoFinalizada ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
