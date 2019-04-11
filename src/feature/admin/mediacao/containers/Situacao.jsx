@@ -12,6 +12,7 @@ import SelecionarMediador from './SelecionarMediador';
 import * as mediacaoActions from './../services/mediacaoActions'
 import bindActionCreators from 'redux/src/bindActionCreators';
 import { TipoUsuarioEnum } from '../utils/tipoUsuarioEnum';
+import SelecionarNegociador from './SelecionarNegociador';
 
 const style = theme => ({
   semMargen: {
@@ -31,6 +32,7 @@ class Situacao extends React.Component {
 
   state = {
     selectMediadorVisible: false,
+    selectNegociadorVisible: false,
   }
 
   handleGetValue(name) {
@@ -44,16 +46,40 @@ class Situacao extends React.Component {
     }
   }
 
+  _fecharSelecaoNegociador(recarregarMediacao) {
+    this.setState({ selectNegociadorVisible: false });
+    if (recarregarMediacao) this.props.actions.buscarMediacao(this.props.codigoMediacao);
+  }
+
   render() {
     const { classes, situacao, auth, mediacao } = this.props;
     let mediacaoFinalizada = mediacao.mediacao ? mediacao.mediacao.finalizado : true;
 
-    let possuiPermissaoAdmin = auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR || auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR_NPJ;
+    const possuiPermissaoDefinirMediador = auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR || auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR_NPJ;
+    const possuiPermissaoDefinirNegociador = auth.accessLevel === TipoUsuarioEnum.ADMINISTRADOR || auth.accessLevel === TipoUsuarioEnum.EMPRESA;
+
     return (
       <React.Fragment>
-        {this.state.selectMediadorVisible && (possuiPermissaoAdmin) && !mediacaoFinalizada ? <SelecionarMediador codigoMediacao={this.props.codigoMediacao}
-          closeModal={(recarregarMediacao) => this._fecharSelecaoMediador(recarregarMediacao)}
-        /> : null}
+        { this.state.selectMediadorVisible && 
+          possuiPermissaoDefinirMediador && 
+          !mediacaoFinalizada ? 
+            <SelecionarMediador 
+              codigoMediacao={this.props.codigoMediacao}
+              closeModal={(recarregarMediacao) => this._fecharSelecaoMediador(recarregarMediacao)}
+            /> 
+          : null
+        }
+
+        {
+          this.state.selectNegociadorVisible &&
+          possuiPermissaoDefinirNegociador &&
+          !mediacaoFinalizada ?
+            <SelecionarNegociador
+              codigoMediacao={this.props.codigoMediacao}
+              closeModal={(recarregarMediacao) => this._fecharSelecaoNegociador(recarregarMediacao)}
+            />
+          : null
+        }
 
         <Card>
           <CardHeader color='success'>
@@ -79,7 +105,7 @@ class Situacao extends React.Component {
             <CustomChip
               icon={<FaceIcon className={classes.icon} />}
               label={'Mediador: ' + this.handleGetValue('nomeMediador')} 
-              clickable={possuiPermissaoAdmin && !mediacaoFinalizada}
+              clickable={possuiPermissaoDefinirMediador && !mediacaoFinalizada}
               onClick={() => this.setState({ selectMediadorVisible: !this.state.selectMediadorVisible })}
               color='success'
               variant='outlined'
@@ -89,6 +115,8 @@ class Situacao extends React.Component {
             <CustomChip
               icon={<FaceIcon className={classes.icon} />}
               label={'Negociador: ' + this.handleGetValue('nomeNegociador')}
+              clickable={possuiPermissaoDefinirNegociador && !mediacaoFinalizada}
+              onClick={() => this.setState({ selectNegociadorVisible: !this.state.selectNegociadorVisible })}
               color='success'
               variant='outlined'
               width='fullWidth'
