@@ -18,7 +18,7 @@ var dashRoutes = [
     name: 'Início',
     icon: Home,
     component: HomePage,
-    nivel:[1,4,99]
+    nivel:[1,2,3,4,99]
   },
   {
     collapse: true,
@@ -26,19 +26,19 @@ var dashRoutes = [
     name: 'Mediação',
     state: 'openComponents',
     icon: Bookmark,
-    nivel:[1,4,99],
+    nivel:[1,2,3,4,99],
     views: [
       {
         path: '/mediacao/nova',
         name: 'Nova Mediação',
         mini: 'NM',
-        nivel:[1,4,99],
+        nivel:[1,2,3,4,99],
         component: NovaMediacao
       },
       {
         path: '/mediacao/todas',
         name: 'Mediações',
-        nivel:[1,4,99],
+        nivel:[1,2,3,4,99],
         mini: 'M',
         component: NovaMediacao
       }
@@ -49,21 +49,21 @@ var dashRoutes = [
     path: '/administrador',
     name: 'Administrador',
     state: 'openAdministrador',
-    nivel:[1],
+    nivel:[1,2,3],
     icon: Settings,
     views: [
       {
         path: '/administrador/usuario/todos',
         name: 'Usuários',
         mini: 'Us',
-        nivel:[1,4,99],
+        nivel:[1,2],
         component: ListUsers
       },
       {
         path: '/administrador/configuracao',
         name: 'Configuração',
         mini: 'C',
-        nivel:[1],
+        nivel:[1,2],
         component: Configurations
       }
     ]
@@ -72,7 +72,7 @@ var dashRoutes = [
     path: '/profile',
     name: 'Meu perfil',
     icon: People,
-    nivel:[1,4,99],
+    nivel:[1,2,3,4,99],
     component: Profile
   },
   { 
@@ -99,8 +99,8 @@ var dashRoutes = [
     naoExibe: true,
     component: Negociador
   },
-  { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },
-  { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },
+  { redirect: true, path: '/',   nivel:[1,2,3,4,99], pathTo: '/dashboard', name: 'Dashboard' },
+  { redirect: true, path: '/',   nivel:[1,2,3,4,99], pathTo: '/dashboard', name: 'Dashboard' },
 ];
 export default dashRoutes;
 
