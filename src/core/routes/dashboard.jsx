@@ -11,6 +11,7 @@ import Profile from '../../feature/profile/Profile';
 import Configurations from '../../feature/admin/configuration/Configurations';
 import CadastroPendente from '../../feature/admin/cadastropendente/CadastroPendente';
 import Negociador from '../../feature/dashboard/negociador/Negociador';
+import { TipoUsuarioEnum } from '../../feature/admin/mediacao/utils/tipoUsuarioEnum';
 
 var dashRoutes = [
   {
@@ -18,7 +19,15 @@ var dashRoutes = [
     name: 'Início',
     icon: Home,
     component: HomePage,
-    nivel:[1,4,99]
+    nivel:[
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.ADVOGADO,
+      TipoUsuarioEnum.EMPRESA,
+      TipoUsuarioEnum.MEDIADOR,
+      TipoUsuarioEnum.NEGOCIADOR,
+      TipoUsuarioEnum.USUARIO
+    ]
   },
   {
     collapse: true,
@@ -26,19 +35,43 @@ var dashRoutes = [
     name: 'Mediação',
     state: 'openComponents',
     icon: Bookmark,
-    nivel:[1,4,99],
+    nivel:[      
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.ADVOGADO,
+      TipoUsuarioEnum.EMPRESA,
+      TipoUsuarioEnum.MEDIADOR,
+      TipoUsuarioEnum.NEGOCIADOR,
+      TipoUsuarioEnum.USUARIO
+    ],
     views: [
       {
         path: '/mediacao/nova',
         name: 'Nova Mediação',
         mini: 'NM',
-        nivel:[1,4,99],
+        nivel:[
+          TipoUsuarioEnum.ADMINISTRADOR,
+          TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+          TipoUsuarioEnum.ADVOGADO,
+          TipoUsuarioEnum.EMPRESA,
+          TipoUsuarioEnum.MEDIADOR,
+          TipoUsuarioEnum.NEGOCIADOR,
+          TipoUsuarioEnum.USUARIO
+        ],
         component: NovaMediacao
       },
       {
         path: '/mediacao/todas',
         name: 'Mediações',
-        nivel:[1,4,99],
+        nivel:[
+          TipoUsuarioEnum.ADMINISTRADOR,
+          TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+          //TipoUsuarioEnum.ADVOGADO,
+          //TipoUsuarioEnum.EMPRESA,
+          TipoUsuarioEnum.MEDIADOR,
+          //TipoUsuarioEnum.NEGOCIADOR,
+          //TipoUsuarioEnum.USUARIO
+        ],
         mini: 'M',
         component: NovaMediacao
       }
@@ -49,21 +82,33 @@ var dashRoutes = [
     path: '/administrador',
     name: 'Administrador',
     state: 'openAdministrador',
-    nivel:[1],
+    nivel:[
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.MEDIADOR
+    ],
     icon: Settings,
     views: [
       {
         path: '/administrador/usuario/todos',
         name: 'Usuários',
         mini: 'Us',
-        nivel:[1,4,99],
+        nivel:[
+          TipoUsuarioEnum.ADMINISTRADOR,
+          TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+          TipoUsuarioEnum.MEDIADOR
+        ],
         component: ListUsers
       },
       {
         path: '/administrador/configuracao',
         name: 'Configuração',
         mini: 'C',
-        nivel:[1],
+        nivel:[
+          TipoUsuarioEnum.ADMINISTRADOR,
+          TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+          TipoUsuarioEnum.MEDIADOR
+        ],
         component: Configurations
       }
     ]
@@ -72,14 +117,24 @@ var dashRoutes = [
     path: '/profile',
     name: 'Meu perfil',
     icon: People,
-    nivel:[1,4,99],
+    nivel:[
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.ADVOGADO,
+      TipoUsuarioEnum.EMPRESA,
+      TipoUsuarioEnum.MEDIADOR,
+      TipoUsuarioEnum.NEGOCIADOR,
+      TipoUsuarioEnum.USUARIO],
     component: Profile
   },
   { 
     path: '/mediacao/cadastropendente',
     name: 'Cadastros Pendentes',
     icon: People,
-    nivel:[1,2],
+    nivel:[
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ
+    ],
     naoExibe: true,
     component: CadastroPendente
   },
@@ -87,7 +142,15 @@ var dashRoutes = [
     path: '/mediacao/protocolo',
     name: 'Mediação',
     icon: People,
-    nivel: [1,2,3,4,5,6,99],
+    nivel: [
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.ADVOGADO,
+      TipoUsuarioEnum.EMPRESA,
+      TipoUsuarioEnum.MEDIADOR,
+      TipoUsuarioEnum.NEGOCIADOR,
+      TipoUsuarioEnum.USUARIO
+    ],
     naoExibe: true,
     component: Mediacao
   },
@@ -95,16 +158,29 @@ var dashRoutes = [
     path: '/negociadores',
     name: 'Negociadores',
     icon: People,
-    nivel:[1,2],
+    nivel:[
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.ADVOGADO,
+      TipoUsuarioEnum.EMPRESA,
+    ],
     naoExibe: true,
     component: Negociador
   },
-  { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },
-  { redirect: true, path: '/',   nivel:[1,4,99], pathTo: '/dashboard', name: 'Dashboard' },
+  { 
+    redirect: true, 
+    path: '/',   
+    nivel:[
+      TipoUsuarioEnum.ADMINISTRADOR,
+      TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+      TipoUsuarioEnum.ADVOGADO,
+      TipoUsuarioEnum.EMPRESA,
+      TipoUsuarioEnum.MEDIADOR,
+      TipoUsuarioEnum.NEGOCIADOR,
+      TipoUsuarioEnum.USUARIO
+    ], 
+    pathTo: '/dashboard', 
+    name: 'Dashboard' 
+  },
 ];
 export default dashRoutes;
-
-
-
-// WEBPACK FOOTER //
-// ./src/routes/dashboard.jsx
