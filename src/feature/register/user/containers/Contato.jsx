@@ -46,8 +46,7 @@ class Contato extends Component {
         telefone: this.state.telefone.replace(/\D/g, ''),
         celular: this.state.celular.replace(/\D/g, ''),
       };
-
-      console.log(sendData);      
+   
       this.props.actions.saveUserRegisterData(sendData);
       this.props.actions.clearErrors();
       this.props.actions.userRegister(this.props.registerUser);

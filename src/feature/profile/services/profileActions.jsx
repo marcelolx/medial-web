@@ -15,7 +15,6 @@ export function loadProfile() {
 
           switch (err.response.status) {
             case 403: {
-              console.log('Não autorizado')
               dispatch(unauthorizedError())
               break;
             }

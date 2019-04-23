@@ -25,9 +25,7 @@ function getCityError(erro) {
 };
 
 
-export function getStateCities(state){
-  console.log('action: getStateCities');
-  
+export function getStateCities(state){  
   const GET_CITY = `
     {
       getCities(state: ${state}, search: "") {

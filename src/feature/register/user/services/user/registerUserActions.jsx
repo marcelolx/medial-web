@@ -5,8 +5,6 @@ import API from '../../../../../core/http/API';
 import { completeRegister, failRegister } from '../complete/registerUserCompleteAction';
 
 function userRegisterComplete(response) {
-  console.log(response);
-
   return function(dispatch) {
     dispatch(clearRegisterData());
     dispatch(completeRegister(response));
@@ -15,7 +13,6 @@ function userRegisterComplete(response) {
 
 function userRegisterError(error) {
   const { status, message } = error.data; //Verificar se o objeto existe
-  console.log(status + ' ' + message);  
   
   return {
     type: USER_REGISTER_FAIL,
@@ -27,8 +24,6 @@ function userRegisterError(error) {
 }
 
 export function userRegister(data) {
-  console.log('action: userRegister');
-
   return function(dispatch) {
     return API.post('usuario/cadastrar', data.transacionador)
       .then(response => {

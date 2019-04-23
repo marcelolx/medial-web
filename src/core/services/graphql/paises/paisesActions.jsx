@@ -30,9 +30,7 @@ function mapCountries(countries) {
   };
 };
 
-export function getAllCountries() {
-  console.log('action: getAllCountries');
-  
+export function getAllCountries() {  
   return function(dispatch) {
     return GraphQLAPI.post('', { query: GET_COUNTRY})
       .then(response => {

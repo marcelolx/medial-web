@@ -26,7 +26,6 @@ function buscarSituacaoMediacaoComplete(response) {
 }
 
 function buscarSituacaoMediacaoError(error) {
-  console.log(error);
   return {
     type: BUSCAR_MEDIACAO_SITUACAO_ERROR,
     payload: error.data

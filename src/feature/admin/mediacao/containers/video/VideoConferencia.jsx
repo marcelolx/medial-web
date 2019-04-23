@@ -108,7 +108,7 @@ class VideoConferencia extends React.PureComponent {
 
   onLeaveRTC(userid) {
     
-    console.log('onLeaveRTC | userid: ' + userid);
+    console.debug('onLeaveRTC | userid: ' + userid);
   }
 
   onStreamRTC(event) {

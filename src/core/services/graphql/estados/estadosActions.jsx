@@ -25,8 +25,6 @@ function getStatesError(error) {
 };
 
 export function getCountryStates(country) {
-  console.log('action: getCountryStates');
-  
   const GET_STATE = `
     {
       getStates(country: ${country}, search: "") {

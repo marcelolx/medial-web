@@ -190,7 +190,7 @@ class ListUsers extends React.Component {
   };
 
   handleClick = (event, id) => {
-    console.log(id)
+    console.debug('ListUsers click')
   };
 
   handleChangePage = (event, page) => {

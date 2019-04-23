@@ -131,8 +131,8 @@ class Mensagens extends React.PureComponent {
   }
 
   onErrorConnect(error) {
-    console.log(error);
-    console.log('não conectou');
+    console.debug(error);
+    console.log('Não conectou, recarregue a página.');
 
 
     //connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';

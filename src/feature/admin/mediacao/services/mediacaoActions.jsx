@@ -78,7 +78,7 @@ function buscarMediacaoComplete(response) {
 }
 
 function buscarMediacaoError(error) {
-  console.log(error); //TODO: Quando for Network Error, chamar uma action de erro geral do sistema?
+  console.debug(error); //TODO: Quando for Network Error, chamar uma action de erro geral do sistema?
   return {
     type: BUSCAR_MEDIACAO_ERROR,
     payload: error.response.data

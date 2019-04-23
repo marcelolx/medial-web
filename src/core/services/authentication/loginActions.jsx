@@ -1,6 +1,7 @@
 import { API } from '../../http/API';
 import { LOGIN_COMPLETE, LOGOUT_COMPLETE, LOGIN_ERROR_UPDATE } from './loginActionTypes';
 import { LOGIN_ERROR , } from '../../services/errors/errorActionTypes';
+import { unregister } from './registerServiceWorker';
 
 export function login(email, password) {
   return function(dispatch) {
@@ -45,6 +46,7 @@ function errorTrueComplete() {
 }
 function logoutComplete() {
   window.localStorage.removeItem('state');
+  unregister();
 
   return { type: LOGOUT_COMPLETE }
 }
