@@ -1,7 +1,16 @@
-import { GET_CONFIGURACAO,GET_CONFLITOS, GET_CONFIGURACAO_ERROR,GET_CONFLITOS_ERROR } from './configurationActionType';
+import {
+  GET_CONFIGURACAO,
+  GET_CONFLITOS,
+  GET_CONFIGURACAO_ERROR,
+  GET_CONFLITOS_ERROR,
+  GET_CONFIGURACAO_CONFLITOS,
+  GET_CONFIGURACAO_CONFLITOS_ERROR,
+  GET_CONFIGURACAO_ASSUNTOS,
+  GET_CONFIGURACAO_ASSUNTOS_ERROR
+} from './configurationActionType';
 import { API } from '../../../../core/http/API';
 
-function mapConfiguracao(data){
+function mapConfiguracao(data) {
   return {
     type: GET_CONFIGURACAO,
     payload: {
@@ -17,9 +26,8 @@ function getConfiguracaoError(erro) {
   };
 };
 
-
-export function getConfiguracao(){
- return function(dispatch) {
+export function getConfiguracao() {
+  return function (dispatch) {
     return API.get('/admin/configuracao')
       .then(response => {
         dispatch(mapConfiguracao(response.data));
@@ -31,9 +39,8 @@ export function getConfiguracao(){
 };
 
 
-
 export function getConflitos() {
-  return function(dispatch) {
+  return function (dispatch) {
     return API.get(`/assunto/getConflitos`)
       .then(response => {
         dispatch(getConflitosComplete(response.data))
@@ -60,41 +67,46 @@ function mapArrayToSearchSelectArray(data) {
   }));
 }
 
-
-
 function getConflitosError(erro) {
-  return { 
+  return {
     type: GET_CONFLITOS_ERROR,
     payload: erro
   }
 }
 
+export function getConfiguracaoConflitos() {
+  return function (dispatch) {
+    return API.get(`/conflito/all`)
+      .then(response => {
+        dispatch({
+          type: GET_CONFIGURACAO_CONFLITOS,
+          payload: response.data
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: GET_CONFIGURACAO_CONFLITOS_ERROR,
+          payload: err,
+        })
+      });
+  }
+}
 
-export function salvarAssunto(data){
-  return function(dispatch) {
-     return API.put('/admin/assunto',data)
-       .then(response => {
-        if (response.data.valor) {
-           dispatch(getConfiguracao());
-        }
-       })
-       .catch(erro => {
-       });
-   };
- };
 
- 
-
-export function salvarConflito(data){
-  return function(dispatch) {
-     return API.put('/admin/conflito',data)
-       .then(response => {
-        if (response.data.valor) {
-           dispatch(getConfiguracao());
-        }
-       
-       })
-       .catch(erro => {
-       });
-   };
- };
+export function getConfiguracaoAssuntos() {
+  return function (dispatch) {
+    return API.get(`/assunto/all`)
+      .then(response => {
+        dispatch({
+          type: GET_CONFIGURACAO_ASSUNTOS,
+          payload: response.data
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: GET_CONFIGURACAO_ASSUNTOS_ERROR,
+          payload: err,
+        })
+      });
+  }
+}
