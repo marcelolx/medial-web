@@ -65,7 +65,7 @@ class AdminNPJ extends React.Component {
         <Card minHeight>
           <CardHeader color='primary'>
             <h4 className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Cadastros pendentes</h4>
-            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Empresas com cadastro pendente no sistema</p>
+            <p className={[classes.cardTitleWhite, classes.semMargen].join(' ')}>Requeridos com cadastro pendente no sistema</p>
           </CardHeader>
           <CardBody>
             <Table 
