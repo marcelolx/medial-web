@@ -13,10 +13,10 @@ app.options('*', cors());
 let port = 443;
 let isUseHTTPs = true;
 
-if ( app.get('env') === 'development' ) {
+/*if ( app.get('env') === 'development' ) {
   port = 9003;
   isUseHTTPs = false;
-}
+}*/
 
 //quando for pro server, descomentar abaixo.
 app.use(express.static(path.join(__dirname, '../build')));
