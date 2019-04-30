@@ -12,7 +12,7 @@ import Button from '../../../core/components/CustomButton';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import getAdaptedMessage, { SOLICITADO_CADASTRO_EMPRESA } from '../mediacao/utils/mediacaoMessagesHelper';
+import getAdaptedMessage, { SOLICITADO_CADASTRO_REQUERIDO } from '../mediacao/utils/mediacaoMessagesHelper';
 import * as requeridoPendenteActions from './services/requeridoPendenteActions';
 import { bindActionCreators } from 'redux';
 import Snackbar from '../../../core/components/snackbar/Snackbar';
@@ -108,7 +108,7 @@ class CadastroPendente extends React.Component {
       idMediacao: cadastroPendente.idMediacao,
       requeridoPendente: cadastroPendente.idCadastroPendente,
       mediador: this.props.auth.id,
-      situacao: SOLICITADO_CADASTRO_EMPRESA
+      situacao: SOLICITADO_CADASTRO_REQUERIDO
     }
 
     const blankInputs = Object.keys(data).filter(key => data[key] === '');
@@ -315,7 +315,7 @@ class CadastroPendente extends React.Component {
                   color='secondary'
                   fullWidth
                   onClick={() => this.handleConfirmarSolicitacaoCadastro()}
-                  disabled={this.props.requeridosPendentes.cadastroPendente.situacao === SOLICITADO_CADASTRO_EMPRESA}
+                  disabled={this.props.requeridosPendentes.cadastroPendente.situacao === SOLICITADO_CADASTRO_REQUERIDO}
                 >
                   Confirmar a solicitação de cadastro
                 </Button>
