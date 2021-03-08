@@ -10,8 +10,8 @@ RUN yarn install --ignore-engines
 RUN yarn global add react-scripts@2.0.4 --ignore-engines
 COPY . /usr/src/app
 RUN yarn build
-ENV PORT 443
-EXPOSE 443
+ENV PORT 8443
+EXPOSE 8443
 CMD ["node", "./server/"]
 
 

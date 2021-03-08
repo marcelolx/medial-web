@@ -7,10 +7,10 @@ const cors = require("cors");
 const express = require("express");
 
 let app = express();
-app.use(cors());
-app.options('*', cors());
+//app.use(cors());
+//app.options('*', cors());
 
-let port = 443;
+let port = 8443;
 let isUseHTTPs = true;
 
 /*if ( app.get('env') === 'development' ) {
