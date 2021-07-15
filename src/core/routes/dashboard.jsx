@@ -11,6 +11,7 @@ import Profile from '../../feature/profile/Profile';
 import Configurations from '../../feature/admin/configuration/Configurations';
 import CadastroPendente from '../../feature/admin/cadastropendente/CadastroPendente';
 import Negociador from '../../feature/dashboard/negociador/Negociador';
+import Meeting from '../../feature/meeting/Meeting';
 import { TipoUsuarioEnum } from '../../feature/admin/mediacao/utils/tipoUsuarioEnum';
 
 var dashRoutes = [
@@ -74,7 +75,19 @@ var dashRoutes = [
         ],
         mini: 'M',
         component: NovaMediacao
-      }
+            },
+      { 
+        path: '/webconference',
+        name: 'WebConferência',
+        nivel:[
+          TipoUsuarioEnum.ADMINISTRADOR,
+          TipoUsuarioEnum.ADMINISTRADOR_NPJ,
+          TipoUsuarioEnum.ADVOGADO,
+          TipoUsuarioEnum.EMPRESA,
+          ],
+        mini: 'W',
+        component: Meeting
+      },
     ]
   },
   {

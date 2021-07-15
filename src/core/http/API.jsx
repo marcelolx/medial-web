@@ -1,8 +1,16 @@
 import axios from 'axios';
+import * as https from "https";
+import * as http from "http";
 
 export const API = axios.create({
   baseURL: process.env.REACT_APP_API_HOST + 'api/',
   timeout: 15000,
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  }),
+  httpAgent: new http.Agent({
+    rejectUnauthorized: false
+  })
 });
 
 API.interceptors.request.use((config) => {
@@ -16,6 +24,7 @@ API.interceptors.request.use((config) => {
     config.headers['Accept'] = 'application/json';
     config.headers['Content-Type'] = 'application/json';
   }
+//  config.headers['crossDomain'] = true;
 
   return config; 
 }, (error) => {
